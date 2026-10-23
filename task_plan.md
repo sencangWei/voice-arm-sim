@@ -8,7 +8,7 @@ Build an independent local MuJoCo tabletop prototype for Mandarin commands, came
 2. Physical Panda pick/place with reproducible smoke test and video — complete: colour baseline 9/9 across seeds 42/7/99 and three objects; success videos plus failure records retained.
 3. Camera localisation, command parsing, local speech adapter and Chinese interactive UI — implemented: localhost 8910 UI/API; model 8911 adapter; auto/color/vlm selection. Real ASR/VLM inference passed8/8 and box semantics inspected. Synthetic clear Mandarin full loop passed with actual physical grasp/release. Human microphone remains unverified.
 4. End-to-end checks, honest limitations and launch documentation — complete within prototype scope: 16 contract tests and real HTTP colour smoke passed; README documents evidence/boundaries. Model tests8/8 and final Chinese UI screenshot inspected. Text VLM apple completed433steps/22.89s. Clear synthetic voice full loop passed433steps/23.257s;233paired frames inspected; human microphone unverified.
-5. Commit capability code and demo to a writable remote; fetch into clean directory and compare — initial version complete: public sencangWei/voice-arm-sim, branch prototype/voice-tabletop, 36 files restored and SHA256 matched. Final model/voice changes still need the same verification.
+5. Commit capability code and demo to a writable remote; fetch into clean directory and compare — complete: public sencangWei/voice-arm-sim, branch prototype/voice-tabletop, capability commit355d6f1 restored from GitHub into .local/restore-final. All54 tracked files SHA256 and Git tree matched; evidence/backup-capability.json records verification.
 
 ## Acceptance
 - Isolated environment and version record.
@@ -27,4 +27,4 @@ Initial dependency download stalled on newer SciPy/LLVM; isolated pinned version
 
 ## Next handoff
 - Local ASR/VLM, screenshot and synthetic voice loop verified. Real microphone testing is a user validation gap.
-- Commit/push capability code and selected evidence to a user-writable remote and verify a clean restore. Do not claim backup complete until restore comparison passes.
+- Ready for user microphone trial at http://127.0.0.1:8910. Code/model requirements/evidence/demo backed up and independently restored; model weights and environments are reproducibly downloaded, not committed.
