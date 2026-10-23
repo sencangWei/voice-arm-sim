@@ -1,0 +1,22 @@
+{
+  "source": "https://huggingface.co/rhasspy/piper-voices",
+  "revision": "5041a7a49ae5b3a0f30e6837769eb03fdbb231bd",
+  "voice": "zh_CN-huayan-medium",
+  "engine": "piper-tts==1.4.2 (CPU ONNX)",
+  "engine_license": "GPL-3.0",
+  "voice_dataset_license": "Unknown according to upstream MODEL_CARD",
+  "text": "请把绿色苹果放到蓝色托盘里面。",
+  "audio": "runs/neural-command-clear.wav",
+  "sample_rate": 22050,
+  "duration_seconds": 3.1346938775510202,
+  "model_sha256": {
+    "zh_CN-huayan-medium.onnx": "9929917bf8cabb26fd528ea44d3a6699c11e87317a14765312420be230be0f3d",
+    "zh_CN-huayan-medium.onnx.json": "d521dc45504a8ccc99e325822b35946dd701840bfb07e3dbb31a40929ed6a82b",
+    "MODEL_CARD": "25d7d8f7a03e9382e629c5c4f074176e7ca84e08be12a873022e91fcac98c2c7"
+  },
+  "boundary": "Synthetic Mandarin test audio; human microphone input remains unverified.",
+  "asr_status": 200,
+  "asr_response": {
+    "text": "请把绿色苹果放到蓝色托盘里面。"
+  }
+}

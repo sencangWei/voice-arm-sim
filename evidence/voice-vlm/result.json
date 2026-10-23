@@ -1,0 +1,80 @@
+{
+  "audio": "/home/robot/voice-arm-sim/runs/neural-command-clear.wav",
+  "mode": "vlm",
+  "seed": 42,
+  "started_unix": 1792781046.5572348,
+  "recognized": "请把绿色苹果放到蓝色托盘里面。",
+  "text": "请把绿色苹果放到蓝色托盘里面。",
+  "response": {
+    "text": "请把绿色苹果放到蓝色托盘里面。",
+    "message": "指令已加入执行队列"
+  },
+  "status": 202,
+  "success": true,
+  "video": "demo.mp4",
+  "video_fps": 10,
+  "video_frames": 233,
+  "frame_errors": [],
+  "state_errors": [],
+  "final_state": {
+    "phase": "done",
+    "message": "已放入托盘",
+    "busy": false,
+    "steps": 432,
+    "mode": "vlm",
+    "detection_source": "Qwen VLM + RGB-D",
+    "last_result": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 433,
+      "elapsed_s": 22.93,
+      "attempts": 1,
+      "camera_observations": {
+        "target": [
+          0.18255481415428143,
+          -0.12652518485437966,
+          0.8507864356040955
+        ],
+        "tray": [
+          0.1360202364309605,
+          0.18819238191132895,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.14048230543916226,
+        0.18676074499122713,
+        0.8607793092727661
+      ],
+      "gripper_width_after_lift": 0.04816080403943834,
+      "command": "请把绿色苹果放到蓝色托盘里面。",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "models": {
+      "asr": "本地 Qwen ASR 已就绪",
+      "vision": "本地 Qwen VLM 已就绪"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：如果我同意，就把苹果放进托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "暂不执行带条件或等待要求的指令，请准备好后再下达肯定指令",
+      "收到指令：把苹果、香蕉放进托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "请一次指定一个明确目标，不要使用并列或选择指令",
+      "收到指令：不要把苹果放进托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "这条包含否定或停止，请用停止按钮；执行前请重新说出明确的肯定指令",
+      "收到指令：八分国范，金兰色国范。；定位来源：Qwen VLM + RGB-D",
+      "第一版请明确放进蓝色托盘，例如：把苹果放进蓝色托盘",
+      "收到指令：把苹果放进蓝色托盘；定位来源：Qwen VLM + RGB-D",
+      "VLM 检测：苹果",
+      "VLM 检测：蓝色托盘",
+      "VLM 检测：苹果",
+      "收到指令：请把绿色苹果放到蓝色托盘里面。；定位来源：Qwen VLM + RGB-D",
+      "VLM 检测：绿色苹果",
+      "VLM 检测：蓝色托盘",
+      "VLM 检测：绿色苹果"
+    ]
+  },
+  "elapsed_s": 23.257,
+  "finished_unix": 1792781069.919973,
+  "validation_boundary": "真实服务与物理仿真结果；非训练结果，非泛化成功率。录像记录成功读取的真实帧，帧错误另计。"
+}

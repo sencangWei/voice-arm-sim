@@ -1,0 +1,119 @@
+{
+  "health": {
+    "asr": true,
+    "vision": true,
+    "ready": true,
+    "error": null,
+    "backend": "local-qwen",
+    "busy": false
+  },
+  "audio_source": "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen3-ASR-Repo/asr_zh.wav",
+  "image": "/home/robot/voice-arm-sim/runs/scene-final/overhead.png",
+  "tests": [
+    {
+      "name": "official_chinese_asr",
+      "endpoint": "/transcribe",
+      "status": 200,
+      "elapsed_seconds": 0.56,
+      "response": {
+        "text": "甚至出现交易几乎停滞的情况。"
+      }
+    },
+    {
+      "name": "red_cube",
+      "endpoint": "/ground",
+      "status": 200,
+      "elapsed_seconds": 0.486,
+      "response": {
+        "bbox_2d": [
+          378,
+          666,
+          432,
+          728
+        ],
+        "label": "红色方块"
+      }
+    },
+    {
+      "name": "green_apple",
+      "endpoint": "/ground",
+      "status": 200,
+      "elapsed_seconds": 0.421,
+      "response": {
+        "bbox_2d": [
+          678,
+          616,
+          732,
+          675
+        ],
+        "label": "绿色苹果"
+      }
+    },
+    {
+      "name": "yellow_banana",
+      "endpoint": "/ground",
+      "status": 200,
+      "elapsed_seconds": 0.395,
+      "response": {
+        "bbox_2d": [
+          519,
+          430,
+          645,
+          478
+        ],
+        "label": "黄色香蕉"
+      }
+    },
+    {
+      "name": "blue_tray",
+      "endpoint": "/locate",
+      "status": 200,
+      "elapsed_seconds": 0.418,
+      "response": {
+        "bbox_2d": [
+          538,
+          208,
+          738,
+          397
+        ],
+        "label": "蓝色托盘"
+      }
+    },
+    {
+      "name": "absent_target",
+      "endpoint": "/ground",
+      "status": 200,
+      "elapsed_seconds": 0.055,
+      "response": {
+        "bbox_2d": [],
+        "label": null
+      }
+    },
+    {
+      "name": "invalid_json",
+      "endpoint": "/ground",
+      "status": 400,
+      "elapsed_seconds": 0.001,
+      "response": {
+        "error": "Expected a JSON object"
+      }
+    },
+    {
+      "name": "oversize_body",
+      "endpoint": "/transcribe",
+      "status": 413,
+      "elapsed_seconds": 0.001,
+      "response": {
+        "error": "Request body must be between 1 byte and 8 MiB"
+      }
+    }
+  ],
+  "failures": [],
+  "validation_boundary": "Real pretrained inference; semantic box placement requires image inspection.",
+  "semantic_review": {
+    "method": "manual inspection of four saved model-output overlays",
+    "result": "all four boxes cover the corresponding visible object; source detections exclude destination tray",
+    "source_image": "runs/scene-final/overhead.png",
+    "boundary": "one rendered tabletop frame, pretrained models, official recorded Chinese ASR sample; not microphone or grasp success validation"
+  }
+}

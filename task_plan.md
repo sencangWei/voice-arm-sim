@@ -6,9 +6,9 @@ Build an independent local MuJoCo tabletop prototype for Mandarin commands, came
 ## Stages
 1. Environment/assets/API evidence — complete: isolated simulation and model environments, pinned requirements, no old project edits.
 2. Physical Panda pick/place with reproducible smoke test and video — complete: colour baseline 9/9 across seeds 42/7/99 and three objects; success videos plus failure records retained.
-3. Camera localisation, command parsing, local speech adapter and Chinese interactive UI — implemented: localhost 8910 UI/API; model 8911 adapter; auto/color/vlm selection. Real ASR/VLM inference and microphone end-to-end acceptance remain pending.
-4. End-to-end checks, honest limitations and launch documentation — partial: 16 contract tests and real HTTP colour smoke passed; README documents evidence/boundaries. Model tests and final UI inspection pending leader validation.
-5. Commit capability code and demo to a writable remote; fetch into clean directory and compare — pending.
+3. Camera localisation, command parsing, local speech adapter and Chinese interactive UI — implemented: localhost 8910 UI/API; model 8911 adapter; auto/color/vlm selection. Real ASR/VLM inference passed8/8 and box semantics inspected. Synthetic clear Mandarin full loop passed with actual physical grasp/release. Human microphone remains unverified.
+4. End-to-end checks, honest limitations and launch documentation — complete within prototype scope: 16 contract tests and real HTTP colour smoke passed; README documents evidence/boundaries. Model tests8/8 and final Chinese UI screenshot inspected. Text VLM apple completed433steps/22.89s. Clear synthetic voice full loop passed433steps/23.257s;233paired frames inspected; human microphone unverified.
+5. Commit capability code and demo to a writable remote; fetch into clean directory and compare — initial version complete: public sencangWei/voice-arm-sim, branch prototype/voice-tabletop, 36 files restored and SHA256 matched. Final model/voice changes still need the same verification.
 
 ## Acceptance
 - Isolated environment and version record.
@@ -23,8 +23,8 @@ Build an independent local MuJoCo tabletop prototype for Mandarin commands, came
 - Keep initial grasp scope small and validate physics before models/UI.
 
 ## Errors
-Initial dependency download stalled on newer SciPy/LLVM; isolated pinned versions installed. Early apple/banana descent timed out; failed runs retained, geometry/contact/grasp configuration revised and final 9/9 regression passed. Model readiness is not yet evidence of working inference.
+Initial dependency download stalled on newer SciPy/LLVM; isolated pinned versions installed. Early apple/banana descent timed out; failed runs retained, geometry/contact/grasp configuration revised and final 9/9 regression passed. Actual inference now passed; eSpeak Mandarin command misrecognition was rejected with0controlsteps and retained.
 
 ## Next handoff
-- Finish actual local ASR/VLM, microphone and screenshot verification; update README evidence from measured results.
+- Local ASR/VLM, screenshot and synthetic voice loop verified. Real microphone testing is a user validation gap.
 - Commit/push capability code and selected evidence to a user-writable remote and verify a clean restore. Do not claim backup complete until restore comparison passes.

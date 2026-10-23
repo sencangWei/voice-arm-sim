@@ -1,12 +1,13 @@
 """Exercise the real localhost models; records responses, never substitutes detections."""
+
 import argparse
 import base64
 import io
 import json
-from pathlib import Path
 import sys
 import time
 import urllib.request
+from pathlib import Path
 
 import requests
 from PIL import Image, ImageDraw
@@ -17,7 +18,9 @@ OUT = ROOT / "runs/models-smoke"
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--image", type=Path, default=ROOT / "runs/scene-smoke-ready/overhead.png")
+    parser.add_argument(
+        "--image", type=Path, default=ROOT / "runs/scene-final/overhead.png"
+    )
     parser.add_argument("--audio", type=Path)
     args = parser.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
@@ -37,21 +40,37 @@ def main():
         raise RuntimeError("Model service did not become ready in 600 seconds")
 
     audio = args.audio or OUT / "official_asr_zh.wav"
-    audio_source = "user-provided" if args.audio else (
-        "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen3-ASR-Repo/asr_zh.wav"
+    audio_source = (
+        "user-provided"
+        if args.audio
+        else (
+            "https://qianwen-res.oss-cn-beijing.aliyuncs.com/Qwen3-ASR-Repo/asr_zh.wav"
+        )
     )
     if not audio.exists():
         with urllib.request.urlopen(audio_source, timeout=60) as response:
             audio.write_bytes(response.read())
-    results = {"health": health, "audio_source": audio_source, "image": str(args.image), "tests": []}
+    results = {
+        "health": health,
+        "audio_source": audio_source,
+        "image": str(args.image),
+        "tests": [],
+    }
 
     def record(name, endpoint, payload=None, data=None):
         started = time.monotonic()
         response = requests.post(url + endpoint, json=payload, data=data, timeout=180)
-        result = {"name": name, "endpoint": endpoint, "status": response.status_code,
-                  "elapsed_seconds": round(time.monotonic() - started, 3), "response": response.json()}
+        result = {
+            "name": name,
+            "endpoint": endpoint,
+            "status": response.status_code,
+            "elapsed_seconds": round(time.monotonic() - started, 3),
+            "response": response.json(),
+        }
         results["tests"].append(result)
-        (OUT / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
+        (OUT / "results.json").write_text(
+            json.dumps(results, ensure_ascii=False, indent=2) + "\n"
+        )
         print(json.dumps(result, ensure_ascii=False), flush=True)
         return result
 
@@ -68,12 +87,19 @@ def main():
         ("absent_target", "/ground", "把紫色恐龙玩具放进蓝色托盘"),
     ]
     for name, endpoint, text in cases:
-        result = record(name, endpoint, {"image": encoded, "target" if endpoint == "/locate" else "text": text})
+        result = record(
+            name,
+            endpoint,
+            {"image": encoded, "target" if endpoint == "/locate" else "text": text},
+        )
         bbox = result["response"].get("bbox_2d", [])
         if len(bbox) == 4:
             overlay = image.copy()
             draw = ImageDraw.Draw(overlay)
-            box = [bbox[i] * (image.width if i % 2 == 0 else image.height) / 1000 for i in range(4)]
+            box = [
+                bbox[i] * (image.width if i % 2 == 0 else image.height) / 1000
+                for i in range(4)
+            ]
             draw.rectangle(box, outline="magenta", width=3)
             draw.text((box[0], max(0, box[1] - 14)), name, fill="magenta")
             overlay.save(OUT / f"{name}.png")
@@ -92,8 +118,12 @@ def main():
         if tests[name]["status"] != status:
             failures.append(name)
     results["failures"] = failures
-    results["validation_boundary"] = "Real pretrained inference; semantic box placement requires image inspection."
-    (OUT / "results.json").write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n")
+    results["validation_boundary"] = (
+        "Real pretrained inference; semantic box placement requires image inspection."
+    )
+    (OUT / "results.json").write_text(
+        json.dumps(results, ensure_ascii=False, indent=2) + "\n"
+    )
     sys.exit(bool(failures))
 
 
