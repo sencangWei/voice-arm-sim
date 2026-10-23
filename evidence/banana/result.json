@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "message": "已放入托盘",
+  "steps": 389,
+  "elapsed_s": 2.3592590160260443,
+  "attempts": 1,
+  "camera_observations": {
+    "target": [
+      0.07818744748751937,
+      0.044689606253573384,
+      0.8412927865982056
+    ],
+    "tray": [
+      0.12118182786156416,
+      0.18465802340809778,
+      0.8291618704795838
+    ]
+  },
+  "final_camera_xyz": [
+    0.11840254976732165,
+    0.184445513639254,
+    0.8513156056404114
+  ],
+  "gripper_width_after_lift": 0.04616114409779737,
+  "command": "把香蕉放进蓝色托盘",
+  "controller": "RGB-D geometry / OSC_POSE / physical contact",
+  "evaluation_truth_only": {
+    "object_xyz": [
+      0.12158979186973753,
+      0.1817092398271455,
+      0.8309277224267482
+    ],
+    "tray_xyz": [
+      0.12,
+      0.18,
+      0.805
+    ],
+    "in_tray": true
+  },
+  "seed": 42,
+  "video": "demo.mp4"
+}

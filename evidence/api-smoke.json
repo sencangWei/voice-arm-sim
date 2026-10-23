@@ -1,0 +1,141 @@
+{
+  "url": "http://127.0.0.1:8910",
+  "started_unix": 1792779520.7055738,
+  "checks": {
+    "reset_changes_layout": {
+      "seeds": [
+        42,
+        43
+      ],
+      "top_jpeg_sha256": [
+        "050e374402aa429aa648639930901abb17721d3eab261373c43f432b23b399d7",
+        "4e9c79084b60d0f3e383aa86f72866282ad0413178f080d094f02450fe5760f0"
+      ]
+    },
+    "unknown_zero_motion": {
+      "phase": "clarify",
+      "message": "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉",
+      "busy": false,
+      "steps": 0,
+      "mode": "color",
+      "detection_source": "颜色 RGB-D 基线（非通用识别）",
+      "last_result": {
+        "message": "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉"
+      },
+      "models": {
+        "asr": "语音服务未连接",
+        "vision": "VLM 未就绪；可使用颜色 RGB-D 基线"
+      },
+      "events": [
+        "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+        "收到指令：把紫色独角兽放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+        "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉"
+      ]
+    },
+    "busy_rejected": {
+      "status": 400,
+      "body": {
+        "error": "当前任务尚未结束，请等待或先停止"
+      }
+    },
+    "pause_resume": {
+      "paused_steps": 6,
+      "after_half_second": 6,
+      "resumed_steps": 8
+    },
+    "stop": {
+      "phase": "stopped",
+      "message": "已停止",
+      "busy": false,
+      "steps": 8,
+      "mode": "color",
+      "detection_source": "颜色 RGB-D 基线（非通用识别）",
+      "last_result": {
+        "message": "用户停止",
+        "elapsed_s": 1.02
+      },
+      "models": {
+        "asr": "语音服务未连接",
+        "vision": "VLM 未就绪；可使用颜色 RGB-D 基线"
+      },
+      "events": [
+        "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+        "收到指令：把紫色独角兽放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+        "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉",
+        "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）"
+      ]
+    },
+    "cube_complete": {
+      "phase": "done",
+      "message": "已放入托盘",
+      "busy": false,
+      "steps": 393,
+      "mode": "color",
+      "detection_source": "颜色 RGB-D 基线（非通用识别）",
+      "last_result": {
+        "success": true,
+        "message": "已放入托盘",
+        "steps": 394,
+        "elapsed_s": 19.72,
+        "attempts": 1,
+        "camera_observations": {
+          "target": [
+            -0.08546228717811225,
+            -0.16906669854800466,
+            0.8437853932380677
+          ],
+          "tray": [
+            0.12118182786156416,
+            0.18465802340809778,
+            0.8291618704795838
+          ]
+        },
+        "final_camera_xyz": [
+          0.12685303725263394,
+          0.18384498152555648,
+          0.8537835955619812
+        ],
+        "gripper_width_after_lift": 0.041177624184014765,
+        "command": "把红色方块放进蓝色托盘",
+        "controller": "RGB-D geometry / OSC_POSE / physical contact"
+      },
+      "models": {
+        "asr": "语音服务未连接",
+        "vision": "VLM 未就绪；可使用颜色 RGB-D 基线"
+      },
+      "events": [
+        "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+        "收到指令：把紫色独角兽放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+        "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉",
+        "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+        "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）"
+      ]
+    }
+  },
+  "passed": true,
+  "final_state": {
+    "phase": "done",
+    "message": "已生成新的随机布局",
+    "busy": false,
+    "steps": 0,
+    "mode": "color",
+    "detection_source": "颜色 RGB-D 基线（非通用识别）",
+    "last_result": {
+      "message": "已生成新的随机布局",
+      "seed": 42,
+      "elapsed_s": 0.0
+    },
+    "models": {
+      "asr": "语音服务未连接",
+      "vision": "VLM 未就绪；可使用颜色 RGB-D 基线"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：把紫色独角兽放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "请一次指定一个物体：红色方块、绿色苹果或黄色香蕉",
+      "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）"
+    ]
+  },
+  "finished_unix": 1792779542.2005692
+}

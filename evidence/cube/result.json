@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "message": "已放入托盘",
+  "steps": 396,
+  "elapsed_s": 2.360178784991149,
+  "attempts": 1,
+  "camera_observations": {
+    "target": [
+      -0.08546228717811225,
+      -0.1709245743562245,
+      0.8437853932380677
+    ],
+    "tray": [
+      0.12921163018363707,
+      0.18775219408972638,
+      0.8409983396530152
+    ]
+  },
+  "final_camera_xyz": [
+    0.13560016366444225,
+    0.1875218811560676,
+    0.8537835955619812
+  ],
+  "gripper_width_after_lift": 0.041176348004466436,
+  "command": "把红色方块放进蓝色托盘",
+  "controller": "RGB-D geometry / OSC_POSE / physical contact",
+  "evaluation_truth_only": {
+    "object_xyz": [
+      0.13758664882024974,
+      0.18940611381011588,
+      0.8317844891595659
+    ],
+    "tray_xyz": [
+      0.12,
+      0.18,
+      0.805
+    ],
+    "in_tray": true
+  },
+  "seed": 42,
+  "video": "demo.mp4"
+}

@@ -1,0 +1,42 @@
+{
+  "success": true,
+  "message": "已放入托盘",
+  "steps": 431,
+  "elapsed_s": 2.6360784319986124,
+  "attempts": 1,
+  "camera_observations": {
+    "target": [
+      0.18314222316675965,
+      -0.1265559618429228,
+      0.8506882071495057
+    ],
+    "tray": [
+      0.12118182786156416,
+      0.18465802340809778,
+      0.8291618704795838
+    ]
+  },
+  "final_camera_xyz": [
+    0.12560381082569433,
+    0.18341889793698515,
+    0.86074857711792
+  ],
+  "gripper_width_after_lift": 0.04820141616950236,
+  "command": "把苹果放进蓝色托盘",
+  "controller": "RGB-D geometry / OSC_POSE / physical contact",
+  "evaluation_truth_only": {
+    "object_xyz": [
+      0.12890798598036296,
+      0.18641247095007424,
+      0.8366328181575396
+    ],
+    "tray_xyz": [
+      0.12,
+      0.18,
+      0.805
+    ],
+    "in_tray": true
+  },
+  "seed": 42,
+  "video": "demo.mp4"
+}
