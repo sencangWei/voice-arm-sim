@@ -39,3 +39,8 @@
 - Clear local Piper neural speech: 请把绿色苹果放到蓝色托盘里面。 recognized verbatim. Actual audio endpoint, local ASR, local VLM, RGB-D and physical Panda grasp/release passed;433steps/one attempt,23.257s total,233video frames and no acquisition errors. Camera final target is inside tray; video inspected at beginning/lift/final.
 - Piper huayan short sentence produced 进→金; no recognizer/parser override was used. A clearer full sentence solved this test-input problem. All samples and source/license metadata are distinguished; this is not a word-error-rate experiment.
 - Human microphone recording/room noise, novel household items, real hardware, free multi-turn dialogue and learned action policies are outside current verified scope.
+
+## Native revision root-cause evidence
+- Web index displays cached camera JPEGs; no mouse camera drag handlers or interactive MuJoCo canvas. Fixed images inherently cannot rotate.
+- Lab.run render() performs three480x480 RGB+depth renders and JPEG encodes every3control steps, then browser polls images. This adds capture/encode/network work; no claim that this alone explains all reported lag until measured.
+- Banana is3overlapping capsules; apple is sphere+stem, explicitly proxy geometry. Visual mesh can be improved separately from already-tested collision bodies.

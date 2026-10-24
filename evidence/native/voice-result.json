@@ -1,0 +1,1002 @@
+{
+  "audio_source": "synthetic Chinese speech; not a physical microphone test",
+  "recognized": {
+    "text": "请把绿色苹果放到蓝色托盘里面。",
+    "message": "指令已加入执行队列"
+  },
+  "wall_duration_s": 23.687018427008297,
+  "final_state": {
+    "phase": "done",
+    "message": "已放入托盘",
+    "busy": false,
+    "steps": 433,
+    "mode": "vlm",
+    "detection_source": "Qwen VLM + RGB-D",
+    "last_result": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 434,
+      "elapsed_s": 23.34,
+      "attempts": 1,
+      "camera_observations": {
+        "target": [
+          0.18271222037814364,
+          -0.12612123411481674,
+          0.8498379468917847
+        ],
+        "tray": [
+          0.1360202364309605,
+          0.19274269638373656,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.14097983585230578,
+        0.1917174658700421,
+        0.8597066283226014
+      ],
+      "gripper_width_after_lift": 0.0482075894030772,
+      "command": "请把绿色苹果放到蓝色托盘里面。",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "display": "native",
+    "models": {
+      "asr": "本地 Qwen ASR 已就绪",
+      "vision": "本地 Qwen VLM 已就绪"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：请把绿色苹果放到蓝色托盘里面。；定位来源：Qwen VLM + RGB-D",
+      "VLM 检测：绿色苹果",
+      "VLM 检测：蓝色托盘",
+      "VLM 检测：绿色苹果",
+      "收到指令：请把绿色苹果放到蓝色托盘里面。；定位来源：Qwen VLM + RGB-D",
+      "VLM 检测：绿色苹果",
+      "VLM 检测：蓝色托盘",
+      "VLM 检测：绿色苹果"
+    ],
+    "camera": {
+      "azimuth": 140.0,
+      "elevation": -32.0,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    }
+  },
+  "trace": [
+    {
+      "t": 0.223,
+      "phase": "transcribing",
+      "steps": 0,
+      "busy": true
+    },
+    {
+      "t": 0.375,
+      "phase": "抬起并张开夹爪",
+      "steps": 2,
+      "busy": true
+    },
+    {
+      "t": 0.526,
+      "phase": "抬起并张开夹爪",
+      "steps": 5,
+      "busy": true
+    },
+    {
+      "t": 0.679,
+      "phase": "抬起并张开夹爪",
+      "steps": 8,
+      "busy": true
+    },
+    {
+      "t": 0.832,
+      "phase": "抬起并张开夹爪",
+      "steps": 11,
+      "busy": true
+    },
+    {
+      "t": 0.984,
+      "phase": "抬起并张开夹爪",
+      "steps": 14,
+      "busy": true
+    },
+    {
+      "t": 1.135,
+      "phase": "移开相机遮挡",
+      "steps": 18,
+      "busy": true
+    },
+    {
+      "t": 1.289,
+      "phase": "移开相机遮挡",
+      "steps": 21,
+      "busy": true
+    },
+    {
+      "t": 1.44,
+      "phase": "移开相机遮挡",
+      "steps": 24,
+      "busy": true
+    },
+    {
+      "t": 1.592,
+      "phase": "移开相机遮挡",
+      "steps": 27,
+      "busy": true
+    },
+    {
+      "t": 1.743,
+      "phase": "移开相机遮挡",
+      "steps": 30,
+      "busy": true
+    },
+    {
+      "t": 1.896,
+      "phase": "移开相机遮挡",
+      "steps": 33,
+      "busy": true
+    },
+    {
+      "t": 2.048,
+      "phase": "移开相机遮挡",
+      "steps": 36,
+      "busy": true
+    },
+    {
+      "t": 2.202,
+      "phase": "移开相机遮挡",
+      "steps": 39,
+      "busy": true
+    },
+    {
+      "t": 2.353,
+      "phase": "观察桌面",
+      "steps": 42,
+      "busy": true
+    },
+    {
+      "t": 2.505,
+      "phase": "观察桌面",
+      "steps": 45,
+      "busy": true
+    },
+    {
+      "t": 2.657,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 2.812,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 2.963,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 3.119,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 3.274,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 3.426,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 3.58,
+      "phase": "观察桌面",
+      "steps": 47,
+      "busy": true
+    },
+    {
+      "t": 3.731,
+      "phase": "移动到物体上方",
+      "steps": 49,
+      "busy": true
+    },
+    {
+      "t": 3.882,
+      "phase": "移动到物体上方",
+      "steps": 52,
+      "busy": true
+    },
+    {
+      "t": 4.037,
+      "phase": "移动到物体上方",
+      "steps": 55,
+      "busy": true
+    },
+    {
+      "t": 4.188,
+      "phase": "移动到物体上方",
+      "steps": 58,
+      "busy": true
+    },
+    {
+      "t": 4.339,
+      "phase": "移动到物体上方",
+      "steps": 61,
+      "busy": true
+    },
+    {
+      "t": 4.491,
+      "phase": "移动到物体上方",
+      "steps": 64,
+      "busy": true
+    },
+    {
+      "t": 4.644,
+      "phase": "移动到物体上方",
+      "steps": 67,
+      "busy": true
+    },
+    {
+      "t": 4.796,
+      "phase": "移动到物体上方",
+      "steps": 70,
+      "busy": true
+    },
+    {
+      "t": 4.948,
+      "phase": "移动到物体上方",
+      "steps": 73,
+      "busy": true
+    },
+    {
+      "t": 5.1,
+      "phase": "移动到物体上方",
+      "steps": 76,
+      "busy": true
+    },
+    {
+      "t": 5.251,
+      "phase": "移动到物体上方",
+      "steps": 79,
+      "busy": true
+    },
+    {
+      "t": 5.403,
+      "phase": "移动到物体上方",
+      "steps": 82,
+      "busy": true
+    },
+    {
+      "t": 5.555,
+      "phase": "移动到物体上方",
+      "steps": 85,
+      "busy": true
+    },
+    {
+      "t": 5.706,
+      "phase": "移动到物体上方",
+      "steps": 88,
+      "busy": true
+    },
+    {
+      "t": 5.858,
+      "phase": "移动到物体上方",
+      "steps": 91,
+      "busy": true
+    },
+    {
+      "t": 6.009,
+      "phase": "移动到物体上方",
+      "steps": 94,
+      "busy": true
+    },
+    {
+      "t": 6.161,
+      "phase": "移动到物体上方",
+      "steps": 97,
+      "busy": true
+    },
+    {
+      "t": 6.313,
+      "phase": "移动到物体上方",
+      "steps": 100,
+      "busy": true
+    },
+    {
+      "t": 6.469,
+      "phase": "移动到物体上方",
+      "steps": 103,
+      "busy": true
+    },
+    {
+      "t": 6.621,
+      "phase": "移动到物体上方",
+      "steps": 107,
+      "busy": true
+    },
+    {
+      "t": 6.772,
+      "phase": "移动到物体上方",
+      "steps": 110,
+      "busy": true
+    },
+    {
+      "t": 6.923,
+      "phase": "移动到物体上方",
+      "steps": 113,
+      "busy": true
+    },
+    {
+      "t": 7.076,
+      "phase": "移动到物体上方",
+      "steps": 116,
+      "busy": true
+    },
+    {
+      "t": 7.227,
+      "phase": "移动到物体上方",
+      "steps": 119,
+      "busy": true
+    },
+    {
+      "t": 7.378,
+      "phase": "缓慢靠近抓取",
+      "steps": 122,
+      "busy": true
+    },
+    {
+      "t": 7.533,
+      "phase": "缓慢靠近抓取",
+      "steps": 125,
+      "busy": true
+    },
+    {
+      "t": 7.684,
+      "phase": "缓慢靠近抓取",
+      "steps": 128,
+      "busy": true
+    },
+    {
+      "t": 7.836,
+      "phase": "缓慢靠近抓取",
+      "steps": 131,
+      "busy": true
+    },
+    {
+      "t": 7.987,
+      "phase": "缓慢靠近抓取",
+      "steps": 134,
+      "busy": true
+    },
+    {
+      "t": 8.138,
+      "phase": "缓慢靠近抓取",
+      "steps": 137,
+      "busy": true
+    },
+    {
+      "t": 8.289,
+      "phase": "缓慢靠近抓取",
+      "steps": 140,
+      "busy": true
+    },
+    {
+      "t": 8.446,
+      "phase": "缓慢靠近抓取",
+      "steps": 143,
+      "busy": true
+    },
+    {
+      "t": 8.597,
+      "phase": "缓慢靠近抓取",
+      "steps": 146,
+      "busy": true
+    },
+    {
+      "t": 8.748,
+      "phase": "缓慢靠近抓取",
+      "steps": 149,
+      "busy": true
+    },
+    {
+      "t": 8.899,
+      "phase": "缓慢靠近抓取",
+      "steps": 152,
+      "busy": true
+    },
+    {
+      "t": 9.051,
+      "phase": "缓慢靠近抓取",
+      "steps": 155,
+      "busy": true
+    },
+    {
+      "t": 9.202,
+      "phase": "缓慢靠近抓取",
+      "steps": 158,
+      "busy": true
+    },
+    {
+      "t": 9.354,
+      "phase": "闭合夹爪",
+      "steps": 161,
+      "busy": true
+    },
+    {
+      "t": 9.508,
+      "phase": "闭合夹爪",
+      "steps": 164,
+      "busy": true
+    },
+    {
+      "t": 9.66,
+      "phase": "闭合夹爪",
+      "steps": 167,
+      "busy": true
+    },
+    {
+      "t": 9.818,
+      "phase": "闭合夹爪",
+      "steps": 170,
+      "busy": true
+    },
+    {
+      "t": 9.969,
+      "phase": "闭合夹爪",
+      "steps": 174,
+      "busy": true
+    },
+    {
+      "t": 10.121,
+      "phase": "闭合夹爪",
+      "steps": 177,
+      "busy": true
+    },
+    {
+      "t": 10.272,
+      "phase": "抬起并检查抓取",
+      "steps": 180,
+      "busy": true
+    },
+    {
+      "t": 10.424,
+      "phase": "抬起并检查抓取",
+      "steps": 183,
+      "busy": true
+    },
+    {
+      "t": 10.581,
+      "phase": "抬起并检查抓取",
+      "steps": 186,
+      "busy": true
+    },
+    {
+      "t": 10.735,
+      "phase": "抬起并检查抓取",
+      "steps": 189,
+      "busy": true
+    },
+    {
+      "t": 10.889,
+      "phase": "抬起并检查抓取",
+      "steps": 192,
+      "busy": true
+    },
+    {
+      "t": 11.04,
+      "phase": "抬起并检查抓取",
+      "steps": 195,
+      "busy": true
+    },
+    {
+      "t": 11.195,
+      "phase": "抬起并检查抓取",
+      "steps": 198,
+      "busy": true
+    },
+    {
+      "t": 11.347,
+      "phase": "抬起并检查抓取",
+      "steps": 201,
+      "busy": true
+    },
+    {
+      "t": 11.499,
+      "phase": "抬起并检查抓取",
+      "steps": 204,
+      "busy": true
+    },
+    {
+      "t": 11.651,
+      "phase": "抬起并检查抓取",
+      "steps": 207,
+      "busy": true
+    },
+    {
+      "t": 11.805,
+      "phase": "抬起并检查抓取",
+      "steps": 210,
+      "busy": true
+    },
+    {
+      "t": 11.957,
+      "phase": "抬起并检查抓取",
+      "steps": 213,
+      "busy": true
+    },
+    {
+      "t": 12.11,
+      "phase": "运输到托盘上方",
+      "steps": 216,
+      "busy": true
+    },
+    {
+      "t": 12.265,
+      "phase": "运输到托盘上方",
+      "steps": 219,
+      "busy": true
+    },
+    {
+      "t": 12.42,
+      "phase": "运输到托盘上方",
+      "steps": 222,
+      "busy": true
+    },
+    {
+      "t": 12.572,
+      "phase": "运输到托盘上方",
+      "steps": 226,
+      "busy": true
+    },
+    {
+      "t": 12.724,
+      "phase": "运输到托盘上方",
+      "steps": 229,
+      "busy": true
+    },
+    {
+      "t": 12.875,
+      "phase": "运输到托盘上方",
+      "steps": 232,
+      "busy": true
+    },
+    {
+      "t": 13.026,
+      "phase": "运输到托盘上方",
+      "steps": 235,
+      "busy": true
+    },
+    {
+      "t": 13.177,
+      "phase": "运输到托盘上方",
+      "steps": 238,
+      "busy": true
+    },
+    {
+      "t": 13.328,
+      "phase": "运输到托盘上方",
+      "steps": 241,
+      "busy": true
+    },
+    {
+      "t": 13.481,
+      "phase": "运输到托盘上方",
+      "steps": 244,
+      "busy": true
+    },
+    {
+      "t": 13.632,
+      "phase": "运输到托盘上方",
+      "steps": 247,
+      "busy": true
+    },
+    {
+      "t": 13.786,
+      "phase": "运输到托盘上方",
+      "steps": 250,
+      "busy": true
+    },
+    {
+      "t": 13.937,
+      "phase": "运输到托盘上方",
+      "steps": 253,
+      "busy": true
+    },
+    {
+      "t": 14.088,
+      "phase": "运输到托盘上方",
+      "steps": 256,
+      "busy": true
+    },
+    {
+      "t": 14.242,
+      "phase": "运输到托盘上方",
+      "steps": 259,
+      "busy": true
+    },
+    {
+      "t": 14.399,
+      "phase": "运输到托盘上方",
+      "steps": 262,
+      "busy": true
+    },
+    {
+      "t": 14.55,
+      "phase": "运输到托盘上方",
+      "steps": 265,
+      "busy": true
+    },
+    {
+      "t": 14.704,
+      "phase": "下降放置",
+      "steps": 268,
+      "busy": true
+    },
+    {
+      "t": 14.855,
+      "phase": "下降放置",
+      "steps": 271,
+      "busy": true
+    },
+    {
+      "t": 15.006,
+      "phase": "下降放置",
+      "steps": 274,
+      "busy": true
+    },
+    {
+      "t": 15.158,
+      "phase": "下降放置",
+      "steps": 277,
+      "busy": true
+    },
+    {
+      "t": 15.315,
+      "phase": "下降放置",
+      "steps": 280,
+      "busy": true
+    },
+    {
+      "t": 15.466,
+      "phase": "下降放置",
+      "steps": 284,
+      "busy": true
+    },
+    {
+      "t": 15.618,
+      "phase": "下降放置",
+      "steps": 287,
+      "busy": true
+    },
+    {
+      "t": 15.77,
+      "phase": "下降放置",
+      "steps": 290,
+      "busy": true
+    },
+    {
+      "t": 15.921,
+      "phase": "下降放置",
+      "steps": 293,
+      "busy": true
+    },
+    {
+      "t": 16.073,
+      "phase": "下降放置",
+      "steps": 296,
+      "busy": true
+    },
+    {
+      "t": 16.224,
+      "phase": "下降放置",
+      "steps": 299,
+      "busy": true
+    },
+    {
+      "t": 16.375,
+      "phase": "张开释放",
+      "steps": 302,
+      "busy": true
+    },
+    {
+      "t": 16.528,
+      "phase": "张开释放",
+      "steps": 305,
+      "busy": true
+    },
+    {
+      "t": 16.682,
+      "phase": "张开释放",
+      "steps": 308,
+      "busy": true
+    },
+    {
+      "t": 16.834,
+      "phase": "张开释放",
+      "steps": 311,
+      "busy": true
+    },
+    {
+      "t": 16.986,
+      "phase": "张开释放",
+      "steps": 314,
+      "busy": true
+    },
+    {
+      "t": 17.139,
+      "phase": "张开释放",
+      "steps": 317,
+      "busy": true
+    },
+    {
+      "t": 17.29,
+      "phase": "张开释放",
+      "steps": 320,
+      "busy": true
+    },
+    {
+      "t": 17.443,
+      "phase": "抬起退出",
+      "steps": 323,
+      "busy": true
+    },
+    {
+      "t": 17.594,
+      "phase": "抬起退出",
+      "steps": 326,
+      "busy": true
+    },
+    {
+      "t": 17.745,
+      "phase": "抬起退出",
+      "steps": 329,
+      "busy": true
+    },
+    {
+      "t": 17.897,
+      "phase": "抬起退出",
+      "steps": 332,
+      "busy": true
+    },
+    {
+      "t": 18.048,
+      "phase": "抬起退出",
+      "steps": 335,
+      "busy": true
+    },
+    {
+      "t": 18.199,
+      "phase": "抬起退出",
+      "steps": 338,
+      "busy": true
+    },
+    {
+      "t": 18.352,
+      "phase": "抬起退出",
+      "steps": 341,
+      "busy": true
+    },
+    {
+      "t": 18.509,
+      "phase": "抬起退出",
+      "steps": 344,
+      "busy": true
+    },
+    {
+      "t": 18.661,
+      "phase": "抬起退出",
+      "steps": 347,
+      "busy": true
+    },
+    {
+      "t": 18.813,
+      "phase": "抬起退出",
+      "steps": 350,
+      "busy": true
+    },
+    {
+      "t": 18.968,
+      "phase": "抬起退出",
+      "steps": 353,
+      "busy": true
+    },
+    {
+      "t": 19.12,
+      "phase": "抬起退出",
+      "steps": 357,
+      "busy": true
+    },
+    {
+      "t": 19.272,
+      "phase": "移开观察结果",
+      "steps": 360,
+      "busy": true
+    },
+    {
+      "t": 19.425,
+      "phase": "移开观察结果",
+      "steps": 363,
+      "busy": true
+    },
+    {
+      "t": 19.577,
+      "phase": "移开观察结果",
+      "steps": 366,
+      "busy": true
+    },
+    {
+      "t": 19.728,
+      "phase": "移开观察结果",
+      "steps": 369,
+      "busy": true
+    },
+    {
+      "t": 19.882,
+      "phase": "移开观察结果",
+      "steps": 372,
+      "busy": true
+    },
+    {
+      "t": 20.036,
+      "phase": "移开观察结果",
+      "steps": 375,
+      "busy": true
+    },
+    {
+      "t": 20.187,
+      "phase": "移开观察结果",
+      "steps": 378,
+      "busy": true
+    },
+    {
+      "t": 20.341,
+      "phase": "移开观察结果",
+      "steps": 381,
+      "busy": true
+    },
+    {
+      "t": 20.492,
+      "phase": "移开观察结果",
+      "steps": 384,
+      "busy": true
+    },
+    {
+      "t": 20.643,
+      "phase": "移开观察结果",
+      "steps": 387,
+      "busy": true
+    },
+    {
+      "t": 20.795,
+      "phase": "移开观察结果",
+      "steps": 390,
+      "busy": true
+    },
+    {
+      "t": 20.946,
+      "phase": "移开观察结果",
+      "steps": 393,
+      "busy": true
+    },
+    {
+      "t": 21.097,
+      "phase": "移开观察结果",
+      "steps": 396,
+      "busy": true
+    },
+    {
+      "t": 21.249,
+      "phase": "移开观察结果",
+      "steps": 399,
+      "busy": true
+    },
+    {
+      "t": 21.403,
+      "phase": "移开观察结果",
+      "steps": 402,
+      "busy": true
+    },
+    {
+      "t": 21.556,
+      "phase": "移开观察结果",
+      "steps": 405,
+      "busy": true
+    },
+    {
+      "t": 21.707,
+      "phase": "移开观察结果",
+      "steps": 408,
+      "busy": true
+    },
+    {
+      "t": 21.861,
+      "phase": "移开观察结果",
+      "steps": 411,
+      "busy": true
+    },
+    {
+      "t": 22.016,
+      "phase": "移开观察结果",
+      "steps": 415,
+      "busy": true
+    },
+    {
+      "t": 22.167,
+      "phase": "移开观察结果",
+      "steps": 417,
+      "busy": true
+    },
+    {
+      "t": 22.319,
+      "phase": "等待物体稳定",
+      "steps": 421,
+      "busy": true
+    },
+    {
+      "t": 22.474,
+      "phase": "等待物体稳定",
+      "steps": 424,
+      "busy": true
+    },
+    {
+      "t": 22.627,
+      "phase": "等待物体稳定",
+      "steps": 427,
+      "busy": true
+    },
+    {
+      "t": 22.778,
+      "phase": "等待物体稳定",
+      "steps": 430,
+      "busy": true
+    },
+    {
+      "t": 22.929,
+      "phase": "等待物体稳定",
+      "steps": 433,
+      "busy": true
+    },
+    {
+      "t": 23.082,
+      "phase": "等待物体稳定",
+      "steps": 433,
+      "busy": true
+    },
+    {
+      "t": 23.233,
+      "phase": "等待物体稳定",
+      "steps": 433,
+      "busy": true
+    },
+    {
+      "t": 23.384,
+      "phase": "等待物体稳定",
+      "steps": 433,
+      "busy": true
+    },
+    {
+      "t": 23.536,
+      "phase": "等待物体稳定",
+      "steps": 433,
+      "busy": true
+    },
+    {
+      "t": 23.687,
+      "phase": "done",
+      "steps": 433,
+      "busy": false
+    }
+  ],
+  "capture": "actual native Tk and MuJoCo windows, 20fps silent recording"
+}

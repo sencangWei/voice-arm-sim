@@ -1,0 +1,199 @@
+{
+  "pause_steps": [
+    22,
+    22
+  ],
+  "paused_camera": {
+    "before": {
+      "azimuth": 140.0,
+      "elevation": -32.0,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    },
+    "after": {
+      "azimuth": 127.4,
+      "elevation": -28.4,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    }
+  },
+  "stop": {
+    "phase": "stopped",
+    "message": "已停止",
+    "busy": false,
+    "steps": 31,
+    "mode": "color",
+    "detection_source": "颜色 RGB-D 基线（非通用识别）",
+    "last_result": {
+      "message": "用户停止",
+      "elapsed_s": 26.18
+    },
+    "display": "native",
+    "models": {
+      "asr": "本地 Qwen ASR 已就绪",
+      "vision": "本地 Qwen VLM 已就绪"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）"
+    ],
+    "camera": {
+      "azimuth": 127.4,
+      "elevation": -28.4,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    }
+  },
+  "reset": {
+    "phase": "done",
+    "message": "已生成新的随机布局",
+    "busy": false,
+    "steps": 0,
+    "mode": "vlm",
+    "detection_source": "颜色 RGB-D 基线（非通用识别）",
+    "last_result": {
+      "message": "已生成新的随机布局",
+      "seed": 42,
+      "elapsed_s": 0.0
+    },
+    "display": "native",
+    "models": {
+      "asr": "本地 Qwen ASR 已就绪",
+      "vision": "本地 Qwen VLM 已就绪"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）"
+    ],
+    "camera": {
+      "azimuth": 127.4,
+      "elevation": -28.4,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    }
+  },
+  "idle_camera": {
+    "before": {
+      "azimuth": 140.0,
+      "elevation": -32.0,
+      "distance": 1.45,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    },
+    "rotate": {
+      "azimuth": 122.0,
+      "elevation": -39.2,
+      "distance": 1.45,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    },
+    "zoom": {
+      "azimuth": 122.0,
+      "elevation": -39.2,
+      "distance": 1.3649234563248136,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    },
+    "pan": {
+      "azimuth": 122.0,
+      "elevation": -39.2,
+      "distance": 1.3649234563248136,
+      "lookat": [
+        -0.03835686456272411,
+        -0.023968028291734587,
+        0.8839221894133185
+      ]
+    }
+  },
+  "banana_gui": {
+    "phase": "done",
+    "message": "已放入托盘",
+    "busy": false,
+    "steps": 391,
+    "mode": "auto",
+    "detection_source": "Qwen VLM + RGB-D",
+    "last_result": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 392,
+      "elapsed_s": 21.43,
+      "attempts": 1,
+      "camera_observations": {
+        "target": [
+          0.07818471150557221,
+          0.042930977625919145,
+          0.8393214225769043
+        ],
+        "tray": [
+          0.1360202364309605,
+          0.19274269638373656,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.13318652445588924,
+        0.19376646672268474,
+        0.848856008052826
+      ],
+      "gripper_width_after_lift": 0.04657716243354443,
+      "command": "把香蕉放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "display": "native",
+    "models": {
+      "asr": "本地 Qwen ASR 已就绪",
+      "vision": "本地 Qwen VLM 已就绪"
+    },
+    "events": [
+      "桌面仿真已就绪；当前使用颜色 RGB-D 定位",
+      "收到指令：把红色方块放进蓝色托盘；定位来源：颜色 RGB-D 基线（非通用识别）",
+      "收到指令：把香蕉放进蓝色托盘；定位来源：Qwen VLM + RGB-D",
+      "VLM 检测：香蕉",
+      "VLM 检测：蓝色托盘",
+      "VLM 检测：香蕉"
+    ],
+    "camera": {
+      "azimuth": 127.4,
+      "elevation": -28.4,
+      "distance": 1.8,
+      "lookat": [
+        0.0,
+        0.0,
+        0.85
+      ]
+    }
+  },
+  "panel_close_shutdown": true,
+  "validation_notes": {
+    "camera": "xdotool real mouse events; idle/paused camera values change",
+    "mic": "native ALSA real human input unverified",
+    "synthetic_voice_demo": "separate voice-result.json; no audio is distributed",
+    "rendering": "native sync; no three-view JPEG stream",
+    "training": "no training was run for this revision"
+  }
+}

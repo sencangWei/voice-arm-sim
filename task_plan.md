@@ -27,4 +27,13 @@ Initial dependency download stalled on newer SciPy/LLVM; isolated pinned version
 
 ## Next handoff
 - Local ASR/VLM, screenshot and synthetic voice loop verified. Real microphone testing is a user validation gap.
-- Ready for user microphone trial at http://127.0.0.1:8910. Code/model requirements/evidence/demo backed up and independently restored; model weights and environments are reproducibly downloaded, not committed.
+- Ready for user microphone trial in the native desktop panel. Code/model requirements/evidence/demo backed up and independently restored; model weights and environments are reproducibly downloaded, not committed.
+
+## Native MuJoCo revision — validated; backup pending
+User rejects fixed-angle, laggy browser view and crude fruit proxies. Replace primary interaction with native MuJoCo viewer + local desktop controls; preserve earlier web entry as optional. This revision does not add training.
+1. Diagnose view/latency/assets and confirm native viewer bindings — complete.
+2. Native camera mouse controls + desktop speech/text controls without browser JPEG stream — complete.
+3. Improve fruit visual assets while retaining validated contact geometry — complete; mass/inertia unchanged.
+4. Real native-window interaction, command/voice smoke, physical regression and screenshots — complete; pause/camera/stop/reset/close pass, banana GUI and synthetic-voice apple pass, fruit regression9/9.
+5. Document and review — complete; 17 tests pass, lifecycle findings fixed. Commit/push/clean remote restore pending.
+Success: MuJoCo original window opens; drag rotates/pans and scroll zooms; commands execute without web browser, pause/stop/reset responsive; recognizable fruit and unchanged tested grasp behavior.

@@ -3,6 +3,11 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 mkdir -p logs
 export MUJOCO_GL="${MUJOCO_GL:-egl}"
+display_args=(--native)
+if [[ "${1:-}" == --web ]]; then
+    display_args=()
+    shift
+fi
 if [[ ! -x .venv/bin/python ]]; then
     echo "缺少本项目 .venv，请先完成独立环境安装。" >&2
     exit 1
@@ -33,5 +38,9 @@ else:
     print("模型服务仍未就绪，将启动文字与颜色 RGB-D 基线。")
 PY
 fi
-echo "打开 http://127.0.0.1:8910 ；应用日志：logs/app.log"
-exec .venv/bin/python -u app.py "$@" > >(tee -a logs/app.log) 2>&1
+if (( ${#display_args[@]} )); then
+    echo "启动 MuJoCo 原生窗口与中文桌面面板；应用日志：logs/app.log"
+else
+    echo "备用网页：http://127.0.0.1:8910 ；应用日志：logs/app.log"
+fi
+exec .venv/bin/python -u app.py "${display_args[@]}" "$@" > >(tee -a logs/app.log) 2>&1

@@ -2,14 +2,14 @@
 
 独立的本机 MuJoCo / Panda 桌面实验：中文指令 → 目标定位 → 相机 RGB-D 三维位置 → 物理夹爪抓取 → 放进蓝色托盘。项目目录为 `/home/robot/voice-arm-sim`，不连接真机，不修改已有 π0.5 训练工程。
 
-当前物品是红色方块、绿色苹果、黄色香蕉与蓝色托盘。苹果是带茎球体，香蕉由三个胶囊体组合，属于简化几何模型。颜色、形状和初始布局都受限，不能据此声称识别或操纵真实水果。
+当前物品是红色方块、绿色苹果、黄色香蕉与蓝色托盘。苹果与香蕉使用程序生成的连续视觉网格，碰撞仍用球体/胶囊近似，属于简化模型。颜色、形状和初始布局都受限，不能据此声称识别或操纵真实水果。
 
 ## 已验证与待验证
 
 | 项目 | 当前证据 |
 | --- | --- |
 | 颜色 RGB-D 物理抓取 | [`evidence/regression.json`](evidence/regression.json)：seed 42、7、99 × 方块、苹果、香蕉，共 9/9；相机结果与独立真值评分均通过 |
-| 指令、投影及目标框契约 | `tests/test_contract.py`：16 项通过，包含拒绝含糊、否定、错误颜色、条件/等待、多目标与选择词等指令且不执行控制步 |
+| 指令、投影及目标框契约 | `tests/`：17 项通过（含原生初始化失败退出），包含拒绝含糊、否定、错误颜色、条件/等待、多目标与选择词等指令且不执行控制步 |
 | Qwen 定位的实际抓放 | [苹果文字指令](evidence/text-vlm-apple.json)：433 控制步、22.89 秒、1 次抓取；相机判定已放入托盘 |
 | 实际 Web API | [`evidence/api-smoke.json`](evidence/api-smoke.json)：布局变化、未知目标零步、busy 拒绝、暂停/恢复、停止、方块完整执行通过 |
 | 视频 | [方块](evidence/cube/demo.mp4)、[苹果](evidence/apple/demo.mp4)、[香蕉](evidence/banana/demo.mp4)（真实物理接触仿真） |
@@ -18,7 +18,9 @@
 
 **9/9 仅为三个固定物品、三个小幅随机布局的颜色基线回归结果，不是泛化成功率或可靠性承诺。** 仿真控制器使用工程化几何规则和 OSC_POSE，并未训练或运行 π0.5 动作策略；这里产生的录像、轨迹与结果文件也没有被用于微调 π0.5。
 
-![本机中文控制面板](evidence/panel.png)
+![MuJoCo 原生窗口与中文面板](evidence/native/panel.png)
+
+原生版的合成中文语音抓苹果全流程用时23.69秒，434控制步；真人麦克风仍待验证。原生版验证见 [交互记录](evidence/native/interaction.json)、[水果回归](evidence/native/regression.json)、[原生录屏](evidence/native/demo.mp4)和[语音执行结果](evidence/native/voice-result.json)。旧网页证据保留在原路径。
 
 ## 组件关系
 
@@ -29,13 +31,13 @@
 | 语音识别 | Qwen3-ASR-0.6B | 中文录音转文字 |
 | 视觉语言模型 | Qwen3-VL-4B-Instruct | 按指令找物体的二维框 |
 | 定位与执行 | RGB-D 反投影 + OSC_POSE | 三维位置、分阶段抓放、空抓后有限重试 |
-| 界面 | 本机中文网页 | 录音、文字指令、视角、暂停、停止与重置 |
+| 界面 | MuJoCo 原生窗口 + 中文 Tk 面板 | 鼠标自由视角、录音、文字指令、暂停、停止与重置 |
 
 π0.5 是动作策略模型，与机械臂本体和仿真平台属于不同组件。本原型首先验证模块化链路，当前是单条抓放命令交互；自由多轮对话、表情屏幕、对话记忆、持续学习和任意物品抓取尚未实现。
 
 ## 独立环境准备
 
-以下命令均在新项目内执行。需要已有 `uv`、Python 3.11 和可用的本机 OpenGL/EGL 驱动；本机已验证 MuJoCo 3.2.3、robosuite 1.4.1 与 NumPy 1.26.4。依赖版本见两个 requirements 文件。
+以下命令均在新项目内执行。需要已有 `uv`、Python 3.11 和可用的本机 OpenGL/EGL 驱动；原生桌面使用 Ubuntu 的 `/usr/bin/python3` + Tk（`python3-tk`）、中文字体和 ALSA `arecord`，本机均已具备；本机已验证 MuJoCo 3.2.3、robosuite 1.4.1 与 NumPy 1.26.4。依赖版本见两个 requirements 文件。
 
 ```bash
 cd /home/robot/voice-arm-sim
@@ -60,9 +62,14 @@ rtk proxy bash scripts/launch.sh
 rtk proxy env START_MODELS=0 bash scripts/launch.sh
 ```
 
-浏览器打开 **http://127.0.0.1:8910**。模型服务在 **http://127.0.0.1:8911**，健康状态路径为 `/health`。启动脚本在存在模型环境时按需后台启动模型，等待最多 180 秒；未就绪仍可启动文字与颜色基线。模型就绪可能晚于网页启动。日志为 `logs/app.log`、`logs/models.log`。8910 已在运行时请复用现有服务，不要重复启动。
+默认打开 **MuJoCo 原生窗口和中文桌面控制面板**，不需要浏览器。MuJoCo 负责实时物理与显示，面板只传指令与状态，不传输三路 JPEG。端口 8910 仍是本机控制接口，8911 是本地模型服务（`/health`）。日志为 `logs/app.log`、`logs/models.log`；若 8910 已运行，请使用现有窗口，避免重复启动。
 
-网页提供场景、俯视与腕部画面，文字输入、快捷指令、随机布局、暂停/继续与立即停止。执行过程按约 20 Hz 墙钟节奏显示；离线评测可运行得更快，因此离线日志耗时不等于 Web 交互耗时。支持示例：
+- 在 MuJoCo 画面中**左键拖动旋转、右键拖动平移、滚轮缩放**；空闲和暂停时均可操作。
+- 在中文面板输入指令或点快捷按钮；运行中可暂停、继续和停止。MuJoCo 窗口中 `SPACE` 暂停/继续、`S` 停止。
+- “随机布局”重新摆放物品；关闭任一窗口会结束该仿真实例，模型服务独立保留。
+- 面板选择 ALSA 麦克风设备，点“开始录音”，说完再次点按钮发送，最长 30 秒。当前只检测到模拟音频采集设备，**真人麦克风信号尚未验收**；语音链路用本地合成 WAV 验证。
+
+启动脚本在存在模型环境时按需启动本地模型并等待最多180秒，未就绪可用文字和颜色基线。交互控制目标20Hz；VLM请求和机器负载仍可能增加墙钟耗时。支持示例：
 
 - 把红色方块放进蓝色托盘。
 - 把苹果放进蓝色托盘。
@@ -76,9 +83,15 @@ rtk proxy env START_MODELS=0 bash scripts/launch.sh
 | `vlm` | 本地 Qwen 给出目标框，再用深度反投影；模型未就绪、空框或推理错误会明确报错 |
 | `auto` | 每条执行开始时检查健康状态；VLM 可用则使用 VLM，否则明确选择颜色基线；VLM 推理失败不静默回退 |
 
-页面“本次定位”显示实际来源。VLM 的目标框仍需符合几何前景检查，不能把托盘作为被抓物体；仅框出物体不代表成功抓取。
+面板“定位”显示实际来源。VLM 的目标框仍需符合几何前景检查，不能把托盘作为被抓物体；仅框出物体不代表成功抓取。
 
-麦克风需浏览器支持 `getUserMedia` 和 `AudioContext`。在 `localhost` 或 `127.0.0.1` 页面允许麦克风权限：点一次开始，第二次结束并发送 WAV，识别成功后自动执行一次。最长录音 30 秒。无设备、权限拒绝、短录音或模型失败会显示错误；可以使用文字输入。通过普通局域网 HTTP 地址打开通常不能使用麦克风，且服务仅绑定本机。
+备用网页仅供兼容旧接口/三相机录像脚本：
+
+```bash
+rtk proxy bash scripts/launch.sh --web
+```
+
+网页视图是固定相机画面，不能拖动旋转。原生模式不提供 `/api/frame` 图片流。切换入口前关闭现有实例，避免占用同一端口。
 
 ## 复跑验证与录像
 
@@ -86,7 +99,7 @@ rtk proxy env START_MODELS=0 bash scripts/launch.sh
 
 ```bash
 rtk proxy uv pip install --python .venv/bin/python pytest
-rtk proxy .venv/bin/python -m pytest -q tests/test_contract.py
+rtk proxy .venv/bin/python -m pytest -q tests/
 rtk proxy .venv/bin/python smoke.py --output runs/scene-check
 ```
 
@@ -97,7 +110,7 @@ rtk proxy .venv/bin/python evaluate.py --output runs/regression-new.json
 rtk proxy .venv/bin/python demo.py --seed 42 --command '把红色方块放进蓝色托盘' --output runs/demo-cube-new
 ```
 
-录像目录包含 `demo.mp4`、`trace.json`、`result.json`，轨迹记录末端位置、夹爪状态和阶段。实际 HTTP 测试需要 8910 服务在运行，会操作网页同一仿真，测试期间不要并行下指令；结束自动恢复 seed 42：
+录像目录包含 `demo.mp4`、`trace.json`、`result.json`，轨迹记录末端位置、夹爪状态和阶段。旧版实际 HTTP 测试需要 `--web` 入口在运行（含图片流检查），会操作同一仿真，测试期间不要并行下指令；结束自动恢复 seed 42：
 
 ```bash
 rtk proxy .venv/bin/python scripts/api_smoke.py
@@ -121,7 +134,7 @@ rtk proxy .venv-models/bin/python scripts/model_smoke.py --audio /absolute/path/
 rtk proxy .venv/bin/python scripts/voice_e2e.py --audio /absolute/path/command.wav --mode vlm --seed 42 --output runs/voice-new
 ```
 
-该测试会操作同一网页仿真，请在空闲时执行；失败也保存状态轨迹和录像。不能代替真人麦克风验收。
+该测试要求 `--web` 入口，并会操作同一仿真，请在空闲时执行；失败也保存状态轨迹和录像。不能代替真人麦克风验收。
 
 本机清晰测试语音来自可选的本地 CPU Piper 神经合成工具，独立于应用和模型服务：
 
@@ -141,6 +154,7 @@ Piper 引擎 GPL-3.0；上游 huayan 声音卡将数据集许可标为 Unknown�
 
 已处理的主要问题及证据：
 
+- 原生入口：旧网页只展示固定截图，每3个控制步渲染三个视角并编码传图。现默认使用 MuJoCo passive viewer，GUI 与物理线程经 `sync()` 同步，RGB-D 仅在感知需要时获取。相机转动不改变策略观测相机。水果视觉网格与物理碰撞分离，修改后质量/惯量/重心逐位相同，九项回归全部通过；不代表照片级建模或任意物品泛化。
 - 渲染分组：robosuite 的碰撞/质量几何与可见几何分组不同。保留 group 0 物理几何，增加 group 1、零质量且无碰撞的视觉副本，避免物体不可见并保持质量定义；见 `scene.py` 与场景截图。
 - 几何与接触：早期苹果/香蕉下降阶段超时，失败记录保留在 `runs/physical-apple-v1`、`runs/physical-banana-v1`、`runs/physical-banana-v2`。调整简化物体几何、接触摩擦、初始可达布局和抓取高度/容差后，以三个种子 × 三物体重新验证；最终依据是 [9 项回归记录](evidence/regression.json)，不是只看单条成功录像。
 - GPU：旧 `2.7.1+cu126` 虽然返回 CUDA 可用，RTX 5090 D 实际算子仍报架构不支持；独立换用官方 `2.7.1+cu128` 后真实矩阵运算与模型推理通过。下载出现 Xet 尾段停滞，以官方 Range 响应修复并核对完整权重 SHA256，未修改旧环境。

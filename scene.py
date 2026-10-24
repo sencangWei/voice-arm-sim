@@ -3,6 +3,7 @@
 import os
 os.environ.setdefault("MUJOCO_GL", "egl")
 
+from fruit_meshes import add_fruit_meshes
 from copy import deepcopy
 import xml.etree.ElementTree as ET
 import numpy as np
@@ -38,7 +39,8 @@ class DesktopScene(SingleArmEnv):
         arena.set_origin([0, 0, 0])
         ET.SubElement(arena.worldbody, "camera", name="overhead", pos="0 0 1.8",
                       quat="1 0 0 0", fovy="50")
-        # Rounded fruit proxies; geometric assets, not claims of photorealistic fruit.
+        # Collision proxies stay fixed; separate meshes provide fruit silhouettes.
+        add_fruit_meshes(arena.asset)
         for name in NAMES:
             body = ET.SubElement(arena.worldbody, "body", name=name, pos="0 0 .85")
             ET.SubElement(body, "freejoint", name=f"{name}_joint")
@@ -71,7 +73,19 @@ class DesktopScene(SingleArmEnv):
         for body in list(arena.worldbody.iter("body")):
             for geom in list(body.findall("geom")):
                 if geom.get("name", "").startswith(("cube", "apple", "banana", "tray")):
+                    name = geom.get("name")
+                    if name.startswith("banana_") and name != "banana_0":
+                        continue
                     visual = deepcopy(geom)
+                    if name in ("apple_geom", "banana_0"):
+                        for attribute in ("size", "pos", "euler"):
+                            visual.attrib.pop(attribute, None)
+                        visual.set("type", "mesh")
+                        visual.set("mesh", "apple_skin" if name == "apple_geom" else "banana_skin")
+                        visual.set("rgba", ".28 .65 .055 1" if name == "apple_geom" else ".97 .76 .055 1")
+                    elif name == "apple_stem":
+                        visual.set("pos", "0 0 .026")
+                        visual.set("size", ".0018 .008")
                     visual.set("name", geom.get("name") + "_visual")
                     visual.set("group", "1")
                     visual.set("contype", "0")
@@ -79,6 +93,17 @@ class DesktopScene(SingleArmEnv):
                     visual.set("mass", "0")
                     visual.attrib.pop("density", None)
                     body.append(visual)
+        # Massless details make the silhouette readable from the side and above.
+        for body in arena.worldbody.findall("body"):
+            if body.get("name") == "apple":
+                ET.SubElement(body, "geom", name="apple_leaf_visual", type="ellipsoid",
+                              size=".009 .0035 .0007", pos=".008 0 .030", euler="0 -.3 .3",
+                              rgba=".12 .38 .025 1", group="1", contype="0", conaffinity="0", mass="0")
+            elif body.get("name") == "banana":
+                for sign in (-1, 1):
+                    ET.SubElement(body, "geom", name=f"banana_tip_{sign}_visual", type="ellipsoid",
+                                  size=".0035 .0025 .0025", pos=f"{sign * .059} .021 0",
+                                  rgba=".24 .12 .035 1", group="1", contype="0", conaffinity="0", mass="0")
         self.model = ManipulationTask(arena, [robot], [])
 
     def _reset_internal(self):

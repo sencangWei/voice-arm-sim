@@ -1,11 +1,13 @@
-"""Local-only HTTP UI; all simulator and GL calls belong to one worker."""
+"""Native desktop or local web control; simulation belongs to one worker."""
 import argparse
 import base64
 import json
 import logging
 import math
+import os
 from pathlib import Path
 import queue
+import subprocess
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -17,8 +19,11 @@ LOG = logging.getLogger("desktop")
 
 
 class Lab:
-    def __init__(self, model_url):
+    def __init__(self, model_url, native=False):
         self.model_url = model_url.rstrip("/")
+        self.native = native
+        self.closed = threading.Event()
+        self.viewer = None
         self.lock = threading.RLock()
         self.jobs = queue.Queue()
         self.stop = threading.Event()
@@ -27,7 +32,8 @@ class Lab:
         self.vision_ready = False
         self.frames = {}
         self.state = dict(phase="loading", message="正在启动仿真", busy=True, steps=0, mode="auto", detection_source="颜色 RGB-D 基线",
-                          last_result=None, models={"asr": "未连接", "vision": "颜色 RGB-D 基线（非通用识别）"}, events=[])
+                          last_result=None, display="native" if native else "web",
+                          models={"asr": "未连接", "vision": "颜色 RGB-D 基线（非通用识别）"}, events=[])
 
     def update(self, **values):
         with self.lock:
@@ -133,6 +139,7 @@ class Lab:
 
     def run(self):
         env = None
+        viewer = None
         try:
             import cv2
             from scene import DesktopScene
@@ -141,7 +148,43 @@ class Lab:
             env = DesktopScene()
             env.reset()
 
+            if self.native:
+                import mujoco.viewer
+
+                def keypress(key):
+                    if key == 32 and self.snapshot()["busy"]:
+                        self.pause.clear() if self.pause.is_set() else self.pause.set()
+                    elif key == ord("S"):
+                        self.stop.set()
+                        self.pause.clear()
+
+                viewer = mujoco.viewer.launch_passive(
+                    env.sim.model._model, env.sim.data._data, key_callback=keypress,
+                    show_left_ui=False, show_right_ui=False,
+                )
+                self.viewer = viewer
+                with viewer.lock():
+                    viewer.cam.lookat[:] = [0, 0, .85]
+                    viewer.cam.distance = 1.8
+                    viewer.cam.azimuth = 140
+                    viewer.cam.elevation = -32
+                    viewer.opt.geomgroup[0] = 0
+                    viewer.opt.geomgroup[1] = 1
+
             def render():
+                if viewer is not None:
+                    if not viewer.is_running():
+                        self.closed.set()
+                        self.stop.set()
+                        raise InterruptedError("MuJoCo 窗口已关闭")
+                    viewer.sync()
+                    with viewer.lock():
+                        camera = dict(azimuth=float(viewer.cam.azimuth),
+                                      elevation=float(viewer.cam.elevation),
+                                      distance=float(viewer.cam.distance),
+                                      lookat=viewer.cam.lookat.tolist())
+                    self.update(camera=camera)
+                    return
                 images = {}
                 for view, camera in (("scene", "agentview"), ("top", "overhead"), ("wrist", "robot0_eye_in_hand")):
                     rgb, _ = env.rgbd(camera, size=480)
@@ -156,11 +199,13 @@ class Lab:
 
             def callback(obs, phase, steps):
                 nonlocal next_step
-                if self.stop.is_set():
+                if self.stop.is_set() or self.closed.is_set():
                     raise InterruptedError("用户停止")
                 self.update(phase="paused" if self.pause.is_set() else phase, steps=int(steps))
                 paused = self.pause.is_set()
                 while self.pause.is_set():
+                    if viewer is not None:
+                        render()
                     if self.stop.wait(.05):
                         raise InterruptedError("用户停止")
                 if paused:
@@ -171,19 +216,21 @@ class Lab:
                 if self.pause.is_set():
                     return callback(obs, phase, steps)
                 self.update(phase=phase)
-                if steps % 3 == 0:
+                if viewer is not None or steps % 3 == 0:
                     render()
 
             render()
             self.update(busy=False, phase="idle", message="仿真就绪，请输入指令")
             self.event("桌面仿真已就绪；当前使用颜色 RGB-D 定位")
             last_health = 0
-            while True:
+            while not self.closed.is_set():
+                if viewer is not None:
+                    render()
                 if time.monotonic() - last_health > 5:
                     self.model_health()
                     last_health = time.monotonic()
                 try:
-                    kind, payload, token = self.jobs.get(timeout=.2)
+                    kind, payload, token = self.jobs.get(timeout=.03 if viewer is not None else .2)
                 except queue.Empty:
                     continue
                 started = time.monotonic()
@@ -213,7 +260,8 @@ class Lab:
                     self.update(phase="failed" if result.get("success") is False else "done",
                                 message=result.get("message", "执行结束"), last_result=result)
                 except InterruptedError:
-                    render()
+                    if not self.closed.is_set():
+                        render()
                     self.update(phase="stopped", message="已停止", last_result={"message": "用户停止", "elapsed_s": round(time.monotonic()-started, 2)})
                 except ValueError as exc:
                     self.update(phase="clarify", message=str(exc), last_result={"message": str(exc)})
@@ -225,10 +273,16 @@ class Lab:
                     self.pause.clear()
                     self.update(busy=False)
                     self.jobs.task_done()
+        except InterruptedError:
+            pass
         except Exception as exc:
             LOG.exception("Simulation worker failed")
             self.update(busy=False, phase="error", message="仿真启动失败：" + str(exc))
         finally:
+            if self.native:
+                self.closed.set()
+            if viewer is not None:
+                viewer.close()
             if env is not None:
                 env.close()
 
@@ -265,6 +319,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.respond(403, {"error": "仅允许本机同源访问"})
         parsed = urlparse(self.path)
         if parsed.path == "/":
+            if self.server.lab.native:
+                return self.respond(200, {"message": "请使用 MuJoCo 原生窗口和中文桌面面板", "display": "native"})
             return self.respond(200, (ROOT / "web/index.html").read_bytes(), "text/html; charset=utf-8")
         if parsed.path == "/api/state":
             return self.respond(200, self.server.lab.snapshot())
@@ -363,17 +419,38 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8910)
     parser.add_argument("--model-url", default="http://127.0.0.1:8911")
+    parser.add_argument("--native", action="store_true", help="MuJoCo 原生视角与中文桌面面板")
     args = parser.parse_args()
     endpoint = urlparse(args.model_url)
     if endpoint.scheme != "http" or endpoint.hostname not in ("127.0.0.1", "localhost"):
         parser.error("model-url must be a local HTTP address")
     logging.basicConfig(level=logging.INFO)
-    lab = Lab(args.model_url)
+    if args.native:
+        # robosuite's Linux GLX setting selects GLFW offscreen contexts; EGL is
+        # kept for the optional headless web and evaluation entry points.
+        os.environ["MUJOCO_GL"] = "glx"
+    lab = Lab(args.model_url, native=args.native)
     server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     server.daemon_threads = True
     server.lab = lab
-    threading.Thread(target=lab.run, name="simulation", daemon=True).start()
-    LOG.info("Desktop simulation at http://127.0.0.1:%s", args.port)
+    worker = threading.Thread(target=lab.run, name="simulation", daemon=True)
+    worker.start()
+    panel = None
+    if args.native:
+        panel = subprocess.Popen(["/usr/bin/python3", str(ROOT / "desktop_panel.py"),
+                                  "--url", f"http://127.0.0.1:{args.port}"])
+
+        def supervise():
+            while not lab.closed.wait(.1):
+                if panel.poll() is not None or (lab.viewer is not None and not lab.viewer.is_running()):
+                    break
+            lab.closed.set()
+            lab.stop.set()
+            lab.pause.clear()
+            server.shutdown()
+
+        threading.Thread(target=supervise, name="desktop-lifecycle", daemon=True).start()
+    LOG.info("%s simulation control on localhost:%s", "Native MuJoCo" if args.native else "Web", args.port)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
@@ -381,7 +458,11 @@ def main():
     finally:
         lab.stop.set()
         lab.pause.clear()
+        lab.closed.set()
         server.server_close()
+        worker.join(timeout=5)
+        if panel is not None and panel.poll() is None:
+            panel.terminate()
 
 
 if __name__ == "__main__":
