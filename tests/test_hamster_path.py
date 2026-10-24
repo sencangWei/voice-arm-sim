@@ -1,7 +1,7 @@
 """Path validation checks; these do not prove pretrained model competence."""
 import pytest
 
-from vla.hamster import instruction, parse_path
+from vla.hamster import instruction, load_upstream, parse_path
 
 
 def test_path_keeps_gripper_actions_at_preceding_point():
@@ -29,3 +29,14 @@ def test_invalid_paths_are_rejected_without_fallback(text):
 def test_changed_destination_is_passed_verbatim():
     assert "<quest>put the wine bottle in the bowl</quest>" in instruction("put the wine bottle in the bowl")
     assert "<quest>put the wine bottle on the rack</quest>" not in instruction("put the wine bottle in the bowl")
+
+
+def test_upstream_import_keeps_source_directory_clean(tmp_path, monkeypatch):
+    import sys
+
+    monkeypatch.setattr(sys, "dont_write_bytecode", False)
+    source = tmp_path / "helper.py"
+    source.write_text("VALUE = 42\n")
+    assert load_upstream("hamster_test_upstream", source).VALUE == 42
+    assert not (tmp_path / "__pycache__").exists()
+    assert sys.dont_write_bytecode is False

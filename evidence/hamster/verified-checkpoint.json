@@ -1,0 +1,96 @@
+{
+  "repo": "yili18/Hamster_dev",
+  "revision": "794f1f925c87e861d2f562943e978cc11f8c344d",
+  "files": [
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/config.json",
+      "sha256": "f98b993de4cf7022e0fca81cb60e385a3e0f10519ce8fcf70276620dda457417",
+      "size": 7883
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/config.json",
+      "sha256": "7290724f2275ecbb59fea8ca735d58851d044f81f2793b5b851de0ded33ea7d5",
+      "size": 1020
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/generation_config.json",
+      "sha256": "24f3b2a89fc00b13aca8deb1897e05b4f9a8c137e47ba468a104b443a8a01607",
+      "size": 213
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00001-of-00006.safetensors",
+      "sha256": "974cadeaedb1e55847a06557a96a3cd45db3f9bea19dd0fa6d64bd6623347d32",
+      "size": 4978265800
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00002-of-00006.safetensors",
+      "sha256": "cfbb72a15fb123d10365f8788de354742ee42f4854edb213089ee98efbddf955",
+      "size": 4970422232
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00003-of-00006.safetensors",
+      "sha256": "5ed17626a36ff3c5986ca99fec83a5b2c32ac234c7b99dfa2ba1c206075be70c",
+      "size": 4970422256
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00004-of-00006.safetensors",
+      "sha256": "e7b7fdf5364a14b015fa1447361a6e2ba00f9e427ca79c97a31df124fc0e5a25",
+      "size": 4933701504
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00005-of-00006.safetensors",
+      "sha256": "240435b602dabd7c55f62d2b9c7f3604293041d495f8ed7db05feefb96e06d9b",
+      "size": 4933722216
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model-00006-of-00006.safetensors",
+      "sha256": "3e5b417df6211d006a97a29f738e96cd6cf485d22c989b554cb6728289344bac",
+      "size": 1245236920
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/model.safetensors.index.json",
+      "sha256": "c9db50692c4f31749568b46cbc76f27d90bdcb0b46a60a1f315a9e643deb3b22",
+      "size": 29894
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/special_tokens_map.json",
+      "sha256": "719833ff26ac897a3ec8ed946028a135de2a351470af59b4008744ab1f0ee9b7",
+      "size": 438
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/tokenizer.model",
+      "sha256": "7aedb3582ecda9fa99ee9242c17a9658f6744db083ee6ebdc8fb14857f84d220",
+      "size": 499723
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/llm/tokenizer_config.json",
+      "sha256": "749e97744e8bc7a7b0aaaa2ef130188ca1b6e629dc95f9f5f2ff1732ae7dc1e0",
+      "size": 964
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/mm_projector/config.json",
+      "sha256": "8c468905abf27c36cec48975112842a48a49ad52f0b51253ec9207667ffffd0a",
+      "size": 439
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/mm_projector/model.safetensors",
+      "sha256": "75642d4681c3f5056c93ad5dabec0c4e8978a6273b8b71ae45865ea0d31fffd3",
+      "size": 99654160
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/vision_tower/config.json",
+      "sha256": "6dd12e8ba7b0a82124559971c0a00658c56a87d0def42b4dc037c5986f45ee51",
+      "size": 664
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/vision_tower/model.safetensors",
+      "sha256": "dabd8a8f2b22f3ce974474313f82e6596ce5523dac27d9d177831fa835a297c3",
+      "size": 856506120
+    },
+    {
+      "path": "VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/vision_tower/preprocessor_config.json",
+      "sha256": "66f408b00322bd3646cc2162ee598155c446ad2e9c7e07d5f22ff38d4e78c4af",
+      "size": 394
+    }
+  ]
+}

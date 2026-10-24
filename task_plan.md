@@ -81,7 +81,7 @@ Acceptance: actual checkpoint inference drives real simulation, reproducible con
 ## HAMSTER language/goal feasibility trial — in progress
 User authorized trying the reviewed open-source hierarchical model. Preserve running Qwen/pi05/Molmo services and old projects; no hardware, paid APIs or cloud.
 1. Pin official HAMSTER/VILA/checkpoint and capture resources — complete: official revisions and 18-file manifest pinned, actual scene captured and independently reproduced.
-2. Isolated CPU runtime installed and synthetic interface smoke passed; actual official-weight probe pending approximately27GB download. Bounded background download→verification→three-command pipeline running; no existing GPU service stopped.
+2. Isolated CPU runtime installed and synthetic interface smoke passed; all18 official checkpoint files downloaded and verified. Initial probe blocked by generated __pycache__, fixed with regression (13 checks pass); bounded model probe restarted. No existing GPU service stopped.
 3. Save raw outputs and path overlays; only connect robot execution if source/target paths pass inspection. Clearly distinguish path reasoning from physical manipulation.
 4. Focused tests12/12, Ruff, compile, shell syntax and diff checks passed. Preparation capability e556689 pushed to owned GitHub branch; independent remote restore matches all492 tracked file hashes and Git tree. Actual model inference remains pending download.
 Success: actual public model inference, reproducible inputs/outputs, no scripted substitution, honest physical-execution boundary.
