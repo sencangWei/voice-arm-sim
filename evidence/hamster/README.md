@@ -6,7 +6,7 @@
 
 - 已固定官方模型、源码及环境，并在独立 `.venv-hamster` 安装 CPU 运行时。
 - `scene-init0.png` 来自实际 LIBERO/MuJoCo 场景，任务 libero_goal/8、初始状态0、seed42，静置10步，视图旋转180度。独立重新渲染后 SHA256 一致：`7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18`。
-- `runtime-smoke.json` 仅验证图像 token 拼接、官方降采样和小型随机 BF16 Llama 的运行接口，**不证明真实 HAMSTER 能力**。路径解析器的10项测试通过。
+- `runtime-smoke.json` 仅验证图像 token 拼接、官方降采样和小型随机 BF16 Llama 的运行接口，**不证明真实 HAMSTER 能力**。路径解析与下载故障分支共12项测试通过。
 - 本文写入时，约27GB权重仍在下载，真实 checkpoint 推理、路径语义判断、机械臂执行及 Demo 均未完成。以本机 `logs/hamster-trial.status` 和输出目录为准；解析合法不能算目标理解成功。
 - 后台流程下载完成后先逐文件核对大小及官方 LFS SHA256，再使用真实权重运行三条指令，保存原始文本、生成 token、耗时及路径叠加图。输出目录为 `evidence/hamster/trial-init0/`。未成功下载则不进入推理。
 - 官方公开部分输出二维末端路径与夹爪事件；当前仓库没有完整发布可直接部署的低层控制器。本试验不会将路径直接当成七维机器人动作，也不会用固定动作伪造成功。后续是否接物理抓取，取决于路径的源物体、目标和夹爪事件是否合理。
@@ -50,7 +50,7 @@ tail -n 10 logs/hamster-trial.log
 # 独立核对下载完成后的所有文件
 .venv-hamster/bin/python scripts/prepare_hamster.py --verify-only
 # 纯解析器检查，不代表模型成功
-.venv-hamster/bin/python -m pytest -q tests/test_hamster_path.py
+.venv-hamster/bin/python -m pytest -q tests/test_hamster_path.py tests/test_hamster_download.py
 # 在现有隔离仿真环境重新生成同一画面，不移动用户正在查看的环境
 .venv-vla-sim/bin/python -m vla.capture_hamster_scene --output .local/hamster-scene-new
 ```

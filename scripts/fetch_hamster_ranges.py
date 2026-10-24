@@ -70,13 +70,31 @@ for entry in entries:
         small_files.append((name, dest))
 
 started, finished = time.monotonic(), 0
-with ThreadPoolExecutor(max_workers=24) as pool:
-    futures = [pool.submit(get_chunk, job) for job in jobs]
-    for future in as_completed(futures):
-        finished += future.result()
-        print(json.dumps({'chunks_done_bytes': finished,
-                          'total_bytes': sum(x['size'] for x in weights),
-                          'elapsed_s': round(time.monotonic() - started, 1)}), flush=True)
+pending = jobs
+for attempt in range(1, 4):
+    failed = []
+    with ThreadPoolExecutor(max_workers=24) as pool:
+        futures = {pool.submit(get_chunk, job): job for job in pending}
+        for future in as_completed(futures):
+            try:
+                finished += future.result()
+            except Exception as exc:
+                # Keep observing other transfers rather than silently blocking
+                # in executor shutdown after the first transient network error.
+                failed.append(futures[future])
+                print(json.dumps({'download_error': type(exc).__name__,
+                                  'path': futures[future][0],
+                                  'offset': futures[future][1],
+                                  'attempt': attempt}), flush=True)
+            else:
+                print(json.dumps({'chunks_done_bytes': finished,
+                                  'total_bytes': sum(x['size'] for x in weights),
+                                  'elapsed_s': round(time.monotonic() - started, 1)}), flush=True)
+    if not failed:
+        break
+    pending = failed
+else:
+    raise RuntimeError(f'{len(pending)} chunks failed after three bounded rounds')
 
 for entry in weights:
     name = entry['path']
