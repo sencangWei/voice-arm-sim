@@ -1,0 +1,30 @@
+{
+  "config_name": "voice_pi05_lora",
+  "steps": 2000,
+  "batch_size": 1,
+  "learning_rate": 5e-05,
+  "seed": 42,
+  "parent": "/home/robot/voice-arm-sim/models/pi05_libero",
+  "manifest": "/home/robot/voice-arm-sim/evidence/language-guidance/distillation-manifest.json",
+  "manifest_sha256": "fac0d75959b24de0eabf2f647fc70b5f651d13899fb49d30390a30345e077326",
+  "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+  "code_revision": "4d1e5aaafece873ac2276aa77581eb8468d29dcd",
+  "dirty": true,
+  "source_sha256": {
+    "teacher_data.py": "7d04862b6af17ec7dbb61203358225a99297c011606cbf69697b7ae2fd0cbf78",
+    "train_distillation.py": "0abf2da9e725d4c7f2b459426d11a48b99e9ed0a8a5efd9e9da20fc6834743df",
+    "train_corrections.py": "d80a6a6a2fe2713a99fc76713ff7db632713c86144d956b06223a243953349c7"
+  },
+  "synthetic_teacher": true,
+  "training_kind": "pi05 LoRA behavioral distillation",
+  "tasks": [
+    "put the wine bottle in the bowl",
+    "put the wine bottle on the rack",
+    "put the bowl on the plate"
+  ],
+  "sampled_windows": 3714,
+  "normalization": "unchanged official parent",
+  "trainable": "LoRA only",
+  "optimizer_resumed": false,
+  "dry_run": true
+}

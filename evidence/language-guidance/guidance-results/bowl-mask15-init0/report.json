@@ -1,0 +1,21 @@
+{
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "seed": 42,
+  "replan_steps": 5,
+  "max_steps": 300,
+  "score_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+  "result": "exception",
+  "steps": 0,
+  "policy_calls": 0,
+  "task_language": "put the bowl on the plate",
+  "prompt": "put the wine bottle in the bowl",
+  "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+  "initial_state_dtype": "float64",
+  "initial_state_shape": [
+    79
+  ],
+  "exception": "Traceback (most recent call last):\n  File \"/home/robot/voice-arm-sim/vla/run.py\", line 135, in rollout\n    client = (policy_factory or connect_policy)(args.port)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/voice-arm-sim/vla/language_guidance.py\", line 92, in factory\n    client = connect_policy(port)\n             ^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/voice-arm-sim/vla/run.py\", line 96, in connect_policy\n    return BoundedPolicy(\"127.0.0.1\", port)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/voice-arm-sim/.local/openpi/packages/openpi-client/src/openpi_client/websocket_client_policy.py\", line 27, in __init__\n    self._ws, self._server_metadata = self._wait_for_server()\n                                      ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/voice-arm-sim/vla/run.py\", line 81, in _wait_for_server\n    conn = websockets.sync.client.connect(self._uri, compression=None,\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/websockets/sync/client.py\", line 324, in connect\n    sock = socket.create_connection(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/robot/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socket.py\", line 863, in create_connection\n    raise exceptions[0]\n  File \"/home/robot/.local/share/uv/python/cpython-3.11.15-linux-x86_64-gnu/lib/python3.11/socket.py\", line 848, in create_connection\n    sock.connect(sa)\nConnectionRefusedError: [Errno 111] Connection refused\n",
+  "elapsed_seconds": 1.4812910179971368
+}

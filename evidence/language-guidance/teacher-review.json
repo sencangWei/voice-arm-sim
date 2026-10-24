@@ -1,0 +1,51 @@
+{
+  "reviewer": "agent_visual_review",
+  "accepted": [
+    "bottle-in-bowl-init000",
+    "bottle-in-bowl-init001",
+    "bottle-in-bowl-init002",
+    "bottle-in-bowl-init003",
+    "bottle-in-bowl-init004",
+    "bottle-in-bowl-init006",
+    "bottle-in-bowl-init007",
+    "bottle-in-bowl-init010",
+    "bottle-in-bowl-init011",
+    "bottle-on-rack-init000",
+    "bottle-on-rack-init002",
+    "bottle-on-rack-init004",
+    "bottle-on-rack-init005",
+    "bottle-on-rack-init006",
+    "bottle-on-rack-init007",
+    "bottle-on-rack-init008",
+    "bottle-on-rack-init009",
+    "bottle-on-rack-init010",
+    "bottle-on-rack-init011",
+    "bowl-on-plate-init000",
+    "bowl-on-plate-init001",
+    "bowl-on-plate-init002",
+    "bowl-on-plate-init003",
+    "bowl-on-plate-init004",
+    "bowl-on-plate-init005",
+    "bowl-on-plate-init006",
+    "bowl-on-plate-init007",
+    "bowl-on-plate-init008",
+    "bowl-on-plate-init009",
+    "bowl-on-plate-init010",
+    "bowl-on-plate-init011"
+  ],
+  "rejected": {
+    "bottle-in-bowl-init005": "Approximate success predicate passed but video shows tipped bottle; excluded after visual review",
+    "bottle-in-bowl-init008": "Approximate success predicate passed but video shows tipped bottle; excluded after visual review",
+    "bottle-in-bowl-init009": "Approximate success predicate passed but video shows tipped bottle; excluded after visual review",
+    "bottle-on-rack-init001": "Failed teacher rollout; retained on disk, excluded from training",
+    "bottle-on-rack-init003": "Failed teacher rollout; retained on disk, excluded from training"
+  },
+  "method": "Viewed three time points per episode in all 36 videos, plus detailed six-frame sequence for new-task init0; accept only predicate-passing and visually credible placement",
+  "synthetic_teacher": true,
+  "not_learned_policy_results": true,
+  "sheets": [
+    "bottle-in-bowl.jpg",
+    "bottle-on-rack.jpg",
+    "bowl-on-plate.jpg"
+  ]
+}

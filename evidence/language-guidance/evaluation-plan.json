@@ -1,0 +1,48 @@
+{
+  "status": "predeclared before training",
+  "experiment": "counterfactual_v1",
+  "parent": "official pi05_libero",
+  "seed": 42,
+  "train_initial_states": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "holdout_initial_states": [
+    8,
+    9,
+    10,
+    11
+  ],
+  "never_demonstrated_initial_states": [
+    12,
+    13,
+    14,
+    15
+  ],
+  "smoke_initial_states": [
+    0
+  ],
+  "commands": [
+    "put the wine bottle in the bowl",
+    "put the wine bottle on the rack",
+    "put the bowl on the plate"
+  ],
+  "scene": "fixed LIBERO goal task8 across all commands",
+  "max_control_steps": 360,
+  "replan_steps": 5,
+  "horizon": 10,
+  "actions": "pure model output, no teacher or simulator geometry",
+  "scoring": "bottle-in-bowl approximate contact/centering/release then visual check; rack LIBERO On and release; bowl plate LIBERO success and release",
+  "baseline": "archived official pi05 and CAG failures, same state0; paired plain baseline on states8..15 before training",
+  "training_updates": 2000,
+  "batch": 1,
+  "learning_rate": 5e-05,
+  "selection": "single bounded candidate; no holdout tuning claimed",
+  "limitation": "finite three-task distillation is not arbitrary open-world comprehension"
+}

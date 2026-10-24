@@ -96,7 +96,7 @@ def connect_policy(port):
     return BoundedPolicy("127.0.0.1", port)
 
 
-def rollout(args, stop=None, paused=None, status=print, success_check=None):
+def rollout(args, stop=None, paused=None, status=print, success_check=None, policy_factory=None):
     """Run one episode; only ten official settling steps use dummy actions."""
     configure_libero()
     from libero.libero import benchmark, get_libero_path
@@ -132,7 +132,7 @@ def rollout(args, stop=None, paused=None, status=print, success_check=None):
             initial_state_dtype=str(initial.dtype), initial_state_shape=list(initial.shape))
         np.save(output / "initial_state.npy", initial)
         status("Connecting to genuine VLA policy")
-        client = connect_policy(args.port)
+        client = (policy_factory or connect_policy)(args.port)
         report["server_metadata"] = client.get_server_metadata()
         if report["server_metadata"].get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora", "official-molmoact2-libero-vla"):
             raise ValueError("Expected this project's official or LoRA VLA server on this port")
@@ -182,8 +182,12 @@ def rollout(args, stop=None, paused=None, status=print, success_check=None):
                     actions = validate_actions(response["actions"], args.replan_steps)
                     index = report["policy_calls"]
                     np.save(output / f"actions_{index:04d}.npy", actions)
+                    for branch in ("conditional_actions", "unconditional_actions"):
+                        if branch in response:
+                            np.save(output / f"{branch}_{index:04d}.npy", response[branch])
                     calls.write(json.dumps(dict(call=index, step=step, seconds=elapsed,
-                        shape=list(actions.shape), queued_prefix=args.replan_steps)) + "\n")
+                        shape=list(actions.shape), queued_prefix=args.replan_steps,
+                        guidance_noise_seed=response.get("guidance_noise_seed"))) + "\n")
                     calls.flush()
                     report["policy_calls"] += 1
                     plan.extend(actions[:args.replan_steps])

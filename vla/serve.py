@@ -1,6 +1,7 @@
 """Serve the official multitask pi05 LIBERO policy on localhost."""
 
 import argparse
+import copy
 import hashlib
 import json
 import logging
@@ -19,18 +20,41 @@ class ProbePolicy:
 
     def __init__(self, policy, horizon, action_dim):
         self.policy, self.horizon, self.action_dim = policy, horizon, action_dim
+        self.masked_policy = None
 
     def infer(self, obs):
         import numpy as np
         obs = dict(obs)
         seed = obs.pop("_probe_noise_seed", None)
+        mask = obs.pop("_probe_mask_prompt", False)
+        if type(mask) is not bool:
+            raise ValueError("prompt masking flag must be boolean")
+        if mask and self.masked_policy is None:
+            # Share weights and sampler; only the late input transform differs.
+            self.masked_policy = copy.copy(self.policy)
+            self.masked_policy._input_transform = MaskPrompt(self.policy._input_transform)
+        policy = self.masked_policy if mask else self.policy
         if seed is None:
-            return self.policy.infer(obs)
+            return policy.infer(obs)
         if type(seed) is not int or not 0 <= seed < 2**32:
             raise ValueError("probe seed must be a uint32 integer")
         noise = np.random.default_rng(seed).standard_normal(
             (self.horizon, self.action_dim)).astype(np.float32)
-        return self.policy.infer(obs, noise=noise)
+        return policy.infer(obs, noise=noise)
+
+
+class MaskPrompt:
+    """CAG-TF default branch: zero prompt tokens AND their attention mask."""
+
+    def __init__(self, transform):
+        self.transform = transform
+
+    def __call__(self, obs):
+        import numpy as np
+        result = dict(self.transform(obs))
+        for key in ("tokenized_prompt", "tokenized_prompt_mask"):
+            result[key] = np.zeros_like(result[key])
+        return result
 
 
 def main():
@@ -75,6 +99,7 @@ def main():
         "action_dim": 7,
         "default_policy_rng_seed": 0,
         "training_this_run": False,
+        "prompt_masking": "zero-token-and-mask-v1",
     }
     logging.info("Policy loaded: %s", json.dumps(metadata))
     WebsocketPolicyServer(ProbePolicy(policy, config.model.action_horizon, config.model.action_dim), host="127.0.0.1", port=args.port, metadata=metadata).serve_forever()
