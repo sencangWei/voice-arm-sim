@@ -39,3 +39,5 @@ Environment: initial online install selected newer SciPy/LLVM and stalled downlo
 2026-10-24 Chinese workbench backup verified: capability 5dbe962193e64fb636f2a356076420884226f0c0 pushed to owned public origin, fetched into independent restore; all 241 tracked files match by SHA256 and Git tree. Receipt evidence/vla/workbench-backup.json. No new LoRA training run claimed.
 
 2026-10-24 Chinese command revision:112 UI labels cover130 task entries; input and ASR display original Chinese; real local Qwen translation hidden before pi05.20 focused tests/Ruff pass; actual native 帮我把碗放到盘子上 completed81steps/17calls with official predicate true. GUI reloaded and left paused. Evidence/vla/chinese-command.* retained; remote restore verification pending.
+
+2026-10-24 Chinese command backup verified:ff82282038cda561e3b0d63193114f893de22e2f independently restored from owned GitHub origin branch prototype/voice-tabletop;246 tracked byte hashes and Git tree matched. Receipt evidence/vla/chinese-command-backup.json.

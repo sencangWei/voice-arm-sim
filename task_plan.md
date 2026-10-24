@@ -67,4 +67,4 @@ Acceptance: readable Chinese controls at native desktop size, manual correction 
 1. Replace exposed English task/prompt/ASR fields with Chinese — complete;112 unique labels cover130 benchmark entries.
 2. Translate arbitrary Chinese through actual local Qwen, retain original and reject failed translation — complete; no word-to-action mapping.
 3. Native actual Chinese instruction smoke — complete: 帮我把碗放到盘子上,81steps/17calls,official predicate true;20tests/Ruff pass,GUI left paused.
-4. Owned remote backup and independent restore — pending verification.
+4. Owned remote backup and independent restore — complete: capability ff82282038cda561e3b0d63193114f893de22e2f independently fetched from owned sencangWei/voice-arm-sim, all246 tracked SHA256 hashes and Git tree matched; receipt evidence/vla/chinese-command-backup.json.
