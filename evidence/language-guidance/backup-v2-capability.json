@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "capability_commit": "63ddc4302bd25f3e1de702f231dbc7bb4dea5ddb",
+  "git_tree": "85518b05b512041cb1de5c3f45580a45147e9bda",
+  "tracked_files_compared": 1182,
+  "all_file_sha256_match": true,
+  "method": "independent GitHub fetch into clean checkout; every tracked file SHA256 and Git tree compared",
+  "tests": ".venv-vla/bin/python -m pytest -q tests: 103 passed",
+  "lint": "scoped Ruff passed",
+  "model_receipts": [
+    "remote-model-v1-verification.json",
+    "remote-model-v2-verification.json"
+  ],
+  "data_receipt": "remote-teacher-verification.json",
+  "media_receipt": "remote-v2-demo-evaluation-verification.json"
+}
