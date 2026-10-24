@@ -215,16 +215,32 @@ def rollout(args, stop=None, paused=None, status=print):
     return report
 
 
-def voice_prompt(audio, url="http://127.0.0.1:8911"):
-    """Prepare editable English text; never invoke a policy or simulator."""
+def translate_prompt(text, url="http://127.0.0.1:8911"):
+    """Keep user language outside the action model; never map words to actions."""
+    import re
     from urllib.request import Request, urlopen
-    def request(path, body, content_type):
-        with urlopen(Request(url + path, data=body,
-                headers={"Content-Type": content_type}), timeout=125) as response:
-            return json.load(response)
-    original = request("/transcribe", audio, "audio/wav")["text"]
-    result = request("/translate", json.dumps({"text": original}).encode(), "application/json")
-    return original, result["text"]
+    if not isinstance(text, str) or not text.strip() or len(text) > 500:
+        raise ValueError("请输入 1～500 字的指令")
+    text = text.strip()
+    if not re.search(r"[\u3400-\u9fff]", text):
+        return text
+    request = Request(url + "/translate", data=json.dumps({"text": text}).encode(),
+                      headers={"Content-Type": "application/json"})
+    with urlopen(request, timeout=125) as response:
+        translated = json.load(response).get("text")
+    if (not isinstance(translated, str) or not translated.strip()
+            or len(translated) > 2000 or re.search(r"[\u3400-\u9fff]", translated)):
+        raise ValueError("中文指令处理失败，请重新说一遍或稍后重试")
+    return translated.strip()
+
+
+def voice_prompt(audio, url="http://127.0.0.1:8911"):
+    """Return original speech and internal translation; never execute actions."""
+    from urllib.request import Request, urlopen
+    with urlopen(Request(url + "/transcribe", data=audio,
+            headers={"Content-Type": "audio/wav"}), timeout=125) as response:
+        original = json.load(response)["text"]
+    return original, translate_prompt(original, url)
 
 
 def panel(args):

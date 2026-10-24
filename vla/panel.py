@@ -1,5 +1,6 @@
 """Readable Chinese desktop workbench, reusing the earlier correction workflow."""
 # ruff: noqa: E402 -- select the compatible antialiased Tk runtime before Tk imports
+import json
 import os
 from pathlib import Path
 import queue
@@ -57,17 +58,19 @@ class ChinesePanel:
         configure_libero()
         from libero.libero import benchmark
         self.tasks = benchmark.get_benchmark_dict()[args.suite]()
+        names = json.loads((ROOT / "vla/task_names_zh.json").read_text())
+        self.task_names = [names[self.tasks.get_task(i).language] for i in range(self.tasks.n_tasks)]
         header = ttk.Frame(self.root, padding=12)
         header.grid(row=0, column=0, sticky="ew")
         header.columnconfigure(1, weight=1)
         ttk.Label(header, text="π0.5 真实模型 · MuJoCo 本地仿真", font=(family, -24, "bold")).grid(
             row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
         ttk.Label(header, text="仿真任务").grid(row=1, column=0, sticky="w")
-        self.task = ttk.Combobox(header, state="readonly", values=[f"{i} · {self.tasks.get_task(i).language}"
+        self.task = ttk.Combobox(header, state="readonly", values=[f"{i} · {self.task_names[i]}"
             for i in range(self.tasks.n_tasks)], width=45)
         self.task.current(args.task_id)
         self.task.grid(row=1, column=1, columnspan=2, sticky="ew", padx=8)
-        self.task.bind("<<ComboboxSelected>>", lambda _: self.prompt.set(self.tasks.get_task(self.task.current()).language))
+        self.task.bind("<<ComboboxSelected>>", lambda _: self.prompt.set(self.task_names[self.task.current()]))
         self.initial = tk.StringVar(value=str(args.initial_state))
         self.port = tk.StringVar(value=str(args.port))
         options = ttk.Frame(header)
@@ -77,10 +80,10 @@ class ChinesePanel:
         ttk.Label(options, text="模型端口").pack(side="left")
         ttk.Entry(options, textvariable=self.port, width=7).pack(side="left", padx=8)
         ttk.Button(options, text="加载／重置场景", command=self.load).pack(side="left", padx=8)
-        self.prompt = tk.StringVar(value=args.prompt or self.tasks.get_task(args.task_id).language)
-        ttk.Label(header, text="发给模型的英文指令（可编辑；语音会自动翻译）").grid(row=3, column=0, columnspan=3, sticky="w")
+        self.prompt = tk.StringVar(value=args.prompt or self.task_names[args.task_id])
+        ttk.Label(header, text="告诉机械臂要做什么（可以打中文，也可以说中文）").grid(row=3, column=0, columnspan=3, sticky="w")
         ttk.Entry(header, textvariable=self.prompt).grid(row=4, column=0, columnspan=3, sticky="ew", pady=6)
-        ttk.Label(header, text="任务判据由所选场景定义；改文字不会自动生成新任务。", foreground="#555555").grid(
+        ttk.Label(header, text="先选场景，再用自己的话说；当前测试按所选场景检查结果。", foreground="#555555").grid(
             row=5, column=0, columnspan=3, sticky="w")
         cameras = ttk.Frame(self.root, padding=(12, 0))
         cameras.grid(row=1, column=0, sticky="ew")
@@ -154,7 +157,7 @@ class ChinesePanel:
         ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=4, column=0, sticky="ew", pady=5)
         self.mic = ttk.Button(page, text="开始录音", command=lambda: self.perform(self.toggle_recording))
         self.mic.grid(row=5, column=0, sticky="w", pady=6)
-        self.voice_text = tk.StringVar(value="录音 → 识别并翻译 → 核对上方指令 → 点击开始模型。")
+        self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击开始。")
         ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=6, column=0, sticky="w", pady=6)
 
     def _correction_page(self):
@@ -406,7 +409,7 @@ class ChinesePanel:
             kind, value = self.events.get_nowait()
             if kind == "voice":
                 self.voice_text.set("识别原文：" + value[0])
-                self.prompt.set(value[1])
+                self.prompt.set(value[0])
             elif kind == "voice_done":
                 self.mic.configure(text="开始录音", state="normal")
             else:

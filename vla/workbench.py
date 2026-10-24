@@ -10,7 +10,7 @@ import traceback
 import numpy as np
 
 from vla.corrections import CorrectionRecorder, write_json
-from vla.run import ROOT, configure_libero, connect_policy, load_initial_states, observation_payload, validate_actions
+from vla.run import ROOT, configure_libero, connect_policy, load_initial_states, observation_payload, translate_prompt, validate_actions
 
 
 class Workbench:
@@ -100,6 +100,9 @@ class Workbench:
     def _load(self, task_id, initial_state, prompt, port):
         if self.recorder:
             raise ValueError("请先保存纠正片段，再切换场景")
+        self._update(status="正在理解你的指令……")
+        user_instruction = prompt
+        prompt = translate_prompt(prompt)
         self._close_scene()
         configure_libero()
         from libero.libero import benchmark, get_libero_path
@@ -120,7 +123,7 @@ class Workbench:
         identity = dict(suite=self.args.suite, task_id=task_id, initial_state=initial_state,
                         initial_state_sha256=hashlib.sha256(initial.tobytes()).hexdigest())
         import json
-        self.scene = dict(identity, task=prompt, task_language=task.language, source_model=model,
+        self.scene = dict(identity, task=prompt, user_instruction=user_instruction, task_language=task.language, source_model=model,
                           seed=self.args.seed, replan_steps=self.args.replan_steps)
         self.scene["scenario_key"] = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
         self.actions, self.calls, self.done = [], 0, False
@@ -183,9 +186,12 @@ class Workbench:
                 raise ValueError("请先保存人工片段，再交还模型")
             if self.done:
                 raise ValueError("当前任务判据已满足；可人工补收尾或加载新布局")
-            prompt = str(values[0]).strip() if values else self.prompt
-            if not prompt:
+            user_instruction = str(values[0]).strip() if values else self.scene.get("user_instruction", self.prompt)
+            if not user_instruction:
                 raise ValueError("指令不能为空")
+            self._update(status="正在理解你的指令……")
+            prompt = translate_prompt(user_instruction)
+            self.scene["user_instruction"] = user_instruction
             if prompt != self.prompt:
                 self.scene.setdefault("instruction_changes", []).append(
                     dict(control_step=len(self.actions), previous=self.prompt, prompt=prompt))

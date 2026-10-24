@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 
 import model_service
-from vla.run import voice_prompt
+from vla.run import translate_prompt, voice_prompt
 
 
 class VoiceTests(unittest.TestCase):
@@ -13,6 +13,25 @@ class VoiceTests(unittest.TestCase):
         for payload in (None, [], {}, {"text": " "}, {"text": 1}, {"text": "a" * 501}):
             with self.subTest(payload=payload), self.assertRaises(ValueError):
                 model_service.translate(payload)
+
+    def test_chinese_text_uses_real_translation_endpoint(self):
+        response = io.BytesIO(json.dumps({"text": "put the bowl on the plate"}).encode())
+        with patch("urllib.request.urlopen", return_value=response) as request:
+            self.assertEqual(translate_prompt("帮我把碗放到盘子上"), "put the bowl on the plate")
+        self.assertEqual(json.loads(request.call_args.args[0].data), {"text": "帮我把碗放到盘子上"})
+
+    def test_english_and_empty_text_do_not_call_models(self):
+        with patch("urllib.request.urlopen") as request:
+            self.assertEqual(translate_prompt(" pick up the cup "), "pick up the cup")
+            with self.assertRaises(ValueError):
+                translate_prompt(" ")
+            request.assert_not_called()
+
+    def test_bad_translation_never_becomes_a_policy_prompt(self):
+        for text in ("", "还是中文", None):
+            with self.subTest(text=text), patch("urllib.request.urlopen", return_value=io.BytesIO(
+                    json.dumps({"text": text}).encode())), self.assertRaises(ValueError):
+                translate_prompt("拿起碗")
 
     def test_voice_only_requests_asr_and_translation(self):
         requests = []

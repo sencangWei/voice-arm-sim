@@ -1,0 +1,49 @@
+{
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+  "task": "Please put the bowl on the plate.",
+  "user_instruction": "帮我把碗放到盘子上",
+  "task_language": "put the bowl on the plate",
+  "source_model": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "seed": 42,
+  "replan_steps": 5,
+  "scenario_key": "fa04a13c6ced26ccd5e4014a28078dfc33ffd7b950fd44edcd08a4594d354522",
+  "steps": 81,
+  "policy_calls": 17,
+  "official_predicate": true,
+  "report": "/home/robot/voice-arm-sim/runs/chinese-command-smoke/scene_1792840490617539803/report.json",
+  "ui_instruction": "帮我把碗放到盘子上",
+  "task_labels": [
+    "0 · 打开柜子中间的抽屉",
+    "1 · 把碗放到炉灶上",
+    "2 · 把酒瓶放到柜子顶部",
+    "3 · 打开最上面的抽屉，把碗放进去",
+    "4 · 把碗放到柜子顶部",
+    "5 · 把盘子推到炉灶前面",
+    "6 · 把奶油奶酪放进碗里",
+    "7 · 打开炉灶",
+    "8 · 把碗放到盘子上",
+    "9 · 把酒瓶放到架子上"
+  ],
+  "validation": {
+    "targeted_tests_passed": 20,
+    "ruff": "passed",
+    "benchmark_entries_with_chinese_labels": 130,
+    "unique_labels": 112,
+    "human_microphone_tested_this_run": false
+  },
+  "report_sha256": "4db22218a223b9c9db0e074525fcbc86eee7c5f628c3748597ab592b91af3f57"
+}

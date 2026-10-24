@@ -62,3 +62,9 @@ User wants Chinese clear desktop layout and reuse of previous correction/trainin
 4. Focused contract tests and native UI smoke (capture/save/controls); screenshot and document measured boundaries — complete: 15 targeted tests and Ruff pass; native smoke captured 10 human actions with no idle frames, followed by 80 actual model actions /16 inference calls and true official predicate. All four tabs visually inspected; evidence/vla/workbench.md records limitations.
 5. Commit/push to owned remote and verify independent remote restore — complete: capability 5dbe962193e64fb636f2a356076420884226f0c0 fetched independently from owned sencangWei/voice-arm-sim branch prototype/voice-tabletop; all 241 tracked file SHA256 hashes and Git tree matched. Receipt evidence/vla/workbench-backup.json.
 Acceptance: readable Chinese controls at native desktop size, manual correction produces valid observation/action data, training entry uses this independent project and selected checkpoint/data, old work remains unchanged.
+
+## 中文家庭用户指令 — implemented and measured
+1. Replace exposed English task/prompt/ASR fields with Chinese — complete;112 unique labels cover130 benchmark entries.
+2. Translate arbitrary Chinese through actual local Qwen, retain original and reject failed translation — complete; no word-to-action mapping.
+3. Native actual Chinese instruction smoke — complete: 帮我把碗放到盘子上,81steps/17calls,official predicate true;20tests/Ruff pass,GUI left paused.
+4. Owned remote backup and independent restore — pending verification.

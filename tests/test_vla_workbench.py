@@ -51,3 +51,22 @@ def test_cleanup_closes_remaining_resources_after_one_failure():
     assert closed == ["env", "client"]
     assert lab.env is lab.client is lab.viewer is None
     assert "viewer failed to close" in lab.events.get_nowait()
+
+
+def test_chinese_instruction_keeps_original_and_sends_translated_prompt(monkeypatch):
+    lab = bare_workbench()
+    monkeypatch.setattr("vla.workbench.translate_prompt", lambda text: "put the bowl on the plate")
+    lab._command("run", ("帮我把碗放到盘子上",))
+    assert lab.prompt == "put the bowl on the plate"
+    assert lab.scene["user_instruction"] == "帮我把碗放到盘子上"
+    assert lab.running and not lab.plan
+
+
+def test_translation_failure_does_not_start_old_instruction(monkeypatch):
+    lab = bare_workbench()
+    def fail(text):
+        raise ValueError("中文指令处理失败")
+    monkeypatch.setattr("vla.workbench.translate_prompt", fail)
+    with pytest.raises(ValueError, match="处理失败"):
+        lab._command("run", ("拿起碗",))
+    assert not lab.running and lab.prompt == "old instruction"
