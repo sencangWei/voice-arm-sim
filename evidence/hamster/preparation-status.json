@@ -1,0 +1,16 @@
+{
+  "captured_at": "2026-10-24T14:48:53.335710+00:00",
+  "phase": "downloading",
+  "completed_range_chunks": 97,
+  "completed_range_bytes": 3254779904,
+  "checkpoint_verified": false,
+  "official_model_inference_completed": false,
+  "semantic_success": null,
+  "physical_execution": false,
+  "running_pipeline_pid": 396076,
+  "targeted_tests": {
+    "passed": 12,
+    "scope": "path parsing and offline download fault/range integrity"
+  },
+  "runtime_smoke": "synthetic interface only; not checkpoint competence"
+}
