@@ -115,3 +115,22 @@ def test_failed_reconnect_stays_paused_and_discards_queued_actions(monkeypatch):
         lab._command("run", ("new instruction",))
     assert lab.client is None and not lab.running and not lab.plan
     assert lab.prompt == "old instruction"
+
+
+def test_changed_destination_can_run_after_original_task_predicate():
+    lab = bare_workbench()
+    lab.done = True
+    lab.scene["task_language"] = "put the bowl on the plate"
+    lab._command("run", ("put the wine bottle in the bowl",))
+    assert lab.running
+    assert not lab._goal_satisfied()
+
+
+def test_only_matching_official_instruction_uses_scene_success():
+    lab = bare_workbench()
+    lab.scene["task_language"] = "put the bowl on the plate"
+    lab.done = True
+    lab.prompt = "put the bowl on the plate"
+    assert lab._goal_satisfied()
+    lab.prompt = "put the wine bottle in the bowl"
+    assert not lab._goal_satisfied()

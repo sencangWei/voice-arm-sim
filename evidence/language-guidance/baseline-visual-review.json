@@ -1,0 +1,20 @@
+{
+  "method": "paired camera contact sheets and final-frame detail, independent visual review; no post-release stability replay",
+  "raw_bottle_predicate_passes": 5,
+  "visually_accepted_upright_placements": [
+    8,
+    11,
+    13
+  ],
+  "rejected_predicate_passes": {
+    "9": "bowl displaced/carried to cabinet edge",
+    "15": "bowl tilted / picked with bottle"
+  },
+  "denominator": 8,
+  "stable_release_over_longer_horizon": "not measured",
+  "review_images": [
+    "baseline-bottles-review.jpg",
+    "baseline-final-detail-fixed.jpg",
+    "baseline-controls-final.jpg"
+  ]
+}

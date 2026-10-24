@@ -73,7 +73,17 @@ class Workbench:
         if self.output is not None:
             np.save(self.output / "executed_actions.npy", np.asarray(self.actions).reshape(-1, 7))
             write_json(self.output / "report.json", dict(self.scene, reason=reason,
-                steps=len(self.actions), policy_calls=self.calls, official_predicate=bool(self.done)))
+                steps=len(self.actions), policy_calls=self.calls, official_predicate=bool(self.done),
+                instruction_success=self._goal_satisfied() if self._matches_official_instruction() else None))
+
+    def _matches_official_instruction(self):
+        # The scene's predicate says nothing about a changed destination.
+        def normalize(text):
+            return " ".join(text.lower().rstrip(".").split())
+        return normalize(self.prompt) == normalize(self.scene.get("task_language", ""))
+
+    def _goal_satisfied(self):
+        return bool(self.done and self._matches_official_instruction())
 
     def _close_scene(self):
         self.running = False
@@ -205,8 +215,6 @@ class Workbench:
         elif name == "run":
             if self.recorder:
                 raise ValueError("请先保存人工片段，再交还模型")
-            if self.done:
-                raise ValueError("当前任务判据已满足；可人工补收尾或加载新布局")
             user_instruction = str(values[0]).strip() if values else self.scene.get("user_instruction", self.prompt)
             if not user_instruction:
                 raise ValueError("指令不能为空")
@@ -221,11 +229,14 @@ class Workbench:
                     dict(control_step=len(self.actions), previous=self.prompt, prompt=prompt))
                 self.prompt = prompt
                 self.scene["task"] = prompt
+            if self._goal_satisfied():
+                raise ValueError("原场景任务判据已满足；可人工补收尾或更换指令/布局")
             self.interrupt.clear()
             self.plan.clear()
             self.running = True
             self.auto_steps = 0
-            self._update(running=True, status="模型运行中")
+            self._update(running=True, status=("模型运行中" if self._matches_official_instruction()
+                else "模型执行自定义指令中；无自动完成判据，请观察后暂停。"))
         elif name == "begin":
             if self.recorder:
                 raise ValueError("已经处于人工接管")
@@ -288,11 +299,12 @@ class Workbench:
         if not self.interrupt.is_set():
             self._step(self.plan.popleft())
             self.auto_steps += 1
-        if self.done or self.auto_steps >= self.args.max_steps:
+        satisfied = self._goal_satisfied()
+        if satisfied or self.auto_steps >= self.args.max_steps:
             self.running = False
             self.plan.clear()
-            self._save_scene("predicate_satisfied" if self.done else "step_limit")
-            self._update(running=False, status=("任务判据已满足，已暂停。可人工补充松爪、撤手。" if self.done
+            self._save_scene("predicate_satisfied" if satisfied else "step_limit")
+            self._update(running=False, status=("原场景任务判据已满足，已暂停。可人工补充松爪、撤手。" if satisfied
                 else "达到本轮控制步数上限，已暂停；可继续运行或人工接管。"))
 
     def _loop(self):

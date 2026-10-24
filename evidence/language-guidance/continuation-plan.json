@@ -1,0 +1,14 @@
+{
+  "reason": "V1 fails bottle-in-bowl at training initial state 0; trajectory holds bottle above bowl instead of completing placement.",
+  "decision_basis": "training-state smoke only; no v1 heldout results inspected for continuation choice",
+  "parent": "checkpoints/voice_pi05_lora/counterfactual_v1/1999",
+  "experiment": "counterfactual_v2",
+  "additional_updates": 8000,
+  "total_parameter_updates": 10000,
+  "learning_rate": 5e-05,
+  "batch_size": 1,
+  "manifest_sha256": "fac0d75959b24de0eabf2f647fc70b5f651d13899fb49d30390a30345e077326",
+  "changed_data": false,
+  "optimizer_resumed": false,
+  "evaluation": "same predeclared 8..15 matrix; adaptive-development results, not independent final benchmark"
+}
