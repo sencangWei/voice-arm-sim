@@ -83,6 +83,6 @@ User authorized trying the reviewed open-source hierarchical model. Preserve run
 1. Pin official HAMSTER/VILA/checkpoint and capture resources — complete: official revisions and 18-file manifest pinned, actual scene captured and independently reproduced.
 2. Isolated CPU runtime installed and synthetic interface smoke passed; actual official-weight probe pending approximately27GB download. Bounded background download→verification→three-command pipeline running; no existing GPU service stopped.
 3. Save raw outputs and path overlays; only connect robot execution if source/target paths pass inspection. Clearly distinguish path reasoning from physical manipulation.
-4. Parser tests10/10 and Ruff passed; evidence/hamster/README.md documents status/reproduction/physical boundaries. Capability backup and remote restore pending.
+4. Focused tests12/12, Ruff, compile, shell syntax and diff checks passed. Preparation capability e556689 pushed to owned GitHub branch; independent remote restore matches all492 tracked file hashes and Git tree. Actual model inference remains pending download.
 Success: actual public model inference, reproducible inputs/outputs, no scripted substitution, honest physical-execution boundary.
 Errors: read of nonexistent guessed scripts/evaluate_molmo.py and vla/molmo_policy.py; corrected through file listing. Dependency-expert child unavailable (configured gpt-5.5 unsupported); continue solo.
