@@ -59,3 +59,9 @@ Environment: initial online install selected newer SciPy/LLVM and stalled downlo
 2026-10-24 HAMSTER preparation backup verified: capability e55668979b9e7c8eae46b0a0c1c76c364f613540 pushed to owned public sencangWei/voice-arm-sim branch prototype/voice-tabletop, independently fetched and restored; all492 tracked file SHA256 hashes and Git tree e17d2547737797cb59c264a286deeef3649a4ec8 match. Receipt evidence/hamster/backup-preparation.json.12 tests/Ruff/compile/shell syntax/diff checks pass. Actual27GB model download still running; no semantic/physics success or demo claimed. Existing GPU services preserved.
 
 2026-10-24 23:45 HAMSTER progress: all18 official checkpoint files downloaded and verified. Initial inference stopped before model loading because prior smoke import generated untracked upstream projector __pycache__; no tracked VILA source changed. Archived own generated cache, added failing-then-passing import cleanliness regression, and suppress bytecode only during dynamic upstream import while restoring interpreter state.13 targeted tests/Ruff/diff check pass. Restarted bounded pipeline PID427088 using existing weights. Actual pretrained outputs still pending.
+
+## 2026-10-25 — resume HAMSTER actual inference
+- Found previous run stopped at official LlamaTokenizer legacy=False: missing protobuf; reproduced with a small actual-tokenizer call before changing the environment.
+- Added pinned protobuf4.25.8 only in the isolated HAMSTER environment; actual tokenizer load/encode succeeds, uv checks34 packages compatible; snapshot refreshed.
+- Preserved trial-init0 and classified failure as runtime_dependency (no generated trajectory). Started a separate bounded2h CPU/BF16 probe at evidence/hamster/trial-init0-protobuf; all six official13B shards loaded, command0 generation started.
+- No existing GPU task or old training project changed. Semantic success and physical execution remain unverified.

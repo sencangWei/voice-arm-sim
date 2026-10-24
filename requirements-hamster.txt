@@ -5,6 +5,7 @@ torchvision==0.22.1+cpu
 transformers==4.37.2
 accelerate==0.27.2
 sentencepiece==0.1.99
+protobuf==4.25.8
 numpy==1.26.4
 huggingface-hub==0.28.1
 pillow

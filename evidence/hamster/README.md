@@ -1,6 +1,8 @@
-# HAMSTER 指令与目标理解试验（尚无真实模型结果）
+# HAMSTER 指令与目标理解试验（真实模型推理中）
 
-2026-10-24 23:45 更新：约27GB权重已全部下载，18文件校验通过。首次模型启动被接口检查生成的上游 `__pycache__` 拦住（源码无修改）；已归档缓存，修正动态导入避免产生缓存，回归检查13项通过。已重新启动真实模型测试；以下准备阶段记录保留，尚未宣布路径语义或物理执行成功。
+2026-10-25 更新：上一轮真实加载因缺少 protobuf 中断，未生成轨迹。已将 protobuf==4.25.8 加入独立环境依赖，真实官方 LlamaTokenizer（legacy=False）读入与编码通过，34个包兼容检查通过。保留失败目录 `trial-init0/`，在新目录 `trial-init0-protobuf/` 重启；13B六个权重分片已加载，正在生成第一条指令。详见 `tokenizer-smoke.json` 与后台日志，仍未宣称路径语义或物理执行成功。
+
+2026-10-24 23:45 历史记录：约27GB权重已全部下载，18文件校验通过。首次模型启动被接口检查生成的上游 `__pycache__` 拦住（源码无修改）；已归档缓存，修正动态导入避免产生缓存，回归检查13项通过。已重新启动真实模型测试；以下准备阶段记录保留，尚未宣布路径语义或物理执行成功。
 
 本次验证的问题：相同 MuJoCo 画面中，将指令从“酒瓶放到架子上”改成“酒瓶放进碗里”，官方模型是否会改变目标。另加“碗放到盘子上”作为对照。三条英文输入及中文含义见 `commands.json`，翻译预先固定；本轮不测试语音识别，也不训练新模型。
 
@@ -8,9 +10,9 @@
 
 - 已固定官方模型、源码及环境，并在独立 `.venv-hamster` 安装 CPU 运行时。
 - `scene-init0.png` 来自实际 LIBERO/MuJoCo 场景，任务 libero_goal/8、初始状态0、seed42，静置10步，视图旋转180度。独立重新渲染后 SHA256 一致：`7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18`。
-- `runtime-smoke.json` 仅验证图像 token 拼接、官方降采样和小型随机 BF16 Llama 的运行接口，**不证明真实 HAMSTER 能力**。路径解析与下载故障分支共12项测试通过。
-- 本文写入时，约27GB权重仍在下载，真实 checkpoint 推理、路径语义判断、机械臂执行及 Demo 均未完成。以本机 `logs/hamster-trial.status` 和输出目录为准；解析合法不能算目标理解成功。
-- 后台流程下载完成后先逐文件核对大小及官方 LFS SHA256，再使用真实权重运行三条指令，保存原始文本、生成 token、耗时及路径叠加图。输出目录为 `evidence/hamster/trial-init0/`。未成功下载则不进入推理。
+- `runtime-smoke.json` 仅验证图像 token 拼接、官方降采样和小型随机 BF16 Llama 的运行接口，**不证明真实 HAMSTER 能力**。路径解析、上游干净导入与下载故障分支共13项测试通过。
+- 准备阶段曾因下载未完成而无法推理；当前权重已校验，实际进展见文首更新。路径语义判断、机械臂执行及 Demo 均未完成。以本机 `logs/hamster-trial.status` 和输出目录为准；解析合法不能算目标理解成功。
+- 后台流程下载完成后先逐文件核对大小及官方 LFS SHA256，再使用真实权重运行三条指令，保存原始文本、生成 token、耗时及路径叠加图。首轮输出目录为 `evidence/hamster/trial-init0/`（依赖失败，已保留）；修复后的新轮次是 `evidence/hamster/trial-init0-protobuf/`。未成功下载则不进入推理。
 - 官方公开部分输出二维末端路径与夹爪事件；当前仓库没有完整发布可直接部署的低层控制器。本试验不会将路径直接当成七维机器人动作，也不会用固定动作伪造成功。后续是否接物理抓取，取决于路径的源物体、目标和夹爪事件是否合理。
 
 ## 来源与配置
@@ -52,7 +54,7 @@ tail -n 10 logs/hamster-trial.log
 # 独立核对下载完成后的所有文件
 .venv-hamster/bin/python scripts/prepare_hamster.py --verify-only
 # 纯解析器检查，不代表模型成功
-.venv-hamster/bin/python -m pytest -q tests/test_hamster_path.py tests/test_hamster_download.py
+.venv-vla/bin/python -m pytest -q tests/test_hamster_path.py tests/test_hamster_download.py
 # 在现有隔离仿真环境重新生成同一画面，不移动用户正在查看的环境
 .venv-vla-sim/bin/python -m vla.capture_hamster_scene --output .local/hamster-scene-new
 ```

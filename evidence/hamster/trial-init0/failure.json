@@ -1,0 +1,8 @@
+{
+  "phase": "tokenizer_loading",
+  "error": "ImportError: protobuf missing for official LlamaTokenizer legacy=False",
+  "classification": "runtime_dependency",
+  "model_generation_started": false,
+  "physical_execution": false,
+  "resolution": "Pin/install protobuf==4.25.8; actual official tokenizer smoke passed; restart in a new output directory."
+}

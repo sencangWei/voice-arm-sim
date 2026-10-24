@@ -1,0 +1,40 @@
+{
+  "image": "scene-init0.png",
+  "image_size": [
+    512,
+    512
+  ],
+  "purpose": "Visible reference regions chosen before reading model outputs; manual visual audit only, never fed to the model or robot controller.",
+  "regions_xyxy_pixels": {
+    "wine_bottle": [
+      278,
+      184,
+      303,
+      271
+    ],
+    "bowl": [
+      226,
+      256,
+      293,
+      314
+    ],
+    "rack": [
+      334,
+      61,
+      478,
+      260
+    ],
+    "plate": [
+      215,
+      335,
+      312,
+      409
+    ]
+  },
+  "criteria": [
+    "Inspect source/target of the gripper-event trajectory against original scene.",
+    "Changed destination must target the bowl region rather than repeat the rack trajectory.",
+    "2D semantic plausibility does not establish collision-free 3D grasping, placement feasibility or physical success."
+  ],
+  "physical_execution": false
+}

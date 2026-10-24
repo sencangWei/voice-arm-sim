@@ -1,0 +1,9 @@
+{
+  "commit": "290d1ec8036190d01c0312572966ef3ad2910b2a",
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "restored_from": "fresh remote fetch FETCH_HEAD in independent clean clone",
+  "git_tree": "48ba6566906c289d7d42ac391c5a7ffb793c85f2",
+  "tracked_files_sha256_matched": 494,
+  "preserved_working_tree_edits": true
+}
