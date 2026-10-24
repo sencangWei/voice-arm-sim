@@ -1,0 +1,26 @@
+{
+  "commit": "ebd8316c0786427f44d01a086bdd97270992baf9",
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "git_tree": "ac579a21bdde831b373ce3ba55a3af08701b4012",
+  "tracked_files_sha256_matched": 1111,
+  "restored_from": "independent GitHub fetch into clean copy of previously verified remote snapshot 7d2e6dc; no current working-tree files supplied",
+  "restore_directory": "/home/robot/voice-arm-sim/.local/restore-hybrid-r2",
+  "components": [
+    {
+      "path": "vla/hybrid.py",
+      "repository": "/home/robot/voice-arm-sim",
+      "sha256": "3800ef714a27ebb49a1325a6125f85e02c5ec38bc0476650ec9358b2eb1a5505"
+    },
+    {
+      "path": "vla/hamster_command.py",
+      "repository": "/home/robot/voice-arm-sim"
+    },
+    {
+      "path": "vla/panel.py",
+      "repository": "/home/robot/voice-arm-sim"
+    }
+  ],
+  "external_source_state": "openpi and LIBERO source trees clean; no new algorithm edits outside this repository",
+  "evidence": "physical-hybrid/files.json includes SHA256 for all 583 archived artifacts; capability includes raw videos, predictions, failure results and report"
+}
