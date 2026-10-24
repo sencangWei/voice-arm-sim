@@ -86,3 +86,11 @@ User authorized trying the reviewed open-source hierarchical model. Preserve run
 4. Fresh13/13 focused tests and Ruff pass. Tokenizer fix82cb51e pushed to owned GitHub branch and independently restored:500 tracked SHA256 hashes and Git tree match. Actual output/report commit4a7d623 pushed to owned origin and independently restored:520 tracked SHA256 hashes and Git tree match (evidence/hamster/results-backup.json). Physical gate remains a compatible low-level path-conditioned controller, absent from the pinned public HAMSTER repository; no script substitution.
 Success: actual public model inference, reproducible inputs/outputs, no scripted substitution, honest physical-execution boundary.
 Errors: read of nonexistent guessed scripts/evaluate_molmo.py and vla/molmo_policy.py; corrected through file listing. Dependency-expert child unavailable (configured gpt-5.5 unsupported); continue solo.
+
+## HAMSTER physical hybrid execution — measured branch implemented 2026-10-25
+The requested end-to-end behavior is still unfulfilled. Official HAMSTER exposes only a planner; no released path-conditioned low-level policy was found in its official code. Preserve planner-only evidence.
+1. Complete: calibrated RGB-D projection, exact planner input SHA equality and depth-continuous object region estimate; no object truth in controller.
+2. Experimental hybrid: real pi05 actions for grasp, HAMSTER endpoint + calibrated RGB-D for generic transport/release. This is explicitly hybrid control, not the paper's learned low-level policy or an end-to-end VLA.
+3. Complete within fixed init0: matched pure π0.5 bottle→bowl fails at420 controls; hybrid physical bottle→bowl and bowl→plate pass declared relation checks. All development failures, actions, videos retained; same-seed repeats are not generalization samples.
+4. Complete local acceptance: Chinese panel actual fresh instruction and synthetic Mandarin ASR→translation→fresh HAMSTER→physical execution both complete180controls; voice workflow67.53s. Final frames visually reviewed; custom semantic success remains null.30 tests+4subtests and Ruff pass. Remote restore pending final evidence archive.
+No hardware, paid compute, interruption of existing GPU services, or old project edits.

@@ -1,0 +1,57 @@
+{
+  "result": "motion_completed_unscored",
+  "training": false,
+  "fixed_scene": "libero_goal/8/init0/seed42",
+  "semantic_success": null,
+  "stages": [
+    {
+      "stage": "capture",
+      "command": [
+        "/home/robot/voice-arm-sim/.venv-vla-sim/bin/python",
+        "-u",
+        "-m",
+        "vla.capture_hamster_scene",
+        "--output",
+        "runs/hybrid-fresh-voice-01/scene"
+      ],
+      "state": "finished"
+    },
+    {
+      "stage": "planner",
+      "command": [
+        "/home/robot/voice-arm-sim/.venv-hamster/bin/python",
+        "-u",
+        "-m",
+        "vla.hamster",
+        "--image",
+        "runs/hybrid-fresh-voice-01/scene/scene-init0.png",
+        "--commands",
+        "runs/hybrid-fresh-voice-01/commands.json",
+        "--output",
+        "runs/hybrid-fresh-voice-01/planner"
+      ],
+      "state": "finished"
+    },
+    {
+      "stage": "execution",
+      "command": [
+        "/home/robot/voice-arm-sim/.venv-vla-sim/bin/python",
+        "-u",
+        "-m",
+        "vla.hybrid",
+        "--unscored",
+        "--plan",
+        "runs/hybrid-fresh-voice-01/planner/command-00.json",
+        "--output",
+        "runs/hybrid-fresh-voice-01/execution",
+        "--port",
+        "8766"
+      ],
+      "state": "finished"
+    }
+  ],
+  "original": "帮我把酒瓶放进碗里面。",
+  "english": "Please put the wine bottle into the bowl.",
+  "input_mode": "audio",
+  "wall_duration_s": 67.5304396950014
+}

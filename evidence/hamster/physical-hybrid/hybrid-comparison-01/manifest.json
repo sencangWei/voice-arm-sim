@@ -1,0 +1,22 @@
+{
+  "fps": 20,
+  "source_frames": [
+    421,
+    250
+  ],
+  "output_frames": 421,
+  "alignment": "same initial state, control index; hold last frame after trial ends",
+  "training": false,
+  "input_image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "sources": [
+    {
+      "directory": "runs/hybrid-matched-policy-bottle-01",
+      "video_sha256": "3cc0c9e70fb3a50bdc3a87034eedf5b86b0a5b0e067cd042f6d127ccce336143"
+    },
+    {
+      "directory": "runs/hybrid-panel-01-1792861386965294177",
+      "video_sha256": "ba3b9abc1108826a4b0a3303fd022118477e2fad6b56e97e3cb3c157ac5ae0a0"
+    }
+  ],
+  "output_sha256": "e1bc74a5e8d3c4151e4df844c9950b76ba8fa7fd977e820793061d512a9379b3"
+}

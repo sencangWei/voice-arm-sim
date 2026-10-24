@@ -85,3 +85,20 @@ rtk proxy .venv-vla-sim/bin/python -u -m vla.probe_language --output runs/vla-la
 - [官方 LIBERO](https://github.com/Lifelong-Robot-Learning/LIBERO/tree/f78abd68ee283de9f9be3c8f7e2a9ad60246e95c)，固定源码 `f78abd68ee283de9f9be3c8f7e2a9ad60246e95c`。
 - [官方 LIBERO 接入说明](https://github.com/Physical-Intelligence/openpi/blob/15a9616a00943ada6c20a0f158e3adb39df2ccac/examples/libero/README.md)。
 - 权重源 `gs://openpi-assets/checkpoints/pi05_libero`；openpi代码许可与 [Gemma使用条款](https://github.com/Physical-Intelligence/openpi/blob/15a9616a00943ada6c20a0f158e3adb39df2ccac/LICENSE_GEMMA.txt)应分别检查，不能把所有权重当成仅受代码Apache2许可。
+
+
+## HAMSTER 中文分层实验（固定桌面）
+
+在“结果与录像”页底部，点击“酒瓶放到碗里”或“碗放到盘子上”复现已审核路径。也可在顶部输入自己的中文单次抓放指令，点击“按上方中文指令重新规划并执行”；它会拍摄固定初始场景，运行真实 HAMSTER，再打开独立 MuJoCo 窗口执行。录音先经现有麦克风按钮填写中文，核对原话后使用这个新指令按钮。该实验固定布局0，不读取顶部的布局设置；运行前先暂停原场景、保存人工片段。
+
+规划在 CPU 上运行，模型已缓存时本次文字端到端约64秒，窗口可以旋转视角。抓取来自实际官方 π0.5；后半程是基于深度的通用几何控制，未训练模型，也不是 HAMSTER 论文的学习型底层策略。新指令只报告运动是否完成，不使用原任务判据冒充中文任务成功；必须看录像检查物品、目的地、松爪。完整边界、失败和对比见[物理报告](../evidence/hamster/physical-hybrid/REPORT.md)。
+
+命令行入口（现有8911和8766服务继续使用；每次换新的输出目录）：
+
+```bash
+rtk proxy .venv-vla-sim/bin/python -u -m vla.hamster_command --prompt '帮我把酒瓶放进碗里面' --output runs/hamster-my-command-01 --viewer
+# 实际 WAV → ASR → 翻译 → HAMSTER → 物理仿真
+rtk proxy .venv-vla-sim/bin/python -u -m vla.hamster_command --audio /绝对路径/中文录音.wav --output runs/hamster-my-voice-01 --viewer
+```
+
+需要按 [HAMSTER 环境说明](../evidence/hamster/README.md)先准备独立 CPU 规划器。语音合成验收工具使用已有 `.venv-tts/bin/python`，不使用 `.venv-models`；真人麦克风端到端尚未验收。

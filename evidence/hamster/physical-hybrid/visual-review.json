@@ -1,0 +1,25 @@
+{
+  "review": "video contact sheets and final images inspected by assistant",
+  "runs": {
+    "hybrid-fresh-chinese-01": {
+      "visual_result": "wine bottle upright in bowl; fingers open, arm retreated",
+      "automatic_semantic_success": null
+    },
+    "hybrid-depth-bowl-plate-01": {
+      "visual_result": "bowl released onto plate, arm retreated"
+    },
+    "hybrid-panel-01-1792861386965294177": {
+      "visual_result": "wine bottle upright in bowl; fingers open, arm retreated"
+    },
+    "hybrid-fresh-voice-01": {
+      "visual_result": "wine bottle upright in bowl; fingers open, arm retreated; 5 control-index frames inspected",
+      "automatic_semantic_success": null,
+      "input_boundary": "Synthetic Mandarin, not a human microphone acceptance"
+    },
+    "hybrid-panel-fresh-1792861771830963802": {
+      "visual_result": "wine bottle upright in bowl; fingers open, arm retreated; 5 control-index frames inspected",
+      "automatic_semantic_success": null
+    }
+  },
+  "boundary": "Fixed single layout, no unseen-object or human microphone acceptance; visual review does not replace geometric evaluation."
+}

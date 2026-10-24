@@ -1,0 +1,46 @@
+{
+  "scheme": "experimental HAMSTER target + pi05 grasp + RGB-D/OSC transfer",
+  "learned_low_level": false,
+  "end_to_end_vla": false,
+  "prompt": "put the wine bottle in the bowl",
+  "seed": 42,
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "max_controls": 420,
+  "replan_steps": 5,
+  "success": false,
+  "result": "exception",
+  "ground_truth_controller_inputs": false,
+  "image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "destination": {
+    "raw_point": [
+      -0.14944863452132884,
+      -0.01014974184232976,
+      0.9469345045953725
+    ],
+    "refined_point": [
+      -0.12255454210459144,
+      -0.010225567527673524,
+      0.9325864985026455
+    ],
+    "tabletop": 0.901,
+    "pixels": 2758,
+    "method": "local neutral-color RGB-D component median; scene-limited"
+  },
+  "server": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "exception": "ValueError: policy actions must be finite Nx7, replan_steps <= N <= 10000",
+  "control_steps": 0,
+  "wall_duration_s": 2.572808119999536
+}

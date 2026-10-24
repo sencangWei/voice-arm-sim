@@ -1,0 +1,164 @@
+[
+  {
+    "directory": "hybrid-bottle-bowl-v1",
+    "result": "exception",
+    "controls": 0,
+    "success": false,
+    "handover_step": null,
+    "exception": "ValueError: policy actions must be finite Nx7, replan_steps <= N <= 10000",
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-bottle-bowl-v2",
+    "result": "success",
+    "controls": 209,
+    "success": true,
+    "handover_step": 97,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-bowl-plate-v1",
+    "result": "exception",
+    "controls": 179,
+    "success": false,
+    "handover_step": null,
+    "exception": "RuntimeError: No measurable lifted grasp within 180 controls",
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-bowl-plate-v2",
+    "result": "relation_failed",
+    "controls": 217,
+    "success": false,
+    "handover_step": 56,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-depth-bottle-bowl-01",
+    "result": "success",
+    "controls": 247,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-depth-bottle-bowl-02",
+    "result": "success",
+    "controls": 248,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-depth-bowl-plate-01",
+    "result": "success",
+    "controls": 251,
+    "success": true,
+    "handover_step": 57,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-depth-bowl-plate-02",
+    "result": "success",
+    "controls": 251,
+    "success": true,
+    "handover_step": 57,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-fixed-bottle-bowl-01",
+    "result": "success",
+    "controls": 213,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-fresh-chinese-01/execution",
+    "result": "motion_completed_unscored",
+    "controls": 180,
+    "success": null,
+    "handover_step": 61,
+    "exception": null,
+    "controller_sha256": "3800ef714a27ebb49a1325a6125f85e02c5ec38bc0476650ec9358b2eb1a5505"
+  },
+  {
+    "directory": "hybrid-fresh-voice-01/execution",
+    "result": "motion_completed_unscored",
+    "controls": 180,
+    "success": null,
+    "handover_step": 61,
+    "exception": null,
+    "controller_sha256": "3800ef714a27ebb49a1325a6125f85e02c5ec38bc0476650ec9358b2eb1a5505"
+  },
+  {
+    "directory": "hybrid-matched-policy-bottle-01",
+    "result": "relation_failed",
+    "controls": 420,
+    "success": false,
+    "handover_step": null,
+    "exception": null,
+    "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884"
+  },
+  {
+    "directory": "hybrid-offset-bowl-plate-01",
+    "result": "relation_failed",
+    "controls": 255,
+    "success": false,
+    "handover_step": 57,
+    "exception": null,
+    "controller_sha256": null
+  },
+  {
+    "directory": "hybrid-panel-01-1792861251928862954",
+    "result": "success",
+    "controls": 249,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884"
+  },
+  {
+    "directory": "hybrid-panel-01-1792861293855325775",
+    "result": "success",
+    "controls": 248,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884"
+  },
+  {
+    "directory": "hybrid-panel-01-1792861341679725453",
+    "result": "success",
+    "controls": 251,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884"
+  },
+  {
+    "directory": "hybrid-panel-01-1792861386965294177",
+    "result": "success",
+    "controls": 249,
+    "success": true,
+    "handover_step": 105,
+    "exception": null,
+    "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884"
+  },
+  {
+    "directory": "hybrid-panel-fresh-1792861771830963802/execution",
+    "result": "motion_completed_unscored",
+    "controls": 180,
+    "success": null,
+    "handover_step": 61,
+    "exception": null,
+    "controller_sha256": "3800ef714a27ebb49a1325a6125f85e02c5ec38bc0476650ec9358b2eb1a5505"
+  }
+]

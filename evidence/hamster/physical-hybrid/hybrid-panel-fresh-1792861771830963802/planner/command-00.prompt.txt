@@ -1,0 +1,8 @@
+A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: <image>
+In the image, please execute the command described in <quest>Please put the wine bottle into the bowl.</quest>.
+Provide a sequence of points denoting the trajectory of a robot gripper to achieve the goal.
+Format your answer as a list of tuples enclosed by <ans> and </ans> tags. For example:
+<ans>[(0.25, 0.32), (0.32, 0.17), (0.13, 0.24), <action>Open Gripper</action>, (0.74, 0.21), <action>Close Gripper</action>, ...]</ans>
+The tuple denotes point x and y location of the end effector in the image. The action tags indicate gripper actions.
+Coordinates should be floats between 0 and 1, representing relative positions.
+Remember to provide points between <ans> and </ans> tags and think step by step. 

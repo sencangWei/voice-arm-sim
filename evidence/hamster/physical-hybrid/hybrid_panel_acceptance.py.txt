@@ -1,0 +1,53 @@
+import argparse, json, os, subprocess, sys, time
+from pathlib import Path
+sys.path.insert(0,str(Path.cwd()))
+from PIL import ImageGrab
+from vla.panel import ChinesePanel
+args=argparse.Namespace(suite="libero_goal",task_id=8,initial_state=0,prompt=None,port=8766,seed=42,replan_steps=5,max_steps=420,viewer=True,output="runs/hybrid-panel-acceptance-04")
+panel=ChinesePanel(args)
+panel.root.geometry("900x1260+20+50")
+panel.book.select(3)
+evidence=Path("runs/hybrid-panel-acceptance-04")
+evidence.mkdir(exist_ok=False)
+start=time.monotonic(); started=False; captured=False; child=None; output=None
+def buttons(parent):
+    for widget in parent.winfo_children():
+        if widget.winfo_class()=="TButton" and widget.cget("text")=="酒瓶放到碗里":
+            yield widget
+        yield from buttons(widget)
+def check():
+    global started, captured, child, output
+    if not started:
+        button=next(buttons(panel.root)); button.invoke()
+        child=panel.hybrid; output=panel.hybrid_output
+        assert child is not None, panel.lab.state()
+        started=True
+        print("BUTTON_INVOKED",child.pid,str(output),flush=True)
+    windows=subprocess.run(["xdotool","search","--all","--pid",str(child.pid),"--name","MuJoCo"],capture_output=True,text=True).stdout.split()
+    if windows and not captured and (output/"prediction-040.npy").exists():
+        win=windows[0]
+        subprocess.run(["xdotool","windowactivate","--sync",win],check=True)
+        time.sleep(.5)
+        subprocess.run(["xdotool","windowsize",win,"1100","900"],check=True)
+        time.sleep(.5)
+        subprocess.run(["xdotool","windowmove",win,"950","50"],check=True)
+        subprocess.run(["xdotool","windowraise",win],check=True)
+        panel.root.lift(); panel.root.update_idletasks()
+        time.sleep(.5)
+        time.sleep(.4)
+        ImageGrab.grab(xdisplay=":0").crop((0,0,2070,1350)).save(evidence/"chinese-panel-and-mujoco.png")
+        captured=True
+        print("VIEWER_CAPTURED",win,flush=True)
+    if child.poll() is not None:
+        result=json.loads((output/"result.json").read_text())
+        receipt=dict(button="酒瓶放到碗里",child_pid=child.pid,exit_code=child.returncode,output=str(output),viewer_screenshot=captured,result=result,scope="native Chinese button, exact cached planner scene, hybrid control; no human microphone test")
+        (evidence/"acceptance.json").write_text(json.dumps(receipt,ensure_ascii=False,indent=2)+"\n")
+        print("ACCEPTANCE",json.dumps(receipt,ensure_ascii=False),flush=True)
+        panel.close()
+        return
+    if time.monotonic()-start>180:
+        panel.stop_hybrid(); panel.close()
+        raise TimeoutError("native hybrid acceptance exceeded 180 seconds")
+    panel.root.after(250,check)
+panel.root.after(800,check)
+panel.root.mainloop()

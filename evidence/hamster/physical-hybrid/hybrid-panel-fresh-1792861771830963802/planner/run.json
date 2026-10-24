@@ -1,0 +1,15 @@
+{
+  "model": "yili18/Hamster_dev",
+  "revision": "794f1f925c87e861d2f562943e978cc11f8c344d",
+  "vila_revision": "a5a380d6d09762d6f3fd0443aac6b475fba84f7e",
+  "device": "cpu",
+  "precision": "bfloat16",
+  "transformers": "4.37.2",
+  "seed": 42,
+  "image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "adapter": "standard HF vision/LLM + pinned VILA projector/conversation",
+  "deviation": "CPU BF16 instead of official server CUDA FP16; use_cache=True",
+  "max_new_tokens": 300,
+  "threads": 8,
+  "physical_robot_execution": false
+}

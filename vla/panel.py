@@ -50,6 +50,7 @@ class ChinesePanel:
         self.events = queue.Queue()
         self.recording = self.voice_worker = self.training = self.model = None
         self.record_temp = self.training_log = self.model_log = None
+        self.hybrid = self.hybrid_output = None
         self.closing = False
         self.grip = -1.
         self.preview_identity = None
@@ -131,6 +132,8 @@ class ChinesePanel:
             self.lab._update(status="操作失败：" + str(error))
 
     def send(self, command, *values):
+        if self.hybrid and self.hybrid.poll() is None:
+            raise ValueError("请先完成或停止分层实验，再操作原场景")
         if self.training and self.training.poll() is None:
             raise ValueError("训练进行中，请等待完成后再操作场景")
         if not self.lab.send(command, *values):
@@ -294,6 +297,8 @@ class ChinesePanel:
         self.dataset_hint.set("数据已校验：" + str(self.manifest))
 
     def train(self, dry_run):
+        if self.hybrid and self.hybrid.poll() is None:
+            raise ValueError("分层实验进行中，请先停止")
         if self.training and self.training.poll() is None:
             raise ValueError("训练／检查仍在进行")
         if self.lab.state()["manual"]:
@@ -336,6 +341,62 @@ class ChinesePanel:
                   "报告中的官方判据与人工审核分开记录。\n\n"
                   "三维窗口关闭后可重新加载；关闭面板会存草稿并停止本面板启动的模型／训练。\n"
                   "旧训练工程和旧纠正数据保持原样。", wraplength=835).grid(row=1, column=0, sticky="w", pady=10)
+        hybrid = ttk.LabelFrame(page, text="HAMSTER 分层模型实验 · 独立 MuJoCo 场景", padding=10)
+        hybrid.grid(row=2, column=0, sticky="ew", pady=10)
+        ttk.Label(hybrid, text="HAMSTER 选目标，π0.5 抓取，RGB-D／OSC 搬运和松爪。\n"
+                  "前两个按钮复现已审核路径；新指令按钮会重新运行真实 HAMSTER。\n"
+                  "固定桌面布局 0，仅单次抓放；不使用上方布局，不训练模型。\n"
+                  "新指令无自动语义评分，请检查录像；CPU 规划可能需要几分钟。", wraplength=790).grid(row=0, column=0, sticky="w")
+        self.row_buttons(hybrid, 1, (("酒瓶放到碗里", lambda: self.start_hybrid("01")),
+                                     ("碗放到盘子上", lambda: self.start_hybrid("02")),
+                                     ("停止本次实验", self.stop_hybrid)))
+        self.row_buttons(hybrid, 2, (("按上方中文指令重新规划并执行", lambda: self.start_hybrid("fresh")),))
+        self.row_buttons(hybrid, 3, (("打开实验结果", self.open_hybrid),))
+        self.hybrid_status = tk.StringVar(value="未启动；使用已有官方 π0.5 服务 8766。")
+        ttk.Label(hybrid, textvariable=self.hybrid_status, wraplength=790).grid(row=4, column=0, sticky="w")
+
+    def start_hybrid(self, case):
+        if self.hybrid and self.hybrid.poll() is None:
+            raise ValueError("分层模型实验仍在运行")
+        if self.training and self.training.poll() is None:
+            raise ValueError("训练进行中，请等待完成")
+        if self.lab.state()["running"] or self.lab.state()["manual"]:
+            raise ValueError("请先暂停当前模型并保存人工片段")
+        if case == "fresh":
+            prompt = self.prompt.get().strip()
+            if not prompt or len(prompt) > 500:
+                raise ValueError("请在上方输入 1～500 字的单次抓放指令，也可先录音填写")
+        else:
+            plan = ROOT / "evidence/hamster/trial-init0-protobuf" / f"command-{case}.json"
+            if case not in ("01", "02") or not plan.is_file():
+                raise ValueError("没有对应的已审核模型路径")
+        self.hybrid_output = ROOT / "runs" / f"hybrid-panel-{case}-{time.time_ns()}"
+        self.hybrid_output.parent.mkdir(parents=True, exist_ok=True)
+        # Keep the log outside: the runner refuses nonempty output directories.
+        log_path = self.hybrid_output.with_suffix(".log")
+        command = [str(ROOT / ".venv-vla-sim/bin/python"), "-u", "-m"]
+        if case == "fresh":
+            command += ["vla.hamster_command", "--prompt", prompt]
+        else:
+            command += ["vla.hybrid", "--plan", str(plan)]
+        command += ["--output", str(self.hybrid_output), "--viewer"]
+        with log_path.open("w") as stream:
+            self.hybrid = subprocess.Popen(command, start_new_session=True,
+                cwd=ROOT, env=dict(os.environ, MUJOCO_GL="glfw"), stdout=stream, stderr=subprocess.STDOUT)
+        self.hybrid_status.set("运行中：三维窗口可旋转视角，完成后自动保存录像。日志：" + str(log_path))
+
+    def stop_hybrid(self):
+        if self.hybrid and self.hybrid.poll() is None:
+            # Every experiment owns a new session; include its CPU planner child.
+            try:
+                os.killpg(self.hybrid.pid, signal.SIGINT)
+            except ProcessLookupError:
+                pass
+
+    def open_hybrid(self):
+        if self.hybrid_output is None:
+            raise ValueError("尚未运行分层实验")
+        self.open_path(self.hybrid_output)
 
     def open_result(self):
         output = self.lab.state().get("output")
@@ -399,6 +460,26 @@ class ChinesePanel:
             self.grip = state.get("grip", -1.)
         self.was_manual = state["manual"]
         self.status.set(state["status"])
+        if self.hybrid and self.hybrid.poll() is not None:
+            result_path = self.hybrid_output / "result.json"
+            if not result_path.is_file():
+                result_path = self.hybrid_output / "execution/result.json"
+            if result_path.is_file():
+                result = json.loads(result_path.read_text())
+                self.hybrid_status.set(f"实验结束：{result['result']}；{result['control_steps']} 个控制步。"
+                                       "点击打开实验结果查看 rollout.mp4。")
+            else:
+                self.hybrid_status.set(f"实验退出（{self.hybrid.returncode}），请检查相邻 .log 文件。")
+            self.hybrid = None
+        elif self.hybrid:
+            workflow = self.hybrid_output / "workflow.json"
+            if workflow.is_file():
+                progress = json.loads(workflow.read_text())
+                stages = progress.get("stages", [])
+                stage = stages[-1]["stage"] if stages else "translation"
+                self.hybrid_status.set("新指令运行中：" + {"capture": "拍摄初始场景", "planner": "CPU 模型规划",
+                    "execution": "MuJoCo 抓放", "translation": "中文识别／翻译"}.get(stage, stage)
+                    + "；结果：" + str(self.hybrid_output))
         self.frame_text.set(f"已执行 {state['steps']} 个控制步；本段人工动作 {state['frames']} 帧。")
         self.joystick.set_enabled(state["manual"] and not self.closing)
         for button in self.manual_buttons:
@@ -450,6 +531,7 @@ class ChinesePanel:
         if self.recording:
             self.finish_recording(False)
         self.stop_training()
+        self.stop_hybrid()
         self.lab.send("close")
         # Only processes created by this panel are stopped. External services stay up.
 

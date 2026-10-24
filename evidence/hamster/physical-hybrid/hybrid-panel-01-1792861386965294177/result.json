@@ -1,0 +1,74 @@
+{
+  "scheme": "experimental HAMSTER target + pi05 grasp + RGB-D/OSC transfer",
+  "learned_low_level": false,
+  "end_to_end_vla": false,
+  "prompt": "put the wine bottle in the bowl",
+  "seed": 42,
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "diffusion_noise": "explicit uint32 seed 42 + control_step//5 per inference",
+  "max_controls": 420,
+  "replan_steps": 5,
+  "success": true,
+  "result": "success",
+  "ground_truth_controller_inputs": false,
+  "controller_sha256": "34c4f167ce6789bc6042f9f15e67433802c15a345a8e6e07d96014ee671e5884",
+  "plan_sha256": "18e7ec74bf52157d9c1f74ea90b5d54a9d13af4c4b864926da64383f443edb42",
+  "image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "destination": {
+    "raw_point": [
+      -0.14944863452132884,
+      -0.01014974184232976,
+      0.9469345045953725
+    ],
+    "refined_point": [
+      -0.09756386756686933,
+      -0.009310220055627889,
+      0.9327645778945154
+    ],
+    "tabletop": 0.901,
+    "pixels": 2706,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited",
+    "source_surface_point": [
+      -0.19493043490662326,
+      -0.061449823949666804,
+      0.9685427274474996
+    ],
+    "source_refinement": {
+      "raw_point": [
+        -0.20136200745927857,
+        -0.06917159139331405,
+        1.015635866110915
+      ],
+      "refined_point": [
+        -0.19493043490662326,
+        -0.061449823949666804,
+        0.9685427274474996
+      ],
+      "tabletop": 0.901,
+      "pixels": 1350,
+      "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+    }
+  },
+  "server": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "grasp_xy_offset_estimate": [
+    0.012446969040166345,
+    0.017722106634726037
+  ],
+  "grasp_min_eef_z": 0.9807271990451046,
+  "handover_step": 105,
+  "control_steps": 249,
+  "wall_duration_s": 21.218891083000926
+}

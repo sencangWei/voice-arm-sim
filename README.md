@@ -4,6 +4,8 @@
 
 另有独立的 [MolmoAct2 接入与同场景测试](vla/MOLMOACT2.md)，复用原生中文工作台；实际测试结果单独记录。
 
+新增 [HAMSTER 中文分层抓放实验](evidence/hamster/physical-hybrid/REPORT.md)与[同场景前后对比录像](evidence/hamster/physical-hybrid/hybrid-comparison-01/bottle-bowl-before-after.mp4)：实际模型选目标，π0.5 抓取，RGB-D／OSC 搬运和松爪。固定布局、混合控制，未宣称端到端 VLA 或任意家居物品泛化。
+
 [实际 VLA Demo](evidence/vla/demo.mp4) / [实测报告与复现命令](evidence/vla/README.md)：放碗、开抽屉、奶酪入篮共5次执行通过所选任务判据；当前为官方预训练权重推理，尚未验证任意水果和真人麦克风。
 
 独立的本机 MuJoCo / Panda 桌面实验：中文指令 → 目标定位 → 相机 RGB-D 三维位置 → 物理夹爪抓取 → 放进蓝色托盘，或从盘子取出放到桌面空位。项目目录为 `/home/robot/voice-arm-sim`，不连接真机，不修改已有 π0.5 训练工程。

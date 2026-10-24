@@ -1,0 +1,72 @@
+{
+  "scheme": "experimental HAMSTER target + pi05 grasp + RGB-D/OSC transfer",
+  "learned_low_level": false,
+  "end_to_end_vla": false,
+  "prompt": "put the bowl on the plate",
+  "seed": 42,
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "diffusion_noise": "explicit uint32 seed 42 + control_step//5 per inference",
+  "max_controls": 420,
+  "replan_steps": 5,
+  "success": true,
+  "result": "success",
+  "ground_truth_controller_inputs": false,
+  "image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "destination": {
+    "raw_point": [
+      0.004327650993418697,
+      -0.00919812454124102,
+      0.9125293937019406
+    ],
+    "refined_point": [
+      0.06163356369881604,
+      -0.009879838017540058,
+      0.9109787747932044
+    ],
+    "tabletop": 0.901,
+    "pixels": 4548,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited",
+    "source_surface_point": [
+      -0.09756386756686933,
+      -0.009310220055627889,
+      0.9327645778945154
+    ],
+    "source_refinement": {
+      "raw_point": [
+        -0.13586350262278712,
+        -0.027146231664077283,
+        0.9251612959061644
+      ],
+      "refined_point": [
+        -0.09756386756686933,
+        -0.009310220055627889,
+        0.9327645778945154
+      ],
+      "tabletop": 0.901,
+      "pixels": 2706,
+      "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+    }
+  },
+  "server": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "grasp_xy_offset_estimate": [
+    0.012534888247772616,
+    -0.042734058624879945
+  ],
+  "grasp_min_eef_z": 0.9168701872695402,
+  "handover_step": 57,
+  "control_steps": 251,
+  "wall_duration_s": 4.723600548000832
+}

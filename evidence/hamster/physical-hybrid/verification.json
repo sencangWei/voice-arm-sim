@@ -1,0 +1,13 @@
+{
+  "physical_trial_records": 18,
+  "videos_checked": 18,
+  "original_archive_files_compared": 572,
+  "checks": [
+    "trace count equals controls",
+    "raw video frames equal controls+1 and fps20",
+    "unscored results and traces retain null success",
+    "fresh trial controller SHA256 equals current source",
+    "archive bytes equal original run bytes",
+    "report local links exist"
+  ]
+}
