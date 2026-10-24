@@ -1,0 +1,10 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "commit": "6014a80a4be39c797ac74fbaf81160b8fe8bd443",
+  "tree": "be7b39d5dcc90ea28d495fa5accd9e773478f64c",
+  "restored_directory": "/home/robot/voice-arm-sim/.local/restore-native",
+  "tracked_files": 67,
+  "sha256_mismatches": [],
+  "method": "Fresh GitHub clone; compare every tracked file SHA256 and Git tree"
+}
