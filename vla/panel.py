@@ -87,6 +87,9 @@ class ChinesePanel:
         ttk.Entry(header, textvariable=self.prompt).grid(row=4, column=0, columnspan=3, sticky="ew", pady=6)
         ttk.Label(header, text="先选场景，再用自己的话说；当前测试按所选场景检查结果。", foreground="#555555").grid(
             row=5, column=0, columnspan=3, sticky="w")
+        self.checkpoint_text = tk.StringVar(value="模型权重：加载场景后显示")
+        ttk.Label(header, textvariable=self.checkpoint_text, wraplength=850, foreground="#555555").grid(
+            row=6, column=0, columnspan=3, sticky="w")
         cameras = ttk.Frame(self.root, padding=(12, 0))
         cameras.grid(row=1, column=0, sticky="ew")
         self.cameras = []
@@ -153,7 +156,7 @@ class ChinesePanel:
                                    ("俯视对准", lambda: self.send("camera", True)),
                                    ("开始／结束 Demo", lambda: self.send("video"))))
         ttk.Label(page, text="鼠标在 MuJoCo 窗口中旋转、平移、缩放视角。\n"
-                  "满足任务判据后模型自动暂停；仍可人工接管，补录松爪和撤手。\n"
+                  "原任务达标后自动暂停；自定义指令需观察确认，可人工暂停或接管。\n"
                   "Demo 录制两路模型相机；三维窗口可独立调整视角。", wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
         from desktop_panel import Panel
         devices = Panel.capture_devices()
@@ -463,6 +466,7 @@ class ChinesePanel:
         if backend:
             model = "MolmoAct2" if backend == "official-molmoact2-libero-vla" else "π0.5"
             self.model_title.set(model + " 真实模型 · MuJoCo 本地仿真")
+            self.checkpoint_text.set("模型权重：" + (state.get("checkpoint_source") or backend))
         if state["manual"] and not self.was_manual:
             self.grip = state.get("grip", -1.)
         self.was_manual = state["manual"]

@@ -1,0 +1,209 @@
+{
+  "candidate": "counterfactual_v1/1999",
+  "classification": "adaptive development; all predeclared cases retained",
+  "raw_results": [
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 8,
+      "result": "success",
+      "steps": 114,
+      "initial_state_sha256": "2a08ef860403ae614c793ed6347d8480d6500fcc945c8b51c43b1ff531b80965",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init008/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 8,
+      "result": "success",
+      "steps": 147,
+      "initial_state_sha256": "2a08ef860403ae614c793ed6347d8480d6500fcc945c8b51c43b1ff531b80965",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init008/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 8,
+      "result": "success",
+      "steps": 87,
+      "initial_state_sha256": "2a08ef860403ae614c793ed6347d8480d6500fcc945c8b51c43b1ff531b80965",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init008/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 9,
+      "result": "success",
+      "steps": 115,
+      "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init009/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 9,
+      "result": "success",
+      "steps": 174,
+      "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init009/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 9,
+      "result": "success",
+      "steps": 87,
+      "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init009/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 10,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "a26cb5d4dff6064642d5b4eef1ecfa5e44882500e12f5b00f3d81b06622a99f2",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init010/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 10,
+      "result": "success",
+      "steps": 206,
+      "initial_state_sha256": "a26cb5d4dff6064642d5b4eef1ecfa5e44882500e12f5b00f3d81b06622a99f2",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init010/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 10,
+      "result": "success",
+      "steps": 96,
+      "initial_state_sha256": "a26cb5d4dff6064642d5b4eef1ecfa5e44882500e12f5b00f3d81b06622a99f2",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init010/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 11,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "fd93f9a6c46870ebdc220001df42a4ced931aeab9c374e46dfcfe89149cb7506",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init011/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 11,
+      "result": "success",
+      "steps": 177,
+      "initial_state_sha256": "fd93f9a6c46870ebdc220001df42a4ced931aeab9c374e46dfcfe89149cb7506",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init011/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 11,
+      "result": "success",
+      "steps": 90,
+      "initial_state_sha256": "fd93f9a6c46870ebdc220001df42a4ced931aeab9c374e46dfcfe89149cb7506",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init011/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 12,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "5c3fd9156c52b081e2345fdea45ab876c5fcd72998b28fa7313f0af615476e96",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init012/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 12,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "5c3fd9156c52b081e2345fdea45ab876c5fcd72998b28fa7313f0af615476e96",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init012/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 12,
+      "result": "success",
+      "steps": 95,
+      "initial_state_sha256": "5c3fd9156c52b081e2345fdea45ab876c5fcd72998b28fa7313f0af615476e96",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init012/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 13,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "e626a27d7896a4ab675ec18b3fca302804a8f5ee669da53d7198f7400e9833ce",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init013/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 13,
+      "result": "success",
+      "steps": 154,
+      "initial_state_sha256": "e626a27d7896a4ab675ec18b3fca302804a8f5ee669da53d7198f7400e9833ce",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init013/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 13,
+      "result": "success",
+      "steps": 89,
+      "initial_state_sha256": "e626a27d7896a4ab675ec18b3fca302804a8f5ee669da53d7198f7400e9833ce",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init013/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 14,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "5d80f91ba664389abe196e127d3b8afa1bc2dc55b766b387550e9bc5ca0e3edc",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init014/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 14,
+      "result": "success",
+      "steps": 141,
+      "initial_state_sha256": "5d80f91ba664389abe196e127d3b8afa1bc2dc55b766b387550e9bc5ca0e3edc",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init014/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 14,
+      "result": "success",
+      "steps": 84,
+      "initial_state_sha256": "5d80f91ba664389abe196e127d3b8afa1bc2dc55b766b387550e9bc5ca0e3edc",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init014/report.json"
+    },
+    {
+      "task": "bottle-in-bowl",
+      "initial_state": 15,
+      "result": "failure",
+      "steps": 360,
+      "initial_state_sha256": "cc617f504c1fd41a2207ab109780e9e02b7abc5114739571e72c5662d1ac156b",
+      "report": "runs/distillation-candidate-v1/bottle-in-bowl-init015/report.json"
+    },
+    {
+      "task": "bottle-on-rack",
+      "initial_state": 15,
+      "result": "success",
+      "steps": 217,
+      "initial_state_sha256": "cc617f504c1fd41a2207ab109780e9e02b7abc5114739571e72c5662d1ac156b",
+      "report": "runs/distillation-candidate-v1/bottle-on-rack-init015/report.json"
+    },
+    {
+      "task": "bowl-on-plate",
+      "initial_state": 15,
+      "result": "success",
+      "steps": 87,
+      "initial_state_sha256": "cc617f504c1fd41a2207ab109780e9e02b7abc5114739571e72c5662d1ac156b",
+      "report": "runs/distillation-candidate-v1/bowl-on-plate-init015/report.json"
+    }
+  ],
+  "visual_review_pending": false,
+  "visual_review": {
+    "method": "paired camera final frames for all24 cases; four trajectory samples per failed bottle case; earlier detailed review of init8/9 bottle successes",
+    "accepted_successes": {
+      "bottle-in-bowl": 2,
+      "bottle-on-rack": 7,
+      "bowl-on-plate": 8
+    },
+    "bottle_failures": "10/12/14: holds bottle aloft;11/15: unstable manipulation or displaced target;13: bottle remains misplaced",
+    "limitation": "finite visual sampling, contact-based approximate scorer, no long stability test"
+  }
+}

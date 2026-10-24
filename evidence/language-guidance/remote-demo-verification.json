@@ -1,0 +1,15 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim/releases/tag/language-distillation-v1",
+  "verified_downloads": [
+    {
+      "asset": "same-scene-different-instructions-v1.mp4",
+      "remote_download_sha256": "a9808ee7f8295f375c4bc4a87931a4ecf3935976652de0d502fa62ffe53b9596",
+      "matches_local": true
+    },
+    {
+      "asset": "baseline-vs-trained-init009.mp4",
+      "remote_download_sha256": "64b0c5a8c2d901d193b0a6bf8e8d81ca854045f8a8c2ec88cd1ab3f3e8fd0917",
+      "matches_local": true
+    }
+  ]
+}

@@ -62,6 +62,7 @@ class Workbench:
         payload = self._payload()
         self._update(ready=True, running=self.running, manual=self.recorder is not None,
                      policy_backend=self.scene.get("source_model", {}).get("backend"),
+                     checkpoint_source=self.scene.get("source_model", {}).get("checkpoint_source"),
                      steps=len(self.actions), frames=self.recorder.meta["frame_count"] if self.recorder else 0,
                      grip=self.grip,
                      images=(payload["observation/image"], payload["observation/wrist_image"]),

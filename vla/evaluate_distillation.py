@@ -6,13 +6,18 @@ from pathlib import Path
 
 from vla.language_guidance import BottleOnRackCheck
 from vla.compare import BottleInBowlCheck
-from vla.run import connect_policy, parse_args, rollout
+from vla.run import connect_policy, parse_args, rollout, translate_prompt
 
 
 PROMPTS = {
     "bottle-in-bowl": "put the wine bottle in the bowl",
     "bottle-on-rack": "put the wine bottle on the rack",
     "bowl-on-plate": "put the bowl on the plate",
+}
+CHINESE_PROMPTS = {
+    "bottle-in-bowl": "帮我把酒瓶放进碗里",
+    "bottle-on-rack": "把酒瓶放到架子上",
+    "bowl-on-plate": "把碗放在盘子上",
 }
 
 
@@ -49,10 +54,15 @@ class ReleasedBowlOnPlateCheck:
         return self.streak >= 5
 
 
-def evaluate(output, initial_states, port=8766, tasks=None):
+def evaluate(output, initial_states, port=8766, tasks=None, chinese=False):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     records = []
+    instructions = CHINESE_PROMPTS if chinese else PROMPTS
+    translated = {task: translate_prompt(instructions[task]) for task in tasks or PROMPTS}
+    (output / "instructions.json").write_text(json.dumps({task: {
+        "user_instruction": instructions[task], "model_prompt": prompt}
+        for task, prompt in translated.items()}, ensure_ascii=False, indent=2) + "\n")
     for initial in initial_states:
         for task in tasks or PROMPTS:
             path = output / f"{task}-init{initial:03}"
@@ -60,12 +70,13 @@ def evaluate(output, initial_states, port=8766, tasks=None):
                      "bowl-on-plate": ReleasedBowlOnPlateCheck}[task]()
             args = parse_args(["--suite", "libero_goal", "--task-id", "8", "--seed", "42",
                 "--initial-state", str(initial), "--port", str(port), "--max-steps", "360",
-                "--replan-steps", "5", "--prompt", PROMPTS[task], "--output", str(path)])
+                "--replan-steps", "5", "--prompt", translated[task], "--output", str(path)])
             result = rollout(args, success_check=check,
                 policy_factory=lambda p: SeededPolicy(connect_policy(p)), status=lambda _: None)
             if hasattr(check, "history"):
                 (path / "target_relation.json").write_text(json.dumps(check.history, indent=2) + "\n")
             record = dict(task=task, initial_state=initial, result=result["result"],
+                user_instruction=instructions[task], model_prompt=translated[task],
                 steps=result["steps"], initial_state_sha256=result.get("initial_state_sha256"),
                 report=str(path / "report.json"))
             records.append(record)
@@ -82,9 +93,10 @@ def main():
     parser.add_argument("--initial-states", required=True, nargs="+", type=int)
     parser.add_argument("--tasks", nargs="+", choices=PROMPTS)
     parser.add_argument("--port", type=int, default=8766)
+    parser.add_argument("--chinese", action="store_true", help="Translate actual Chinese requests before model execution")
     args = parser.parse_args()
     os.environ.setdefault("MUJOCO_GL", "egl")
-    evaluate(args.output, args.initial_states, args.port, args.tasks)
+    evaluate(args.output, args.initial_states, args.port, args.tasks, args.chinese)
 
 
 if __name__ == "__main__":

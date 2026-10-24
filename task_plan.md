@@ -96,11 +96,10 @@ The requested end-to-end behavior is still unfulfilled. Official HAMSTER exposes
 No hardware, paid compute, interruption of existing GPU services, or old project edits.
 
 ## Learned language-following implementation — active 2026-10-25
-User explicitly rejects fixed-transfer substitution. Target: same scene/initial state, changed source/destination language must drive actual learned action outputs. Preserve earlier demos as hybrid baselines, not a completed general-purpose capability.
-1. In progress: verify released complete policies and language-guidance methods against upstream sources; inspect observation/action interfaces before changes.
-2. Pending: implement a bounded model-driven candidate in isolation; no object-name destination lookup or hand-coded transport phases.
-3. Pending: evaluate predeclared bottle→bowl vs bottle→rack and bowl→plate, multiple initial states, matched seeds and full action/video records. Use relation checks independent from original scene task. Failures remain failures.
-4. Pending: expose only verified behavior in Chinese panel, document limitations, targeted tests and actual rollout checks.
-5. Pending: commit/push new capability to owned remote and independently restore/hash-compare.
-Constraints: no old training-project edits, hardware, paid/cloud compute, or interruption of existing GPU tasks. Current GPU30/32GB occupied; use existing inference servers or CPU for isolated candidates.
-Research leads: LIBERO-CF CAG (arXiv2602.17659), CRAFT (arXiv2610.00524); both specifically address visual-shortcut / same-scene task replacement. Need verify actual released inference code/checkpoints before relying on them. Native research/explore agents failed at startup because their configured models are unsupported; continue directly.
+User explicitly rejects fixed-transfer substitution. Target: same scene/initial state, changed source/destination language drives actual learned action outputs. Prior hybrid demos remain labelled as hybrid baselines.
+1. Complete: tested official policies and CAG; upstream HAMSTER lacks released compatible learned low-level controller. Isolated actual π0.5 LoRA distillation selected, with disclosed synthetic-teacher provenance.
+2. Complete: 36 teacher clips visually reviewed; 21 training clips, 10 holdout clips; initial states split without leakage. Only training clips used. First actual 2,000 updates and checkpoint complete; pure model inference verified.
+3. V1 evaluation complete: predeclared matched initial states8..15 × three instructions; raw successes bottle→bowl2/8, bottle→rack7/8, bowl→plate8/8. Visual audit ongoing. All actions/videos/failures retained.
+4. In progress: V2 adds8,000 updates from V1 with frozen data. Continuation decision recorded before inspecting V1 heldout results, based on failure at training state0. These are adaptive-development evaluations, not independent final benchmarks.
+5. In progress: Chinese panel completion checks corrected;102 tests pass. Code b574308 pushed to owned origin and independently fetched/restored;1159 tracked hashes match. Adapter/raw-data release upload and model reconstruction verification underway.
+Constraints: no old training-project edits, hardware, paid/cloud compute, or unrelated GPU process interruption. Own π0.5/Molmo inference services temporarily paused for training; ASR service preserved.

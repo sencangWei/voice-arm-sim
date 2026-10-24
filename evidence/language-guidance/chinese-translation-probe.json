@@ -1,0 +1,32 @@
+[
+  {
+    "chinese": "帮我把酒瓶放进碗里",
+    "model_translation": "Please put the wine bottle into the bowl.",
+    "seconds": 0.8790976970049087,
+    "action_execution": false
+  },
+  {
+    "chinese": "把酒瓶放到架子上",
+    "model_translation": "Put the wine bottle on the shelf.",
+    "seconds": 0.3475952070002677,
+    "action_execution": false
+  },
+  {
+    "chinese": "把碗放在盘子上",
+    "model_translation": "Put the bowl on the plate.",
+    "seconds": 0.33711544599646004,
+    "action_execution": false
+  },
+  {
+    "chinese": "酒瓶别放架子了，放到碗里面",
+    "model_translation": "Don't put the wine bottle on the shelf; put it in the bowl instead.",
+    "seconds": 0.677891503997671,
+    "action_execution": false
+  },
+  {
+    "chinese": "把酒瓶从架子拿出来放碗里",
+    "model_translation": "Take the wine bottle off the shelf and put it in the bowl.",
+    "seconds": 0.5213959660031833,
+    "action_execution": false
+  }
+]

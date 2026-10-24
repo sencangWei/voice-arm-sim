@@ -2,6 +2,8 @@
 
 新增的真正 VLA 入口见 **[π0.5 多任务 MuJoCo 演示](vla/README.md)**：双摄像头、机械臂状态与指令直接输入官方 π0.5 LIBERO 权重，模型输出连续动作。以下水果实验保留为模块化几何控制基线，证据不能与 VLA 混算。
 
+新增 [同场景改指令的实际 LoRA 训练与对比](evidence/language-guidance/DISTILLATION.md)：已完成 V1 真实训练和全部 24 次纯模型评测，V2 正在继续训练。评测执行不使用几何搬运或预设松爪；教师示范来源与失败一并公开。V1 酒瓶入碗仅 2/8，尚未达到要求，不代表开放家庭指令理解。
+
 另有独立的 [MolmoAct2 接入与同场景测试](vla/MOLMOACT2.md)，复用原生中文工作台；实际测试结果单独记录。
 
 新增 [HAMSTER 中文分层抓放实验](evidence/hamster/physical-hybrid/REPORT.md)与[同场景前后对比录像](evidence/hamster/physical-hybrid/hybrid-comparison-01/bottle-bowl-before-after.mp4)：实际模型选目标，π0.5 抓取，RGB-D／OSC 搬运和松爪。固定布局、混合控制，未宣称端到端 VLA 或任意家居物品泛化。

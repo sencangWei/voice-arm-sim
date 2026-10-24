@@ -80,5 +80,29 @@ class DistillationTests(unittest.TestCase):
             DistillationDataset(manifest)
 
 
+def test_chinese_evaluation_executes_translated_request(tmp_path, monkeypatch):
+    from vla import evaluate_distillation as evaluation
+
+    requests, executed = [], []
+
+    def translate(text):
+        requests.append(text)
+        return "Please put the wine bottle into the bowl."
+
+    def rollout(args, **kwargs):
+        Path(args.output).mkdir()
+        executed.append(args.prompt)
+        return {"result": "failure", "steps": 360}
+
+    monkeypatch.setattr(evaluation, "translate_prompt", translate)
+    monkeypatch.setattr(evaluation, "rollout", rollout)
+    output = tmp_path / "chinese"
+    result = evaluation.evaluate(output, [0, 1], tasks=["bottle-in-bowl"], chinese=True)
+    assert requests == ["帮我把酒瓶放进碗里"]
+    assert executed == ["Please put the wine bottle into the bowl."] * 2
+    assert result[0]["user_instruction"] == requests[0]
+    assert json.loads((output / "instructions.json").read_text())["bottle-in-bowl"]["model_prompt"] == executed[0]
+
+
 if __name__ == "__main__":
     unittest.main()
