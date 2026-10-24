@@ -4,6 +4,15 @@ import re
 
 import cv2
 import numpy as np
+from scipy.spatial import cKDTree
+
+
+TAKE_OUT = re.compile(
+    r"(?:请)?(?:帮我)?把(?P<target>[^，,。！!]+?)从(?:蓝色)?(?:的)?(?:托盘|盘子)"
+    r"(?:里面|里|中|内|上面|上)?(?:取出来|拿出来|取出|拿出)"
+    r"(?:[，,]?(?:放到|放在|放回)(?:桌面|桌子|桌)(?:的空位|空位|上面|上)?)?"
+    r"[。！!，,\s]*$"
+)
 
 
 @dataclass
@@ -21,6 +30,29 @@ def point_cloud(depth, intrinsic, camera_to_world):
     rays = np.stack(((u - intrinsic[0, 2]) / intrinsic[0, 0],
                      (v - intrinsic[1, 2]) / intrinsic[1, 1], np.ones_like(u)), axis=-1)
     return (rays * depth[..., None]) @ camera_to_world[:3, :3].T + camera_to_world[:3, 3]
+
+
+def free_table_position(depth, intrinsic, camera_to_world, source_xy):
+    """Select an observed clear table patch, never a simulator object pose."""
+    cloud = point_cloud(depth, intrinsic, camera_to_world).reshape(-1, 3)
+    cloud = cloud[np.isfinite(cloud).all(axis=1)]
+    table = cloud[(cloud[:, 2] > .795) & (cloud[:, 2] < .805)]
+    obstacles = cloud[(cloud[:, 2] >= .805) & (cloud[:, 2] < 1.3)]
+    if not len(table) or not len(obstacles):
+        raise ValueError("相机未确认桌面空位，请移开遮挡后重试")
+    visible, occupied = cKDTree(table[:, :2]), cKDTree(obstacles[:, :2])
+    candidates = np.array([(x, y) for x in np.arange(-.24, .241, .06)
+                           for y in np.arange(-.24, .241, .06)])
+    candidates = candidates[np.argsort(np.linalg.norm(candidates - source_xy, axis=1))]
+    # Entire 16 cm square must be observed as table, with 11 cm clearance to
+    # raised geometry (tray walls, other fruit and arm). This covers the banana.
+    offsets = np.array([(x, y) for x in np.linspace(-.08, .08, 5)
+                        for y in np.linspace(-.08, .08, 5)])
+    for xy in candidates:
+        if (occupied.query(xy)[0] > .11
+                and visible.query(xy + offsets)[0].max() < .009):
+            return np.r_[xy, .8]
+    raise ValueError("桌面没有足够大的可见空位，未开始抓取；请清理桌面")
 
 
 def localize(rgb, depth, intrinsic, camera_to_world, label, bbox=None):
@@ -73,15 +105,22 @@ def validate_command(text):
         raise ValueError("这条包含否定或停止，请用停止按钮；执行前请重新说出明确的肯定指令")
     if any(word in lowered for word in ("如果", "等我", "再说", "假如", "等到")) or re.search(r"\b(?:if|when|unless|wait)\b", lowered):
         raise ValueError("暂不执行带条件或等待要求的指令，请准备好后再下达肯定指令")
-    source = re.split(r"放|装|\b(?:into|in|on)\b", lowered, maxsplit=1)[0]
+    source = re.split(r"从|放|装|\b(?:into|in|on)\b", lowered, maxsplit=1)[0]
     known_targets = (("方块", "积木", "cube"), ("苹果", "apple"), ("香蕉", "banana"))
     if sum(any(word in source for word in group) for group in known_targets) > 1 or re.search(r"或者|或|、|以及|和|与|\b(?:and|or)\b", source):
         raise ValueError("请一次指定一个明确目标，不要使用并列或选择指令")
     chinese = re.search(r"(?:放进|放入|放到|放在|放至|装进|装入)(?:蓝色)?(?:的)?(?:托盘|盘子)(?:里|中|内|里面|上|上面)?[。！!，,\s]*$", lowered)
     english = re.search(r"\bput\b.+\b(?:in|into|on)\s+(?:the\s+)?(?:blue\s+)?tray[.!\s]*$", lowered)
-    if not (chinese or english):
-        raise ValueError("第一版请明确放进蓝色托盘，例如：把苹果放进蓝色托盘")
+    take_out = TAKE_OUT.fullmatch(lowered)
+    if take_out and any(word in take_out["target"] for word in ("放", "装", "从", "取", "拿", "再", "然后")):
+        raise ValueError("请一次只给出一个取出动作，不要附加其它动作或目的地")
+    if not take_out and ("从" in lowered or not (chinese or english)):
+        raise ValueError("请明确放进托盘，或从盘子取出放到桌面，例如：把香蕉从盘子取出来")
     return lowered
+
+
+def command_action(text):
+    return "take_out" if TAKE_OUT.fullmatch(validate_command(text)) else "put_in"
 
 
 def parse_command(text):
@@ -92,7 +131,7 @@ def parse_command(text):
     if len(found) != 1:
         raise ValueError("请一次指定一个物体：红色方块、绿色苹果或黄色香蕉")
     # Colour baseline cannot fulfil arbitrary attributes or unknown classes.
-    source = re.split(r"放|装|\b(?:into|in|on)\b", lowered, maxsplit=1)[0]
+    source = re.split(r"从|放|装|\b(?:into|in|on)\b", lowered, maxsplit=1)[0]
     allowed = {"cube": ("红", "red"), "apple": ("绿", "green"), "banana": ("黄", "yellow")}[found[0]]
     colours = ("红", "绿", "黄", "蓝", "紫", "黑", "白", "橙", "red", "green", "yellow", "blue", "purple", "black", "white", "orange")
     if any(c in source and c not in allowed for c in colours):

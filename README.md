@@ -1,6 +1,6 @@
 # 桌面语音抓取实验室
 
-独立的本机 MuJoCo / Panda 桌面实验：中文指令 → 目标定位 → 相机 RGB-D 三维位置 → 物理夹爪抓取 → 放进蓝色托盘。项目目录为 `/home/robot/voice-arm-sim`，不连接真机，不修改已有 π0.5 训练工程。
+独立的本机 MuJoCo / Panda 桌面实验：中文指令 → 目标定位 → 相机 RGB-D 三维位置 → 物理夹爪抓取 → 放进蓝色托盘，或从盘子取出放到桌面空位。项目目录为 `/home/robot/voice-arm-sim`，不连接真机，不修改已有 π0.5 训练工程。
 
 当前物品是红色方块、绿色苹果、黄色香蕉与蓝色托盘。苹果与香蕉使用程序生成的连续视觉网格，碰撞仍用球体/胶囊近似，属于简化模型。颜色、形状和初始布局都受限，不能据此声称识别或操纵真实水果。
 
@@ -9,7 +9,9 @@
 | 项目 | 当前证据 |
 | --- | --- |
 | 颜色 RGB-D 物理抓取 | [`evidence/regression.json`](evidence/regression.json)：seed 42、7、99 × 方块、苹果、香蕉，共 9/9；相机结果与独立真值评分均通过 |
-| 指令、投影及目标框契约 | `tests/`：17 项通过（含原生初始化失败退出），包含拒绝含糊、否定、错误颜色、条件/等待、多目标与选择词等指令且不执行控制步 |
+| 指令、投影及目标框契约 | `tests/`：30 项通过（含原生初始化失败退出、取出语义与桌面空位），拒绝含糊、否定、错误颜色、条件/等待、多目标与未支持的取出目的地 |
+| 从盘子取出 | [颜色物理回归](evidence/takeout/color-results.json)：三个种子 × 三物品，9/9 对“放进→取出”均通过相机与独立真值评分；是固定场景回归 |
+| 原生窗口取出操作 | [实际按钮与 Qwen 执行记录](evidence/takeout/native-result.json) / [录像](evidence/takeout/native-demo.mp4)：先放入香蕉，再点击取出按钮，取出359控制步、19.62秒 |
 | Qwen 定位的实际抓放 | [苹果文字指令](evidence/text-vlm-apple.json)：433 控制步、22.89 秒、1 次抓取；相机判定已放入托盘 |
 | 实际 Web API | [`evidence/api-smoke.json`](evidence/api-smoke.json)：布局变化、未知目标零步、busy 拒绝、暂停/恢复、停止、方块完整执行通过 |
 | 视频 | [方块](evidence/cube/demo.mp4)、[苹果](evidence/apple/demo.mp4)、[香蕉](evidence/banana/demo.mp4)（真实物理接触仿真） |
@@ -74,6 +76,10 @@ rtk proxy env START_MODELS=0 bash scripts/launch.sh
 - 把红色方块放进蓝色托盘。
 - 把苹果放进蓝色托盘。
 - 把香蕉放进蓝色托盘。
+- 把香蕉从盘子里面取出来。
+- 把苹果从蓝色托盘拿出来放在桌上。
+
+“取出来”默认放到相机确认的桌面空位，面板也提供香蕉取出按钮。抓取前检查目标位于盘子内，并通过深度图确认放置区域是可见桌面、远离托盘和其它凸起物；无空位或目标不在盘子里时会说明原因并停止任务。当前仅支持单个物体放进托盘或从托盘取到桌面，不支持取出后放入抽屉、指定任意左右位置、连续复合任务。新动作是补齐指令解析与几何控制流程，没有重新训练模型。
 
 视觉模式在空闲时切换：
 
@@ -107,6 +113,7 @@ rtk proxy .venv/bin/python smoke.py --output runs/scene-check
 
 ```bash
 rtk proxy .venv/bin/python evaluate.py --output runs/regression-new.json
+rtk proxy .venv/bin/python evaluate_takeout.py --output runs/takeout-new
 rtk proxy .venv/bin/python demo.py --seed 42 --command '把红色方块放进蓝色托盘' --output runs/demo-cube-new
 ```
 
@@ -150,10 +157,11 @@ Piper 引擎 GPL-3.0；上游 huayan 声音卡将数据集许可标为 Unknown�
 
 定位从相机 RGB、深度、内参与外参反投影得到世界坐标；控制器不读物体 `body_xpos` 来规划。相机图像/深度同时上下翻转，保持像素对应。机械臂先移开顶部相机遮挡，接触后重试使用新图像，空抓最多重试一次。抓取依靠夹爪接触、摩擦和仿真物理，没有瞬移、焊接或强行附着。
 
-`evaluation_truth()` 仅供 `smoke.py` 的调试记录、`demo.py` 与 `evaluate.py` 的独立评分。相机判定和真值评分分别记录；真值不反馈进抓取规划。真值托盘评分检查目标中心的平面范围及高度，并不等价于真实机器人上的稳定性证明。
+`evaluation_truth()` 仅供 `smoke.py` 的调试记录、`demo.py`、`evaluate.py` 与 `evaluate_takeout.py` 的独立评分。相机判定和真值评分分别记录；真值不反馈进抓取规划。真值托盘评分检查目标中心的平面范围及高度，并不等价于真实机器人上的稳定性证明。
 
 已处理的主要问题及证据：
 
+- 取出指令：原版本把“把香蕉从盘子里面取出来”拒绝为澄清，运行0步；控制器也只实现放进托盘。现增加独立取出分支，抓取前从RGB-D确认桌面空位，移出后张开夹爪并检查结果。不是模型卡住或训练不足；新物理评测会先真实放入，再真实取出，禁止直接改物体位置。
 - 原生入口：旧网页只展示固定截图，每3个控制步渲染三个视角并编码传图。现默认使用 MuJoCo passive viewer，GUI 与物理线程经 `sync()` 同步，RGB-D 仅在感知需要时获取。相机转动不改变策略观测相机。水果视觉网格与物理碰撞分离，修改后质量/惯量/重心逐位相同，九项回归全部通过；不代表照片级建模或任意物品泛化。
 - 渲染分组：robosuite 的碰撞/质量几何与可见几何分组不同。保留 group 0 物理几何，增加 group 1、零质量且无碰撞的视觉副本，避免物体不可见并保持质量定义；见 `scene.py` 与场景截图。
 - 几何与接触：早期苹果/香蕉下降阶段超时，失败记录保留在 `runs/physical-apple-v1`、`runs/physical-banana-v1`、`runs/physical-banana-v2`。调整简化物体几何、接触摩擦、初始可达布局和抓取高度/容差后，以三个种子 × 三物体重新验证；最终依据是 [9 项回归记录](evidence/regression.json)，不是只看单条成功录像。

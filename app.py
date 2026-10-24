@@ -95,7 +95,7 @@ class Lab:
         def resolve(command):
             lowered = validate_command(command)
             if any(word in lowered for word in ("真机", "撞", "攻击", "砸", "打人", "碰人", "刺", "桌外", "真人", "real robot")):
-                raise ValueError("仅支持仿真桌面内单个目标抓取到托盘，请重新描述")
+                raise ValueError("仅支持仿真桌面内单个目标放进托盘或从盘子取出，请重新描述")
             if any(word in lowered for word in ("分别", "依次", "所有", "全部", "以及", "和", " and ")):
                 raise ValueError("请一次指定一个要抓取的物体")
             # Known assets can check colour identity inside a VLM box; unknown

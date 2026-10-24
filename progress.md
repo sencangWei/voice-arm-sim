@@ -1,5 +1,7 @@
 # Progress
 
+2026-10-24 take-out repair: user command 把香蕉从盘子里面取出来 was rejected before motion by put-in-only command validation; controller also had only tray destination. Added explicit take-out intent, camera-confirmed visible free tabletop patch (16cm square and11cm foreground clearance), source-in-tray check and physical release/result verification. Four command regression cases failed before repair; now30 total tests pass. Read-only review caught compound-command swallowing; extra action/source clauses now rejected and reviewer confirms scoped fix. Independent RGB-D physical matrix seeds42/7/99 × banana/apple/cube passed9/9 put-in→take-out pairs, with simulator truth only scoring after execution. Actual native GUI buttons and Qwen localisation both passed: banana put-in392steps/21.23s then take-out359steps/19.62s. Evidence under evidence/takeout. No action-policy retraining. Backup pending.
+
 2026-10-24: User approved first MuJoCo voice-arm prototype. Read karpathy-guidelines, planning-with-files, verification-before-completion, RTK; created independent project. Delegated read-only environment and official API checks. No old project edited; no GPU processes terminated.
 
 Environment: initial online install selected newer SciPy/LLVM and stalled downloading; stopped only our own installer and used existing uv cache with MuJoCo3.2.3/SciPy1.15.3/Numba0.61.2. Installed isolated simulation environment successfully. Frontend worker completed Chinese UI, pending backend integration.

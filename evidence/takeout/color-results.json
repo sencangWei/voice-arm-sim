@@ -1,0 +1,749 @@
+[
+  {
+    "seed": 42,
+    "label": "banana",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 392,
+      "elapsed_s": 2.1304910500002734,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.07818197552362505,
+          0.04507205310150172,
+          0.8389635562896729
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.12662532329915968,
+        0.18810081146182425,
+        0.8489271759986878
+      ],
+      "gripper_width_after_lift": 0.0465423398544489,
+      "command": "把香蕉放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.1302103404680057,
+      0.18442532610135862,
+      0.8309280989283055
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 357,
+      "elapsed_s": 1.9763307570001416,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.12670006882044227,
+          0.18810048250704242,
+          0.8489302277565003
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1288548216579679,
+        0.18244081629618814,
+        0.8388338088989258
+      ],
+      "gripper_width_after_lift": 0.04787772264975128,
+      "command": "把香蕉从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13066247889244645,
+      0.17811602475502558,
+      0.820927909339327
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 42,
+    "label": "apple",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 432,
+      "elapsed_s": 1.8220560009995097,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.18368105063617457,
+          -0.12625010338106968,
+          0.849776065349579
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.1336590485730795,
+        0.1867080416985985,
+        0.859666931629181
+      ],
+      "gripper_width_after_lift": 0.04821988202277255,
+      "command": "把苹果放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13687469508391034,
+      0.18960056246649318,
+      0.8366328181575396
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 356,
+      "elapsed_s": 1.5518305569994482,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.1336590485730795,
+          0.1867080416985985,
+          0.859666931629181
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1289392523816303,
+        0.180861249203984,
+        0.8496715307235718
+      ],
+      "gripper_width_after_lift": 0.048072258194670384,
+      "command": "把苹果从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13051929149300665,
+      0.18301690455124542,
+      0.8266328181575396
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 42,
+    "label": "cube",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 396,
+      "elapsed_s": 1.7052120480002486,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          -0.08546228717811225,
+          -0.1709245743562245,
+          0.8437853932380677
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.13560016366444225,
+        0.1875218811560676,
+        0.8537835955619812
+      ],
+      "gripper_width_after_lift": 0.041176348004466436,
+      "command": "把红色方块放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13758664882024974,
+      0.18940611381011588,
+      0.8317844891595659
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 358,
+      "elapsed_s": 1.5775369000002684,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.13560016366444225,
+          0.1875218811560676,
+          0.8537835955619812
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1300513065753882,
+        0.1820718292055435,
+        0.8437853932380677
+      ],
+      "gripper_width_after_lift": 0.04117637141837231,
+      "command": "把红色方块从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13133595126418426,
+      0.1827368692689897,
+      0.8217844891595658
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 7,
+    "label": "banana",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 394,
+      "elapsed_s": 1.693434722999882,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.08771076439226369,
+          0.040963928436725035,
+          0.8389126777648926
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.1273961522518537,
+        0.1881038236476632,
+        0.8488611221313477
+      ],
+      "gripper_width_after_lift": 0.04682015594376089,
+      "command": "把香蕉放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13066005842794623,
+      0.18440869251691636,
+      0.8309277756733612
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 357,
+      "elapsed_s": 1.5891852530003234,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.1273961522518537,
+          0.1881038236476632,
+          0.8488611221313477
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.12876757405993972,
+        0.18248354625424293,
+        0.8388877868652345
+      ],
+      "gripper_width_after_lift": 0.047865046383662936,
+      "command": "把香蕉从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.1305399454365106,
+      0.17830313750525115,
+      0.8209278280631238
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 7,
+    "label": "apple",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 436,
+      "elapsed_s": 1.8390082200003235,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.1796825098944252,
+          -0.1497486625095007,
+          0.8497801303863526
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.13377027553288456,
+        0.1864997579072038,
+        0.8597433924674989
+      ],
+      "gripper_width_after_lift": 0.04822799306460318,
+      "command": "把苹果放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13712688839148285,
+      0.18938914858724312,
+      0.8366328181575396
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 356,
+      "elapsed_s": 1.5580653630004235,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.13377027553288456,
+          0.1864997579072038,
+          0.8597433924674989
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.12875644686478888,
+        0.18092691601336114,
+        0.8496806979179383
+      ],
+      "gripper_width_after_lift": 0.048072306254579665,
+      "command": "把苹果从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13038030010063484,
+      0.1830168171173408,
+      0.8266328181575396
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 7,
+    "label": "cube",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 391,
+      "elapsed_s": 1.689474572999643,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          -0.09289379041099156,
+          -0.14677218884936669,
+          0.8437853932380677
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.1360452863289118,
+        0.1875218811560676,
+        0.8537835955619812
+      ],
+      "gripper_width_after_lift": 0.0411770110170235,
+      "command": "把红色方块放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13821470303112648,
+      0.18947846329163875,
+      0.8317844891595659
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 358,
+      "elapsed_s": 1.631424299000173,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.1360452863289118,
+          0.1875218811560676,
+          0.8537835955619812
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1300513065753882,
+        0.1820718292055435,
+        0.8437853932380677
+      ],
+      "gripper_width_after_lift": 0.04117631876039292,
+      "command": "把红色方块从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13116451275762014,
+      0.18273716149811886,
+      0.8217844891595658
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 99,
+    "label": "banana",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 397,
+      "elapsed_s": 1.708949400000165,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.1032681437940535,
+          0.024586654748084375,
+          0.8389552593231202
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.12587911233564772,
+        0.1889218151965927,
+        0.8488255143165588
+      ],
+      "gripper_width_after_lift": 0.04599252494372364,
+      "command": "把香蕉放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.12981820810296202,
+      0.18498424323139492,
+      0.8309276321309383
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 357,
+      "elapsed_s": 1.5910741359994063,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.12587911233564772,
+          0.1889218151965927,
+          0.8488255143165588
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.12809391942682197,
+        0.18234991522131433,
+        0.8388026833534241
+      ],
+      "gripper_width_after_lift": 0.04781708571301611,
+      "command": "把香蕉从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.12968377710274573,
+      0.17791204370823419,
+      0.8209281016638524
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 99,
+    "label": "apple",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 426,
+      "elapsed_s": 1.7981393469999603,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          0.166621654956953,
+          -0.11291129734503166,
+          0.8496522784233094
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.13049040758968566,
+        0.18640812248898492,
+        0.8596619248390198
+      ],
+      "gripper_width_after_lift": 0.04772905105286805,
+      "command": "把苹果放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.13368360640495183,
+      0.18926480226475828,
+      0.8366328181575396
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 355,
+      "elapsed_s": 1.5545684250000704,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.13049040758968566,
+          0.18640812248898492,
+          0.8596619248390198
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1287856292825202,
+        0.1808680133620187,
+        0.8496908187866211
+      ],
+      "gripper_width_after_lift": 0.0480720372925794,
+      "command": "把苹果从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13046682409788535,
+      0.1830191921616437,
+      0.8266328181575396
+    ],
+    "truth_on_table": true,
+    "passed": true
+  },
+  {
+    "seed": 99,
+    "label": "cube",
+    "put_in": {
+      "success": true,
+      "message": "已放入托盘",
+      "steps": 393,
+      "elapsed_s": 1.6973372100001143,
+      "attempts": 1,
+      "action": "put_in",
+      "camera_observations": {
+        "target": [
+          -0.09846741783565106,
+          -0.16349307112334516,
+          0.8437853932380677
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ]
+      },
+      "final_camera_xyz": [
+        0.1360452863289118,
+        0.1875218811560676,
+        0.8537835955619812
+      ],
+      "gripper_width_after_lift": 0.04117685444917145,
+      "command": "把红色方块放进蓝色托盘",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_before": [
+      0.1384429405656366,
+      0.18945429297664373,
+      0.8317844891595659
+    ],
+    "truth_in_tray": true,
+    "take_out": {
+      "success": true,
+      "message": "已从盘子取出并放到桌面空位",
+      "steps": 358,
+      "elapsed_s": 1.5800136959996962,
+      "attempts": 1,
+      "action": "take_out",
+      "camera_observations": {
+        "target": [
+          0.1360452863289118,
+          0.1875218811560676,
+          0.8537835955619812
+        ],
+        "tray": [
+          0.12921163018363707,
+          0.18775219408972638,
+          0.8409983396530152
+        ],
+        "destination": [
+          -0.12,
+          0.18,
+          0.8
+        ]
+      },
+      "final_camera_xyz": [
+        -0.1300513065753882,
+        0.1820718292055435,
+        0.8437853932380677
+      ],
+      "gripper_width_after_lift": 0.041176330198193556,
+      "command": "把红色方块从盘子里面取出来",
+      "controller": "RGB-D geometry / OSC_POSE / physical contact"
+    },
+    "truth_after": [
+      -0.13094393443040936,
+      0.1827371450051982,
+      0.8217844891595659
+    ],
+    "truth_on_table": true,
+    "passed": true
+  }
+]

@@ -4,7 +4,7 @@ import time
 import numpy as np
 from scipy.spatial.transform import Rotation
 
-from perception import localize, parse_command
+from perception import command_action, free_table_position, localize, parse_command
 
 
 class Controller:
@@ -56,11 +56,20 @@ class Controller:
         self.hold(-1, "观察桌面", 8)
 
     def run(self, text):
+        action = command_action(text)
         label = self.resolve(text) if self.resolve else parse_command(text)
         start = time.monotonic()
         self.park()
         target, tray = self.detect(label), self.detect("tray")
         observations = {"target": target.xyz.tolist(), "tray": tray.xyz.tolist()}
+        destination = tray.xyz.copy()
+        if action == "take_out":
+            if np.any(np.abs(target.xyz[:2] - tray.xyz[:2]) > [.065, .055]):
+                raise ValueError("相机看到目标不在盘子里，请先放进盘子或重新描述")
+            _, depth = self.env.rgbd()
+            destination = free_table_position(depth, *self.env.calibration(), tray.xyz[:2])
+            self.hold(-1, f"取出后放到桌面空位 ({destination[0]:.2f}, {destination[1]:.2f})", 1)
+        observations["destination"] = destination.tolist()
         for attempt in range(2):
             if attempt:
                 self.park()
@@ -80,18 +89,23 @@ class Controller:
             self.hold(-1, "空抓：张开重新观察", 15)
         else:
             raise RuntimeError("两次抓取均为空抓，已停止；需要重新定位或人工调整")
-        x, y = tray.xyz[:2]
-        self.move([x, y, 1.09], 1, "运输到托盘上方")
-        self.move([x, y, .84 + target.height * .5], 1, "下降放置", tolerance=.005)
+        x, y = destination[:2]
+        self.move([x, y, 1.09], 1, "运输到桌面空位上方" if action == "take_out" else "运输到托盘上方")
+        release_z = (.82 if action == "take_out" else .84) + target.height * .5
+        self.move([x, y, release_z], 1, "下降放置", tolerance=.005)
         self.hold(-1, "张开释放", 22)
         self.move([x, y, 1.09], -1, "抬起退出")
         self.move([-.25, 0, 1.1], -1, "移开观察结果")
         self.hold(-1, "等待物体稳定", 15)
         placed = self.detect(label)
-        error = np.abs(placed.xyz[:2] - tray.xyz[:2])
+        error = np.abs(placed.xyz[:2] - destination[:2])
         success = bool(error[0] < .065 and error[1] < .055 and placed.xyz[2] < .91)
-        return dict(success=success, message="已放入托盘" if success else "放置检查未通过，已停止",
+        if action == "take_out":
+            success = success and bool(np.any(np.abs(placed.xyz[:2] - tray.xyz[:2]) > [.15, .14]))
+        message = "已从盘子取出并放到桌面空位" if action == "take_out" else "已放入托盘"
+        return dict(success=success, message=message if success else "放置检查未通过，已停止",
                     steps=self.steps, elapsed_s=time.monotonic()-start, attempts=attempt+1,
+                    action=action,
                     camera_observations=observations, final_camera_xyz=placed.xyz.tolist(),
                     gripper_width_after_lift=width, command=text,
                     controller="RGB-D geometry / OSC_POSE / physical contact")
