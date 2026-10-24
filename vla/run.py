@@ -7,7 +7,6 @@ import json
 import math
 import os
 from pathlib import Path
-import queue
 import sys
 import threading
 import time
@@ -132,8 +131,8 @@ def rollout(args, stop=None, paused=None, status=print):
         status("Connecting to genuine VLA policy")
         client = connect_policy(args.port)
         report["server_metadata"] = client.get_server_metadata()
-        if report["server_metadata"].get("backend") != "official-pi05-libero-vla":
-            raise ValueError("Expected the official multitask VLA server on this port")
+        if report["server_metadata"].get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora"):
+            raise ValueError("Expected this project's official or LoRA VLA server on this port")
         env = OffScreenRenderEnv(bddl_file_name=str(Path(get_libero_path("bddl_files")) /
             task.problem_folder / task.bddl_file), camera_heights=256, camera_widths=256)
         env.seed(args.seed)
@@ -229,161 +228,8 @@ def voice_prompt(audio, url="http://127.0.0.1:8911"):
 
 
 def panel(args):
-    """Tk on main thread; one worker owns simulator and bounded network IO."""
-    import tkinter as tk
-    from tkinter import ttk
-    configure_libero()
-    from libero.libero import benchmark
-    tasks = benchmark.get_benchmark_dict()[args.suite]()
-    if not 0 <= args.task_id < tasks.n_tasks:
-        raise ValueError("task-id outside suite")
-    window = tk.Tk()
-    window.title("Genuine VLA · LIBERO simulation")
-    selected = tk.StringVar(value=f"{args.task_id}: {tasks.get_task(args.task_id).language}")
-    taskbox = ttk.Combobox(window, textvariable=selected, state="readonly", width=95,
-        values=[f"{i}: {tasks.get_task(i).language}" for i in range(tasks.n_tasks)])
-    taskbox.pack(padx=12, pady=8)
-    prompt = tk.StringVar(value=args.prompt if args.prompt is not None else tasks.get_task(args.task_id).language)
-    taskbox.bind("<<ComboboxSelected>>", lambda event: prompt.set(tasks.get_task(taskbox.current()).language))
-    ttk.Label(window, text="Raw English instruction to VLA (no scripted action mapping)").pack()
-    ttk.Entry(window, textvariable=prompt, width=95).pack(padx=12, pady=8)
-    ttk.Label(window, text=f"Each Start resets initial state {args.initial_state}; score uses selected task predicates.").pack()
-    events = queue.Queue()
-    label = tk.StringVar(value="Ready")
-    ttk.Label(window, textvariable=label, wraplength=760).pack(pady=8)
-    stop, paused = threading.Event(), threading.Event()
-    worker = None
-    import signal
-    import subprocess
-    import tempfile
-    import wave
-    sys.path.insert(0, str(ROOT))
-    from desktop_panel import Panel
-    devices = Panel.capture_devices()
-    device = tk.StringVar(value=devices[0] if devices else "")
-    ttk.Label(window, text="Microphone ALSA device").pack()
-    ttk.Combobox(window, textvariable=device, values=devices, width=50).pack()
-    original_text = tk.StringVar(value="录音只填写指令；核对英文后点击 Start。")
-    ttk.Label(window, textvariable=original_text, wraplength=760).pack()
-    recording = record_temp = voice_worker = None
-
-    def finish_recording(submit=True):
-        nonlocal recording, record_temp, voice_worker
-        process, temp = recording, record_temp
-        recording = record_temp = None
-        mic.configure(text="开始录音", state="disabled")
-        if process.poll() is None:
-            process.send_signal(signal.SIGINT)
-        def finish():
-            try:
-                try:
-                    process.wait(timeout=3)
-                except subprocess.TimeoutExpired:
-                    process.kill()
-                    process.wait()
-                    raise ValueError("Recording did not stop")
-                if not submit:
-                    return
-                path = Path(temp.name) / "instruction.wav"
-                with wave.open(str(path)) as audio:
-                    if audio.getnframes() < 4000:
-                        raise ValueError("Recording shorter than 0.25 seconds")
-                events.put(("voice", voice_prompt(path.read_bytes())))
-            except Exception as error:
-                events.put("Voice failed: " + str(error))
-            finally:
-                temp.cleanup()
-                events.put(("voice_done", None))
-        voice_worker = threading.Thread(target=finish, daemon=True)
-        voice_worker.start()
-
-    def toggle_recording():
-        nonlocal recording, record_temp
-        if recording is not None:
-            finish_recording()
-            return
-        if ((worker is not None and worker.is_alive()) or
-                (voice_worker is not None and voice_worker.is_alive())):
-            return
-        if not device.get().strip():
-            label.set("Connect a microphone or enter an ALSA device")
-            return
-        record_temp = tempfile.TemporaryDirectory(prefix="vla-voice-")
-        try:
-            recording = subprocess.Popen(["arecord", "-D", device.get().strip(),
-                "-f", "S16_LE", "-r", "16000", "-c", "1", "-d", "30",
-                "-t", "wav", "-q", str(Path(record_temp.name) / "instruction.wav")],
-                stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            mic.configure(text="结束录音并填写指令")
-            label.set("Recording (maximum 30 seconds); no policy execution")
-        except OSError as error:
-            record_temp.cleanup()
-            record_temp = None
-            label.set(str(error))
-
-    mic = ttk.Button(window, text="开始录音", command=toggle_recording)
-    mic.pack(pady=8)
-
-    def start():
-        nonlocal worker
-        if (recording is not None or (voice_worker is not None and voice_worker.is_alive())
-                or (worker is not None and worker.is_alive())):
-            return
-        stop.clear()
-        paused.clear()
-        options = argparse.Namespace(**vars(args))
-        options.task_id = int(selected.get().split(":", 1)[0])
-        options.prompt = prompt.get()
-        options.output = str(Path(args.output) / f"episode_{time.time_ns()}")
-        worker = threading.Thread(target=rollout, args=(options, stop, paused, events.put), daemon=True)
-        worker.start()
-
-    def pause():
-        if paused.is_set():
-            paused.clear()
-            label.set("Resuming")
-        else:
-            paused.set()
-            label.set("Paused after current inference/step")
-
-    buttons = ttk.Frame(window)
-    buttons.pack(pady=8)
-    for name, callback in (("Start / reset", start), ("Pause / resume", pause), ("Stop", stop.set)):
-        ttk.Button(buttons, text=name, command=callback).pack(side="left", padx=6)
-    closing = False
-
-    def close():
-        nonlocal closing
-        closing = True
-        if recording is not None:
-            finish_recording(False)
-        stop.set()
-        label.set("Stopping; waiting for bounded inference to finish…")
-
-    def poll():
-        while not events.empty():
-            event = events.get_nowait()
-            if isinstance(event, tuple):
-                if event[0] == "voice":
-                    original, english = event[1]
-                    original_text.set("识别原文：" + original)
-                    prompt.set(english)
-                    label.set("Review/edit English instruction, then click Start")
-                elif event[0] == "voice_done":
-                    mic.configure(state="normal")
-            else:
-                label.set(event)
-        if recording is not None and recording.poll() is not None:
-            finish_recording()
-        if (closing and (worker is None or not worker.is_alive())
-                and (voice_worker is None or not voice_worker.is_alive())):
-            window.destroy()
-        else:
-            window.after(100, poll)
-
-    window.protocol("WM_DELETE_WINDOW", close)
-    poll()
-    window.mainloop()
+    from vla.panel import panel as chinese_panel
+    return chinese_panel(args)
 
 
 def parse_args(argv=None):

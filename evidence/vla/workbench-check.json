@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-24",
+  "scenario_report": {
+    "suite": "libero_goal",
+    "task_id": 8,
+    "initial_state": 0,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+    "task": "put the bowl on the plate",
+    "task_language": "put the bowl on the plate",
+    "source_model": {
+      "backend": "official-pi05-libero-vla",
+      "action_source": "pi05.sample_actions",
+      "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+      "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+      "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+      "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+      "action_horizon": 10,
+      "action_dim": 7,
+      "default_policy_rng_seed": 0,
+      "training_this_run": false
+    },
+    "seed": 42,
+    "replan_steps": 5,
+    "scenario_key": "fa04a13c6ced26ccd5e4014a28078dfc33ffd7b950fd44edcd08a4594d354522",
+    "reason": "scene_closed",
+    "steps": 90,
+    "policy_calls": 16,
+    "official_predicate": true
+  },
+  "manual_steps": 10,
+  "model_steps": 80,
+  "idle_wait_seconds": 1,
+  "idle_added_frames": 0,
+  "correction_status": "draft",
+  "correction_metadata_sha256": "a23c31bbc924aeb89bf21ad4a13845870805dcef1987867a849d8b6fa65c8d57",
+  "executed_actions_sha256": "11c24bf4061a37e9ca2dd19475c0b980d107245ee6cfa785c0c5f87f55324174",
+  "focused_tests": {
+    "passed": 15
+  },
+  "ruff": "passed",
+  "native_tk": "8.6 / Noto Sans CJK SC",
+  "desktop_resolution": [
+    2560,
+    1440
+  ],
+  "training_preflight": "CPU official transforms passed on isolated synthetic fixtures; no GPU training",
+  "new_lora_trained": false,
+  "human_microphone_verified": false,
+  "local_checkpoint_serving_verified": false,
+  "source_sha256": {
+    "panel.py": "7fd779f8811a312dfb415c9d57afb5fbafd5473bf65cc0aa527e7263edcec833",
+    "workbench.py": "77682d9ec1302ceaf14e5eb5bac3fe7470eb3e7760ccbf4ef81a7dafc90948d7",
+    "corrections.py": "20015f3b777553060f3a38866c456d43a0f3f77bd0562f56149dc33fe731cf2e",
+    "train_corrections.py": "d80a6a6a2fe2713a99fc76713ff7db632713c86144d956b06223a243953349c7",
+    "manual_joystick.py": "b01b50ac9258863d5295b2286fe78ce68ac1b14e2de4763f04ff1506b9f3a5d1",
+    "tk_runtime.py": "2005134481612f3576d3c78b14402807a01af01798e5498ead6c1fac8d273d0d"
+  }
+}

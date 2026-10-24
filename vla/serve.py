@@ -41,13 +41,11 @@ def main():
     snapshot = json.loads((SOURCE / "SNAPSHOT.json").read_text())
     if snapshot["openpi"] != REVISION:
         raise ValueError("Unexpected openpi source revision")
-    manifest_path = args.checkpoint / "manifest.json"
+    from vla.train_corrections import validate_parent
+    args.checkpoint = validate_parent(args.checkpoint)
+    local_lora = not (args.checkpoint / "manifest.json").exists()
+    manifest_path = args.checkpoint.parent / "launch.json" if local_lora else args.checkpoint / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
-    if manifest["source"] != "gs://openpi-assets/checkpoints/pi05_libero":
-        raise ValueError("Expected the official multitask LIBERO checkpoint")
-    for item in manifest["objects"]:
-        if (args.checkpoint / item["relative_path"]).stat().st_size != int(item["size"]):
-            raise ValueError("Checkpoint incomplete; rerun vla.fetch_checkpoint")
     # Prepend isolated pinned source; do not import the old learning project's code.
     sys.path[:0] = [str(SOURCE / "src"), str(SOURCE / "packages/openpi-client/src")]
     os.environ.setdefault("XLA_PYTHON_CLIENT_PREALLOCATE", "false")
@@ -60,14 +58,18 @@ def main():
 
     devices = jax.devices("gpu")
     logging.info("Actual inference devices: %s", devices)
-    config = get_config("pi05_libero")
+    if local_lora:
+        from vla.train_corrections import make_config
+        config = make_config(args.checkpoint, "serve", manifest["steps"], manifest["batch_size"], manifest["learning_rate"])
+    else:
+        config = get_config("pi05_libero")
     policy = policy_config.create_trained_policy(config, args.checkpoint)
     metadata = {
-        "backend": "official-pi05-libero-vla",
+        "backend": "local-pi05-libero-lora" if local_lora else "official-pi05-libero-vla",
         "action_source": "pi05.sample_actions",
         "openpi_revision": REVISION,
         "libero_revision": snapshot["libero"],
-        "checkpoint_source": manifest["source"],
+        "checkpoint_source": str(args.checkpoint) if local_lora else manifest["source"],
         "checkpoint_manifest_sha256": hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
         "action_horizon": config.model.action_horizon,
         "action_dim": 7,

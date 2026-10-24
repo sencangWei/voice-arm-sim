@@ -53,3 +53,12 @@ User confirms that arbitrary language should condition an actual action model. E
 4. Text/voice integration — complete within tested scope: synthetic Mandarin -> real ASR -> translation -> pi05 -> MuJoCo passed74steps; editable native text/microphone UI. Human microphone unverified.
 5. Focused checks9/9 + Ruff passed. Capability a55438df8253b4b1e42aa83926be1281dc3223fa pushed to owned public sencangWei/voice-arm-sim branch prototype/voice-tabletop. Independent GitHub restore matched all228 tracked files by SHA256 and Git tree082f987b32c3edc4592d80041221a3415bcf300c. Receipt evidence/vla/backup-capability.json.
 Acceptance: actual pretrained pi05 inference driving real MuJoCo contacts, documented checkpoint identity, visible language prompt, multi-task results and honest untested boundaries.
+
+## 中文 VLA 工作台与人工纠正复用 — implementation verified; backup pending
+User wants Chinese clear desktop layout and reuse of previous correction/training workflow. Preserve old pi05-handson data/code and existing baseline.
+1. Map old panel, correction capture and training contracts; diagnose new panel font/layout — complete: uv Tk9 bitmap-only rendering caused blurry CJK; process-local compatible system Tk8.6 enables Noto CJK.
+2. Reuse suitable UI/control/data code in independent new project; Chinese scalable layout, camera previews, manual correction and model/run controls — complete: reused old mouse joystick, four native Chinese tabs and two live model camera previews.
+3. Connect correction dataset review and actual training configuration/launch with truthful readiness; no training automatically on unreviewed samples — complete: approved-only capture, layout-isolated train/holdout, official/local parent selection, LoRA preparation/preflight/launch. CPU synthetic contract preflight only; no new training launched.
+4. Focused contract tests and native UI smoke (capture/save/controls); screenshot and document measured boundaries — complete: 15 targeted tests and Ruff pass; native smoke captured 10 human actions with no idle frames, followed by 80 actual model actions /16 inference calls and true official predicate. All four tabs visually inspected; evidence/vla/workbench.md records limitations.
+5. Commit/push to owned remote and verify independent remote restore — pending.
+Acceptance: readable Chinese controls at native desktop size, manual correction produces valid observation/action data, training entry uses this independent project and selected checkpoint/data, old work remains unchanged.
