@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "wrapper_status": "probe-finished-needs-visual-review exit=0",
+  "command": "CUDA_VISIBLE_DEVICES=\"\" HF_HUB_OFFLINE=1 PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=8 MKL_NUM_THREADS=8 OPENBLAS_NUM_THREADS=8 timeout --kill-after=20s 2h .venv-hamster/bin/python -u -m vla.hamster --image evidence/hamster/scene-init0.png --commands evidence/hamster/commands.json --output evidence/hamster/trial-init0-protobuf --threads 8 --max-new-tokens 300",
+  "adapter_equivalent_commit": "82cb51e19e457af08345e90b772b8d5721456e26",
+  "adapter_sha256": "ee8829a6f053fd4946274d183d97a10ec7c4c6bd485cbdc18aa4d7117c352304",
+  "original_generation_files_modified": false,
+  "physical_execution": false
+}

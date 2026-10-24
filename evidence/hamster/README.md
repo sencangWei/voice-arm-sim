@@ -1,4 +1,6 @@
-# HAMSTER 指令与目标理解试验（真实模型推理中）
+# HAMSTER 指令与目标理解试验（三条真实路径已生成）
+
+2026-10-25 最终测量：三条真实官方模型推理正常退出0，已逐条检查原始文本与路径叠加图。**“酒瓶→碗”确实改变了目标，未重复架子路线；“碗→盘子”也在二维图上合理。** “酒瓶→架子”经过架子区域但绕行、最终松开点偏左，放置仍不确定。单画面/单seed的路径证据不等于物理抓放成功，当前没有 HAMSTER 机器人执行 Demo。详见 [实测报告](trial-init0-protobuf/REPORT.md) 与 [并排对照图](trial-init0-protobuf/comparison.png)。
 
 2026-10-25 更新：上一轮真实加载因缺少 protobuf 中断，未生成轨迹。已将 protobuf==4.25.8 加入独立环境依赖，真实官方 LlamaTokenizer（legacy=False）读入与编码通过，34个包兼容检查通过。保留失败目录 `trial-init0/`，在新目录 `trial-init0-protobuf/` 重启；13B六个权重分片已加载，正在生成第一条指令。详见 `tokenizer-smoke.json` 与后台日志，仍未宣称路径语义或物理执行成功。
 
@@ -11,7 +13,7 @@
 - 已固定官方模型、源码及环境，并在独立 `.venv-hamster` 安装 CPU 运行时。
 - `scene-init0.png` 来自实际 LIBERO/MuJoCo 场景，任务 libero_goal/8、初始状态0、seed42，静置10步，视图旋转180度。独立重新渲染后 SHA256 一致：`7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18`。
 - `runtime-smoke.json` 仅验证图像 token 拼接、官方降采样和小型随机 BF16 Llama 的运行接口，**不证明真实 HAMSTER 能力**。路径解析、上游干净导入与下载故障分支共13项测试通过。
-- 准备阶段曾因下载未完成而无法推理；当前权重已校验，实际进展见文首更新。路径语义判断、机械臂执行及 Demo 均未完成。以本机 `logs/hamster-trial.status` 和输出目录为准；解析合法不能算目标理解成功。
+- 准备阶段曾因下载未完成而无法推理；当前权重已校验，三条实际路径与人工二维审查已完成。机械臂物理执行及 Demo 尚未完成；解析合法不能算目标理解成功。
 - 后台流程下载完成后先逐文件核对大小及官方 LFS SHA256，再使用真实权重运行三条指令，保存原始文本、生成 token、耗时及路径叠加图。首轮输出目录为 `evidence/hamster/trial-init0/`（依赖失败，已保留）；修复后的新轮次是 `evidence/hamster/trial-init0-protobuf/`。未成功下载则不进入推理。
 - 官方公开部分输出二维末端路径与夹爪事件；当前仓库没有完整发布可直接部署的低层控制器。本试验不会将路径直接当成七维机器人动作，也不会用固定动作伪造成功。后续是否接物理抓取，取决于路径的源物体、目标和夹爪事件是否合理。
 
@@ -63,4 +65,4 @@ tail -n 10 logs/hamster-trial.log
 
 ## 输出审查
 
-先查看 `command-00/01/02.raw.txt` 与 `.overlay.png`，确认抓的是哪一个物体、最终指向碗还是架子、闭合和松开的位置。`.json` 中 `syntax_valid` 只表示格式有效，`semantic_success` 初始为 null，`physical_execution` 为 false。若生成被300 token截断，原样记录失败，不补造路径。只有真实路径目标通过审查，才另行评估低层控制方案。
+三条实际 `.raw.txt` 与 `.overlay.png` 均已保留并人工审查，见 `trial-init0-protobuf/visual-review.json`。原始 `.json` 中 `syntax_valid` 只表示格式有效，`semantic_success` 保留为 null，`physical_execution` 为 false。三条本次均正常结束且未触及300 token上限。下一关是兼容的低层控制器与真实物理 rollout；现有 π0.5 接口不直接接受这些路径，不能仅靠画轨迹宣称闭环抓放已完成。

@@ -1,0 +1,141 @@
+{
+  "date": "2026-10-25",
+  "evaluation_scope": "Three actual official-checkpoint generations; one fixed image, manually fixed English translations, single seed42; no physical controller or voice end-to-end evaluation.",
+  "comparison_changed_destination": true,
+  "review_method": "Manual inspection of all three raw outputs and overlays plus event positions against regions chosen before model output; bounds are approximate and not a grasp-success metric.",
+  "trials": [
+    {
+      "command_index": 0,
+      "command": {
+        "chinese": "把酒瓶放到架子上",
+        "english": "put the wine bottle on the rack"
+      },
+      "duration_s": 466.1753925689991,
+      "output_token_ids_including_special": 138,
+      "point_count": 9,
+      "expected_source": "wine_bottle",
+      "expected_target": "rack",
+      "events": [
+        {
+          "action": "Close Gripper",
+          "xy_normalized": [
+            0.58,
+            0.42
+          ],
+          "xy_pixels": [
+            296.38,
+            214.62
+          ],
+          "inside_predeclared_regions": [
+            "wine_bottle"
+          ]
+        },
+        {
+          "action": "Open Gripper",
+          "xy_normalized": [
+            0.64,
+            0.25
+          ],
+          "xy_pixels": [
+            327.04,
+            127.75
+          ],
+          "inside_predeclared_regions": []
+        }
+      ],
+      "manual_visual_verdict": "rack_route_release_uncertain",
+      "physical_success": null
+    },
+    {
+      "command_index": 1,
+      "command": {
+        "chinese": "把酒瓶放到碗里面",
+        "english": "put the wine bottle in the bowl"
+      },
+      "duration_s": 47.44020434599952,
+      "output_token_ids_including_special": 66,
+      "point_count": 3,
+      "expected_source": "wine_bottle",
+      "expected_target": "bowl",
+      "events": [
+        {
+          "action": "Close Gripper",
+          "xy_normalized": [
+            0.58,
+            0.41
+          ],
+          "xy_pixels": [
+            296.38,
+            209.51
+          ],
+          "inside_predeclared_regions": [
+            "wine_bottle"
+          ]
+        },
+        {
+          "action": "Open Gripper",
+          "xy_normalized": [
+            0.51,
+            0.51
+          ],
+          "xy_pixels": [
+            260.61,
+            260.61
+          ],
+          "inside_predeclared_regions": [
+            "bowl"
+          ]
+        }
+      ],
+      "manual_visual_verdict": "plausible_2d",
+      "physical_success": null
+    },
+    {
+      "command_index": 2,
+      "command": {
+        "chinese": "把碗放到盘子上",
+        "english": "put the bowl on the plate"
+      },
+      "duration_s": 44.60935621799581,
+      "output_token_ids_including_special": 66,
+      "point_count": 3,
+      "expected_source": "bowl",
+      "expected_target": "plate",
+      "events": [
+        {
+          "action": "Close Gripper",
+          "xy_normalized": [
+            0.53,
+            0.54
+          ],
+          "xy_pixels": [
+            270.83,
+            275.94
+          ],
+          "inside_predeclared_regions": [
+            "bowl"
+          ]
+        },
+        {
+          "action": "Open Gripper",
+          "xy_normalized": [
+            0.51,
+            0.67
+          ],
+          "xy_pixels": [
+            260.61,
+            342.37
+          ],
+          "inside_predeclared_regions": [
+            "plate"
+          ]
+        }
+      ],
+      "manual_visual_verdict": "plausible_2d",
+      "physical_success": null
+    }
+  ],
+  "physical_execution": false,
+  "general_success_rate": null,
+  "next_gate": "A compatible low-level controller must consume path conditioning and execute grasp/place in physics; existing pi05 checkpoint does not accept arbitrary HAMSTER paths without an integration/training change."
+}
