@@ -1,0 +1,10 @@
+{
+  "_name_or_path": "/home/liyi/workspace/checkpoints/finetuned/vila/VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/mm_projector",
+  "architectures": [
+    "MultimodalProjector"
+  ],
+  "mm_projector_type": "mlp_downsample",
+  "model_type": "v2l_projector",
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.37.2"
+}

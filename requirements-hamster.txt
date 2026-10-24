@@ -1,0 +1,12 @@
+# Separate CPU environment; never install into an existing model service.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.7.1+cpu
+torchvision==0.22.1+cpu
+transformers==4.37.2
+accelerate==0.27.2
+sentencepiece==0.1.99
+numpy==1.26.4
+huggingface-hub==0.28.1
+pillow
+safetensors
+requests[socks]

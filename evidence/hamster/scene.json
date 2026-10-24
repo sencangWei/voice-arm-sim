@@ -1,0 +1,9 @@
+{
+  "task": "libero_goal/task8",
+  "initial_state": 0,
+  "seed": 42,
+  "settle_steps": 10,
+  "image_rotation": 180,
+  "image_sha256": "7ff9c95921717f7c1c5db93834eaa471dfd06b2fb273e15b4890ae01b5aaab18",
+  "task_language": "put the bowl on the plate"
+}

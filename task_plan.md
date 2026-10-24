@@ -77,3 +77,12 @@ User authorized deployment and actual tests of an alternative pretrained VLA; pr
 4. Run matched MuJoCo baseline and changed-destination tests — complete: both bowl trials succeeded; both wine-bottle-to-bowl trials failed and visibly moved bottle toward rack. Four full reports/action traces/videos retained; no generalization claim.
 5. Native low-memory acceptance — complete: CPU vision and vocabulary lookup, explicit GPU input masks, idle-cache release. Real Chinese command completed77controls/16calls;90one-second GPU samples minimum free1252MiB; existing GPU services preserved.19 focused tests and Ruff pass. Capability 08a06285a59398421daa3df092a2a0435411c403 pushed to owned public sencangWei/voice-arm-sim branch prototype/voice-tabletop; independent GitHub restore matched all 468 tracked file SHA256 hashes and Git tree. Receipt evidence/molmoact2/backup-capability.json.
 Acceptance: actual checkpoint inference drives real simulation, reproducible configuration and honest command-specific results; no promise of arbitrary object generalization.
+
+## HAMSTER language/goal feasibility trial — in progress
+User authorized trying the reviewed open-source hierarchical model. Preserve running Qwen/pi05/Molmo services and old projects; no hardware, paid APIs or cloud.
+1. Pin official HAMSTER/VILA/checkpoint and capture resources — complete: official revisions and 18-file manifest pinned, actual scene captured and independently reproduced.
+2. Isolated CPU runtime installed and synthetic interface smoke passed; actual official-weight probe pending approximately27GB download. Bounded background download→verification→three-command pipeline running; no existing GPU service stopped.
+3. Save raw outputs and path overlays; only connect robot execution if source/target paths pass inspection. Clearly distinguish path reasoning from physical manipulation.
+4. Parser tests10/10 and Ruff passed; evidence/hamster/README.md documents status/reproduction/physical boundaries. Capability backup and remote restore pending.
+Success: actual public model inference, reproducible inputs/outputs, no scripted substitution, honest physical-execution boundary.
+Errors: read of nonexistent guessed scripts/evaluate_molmo.py and vla/molmo_policy.py; corrected through file listing. Dependency-expert child unavailable (configured gpt-5.5 unsupported); continue solo.

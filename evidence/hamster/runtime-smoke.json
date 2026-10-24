@@ -1,0 +1,14 @@
+{
+  "torch": "2.7.1+cpu",
+  "transformers": "4.37.2",
+  "device": "cpu",
+  "cuda_available": false,
+  "official_image_token_embedding_matches": true,
+  "downsample_shape": [
+    1,
+    196,
+    4608
+  ],
+  "tiny_bf16_llama_generation": true,
+  "real_hamster_weights_tested": false
+}

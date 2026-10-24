@@ -1,0 +1,19 @@
+{
+  "_name_or_path": "/home/liyi/workspace/checkpoints/finetuned/vila/VILA1.5-13b-robopoint_1432k+rlbench_all_tasks_256_1000_eps_sketch_v5_alpha+droid_train99_sketch_v5_alpha_fix+bridge_data_v2_train90_10k_sketch_v5_alpha-e1-LR1e-5/vision_tower",
+  "architectures": [
+    "SiglipVisionModel"
+  ],
+  "attention_dropout": 0.0,
+  "hidden_act": "gelu_pytorch_tanh",
+  "hidden_size": 1152,
+  "image_size": 384,
+  "intermediate_size": 4304,
+  "layer_norm_eps": 1e-06,
+  "model_type": "siglip_vision_model",
+  "num_attention_heads": 16,
+  "num_channels": 3,
+  "num_hidden_layers": 27,
+  "patch_size": 14,
+  "torch_dtype": "bfloat16",
+  "transformers_version": "4.37.2"
+}
