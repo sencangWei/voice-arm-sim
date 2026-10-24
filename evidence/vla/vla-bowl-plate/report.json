@@ -1,0 +1,32 @@
+{
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "seed": 7,
+  "replan_steps": 5,
+  "max_steps": 300,
+  "score_definition": "selected LIBERO task predicates, independent of prompt override",
+  "result": "success",
+  "steps": 81,
+  "policy_calls": 17,
+  "task_language": "put the bowl on the plate",
+  "prompt": "put the bowl on the plate",
+  "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+  "initial_state_dtype": "float64",
+  "initial_state_shape": [
+    79
+  ],
+  "server_metadata": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "elapsed_seconds": 9.33312639099995
+}

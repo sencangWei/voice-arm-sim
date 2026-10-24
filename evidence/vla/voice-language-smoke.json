@@ -2,5 +2,8 @@
   "original_text": "把碗放到盘子上。",
   "translated_prompt": "Put the bowl on the plate.",
   "input_kind": "synthetic Mandarin Piper audio",
-  "boundary": "Synthetic Mandarin audio verifies ASR and translation only; policy rollout pending official checkpoint download."
+  "boundary": "Synthetic Mandarin audio -> actual ASR -> translation -> pi05 rollout; human microphone remains untested",
+  "policy_rollout": "vla-voice-bowl/report.json",
+  "policy_result": "success",
+  "audio_not_distributed": "Piper voice license not established"
 }

@@ -1,0 +1,29 @@
+{
+  "prompts": [
+    "put the bowl on the plate",
+    "put the bowl on the plate",
+    "put the bowl on the stove",
+    "open the middle drawer of the cabinet"
+  ],
+  "noise_seed": 42,
+  "scene": "libero_goal/task8/init0",
+  "observation_sha256": "163115f2a0ad31ae22a7de356339b34545de988e9af3de032c082d9b1856f973",
+  "repeated_prompt_max_abs_difference": 0.0,
+  "changed_prompt_max_abs_differences": [
+    0.15339816235351567,
+    0.3658060375976563
+  ],
+  "server_metadata": {
+    "backend": "official-pi05-libero-vla",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+    "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false
+  },
+  "interpretation": "Action sensitivity only; this probe does not prove task completion or open-world generalization."
+}

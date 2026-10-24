@@ -142,6 +142,15 @@ def rollout(args, stop=None, paused=None, status=print):
         if args.viewer:
             import mujoco.viewer
             viewer = mujoco.viewer.launch_passive(env.sim.model._model, env.sim.data._data)
+            with viewer.lock():
+                # Match robosuite's RGB cameras: hide colored collision meshes.
+                viewer.opt.geomgroup[0] = 0
+                viewer.opt.geomgroup[1] = 1
+                viewer.cam.lookat[:] = [0., 0., 1.]
+                viewer.cam.distance = 2.4
+                viewer.cam.azimuth = 225
+                viewer.cam.elevation = -30
+            viewer.sync()
         video = imageio.get_writer(output / "paired_cameras.mp4", fps=10)
         for _ in range(10):
             if stop.is_set():

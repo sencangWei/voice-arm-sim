@@ -38,7 +38,7 @@ rtk proxy .venv-vla/bin/python -u -m vla.serve
 
 ```bash
 cd /home/robot/voice-arm-sim
-rtk proxy .venv-vla-sim/bin/python -u -m vla.run --suite libero_goal --task-id 8 --panel --viewer --output runs/vla-live
+rtk proxy env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia .venv-vla-sim/bin/python -u -m vla.run --suite libero_goal --task-id 8 --panel --viewer --output runs/vla-live
 ```
 
 选择任务会加载对应场景和默认指令。Start 每次从固定初态重新运行；可编辑指令，Pause/Stop 在当前有界请求返回后生效。左键旋转、右键平移、滚轮缩放。每轮结果写到时间戳子目录，不覆盖旧记录。
@@ -58,7 +58,9 @@ rtk proxy .venv-vla-sim/bin/python -u -m vla.run --suite libero_goal --task-id 8
 rtk proxy .venv-vla-sim/bin/python -u -m vla.probe_language --output runs/vla-language-probe
 ```
 
-每轮保存原始指令、任务判据、初态数组及hash、服务权重身份、动作窗口、逐步执行动作、推理耗时和双视角视频。`probe_language` 固定同一观察和同一扩散噪声，重复相同指令，再换指令；只检验语言影响动作，不能证明完整任务成功。报告和实测视频待运行后见 `evidence/vla/`。
+每轮保存原始指令、任务判据、初态数组及hash、服务权重身份、动作窗口、逐步执行动作、推理耗时和双视角视频。`probe_language` 固定同一观察和同一扩散噪声，重复相同指令，再换指令；只检验语言影响动作，不能证明完整任务成功。[实测报告](../evidence/vla/README.md)与[三任务 Demo](../evidence/vla/demo.mp4)已保存：5次预定执行均通过所选任务判据，包含中文合成语音经 ASR/翻译后直接交给 π0.5 的放碗任务。任务判据可能在完整松爪、撤离前触发；这是小样本集成验证，不是开放场景成功率。
+
+视频按每个控制步一帧、10fps保存，播放时长与机器执行耗时不同。原生窗口的自由视角不改变输入模型的固定外部/腕部相机。窗口隐藏了彩色碰撞网格；这是显示设置，不改变物理接触和模型动作。双显卡桌面若默认使用 llvmpipe，上述 NVIDIA 环境变量用于选择硬件渲染。
 
 ## 范围与来源
 
