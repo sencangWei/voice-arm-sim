@@ -77,8 +77,9 @@ def connect_policy(port):
 
     class BoundedPolicy(websocket_client_policy.WebsocketClientPolicy):
         def _wait_for_server(self):
+            # Synchronous server inference can delay pong; recv remains bounded below.
             conn = websockets.sync.client.connect(self._uri, compression=None,
-                max_size=64 * 1024 * 1024, open_timeout=15)
+                max_size=64 * 1024 * 1024, open_timeout=15, ping_timeout=None)
             try:
                 return conn, msgpack_numpy.unpackb(conn.recv(timeout=120))
             except BaseException:

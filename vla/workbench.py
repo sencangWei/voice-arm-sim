@@ -126,7 +126,7 @@ class Workbench:
                         initial_state_sha256=hashlib.sha256(initial.tobytes()).hexdigest())
         import json
         self.scene = dict(identity, task=prompt, user_instruction=user_instruction, task_language=task.language, source_model=model,
-                          seed=self.args.seed, replan_steps=self.args.replan_steps)
+                          seed=self.args.seed, replan_steps=self.args.replan_steps, policy_port=port)
         self.scene["scenario_key"] = hashlib.sha256(json.dumps(identity, sort_keys=True).encode()).hexdigest()
         self.actions, self.calls, self.done = [], 0, False
         self.output = Path(self.args.output).resolve() / f"scene_{time.time_ns()}"
@@ -148,6 +148,23 @@ class Workbench:
         self.interrupt.clear()
         self._publish()
         self._update(status="场景已加载并暂停。可开始模型，也可人工接管。")
+
+    def _ensure_policy(self):
+        from websockets.protocol import State
+        if self.client is not None and self.client._ws.state is State.OPEN:
+            return
+        if self.client is not None:
+            self.client._ws.close()
+            self.client = None
+        self._update(status="连接已断开，正在重新连接原模型……")
+        client = connect_policy(self.scene["policy_port"])
+        try:
+            if client.get_server_metadata() != self.scene["source_model"]:
+                raise ValueError("服务端模型已变化，请加载新场景后再运行")
+        except BaseException:
+            client._ws.close()
+            raise
+        self.client = client
 
     def _camera(self, top):
         if self.viewer:
@@ -195,6 +212,9 @@ class Workbench:
                 raise ValueError("指令不能为空")
             self._update(status="正在理解你的指令……")
             prompt = translate_prompt(user_instruction)
+            self.running = False
+            self.plan.clear()
+            self._ensure_policy()
             self.scene["user_instruction"] = user_instruction
             if prompt != self.prompt:
                 self.scene.setdefault("instruction_changes", []).append(

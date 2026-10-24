@@ -99,6 +99,7 @@ class ChinesePanel:
             self.cameras.append(label)
         self.book = ttk.Notebook(self.root)
         self.book.grid(row=2, column=0, sticky="nsew", padx=12, pady=8)
+        self.hybrid_status = tk.StringVar(value="未启动；使用已有官方 π0.5 服务 8766。")
         self._operation_page()
         self._correction_page()
         self._training_page()
@@ -145,7 +146,7 @@ class ChinesePanel:
 
     def _operation_page(self):
         page = self.page("仿真与语音")
-        self.row_buttons(page, 0, (("开始／继续模型", lambda: self.send("run", self.prompt.get())),
+        self.row_buttons(page, 0, (("开始／继续 VLA", lambda: self.send("run", self.prompt.get())),
                                    ("暂停模型", lambda: self.send("pause")),
                                    ("保存本轮结果", lambda: self.send("save"))))
         self.row_buttons(page, 1, (("重置三维视角", lambda: self.send("camera", False)),
@@ -163,6 +164,13 @@ class ChinesePanel:
         self.mic.grid(row=5, column=0, sticky="w", pady=6)
         self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击开始。")
         ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=6, column=0, sticky="w", pady=6)
+        self.row_buttons(page, 7, (("中文指令规划并执行", lambda: self.start_hybrid("fresh")),
+                                   ("停止规划执行", self.stop_hybrid)))
+        ttk.Label(page, text="上方 VLA 按钮直接运行策略；这里使用 HAMSTER＋π0.5 分层执行。\n"
+                  "分层执行会打开独立三维窗口，固定布局 0；CPU 规划需等待，当前仅测试单次抓放。",
+                  wraplength=835).grid(row=8, column=0, sticky="w", pady=6)
+        ttk.Label(page, textvariable=self.hybrid_status, wraplength=835, foreground="#174f80").grid(
+            row=9, column=0, sticky="w", pady=6)
 
     def _correction_page(self):
         page = self.page("人工纠正")
@@ -352,7 +360,6 @@ class ChinesePanel:
                                      ("停止本次实验", self.stop_hybrid)))
         self.row_buttons(hybrid, 2, (("按上方中文指令重新规划并执行", lambda: self.start_hybrid("fresh")),))
         self.row_buttons(hybrid, 3, (("打开实验结果", self.open_hybrid),))
-        self.hybrid_status = tk.StringVar(value="未启动；使用已有官方 π0.5 服务 8766。")
         ttk.Label(hybrid, textvariable=self.hybrid_status, wraplength=790).grid(row=4, column=0, sticky="w")
 
     def start_hybrid(self, case):
