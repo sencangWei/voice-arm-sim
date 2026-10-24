@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "release": "https://github.com/sencangWei/voice-arm-sim/releases/tag/language-distillation-v1",
+  "verification": "download from release to new directory, SHA256 compared with original files",
+  "files": [
+    {
+      "file": "same-scene-chinese-instructions-v2.mp4",
+      "sha256": "c90e69cd408bf291a75f698c4fc9b008fdf3ec3b79c71d7e23884ab42a48a187",
+      "bytes": 4082967
+    },
+    {
+      "file": "baseline-vs-trained-v2-init009.mp4",
+      "sha256": "b8ce87f7f6dfa5154962c18a8ccee7754856d7d31ca4535aeeb1f4647756513c",
+      "bytes": 5196694
+    },
+    {
+      "file": "distillation-v2-full-evaluation.tar",
+      "sha256": "65a90f9640ccbc84b35383582783146e7e5656ded66db00c9ba459f6a7ae4f9c",
+      "bytes": 16537600
+    },
+    {
+      "file": "evaluation-archive-manifest.json",
+      "sha256": "a9085fa86732bfcf15cbbda72126e775ef51feb2500a2f92ed09ace18af9f47e",
+      "bytes": 442
+    }
+  ]
+}

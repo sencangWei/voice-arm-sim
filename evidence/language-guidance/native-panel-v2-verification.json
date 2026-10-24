@@ -1,0 +1,61 @@
+{
+  "ready": true,
+  "running": false,
+  "manual": false,
+  "steps": 0,
+  "frames": 0,
+  "status": "场景已加载并暂停。可开始模型，也可人工接管。",
+  "policy_backend": "local-pi05-libero-lora",
+  "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+  "grip": -1.0,
+  "output": "/home/robot/voice-arm-sim/runs/panel-language-v2/scene_1792869926614158737",
+  "state": [
+    -0.2089287152049075,
+    -0.003331218066821001,
+    1.1711440829508835,
+    3.1408628262887968,
+    -0.0026634833506554156,
+    -0.09116106449064239,
+    0.038723989129927854,
+    -0.038721611635105437
+  ],
+  "services": {
+    "8766": {
+      "backend": "local-pi05-libero-lora",
+      "action_source": "pi05.sample_actions",
+      "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+      "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+      "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+      "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+      "action_horizon": 10,
+      "action_dim": 7,
+      "default_policy_rng_seed": 0,
+      "training_this_run": false,
+      "prompt_masking": "zero-token-and-mask-v1"
+    },
+    "8777": {
+      "backend": "official-molmoact2-libero-vla",
+      "action_source": "MolmoAct2.predict_action.continuous",
+      "checkpoint_source": "allenai/MolmoAct2-LIBERO",
+      "checkpoint_revision": "0d24a92bd1faf321ef497c3bbd5681af97c65aa2",
+      "checkpoint_manifest_sha256": "4b7a19040c73e0588f5d2747fdc438cacfdf620434933a6404814722c66c7544",
+      "precision": "bfloat16",
+      "placement": "vision-cpu",
+      "token_embedding_device": "cpu",
+      "image_size": 256,
+      "action_horizon": 10,
+      "action_dim": 7,
+      "flow_steps": 10,
+      "cuda_graph": false,
+      "training_this_run": false,
+      "cuda_cache_policy": "release unused cache after each request",
+      "default_policy_rng_seed": 0,
+      "rng_policy": "advances per request; optional fixed _probe_noise_seed"
+    }
+  },
+  "observed_screenshots": [
+    "native-panel-v2.png",
+    "native-scene-v2.png"
+  ],
+  "human_microphone_v2_verified": false
+}

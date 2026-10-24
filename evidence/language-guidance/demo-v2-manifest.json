@@ -1,0 +1,193 @@
+{
+  "selection": "illustrative layout9 only; V2 visually accepted 4/8 bottle-in-bowl; not broad generalization evidence",
+  "videos": [
+    {
+      "file": "same-scene-chinese-instructions-v2.mp4",
+      "sha256": "c90e69cd408bf291a75f698c4fc9b008fdf3ec3b79c71d7e23884ab42a48a187",
+      "fps": 10,
+      "frames": 173,
+      "sources": [
+        {
+          "path": "runs/distillation-chinese-v2/bottle-in-bowl-init009",
+          "report": {
+            "suite": "libero_goal",
+            "task_id": 8,
+            "initial_state": 9,
+            "seed": 42,
+            "replan_steps": 5,
+            "max_steps": 360,
+            "score_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+            "result": "success",
+            "steps": 172,
+            "policy_calls": 35,
+            "task_language": "put the bowl on the plate",
+            "prompt": "Please put the wine bottle into the bowl.",
+            "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+            "initial_state_dtype": "float64",
+            "initial_state_shape": [
+              79
+            ],
+            "server_metadata": {
+              "backend": "local-pi05-libero-lora",
+              "action_source": "pi05.sample_actions",
+              "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+              "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+              "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+              "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+              "action_horizon": 10,
+              "action_dim": 7,
+              "default_policy_rng_seed": 0,
+              "training_this_run": false,
+              "prompt_masking": "zero-token-and-mask-v1",
+              "noise_schedule": "42 + inference call",
+              "scripted_motion": false,
+              "language_guidance": null
+            },
+            "original_task_predicate": false,
+            "elapsed_seconds": 6.004075747994648
+          },
+          "video_sha256": "b1a7e9810c4e3f376be2f4c5727f129968163aae07e546fe3839a02fe5b545ca"
+        },
+        {
+          "path": "runs/distillation-chinese-v2/bottle-on-rack-init009",
+          "report": {
+            "suite": "libero_goal",
+            "task_id": 8,
+            "initial_state": 9,
+            "seed": 42,
+            "replan_steps": 5,
+            "max_steps": 360,
+            "score_definition": "LIBERO On(wine_bottle_1,wine_rack_1_top_region), released for 5 consecutive controls",
+            "result": "success",
+            "steps": 152,
+            "policy_calls": 31,
+            "task_language": "put the bowl on the plate",
+            "prompt": "Put the wine bottle on the shelf.",
+            "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+            "initial_state_dtype": "float64",
+            "initial_state_shape": [
+              79
+            ],
+            "server_metadata": {
+              "backend": "local-pi05-libero-lora",
+              "action_source": "pi05.sample_actions",
+              "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+              "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+              "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+              "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+              "action_horizon": 10,
+              "action_dim": 7,
+              "default_policy_rng_seed": 0,
+              "training_this_run": false,
+              "prompt_masking": "zero-token-and-mask-v1",
+              "noise_schedule": "42 + inference call",
+              "scripted_motion": false,
+              "language_guidance": null
+            },
+            "original_task_predicate": false,
+            "elapsed_seconds": 5.368583652998495
+          },
+          "video_sha256": "0b817894dc4c50ca198175be9f54618f677e477d12685bd2f1c85bdd9310a53e"
+        }
+      ],
+      "initial_state_hashes_identical": true,
+      "decoded_initial_frame_mean_absolute_error_8bit": 0.8906914328231292,
+      "initial_frame_note": "Lossy MP4 separately encoded; initial simulation state hashes identical. No frame replacement.",
+      "alignment": "control frames, no speed change; shorter episode holds tail; not wall-clock comparison"
+    },
+    {
+      "file": "baseline-vs-trained-v2-init009.mp4",
+      "sha256": "b8ce87f7f6dfa5154962c18a8ccee7754856d7d31ca4535aeeb1f4647756513c",
+      "fps": 10,
+      "frames": 224,
+      "sources": [
+        {
+          "path": "runs/distillation-baseline-v1/bottle-in-bowl-init009",
+          "report": {
+            "suite": "libero_goal",
+            "task_id": 8,
+            "initial_state": 9,
+            "seed": 42,
+            "replan_steps": 5,
+            "max_steps": 360,
+            "score_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+            "result": "success",
+            "steps": 223,
+            "policy_calls": 45,
+            "task_language": "put the bowl on the plate",
+            "prompt": "put the wine bottle in the bowl",
+            "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+            "initial_state_dtype": "float64",
+            "initial_state_shape": [
+              79
+            ],
+            "server_metadata": {
+              "backend": "official-pi05-libero-vla",
+              "action_source": "pi05.sample_actions",
+              "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+              "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+              "checkpoint_source": "gs://openpi-assets/checkpoints/pi05_libero",
+              "checkpoint_manifest_sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+              "action_horizon": 10,
+              "action_dim": 7,
+              "default_policy_rng_seed": 0,
+              "training_this_run": false,
+              "prompt_masking": "zero-token-and-mask-v1",
+              "noise_schedule": "42 + inference call",
+              "scripted_motion": false,
+              "language_guidance": null
+            },
+            "original_task_predicate": false,
+            "elapsed_seconds": 7.10571053300373
+          },
+          "video_sha256": "eacbe40ca8f0885098b819d433367803d5a64d05df0e3afd6f3f1b6658b2b2a2"
+        },
+        {
+          "path": "runs/distillation-candidate-v2/bottle-in-bowl-init009",
+          "report": {
+            "suite": "libero_goal",
+            "task_id": 8,
+            "initial_state": 9,
+            "seed": 42,
+            "replan_steps": 5,
+            "max_steps": 360,
+            "score_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+            "result": "success",
+            "steps": 174,
+            "policy_calls": 35,
+            "task_language": "put the bowl on the plate",
+            "prompt": "put the wine bottle in the bowl",
+            "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+            "initial_state_dtype": "float64",
+            "initial_state_shape": [
+              79
+            ],
+            "server_metadata": {
+              "backend": "local-pi05-libero-lora",
+              "action_source": "pi05.sample_actions",
+              "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+              "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+              "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+              "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+              "action_horizon": 10,
+              "action_dim": 7,
+              "default_policy_rng_seed": 0,
+              "training_this_run": false,
+              "prompt_masking": "zero-token-and-mask-v1",
+              "noise_schedule": "42 + inference call",
+              "scripted_motion": false,
+              "language_guidance": null
+            },
+            "original_task_predicate": false,
+            "elapsed_seconds": 5.776012587004516
+          },
+          "video_sha256": "0fb238e63710135a7c1150bbea083c358848e9b5fb49359d5985b176a3c01cb1"
+        }
+      ],
+      "initial_state_hashes_identical": true,
+      "decoded_initial_frame_mean_absolute_error_8bit": 0.8562593005952381,
+      "initial_frame_note": "Lossy MP4 separately encoded; initial simulation state hashes identical. No frame replacement.",
+      "alignment": "control frames, no speed change; shorter episode holds tail; not wall-clock comparison"
+    }
+  ]
+}

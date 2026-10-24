@@ -167,10 +167,10 @@ class ChinesePanel:
         self.mic.grid(row=5, column=0, sticky="w", pady=6)
         self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击开始。")
         ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=6, column=0, sticky="w", pady=6)
-        self.row_buttons(page, 7, (("中文指令规划并执行", lambda: self.start_hybrid("fresh")),
+        self.row_buttons(page, 7, (("旧版分层实验（非纯 VLA）", lambda: self.start_hybrid("fresh")),
                                    ("停止规划执行", self.stop_hybrid)))
-        ttk.Label(page, text="上方 VLA 按钮直接运行策略；这里使用 HAMSTER＋π0.5 分层执行。\n"
-                  "分层执行会打开独立三维窗口，固定布局 0；CPU 规划需等待，当前仅测试单次抓放。",
+        ttk.Label(page, text="上方“开始／继续 VLA”直接使用模型动作；旧版实验包含几何运输与松爪。\n"
+                  "旧版实验会打开独立窗口，固定布局 0；不用于验证纯模型的指令理解能力。",
                   wraplength=835).grid(row=8, column=0, sticky="w", pady=6)
         ttk.Label(page, textvariable=self.hybrid_status, wraplength=835, foreground="#174f80").grid(
             row=9, column=0, sticky="w", pady=6)

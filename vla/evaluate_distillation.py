@@ -54,7 +54,7 @@ class ReleasedBowlOnPlateCheck:
         return self.streak >= 5
 
 
-def evaluate(output, initial_states, port=8766, tasks=None, chinese=False):
+def evaluate(output, initial_states, port=8766, tasks=None, chinese=False, replan_steps=5):
     output = Path(output)
     output.mkdir(parents=True, exist_ok=False)
     records = []
@@ -70,14 +70,15 @@ def evaluate(output, initial_states, port=8766, tasks=None, chinese=False):
                      "bowl-on-plate": ReleasedBowlOnPlateCheck}[task]()
             args = parse_args(["--suite", "libero_goal", "--task-id", "8", "--seed", "42",
                 "--initial-state", str(initial), "--port", str(port), "--max-steps", "360",
-                "--replan-steps", "5", "--prompt", translated[task], "--output", str(path)])
+                "--replan-steps", str(replan_steps), "--prompt", translated[task], "--output", str(path)])
             result = rollout(args, success_check=check,
                 policy_factory=lambda p: SeededPolicy(connect_policy(p)), status=lambda _: None)
             if hasattr(check, "history"):
                 (path / "target_relation.json").write_text(json.dumps(check.history, indent=2) + "\n")
             record = dict(task=task, initial_state=initial, result=result["result"],
                 user_instruction=instructions[task], model_prompt=translated[task],
-                steps=result["steps"], initial_state_sha256=result.get("initial_state_sha256"),
+                steps=result["steps"], replan_steps=replan_steps,
+                initial_state_sha256=result.get("initial_state_sha256"),
                 report=str(path / "report.json"))
             records.append(record)
             (output / "summary.json").write_text(json.dumps(records, indent=2) + "\n")
@@ -93,10 +94,11 @@ def main():
     parser.add_argument("--initial-states", required=True, nargs="+", type=int)
     parser.add_argument("--tasks", nargs="+", choices=PROMPTS)
     parser.add_argument("--port", type=int, default=8766)
+    parser.add_argument("--replan-steps", type=int, choices=range(1, 11), default=5)
     parser.add_argument("--chinese", action="store_true", help="Translate actual Chinese requests before model execution")
     args = parser.parse_args()
     os.environ.setdefault("MUJOCO_GL", "egl")
-    evaluate(args.output, args.initial_states, args.port, args.tasks, args.chinese)
+    evaluate(args.output, args.initial_states, args.port, args.tasks, args.chinese, args.replan_steps)
 
 
 if __name__ == "__main__":

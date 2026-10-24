@@ -2,7 +2,7 @@
 
 新增的真正 VLA 入口见 **[π0.5 多任务 MuJoCo 演示](vla/README.md)**：双摄像头、机械臂状态与指令直接输入官方 π0.5 LIBERO 权重，模型输出连续动作。以下水果实验保留为模块化几何控制基线，证据不能与 VLA 混算。
 
-新增 [同场景改指令的实际 LoRA 训练与对比](evidence/language-guidance/DISTILLATION.md)：已完成 V1 真实训练和全部 24 次纯模型评测，V2 正在继续训练。评测执行不使用几何搬运或预设松爪；教师示范来源与失败一并公开。V1 酒瓶入碗仅 2/8，尚未达到要求，不代表开放家庭指令理解。
+新增 [同场景改指令的实际 LoRA 训练与对比](evidence/language-guidance/DISTILLATION.md)：V2 已完成累计 10000 次更新及 24 次纯模型评测，视觉复核酒瓶入碗 4/8、酒瓶入架 8/8、碗上盘 8/8。[同布局不同中文指令录像](https://github.com/sencangWei/voice-arm-sim/releases/download/language-distillation-v1/same-scene-chinese-instructions-v2.mp4)展示模型改变目的地；[原模型与 V2 对比](https://github.com/sencangWei/voice-arm-sim/releases/download/language-distillation-v1/baseline-vs-trained-v2-init009.mp4)展示单例。评测直接执行模型动作；合成教师来源与失败公开。仍未达到稳定入碗要求，不能代表开放家庭指令理解。
 
 另有独立的 [MolmoAct2 接入与同场景测试](vla/MOLMOACT2.md)，复用原生中文工作台；实际测试结果单独记录。
 
