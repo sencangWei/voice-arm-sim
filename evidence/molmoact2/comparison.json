@@ -1,0 +1,42 @@
+[
+  {
+    "case": "pi05-bowl-init0",
+    "result": "success",
+    "control_steps": 84,
+    "policy_calls": 17,
+    "elapsed_seconds": 4.429368428000089,
+    "inference_median_seconds": 0.06877731599888648,
+    "video_frames": 85,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd"
+  },
+  {
+    "case": "molmo-bowl-init0",
+    "result": "success",
+    "control_steps": 77,
+    "policy_calls": 16,
+    "elapsed_seconds": 48.51583513699734,
+    "inference_median_seconds": 2.6431720974997006,
+    "video_frames": 78,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd"
+  },
+  {
+    "case": "pi05-bottle-init0",
+    "result": "failure",
+    "control_steps": 300,
+    "policy_calls": 60,
+    "elapsed_seconds": 9.12784805299998,
+    "inference_median_seconds": 0.06916122149959847,
+    "video_frames": 301,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd"
+  },
+  {
+    "case": "molmo-bottle-init0",
+    "result": "failure",
+    "control_steps": 300,
+    "policy_calls": 60,
+    "elapsed_seconds": 163.7523630570031,
+    "inference_median_seconds": 2.6444766115000675,
+    "video_frames": 301,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd"
+  }
+]

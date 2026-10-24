@@ -21,7 +21,7 @@ rtk proxy .venv-molmo/bin/python -m scripts.prepare_molmo
 rtk proxy .venv-molmo/bin/python -u -m vla.molmo --port 8777 --placement vision-cpu
 ```
 
-`vision-cpu` 将视觉计算和语言输出头放在 CPU，语言骨干和动作专家放在 GPU，给本机正在运行的其它服务保留显存。使用 BF16，不量化权重，关闭 CUDA Graph。CPU 视觉会影响速度；这不是上游全 GPU 的性能基准。`--placement cuda` 可用于显存足够的独立实验，不要因此停止别人的 GPU 进程。
+`vision-cpu` 将视觉计算、词嵌入查表和语言输出头放在 CPU，语言骨干的其余部分和动作专家放在 GPU。使用 BF16，不量化权重，关闭 CUDA Graph；每次返回动作前释放不再使用的 CUDA 缓存，保留有效模型张量，减少共享显卡的闲置缓存。CPU 查表避免上游每次在 GPU 合并约 756MiB 词表；输入和注意力掩码仍明确放在 GPU。CPU 视觉会影响速度；这不是上游全 GPU 的性能基准。`--placement cuda` 可用于显存足够的独立实验，不要因此停止别人的 GPU 进程。
 
 另一个终端打开中文面板和可拖动的原生三维窗口：
 
@@ -59,3 +59,4 @@ rtk proxy .venv-vla-sim/bin/python -u -m vla.compare \
 - 外部／腕部 RGB 分别旋转 180°、256×256，状态为末端位置 3、轴角 3、夹爪位置 2。官方连续动作接口返回已反归一化的 10×7 窗口，本地不再缩放动作或翻转夹爪符号。
 - 连续动作流匹配 10 次迭代，不启用深度推理。默认随机生成器初始种子 0，随请求推进；诊断时可用 `_probe_noise_seed` 固定一次请求的动作噪声。
 - CPU 视觉前置钩子同时迁移图像和图像块索引，输出由官方模型迁回语言骨干所在设备。没有改官方权重。
+- CPU 词嵌入使用查表前后钩子迁移输入／输出；覆盖固定版本的输入迁移辅助方法，避免 Hugging Face 根据首个 CPU 参数把注意力掩码留在 CPU。该部署适配仅支持上面固定的连续动作接口，不宣称支持通用文本生成或深度推理。

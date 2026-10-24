@@ -1,0 +1,38 @@
+{
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 0,
+  "seed": 42,
+  "replan_steps": 5,
+  "max_steps": 300,
+  "score_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+  "result": "failure",
+  "steps": 300,
+  "policy_calls": 60,
+  "task_language": "put the bowl on the plate",
+  "prompt": "put the wine bottle in the bowl",
+  "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+  "initial_state_dtype": "float64",
+  "initial_state_shape": [
+    79
+  ],
+  "server_metadata": {
+    "backend": "official-molmoact2-libero-vla",
+    "action_source": "MolmoAct2.predict_action.continuous",
+    "checkpoint_source": "allenai/MolmoAct2-LIBERO",
+    "checkpoint_revision": "0d24a92bd1faf321ef497c3bbd5681af97c65aa2",
+    "checkpoint_manifest_sha256": "4b7a19040c73e0588f5d2747fdc438cacfdf620434933a6404814722c66c7544",
+    "precision": "bfloat16",
+    "placement": "vision-cpu",
+    "image_size": 256,
+    "action_horizon": 10,
+    "action_dim": 7,
+    "flow_steps": 10,
+    "cuda_graph": false,
+    "training_this_run": false,
+    "default_policy_rng_seed": 0,
+    "rng_policy": "advances per request; optional fixed _probe_noise_seed"
+  },
+  "original_task_predicate": false,
+  "elapsed_seconds": 163.7523630570031
+}

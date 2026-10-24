@@ -18,5 +18,34 @@
   "lerobot_revision": "28b4f721f931aab554cb176412223f098023705f",
   "environment": ".venv-molmo (independent copy, not hardlinked)",
   "torch_cuda": "12.8",
-  "model_load": "not yet tested"
+  "model_load": "passed: official checkpoint loaded and genuine closed-loop MuJoCo bowl trial completed",
+  "checkpoint_manifest_sha256": "4b7a19040c73e0588f5d2747fdc438cacfdf620434933a6404814722c66c7544",
+  "placement": "vision-cpu",
+  "precision": "bfloat16",
+  "cuda_graph": false,
+  "memory_measurement_scope": "nvidia-smi snapshots after warm inference; includes runtime allocations/cache, not a continuous peak measurement",
+  "training_this_run": false,
+  "original_comparison_configuration": {
+    "vision": "cpu",
+    "token_embedding": "cuda:0",
+    "release_idle_cuda_cache": false,
+    "observed_server_gpu_memory_mib": 11276,
+    "observed_shared_gpu_free_during_rollout_mib": 355,
+    "bowl_inference_median_seconds": 2.6431720974997006
+  },
+  "final_native_configuration": {
+    "vision": "cpu",
+    "token_embedding": "cpu",
+    "transformer_and_action_expert": "cuda:0",
+    "release_idle_cuda_cache": true,
+    "official_predicate": true,
+    "control_steps": 77,
+    "inference_calls": 16,
+    "elapsed_seconds": 51.19870832599918,
+    "observed_server_gpu_memory_mib": 9618,
+    "minimum_sampled_shared_gpu_free_mib": 1252,
+    "final_shared_gpu_snapshot": "30734 MiB, 1378 MiB",
+    "sample_interval_seconds": 1,
+    "sampling": "90 samples, not a continuous peak guarantee"
+  }
 }

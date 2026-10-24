@@ -36,6 +36,14 @@ def vision_inputs_on_device(module, args):
     return tuple(value.to(module.device) for value in args)
 
 
+def embedding_inputs_on_cpu(module, args):
+    return tuple(value.to("cpu") for value in args)
+
+
+def embedding_output_on_cuda(module, args, output):
+    return output.to("cuda:0")
+
+
 class MolmoPolicy:
     def __init__(self, checkpoint, placement):
         import torch
@@ -55,6 +63,16 @@ class MolmoPolicy:
             self.model.model.transformer.to("cuda:0")
             self.model.model.action_expert.to("cuda:0")
             self.model.model.vision_backbone.register_forward_pre_hook(vision_inputs_on_device)
+            # Upstream concatenates its vocabulary tables on every request.
+            # CPU lookup avoids both the GPU tables and that large temporary.
+            embedding = self.model.model.transformer.wte.to("cpu")
+            embedding.register_forward_pre_hook(embedding_inputs_on_cpu)
+            embedding.register_forward_hook(embedding_output_on_cuda)
+            # HF infers the outer device from the now-CPU embedding. Keep
+            # attention masks/input tensors on the actual transformer device.
+            move_inputs = self.model._move_inputs_to_device
+            self.model._move_inputs_to_device = lambda inputs, device: move_inputs(
+                inputs, torch.device("cuda:0"))
         self.generator = torch.Generator(device="cuda").manual_seed(0)
         self.metadata = {
             "backend": "official-molmoact2-libero-vla",
@@ -63,8 +81,10 @@ class MolmoPolicy:
             "checkpoint_manifest_sha256": hashlib.sha256(
                 (checkpoint / "verified-manifest.json").read_bytes()).hexdigest(),
             "precision": "bfloat16", "placement": placement,
+            "token_embedding_device": "cpu" if placement == "vision-cpu" else "cuda:0",
             "image_size": 256, "action_horizon": 10, "action_dim": 7,
             "flow_steps": 10, "cuda_graph": False, "training_this_run": False,
+            "cuda_cache_policy": "release unused cache after each request",
             "default_policy_rng_seed": 0,
             "rng_policy": "advances per request; optional fixed _probe_noise_seed",
         }
@@ -89,6 +109,8 @@ class MolmoPolicy:
             actions = actions[0]
         if actions.shape != (10, 7) or not np.isfinite(actions).all():
             raise ValueError(f"Invalid official action output: {actions.shape}")
+        # Other local models share this GPU; retain live tensors, release idle blocks.
+        torch.cuda.empty_cache()
         return {"actions": actions, "server_timing": {
             "infer_ms": 1000 * (time.monotonic() - tick)}}
 

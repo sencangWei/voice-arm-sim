@@ -1,0 +1,16 @@
+{
+  "intermediate_oom": {
+    "source_log": "logs/molmoact2-serve-cache-release.log",
+    "request_mib": 756,
+    "observed_free_mib": 587.38,
+    "location": "MolmoAct2Embedding.forward vocabulary torch.cat",
+    "resolution": "CPU vocabulary lookup, explicit GPU input migration, idle CUDA cache release"
+  },
+  "intermediate_cpu_mask_error": {
+    "source_log": "logs/molmoact2-serve-cpu-embedding.log",
+    "resolution": "Explicit GPU input and attention-mask migration despite first parameter on CPU"
+  },
+  "final_acceptance": "native-low-memory/panel-smoke.json",
+  "existing_services_stopped": false,
+  "new_training": false
+}

@@ -1,26 +1,58 @@
 # MolmoAct2 本地部署与同场景测试
 
-测试日期：2026-10-24。接入和基线已完成，MolmoAct2 权重仍在下载；此阶段尚无 MolmoAct2 动作测试结果。
+测试日期：2026-10-24。官方 MolmoAct2-LIBERO 已在独立环境加载，真实动作驱动 MuJoCo 完成测试，没有为这轮测试重新训练模型。**放碗任务通过，但“酒瓶放进碗里”未通过；直接换模型没有解决这条组合指令。**
 
 ## 对比条件
 
-两个模型使用 LIBERO Goal 任务 8、初态 0、环境种子 42，每次执行 5 个动作、最多 300 个控制步。初态 SHA256 为 `66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd`。两者动作噪声实现不同，不是逐请求随机数一致的对比。
+两个模型使用 LIBERO Goal 任务 8、初态 0、环境种子 42，每次执行 5 个动作、最多 300 个控制步。四轮初态 SHA256 均为 `66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd`。各模型按放碗、放酒瓶顺序执行；策略随机生成器随请求推进，没有在每轮重置，两者动作噪声实现也不同。这是每条指令各一次的实测，不是成功率排名。
 
-| 模型 | 指令 | 结果 | 控制步 / 推理次数 |
-| --- | --- | --- | --- |
-| 官方 π0.5 LIBERO | put the bowl on the plate | 原始任务判据成功 | 84 / 17 |
-| 官方 π0.5 LIBERO | put the wine bottle in the bowl | 独立目标判据失败 | 300 / 60 |
-| MolmoAct2 LIBERO | 两条相同指令 | 待测试 | — |
+| 模型 | 指令 | 结果 | 控制步 / 推理次数 | 本机实际耗时 |
+| --- | --- | --- | --- | --- |
+| 官方 π0.5 LIBERO | put the bowl on the plate | 原始任务判据成功 | 84 / 17 | 4.43 秒 |
+| MolmoAct2 LIBERO | put the bowl on the plate | 原始任务判据成功 | 77 / 16 | 48.52 秒 |
+| 官方 π0.5 LIBERO | put the wine bottle in the bowl | 独立目标判据失败 | 300 / 60 | 9.13 秒 |
+| MolmoAct2 LIBERO | put the wine bottle in the bowl | 独立目标判据失败 | 300 / 60 | 163.75 秒 |
 
-π0.5 的[放碗录像](pi05-bowl-init0/paired_cameras.mp4)、[报告](pi05-bowl-init0/report.json)及[酒瓶放碗录像](pi05-bottle-init0/paired_cameras.mp4)、[报告](pi05-bottle-init0/report.json)均来自实际模型闭环控制。左画面为外部相机，右画面为腕部相机；按控制步以 10fps 保存，播放时长不等于实际推理耗时。
+- π0.5：[放碗录像](pi05-bowl-init0/paired_cameras.mp4)、[报告](pi05-bowl-init0/report.json)；[酒瓶任务录像](pi05-bottle-init0/paired_cameras.mp4)、[报告](pi05-bottle-init0/report.json)。
+- MolmoAct2：[放碗录像](molmo-bowl-init0/paired_cameras.mp4)、[报告](molmo-bowl-init0/report.json)；[酒瓶任务录像](molmo-bottle-init0/paired_cameras.mp4)、[报告](molmo-bottle-init0/report.json)。
+- [四轮关键帧对照](comparison-contact-sheet.png)、[汇总与推理延迟](comparison.json)。各目录同时保留实际动作、逐次推理日志和初态；酒瓶任务另有逐步物理关系记录。
+
+录像均来自实际模型闭环控制。左画面为外部相机，右画面为腕部相机；按控制步以 10fps 保存，播放时长不等于实际推理耗时。关键帧按各自进度取样，不代表相同控制步。看图和录像可见，两种模型都将酒瓶搬向了架子，碗留在桌面；失败不是只差最后的评分阈值。放碗成功仅指官方关系判据满足，不证明已经松爪、撤手。
 
 酒瓶放碗使用近似物理关系判据：瓶碗接触、XY 中心距离小于 3cm、Z 中心差小于 8cm、夹爪不接触瓶子，连续满足 5 步；还需看录像确认。原来的放碗判据不能用于该指令。仿真位置只用于评分，不会作为目标坐标传入动作模型。
 
 ## 已验证的接入环节
 
 - [中文翻译记录](chinese-translation.json)：实际本地 Qwen 将“帮我把酒瓶放到碗里面”译为 `Please put the wine bottle into the bowl.`，未改变目的地。这不证明动作模型已掌握该动作。
-- [CPU 视觉兼容性](cpu-vision-compatibility.json)：BF16 图像编码及图像块索引迁移检查通过。此检查用零权重验证算子，不能证明预训练模型效果。
-- [独立环境](runtime.json)、[初始主机信息](environment.json)、[显存规划](memory-plan.json)。显存规划是架构估计，实际占用待加载后记录。
+- [官方文件校验](checkpoint.json)：固定版本 24 个文件通过长度／官方 LFS SHA256 校验，五个权重分片共约 21.77GB。
+- [CPU 视觉兼容性](cpu-vision-compatibility.json)：BF16 图像编码及图像块索引迁移检查通过。此检查用零权重验证算子；模型能力证据是上面的真实权重闭环录像。
+- [独立环境与实测显存](runtime.json)、[初始主机信息](environment.json)、[显存规划](memory-plan.json)。规划是架构估计；上表原配置的服务热推理后约占 11276MiB（含运行时和缓存），不是连续峰值测量。
 - 使用原有中文面板、原生 MuJoCo 窗口和人工接管入口；训练页仍只支持 π0.5。
+
+## 速度和部署问题
+
+为保留原有 π0.5、Qwen 和用户窗口，使用 BF16、CPU 视觉、GPU 语言骨干与动作专家，关闭 CUDA Graph；没有修改权重、缩放动作或把目标坐标喂给策略。MolmoAct2 每次推理中位数约 2.64 秒，π0.5 约 0.069 秒；这反映当前不同设备放置及实现，不能作为模型全 GPU 的速度结论。视觉放 CPU 的部署目前适合观察与验证，不适合流畅互动。
+
+1. 标准 HF 下载遇到 TLS／Xet 失败：从固定官方版本用可续传 HTTP Range 下载，最终逐文件核对官方 SHA256；不把未完成的下载称为部署完成。
+2. 初次合并分片误用了系统 Python 3.10 的 `hashlib.file_digest`：改用独立 Python 3.11 重跑合并，复用全部已下载分片，校验通过。
+3. CPU 视觉与 GPU 语言混用时，上游图像块索引不会随像素自动迁移：本地前置钩子同步迁移两者，零权重算子检查及真实模型推理均通过。
+4. 上游预处理产生一次只读 NumPy 警告，未导致本次推理异常；保留原日志，未据此修改权重或动作。
+5. 原配置与两个模型、语音服务及较大的窗口同时运行时，空闲显存不足，词表合并申请 756MiB 失败。只清理闲置 CUDA 缓存不能解决首轮推理的峰值。最终增加 CPU 词嵌入查表，返回 GPU 后继续原始推理，并逐请求释放闲置缓存。
+6. CPU 词嵌入使 Hugging Face 按第一个参数推断出的外层设备变成 CPU，造成动作注意力掩码与 GPU 张量混用。适配器明确将模型输入／掩码迁移到 GPU；视觉和词表各自的钩子处理 CPU 往返。没有停止既有模型服务。
+
+上表四轮使用 CPU 视觉、GPU 词嵌入且未主动释放闲置缓存；之后的显存调整另做中文窗口验收，不把不同配置的耗时混作同一基准。最终的 `vision-cpu` 入口额外把词嵌入放在 CPU，使用同一组官方权重。所有动作都来自实际模型。
+
+## 最终中文窗口验收
+
+在原生中文面板输入“帮我把碗放到盘子上”，实际本地翻译后由 MolmoAct2 控制 MuJoCo，77 个控制步、16 次模型调用完成官方任务判据，含窗口加载及保存约 51.20 秒。窗口随后暂停，供查看和人工接管。没有测试真人麦克风，也没有将这个放碗成功当作新目标组合成功。
+
+- [中文面板截图](native-low-memory/chinese-panel.png)、[原生三维窗口截图](native-low-memory/mujoco-viewer.png)、[验收记录](native-low-memory/panel-smoke.json)。
+- [实际闭环录像](native-low-memory/trial/demo_1792845124111675405.mp4)、[动作和结果](native-low-memory/trial/report.json)。录像按每个控制步存帧，20fps；播放时长不等于墙钟时间。
+- [90 次一秒间隔显存采样](native-low-memory/gpu-samples.json)：最低观测空闲 1252MiB，最后空闲 1378MiB；新模型进程热推理后约 9618MiB。采样不保证捕获每个瞬时峰值，也不能保证其他进程增加显存后仍够用。
+- [部署问题记录](deployment-issues.json)、[录像帧数与动作数量校验](artifact-validation.json)。最终配置完成完整闭环；两次中间错误均保留在本地日志中。
+
+## 这次结果意味着什么
+
+中文翻译保留了“酒瓶”和“碗”，模型也实际抓取并搬动了酒瓶；失败出现在新的目标关系执行上。训练分布偏好是一个待验证的解释，单轮录像不能区分语言条件、训练覆盖、动作泛化等全部因素。下一步应先对照酒瓶放架子／放碗的动作及多初态表现，再决定是否补充跨目标示范并多任务微调；目前不能承诺仅靠换模型或增加训练步数就解决。
 
 复现命令及官方模型来源见 [部署说明](../../vla/MOLMOACT2.md)。本次没有训练 MolmoAct2；小样本测试也不能证明未见家庭物体识别、长期恢复或产品可靠性。

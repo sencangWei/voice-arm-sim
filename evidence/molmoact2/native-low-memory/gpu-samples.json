@@ -1,0 +1,456 @@
+{
+  "scope": "shared GPU, one-second samples during native trial, not a guaranteed continuous peak",
+  "samples": [
+    {
+      "seconds": 0.02,
+      "used_mib": 29417,
+      "free_mib": 2694
+    },
+    {
+      "seconds": 1.03,
+      "used_mib": 29418,
+      "free_mib": 2694
+    },
+    {
+      "seconds": 2.05,
+      "used_mib": 30518,
+      "free_mib": 1594
+    },
+    {
+      "seconds": 3.07,
+      "used_mib": 30630,
+      "free_mib": 1482
+    },
+    {
+      "seconds": 4.09,
+      "used_mib": 30630,
+      "free_mib": 1482
+    },
+    {
+      "seconds": 5.11,
+      "used_mib": 30692,
+      "free_mib": 1420
+    },
+    {
+      "seconds": 6.13,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 7.15,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 8.17,
+      "used_mib": 30860,
+      "free_mib": 1252
+    },
+    {
+      "seconds": 9.19,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 10.21,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 11.23,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 12.25,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 13.26,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 14.29,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 15.31,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 16.33,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 17.35,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 18.37,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 19.4,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 20.42,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 21.44,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 22.45,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 23.48,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 24.5,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 25.51,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 26.54,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 27.56,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 28.59,
+      "used_mib": 30860,
+      "free_mib": 1252
+    },
+    {
+      "seconds": 29.61,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 30.63,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 31.65,
+      "used_mib": 30860,
+      "free_mib": 1252
+    },
+    {
+      "seconds": 32.67,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 33.69,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 34.71,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 35.74,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 36.76,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 37.77,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 38.8,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 39.82,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 40.84,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 41.86,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 42.88,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 43.9,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 44.92,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 45.94,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 46.96,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 47.98,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 48.99,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 50.02,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 51.04,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 52.06,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 53.08,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 54.1,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 55.12,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 56.14,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 57.16,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 58.18,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 59.2,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 60.22,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 61.24,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 62.27,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 63.29,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 64.31,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 65.33,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 66.35,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 67.37,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 68.4,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 69.43,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 70.46,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 71.49,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 72.51,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 73.54,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 74.57,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 75.59,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 76.61,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 77.64,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 78.67,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 79.69,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 80.72,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 81.74,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 82.77,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 83.79,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 84.82,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 85.84,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 86.87,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 87.89,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 88.92,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 89.95,
+      "used_mib": 30734,
+      "free_mib": 1378
+    },
+    {
+      "seconds": 90.97,
+      "used_mib": 30734,
+      "free_mib": 1378
+    }
+  ],
+  "minimum_observed_free_mib": 1252
+}

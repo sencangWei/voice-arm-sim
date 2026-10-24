@@ -1,0 +1,40 @@
+{
+  "scene": {
+    "suite": "libero_goal",
+    "task_id": 8,
+    "initial_state": 0,
+    "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+    "task": "Please put the bowl on the plate.",
+    "user_instruction": "帮我把碗放到盘子上",
+    "task_language": "put the bowl on the plate",
+    "source_model": {
+      "backend": "official-molmoact2-libero-vla",
+      "action_source": "MolmoAct2.predict_action.continuous",
+      "checkpoint_source": "allenai/MolmoAct2-LIBERO",
+      "checkpoint_revision": "0d24a92bd1faf321ef497c3bbd5681af97c65aa2",
+      "checkpoint_manifest_sha256": "4b7a19040c73e0588f5d2747fdc438cacfdf620434933a6404814722c66c7544",
+      "precision": "bfloat16",
+      "placement": "vision-cpu",
+      "image_size": 256,
+      "action_horizon": 10,
+      "action_dim": 7,
+      "flow_steps": 10,
+      "cuda_graph": false,
+      "training_this_run": false,
+      "default_policy_rng_seed": 0,
+      "rng_policy": "advances per request; optional fixed _probe_noise_seed"
+    },
+    "seed": 42,
+    "replan_steps": 5,
+    "scenario_key": "fa04a13c6ced26ccd5e4014a28078dfc33ffd7b950fd44edcd08a4594d354522"
+  },
+  "paused": true,
+  "model_title": "MolmoAct2 真实模型 · MuJoCo 本地仿真",
+  "pid": 294520,
+  "steps": 79,
+  "official_predicate": true,
+  "policy_calls": 16,
+  "elapsed_seconds": 50.03198203899956,
+  "scene_output": "/home/robot/voice-arm-sim/runs/molmo-native-smoke/scene_1792844777408438087",
+  "acceptance": "native Chinese text -> real local translation -> MolmoAct2 -> MuJoCo; no human microphone test"
+}

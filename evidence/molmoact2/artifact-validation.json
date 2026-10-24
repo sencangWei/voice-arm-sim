@@ -1,0 +1,42 @@
+[
+  {
+    "case": "pi05-bowl-init0",
+    "frames": 85,
+    "executed_action_shape": [
+      84,
+      7
+    ]
+  },
+  {
+    "case": "pi05-bottle-init0",
+    "frames": 301,
+    "executed_action_shape": [
+      300,
+      7
+    ]
+  },
+  {
+    "case": "molmo-bowl-init0",
+    "frames": 78,
+    "executed_action_shape": [
+      77,
+      7
+    ]
+  },
+  {
+    "case": "molmo-bottle-init0",
+    "frames": 301,
+    "executed_action_shape": [
+      300,
+      7
+    ]
+  },
+  {
+    "case": "native-low-memory",
+    "frames": 78,
+    "executed_action_shape": [
+      77,
+      7
+    ]
+  }
+]
