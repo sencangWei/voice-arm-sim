@@ -44,3 +44,12 @@ User reports banana does not move for “把香蕉从盘子里面取出来”. L
 2. Add explicit take-out intent, camera-confirmed free tabletop destination, physical grasp/release and source/result checks — complete.
 3. Validate put-in → take-out with independent truth and actual native/VLM interface; retain video and results — complete:9/9 physical pairs; actual native button+Qwen banana pair passed,30 tests pass and scoped review cleared.
 4. Update documentation, commit/push and verify clean restore from owned remote — complete: capability608cc1a restored from GitHub into .local/restore-takeout; all74 tracked SHA256 and Git tree match. Receipt evidence/takeout/backup-capability.json.
+
+## Genuine multi-task VLA revision — in progress
+User confirms that arbitrary language should condition an actual action model. Existing Qwen+geometry controller is a modular scripted baseline, not a VLA. Preserve it for comparison; do not modify the old pi05 learning project.
+1. Pin compatible official pretrained multi-task checkpoint, code revision and observation/action contract; capture environment — in progress.
+2. Add isolated native LIBERO model-inference entry point; image/state/language must reach pi05 and only returned actions drive the policy loop.
+3. Evaluate multiple tasks/objects and a controlled same-scene language change; retain success and failure video plus action trace. No claim of open-world fruit manipulation.
+4. Connect convenient text/voice input where supported, document limitations and exact reproducible commands.
+5. Run focused checks; commit/push scoped capability and verify a clean remote restore.
+Acceptance: actual pretrained pi05 inference driving real MuJoCo contacts, documented checkpoint identity, visible language prompt, multi-task results and honest untested boundaries.

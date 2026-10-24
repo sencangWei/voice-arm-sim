@@ -1,0 +1,6 @@
+{
+  "original_text": "把碗放到盘子上。",
+  "translated_prompt": "Put the bowl on the plate.",
+  "input_kind": "synthetic Mandarin Piper audio",
+  "boundary": "Synthetic Mandarin audio verifies ASR and translation only; policy rollout pending official checkpoint download."
+}
