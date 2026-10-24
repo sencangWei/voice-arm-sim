@@ -1,566 +1,144 @@
 {
-  "README.md": {
-    "bytes": 6122,
-    "sha256": "b9d651c84a4ec25068c4f4a08bbf1345f009563404f7fa9a869a0435ad35bd14"
-  },
-  "checkpoint-manifest.json": {
-    "bytes": 6103,
-    "sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02"
-  },
-  "contact-sheet.png": {
-    "bytes": 652856,
-    "sha256": "f6901490b246a7d60b164629232d3dfd7f6a1a1c6b48e8838169397e317139ce"
-  },
-  "demo.mp4": {
-    "bytes": 6552834,
-    "sha256": "d774716f16968eefd8f939d84b099d2350e49b7b26be6f2c064570f0da8681d8"
-  },
-  "language-probe/actions_0.npy": {
-    "bytes": 688,
-    "sha256": "f40188a40428adbd34adcad9fe3359cf40f766d69a308b4bdbe9ac410390eeda"
-  },
-  "language-probe/actions_1.npy": {
-    "bytes": 688,
-    "sha256": "f40188a40428adbd34adcad9fe3359cf40f766d69a308b4bdbe9ac410390eeda"
-  },
-  "language-probe/actions_2.npy": {
-    "bytes": 688,
-    "sha256": "26b4229e29eaa63ee8021ebc2433c21dc0047d371079f8117b556af6d5f413b6"
-  },
-  "language-probe/actions_3.npy": {
-    "bytes": 688,
-    "sha256": "a36999851581f543328cae0cb654ef47ed9266a28d76ed2176b92085d5170579"
-  },
-  "language-probe/observation.npz": {
-    "bytes": 301952,
-    "sha256": "163115f2a0ad31ae22a7de356339b34545de988e9af3de032c082d9b1856f973"
-  },
-  "language-probe/observation.png": {
-    "bytes": 90762,
-    "sha256": "95c13840e783c5d80ccda044d0a6bbe53f23b626e3fcf92bdf9fed2ae7b77ba4"
-  },
-  "language-probe/report.json": {
-    "bytes": 1110,
-    "sha256": "cea742c11d98d8fb321c3ba0639d3095c8e4f5d6f760e5e7b77b96ef362b014e"
-  },
-  "native-complete-report.json": {
-    "bytes": 1102,
-    "sha256": "f2a643ee640160e87eea76112e0948adbdb23ad7ac69329bf6fe29db0f2a136c"
-  },
-  "native-panel.png": {
-    "bytes": 5971,
-    "sha256": "30c7334ef8b0af2cbfd4a27089061a0506a04fd7278eaaea43df976aa4102753"
-  },
-  "native-ui-check.json": {
-    "bytes": 1510,
-    "sha256": "7d73cf2375def0f57503fc7a282fff0565c1f205ac0c3fbc86f6a600bedc7f1b"
-  },
-  "native-viewer.png": {
-    "bytes": 1080404,
-    "sha256": "bf69abd15f937f44d7e45c9e7eb81bdf39097e879b0c121413a8e607a2d0e1f2"
-  },
-  "policy-environment.json": {
-    "bytes": 1385,
-    "sha256": "3eb4f31e5f1229b470069f1eeb18e58712e453bbf29394c453faddb7ec2a4661"
-  },
-  "sim-environment.json": {
-    "bytes": 1418,
-    "sha256": "de5f4fc5ca55fe33daaeea31ee573ff02f160adf7858ad94c083fb5c509d7d34"
-  },
-  "source-snapshot.json": {
-    "bytes": 114,
-    "sha256": "102f8b0649d9aef1c4a066d8df59afce6d8b33e0c194c3b5305f9f2d529f977a"
-  },
-  "summary.json": {
-    "bytes": 6553,
-    "sha256": "cd9bd983d5c1a955db0de993b8b5e3542f2a8afb7378ec65766de58f7176a2ee"
-  },
-  "vla-bowl-plate/actions_0000.npy": {
-    "bytes": 688,
-    "sha256": "4da4c7de987b1a67a4bd1cc3c32f9747169bc5d18554accc641d7e0efed9e6f4"
-  },
-  "vla-bowl-plate/actions_0001.npy": {
-    "bytes": 688,
-    "sha256": "91de5e1b0b9a64afd6e914fc99c521511ce9ded49783e7f0af76c7c69db9ea32"
-  },
-  "vla-bowl-plate/actions_0002.npy": {
-    "bytes": 688,
-    "sha256": "83459dfe9bfa142536818591f00e47ef6adae5d1790cb31d24dda3d289989cb5"
-  },
-  "vla-bowl-plate/actions_0003.npy": {
-    "bytes": 688,
-    "sha256": "430aba195b9f4c754096f11559bc2dd6d735d6a6fbb9d1494c23ff95cd00b734"
-  },
-  "vla-bowl-plate/actions_0004.npy": {
-    "bytes": 688,
-    "sha256": "047e3d2d2cc25cdc1467723565b98d134050ae90587bbf42a22f153dbb923bc1"
-  },
-  "vla-bowl-plate/actions_0005.npy": {
-    "bytes": 688,
-    "sha256": "c15695b95250a365721c819d773764ecd96e0332f3f523b84b610983313dce12"
-  },
-  "vla-bowl-plate/actions_0006.npy": {
-    "bytes": 688,
-    "sha256": "4b84ee00fdd09096aa109e317121a04226b93026cf06a7da9c3738991d4ac796"
-  },
-  "vla-bowl-plate/actions_0007.npy": {
-    "bytes": 688,
-    "sha256": "f0aa66a690b20e6d1c4d4527a298779918e7e1d99ae9e1fb9900c332bacb26b8"
-  },
-  "vla-bowl-plate/actions_0008.npy": {
-    "bytes": 688,
-    "sha256": "ca5a13d671668232c8ec51d163713a044dc55f1ee33e5f856cdaa36a5c140478"
-  },
-  "vla-bowl-plate/actions_0009.npy": {
-    "bytes": 688,
-    "sha256": "b9513e2b16f55e0910177445c98f4985e0e5ceefe9f7c4c68457175226462480"
-  },
-  "vla-bowl-plate/actions_0010.npy": {
-    "bytes": 688,
-    "sha256": "adb3ef6c9d8e4c616ec50f379f9391dbf70b792ec8c85120dc324bd1ea164f89"
-  },
-  "vla-bowl-plate/actions_0011.npy": {
-    "bytes": 688,
-    "sha256": "eacf111d58b069bba400f1d8b0b4d0a003435e93c78e5e711ebae7c26e6c3f8f"
-  },
-  "vla-bowl-plate/actions_0012.npy": {
-    "bytes": 688,
-    "sha256": "43115d228fd6cba70be4b47ba59ea31f954bb9d1fcd1330951b01936487ff07f"
-  },
-  "vla-bowl-plate/actions_0013.npy": {
-    "bytes": 688,
-    "sha256": "1725bc07bec71c461a5a8440ac261fde81cb9609bc87a2a5ac686d689d0cb448"
-  },
-  "vla-bowl-plate/actions_0014.npy": {
-    "bytes": 688,
-    "sha256": "a623de23e81ed8200e733f10eb2c2fffc0ff833e3b606a37ee756cfe9b80a738"
-  },
-  "vla-bowl-plate/actions_0015.npy": {
-    "bytes": 688,
-    "sha256": "e56335d61e27ab7de417c9e569b6ac2d601a2e24cfca1abd6812ea96c4bfc714"
-  },
-  "vla-bowl-plate/actions_0016.npy": {
-    "bytes": 688,
-    "sha256": "b4540d56527c97939a3e64c5f8f85172760b1e6853b3d2c36fdd1b4292463a3a"
-  },
-  "vla-bowl-plate/executed_actions.npy": {
-    "bytes": 4664,
-    "sha256": "9744c80075a278bc78335fae39934d85953c5870a352cc2c76ac468a4f87ed47"
-  },
-  "vla-bowl-plate/inference.jsonl": {
-    "bytes": 1599,
-    "sha256": "95d1415156693473c33e89adc1cd546af614ac2971db1a324978574504f573b6"
-  },
-  "vla-bowl-plate/initial_state.npy": {
-    "bytes": 760,
-    "sha256": "9fc5a732c95dd6f3b9b3c1b3d5738fdc763de79a35b90488a2a5328828e4a3e8"
-  },
-  "vla-bowl-plate/paired_cameras.mp4": {
-    "bytes": 137701,
-    "sha256": "55ada2f1abc15b7696be19e3b8c17336b7ce91ff32c3cd287643c7c00a3c3388"
-  },
-  "vla-bowl-plate/report.json": {
-    "bytes": 1101,
-    "sha256": "455d580e150b754c7c1aa2cdb650d1196f35479601644530044c9045ce359ddb"
-  },
-  "vla-bowl-plate-init1/actions_0000.npy": {
-    "bytes": 688,
-    "sha256": "0e322d7407f034663bd1776b7cb66366351ca68218ae4f3976956113a071a6c0"
-  },
-  "vla-bowl-plate-init1/actions_0001.npy": {
-    "bytes": 688,
-    "sha256": "2b5c21e06a1b249e19b1c155b28ff7eddf1c132fbd027bac1464303b2766c462"
-  },
-  "vla-bowl-plate-init1/actions_0002.npy": {
-    "bytes": 688,
-    "sha256": "ce5de5b76bba5e7900f29e2ee476cbab19d93486360eddd8419b1872753596bc"
-  },
-  "vla-bowl-plate-init1/actions_0003.npy": {
-    "bytes": 688,
-    "sha256": "cf9f1bf3d76cf410f5f80ad730b95245442a85af676fada26fe93c4633a89e07"
-  },
-  "vla-bowl-plate-init1/actions_0004.npy": {
-    "bytes": 688,
-    "sha256": "2ab29a332c16367f3c4c91d9729b5bd5c2e5a02bbf263fd36cb985b7ec6ec6e0"
-  },
-  "vla-bowl-plate-init1/actions_0005.npy": {
-    "bytes": 688,
-    "sha256": "b0819c45c02b10b45006693cb32554accb790755d7919a14a7f1a96c2a1230d6"
-  },
-  "vla-bowl-plate-init1/actions_0006.npy": {
-    "bytes": 688,
-    "sha256": "3d23b59fa40222568f92605e033f97f3ad905502dc13ed6d53bba622144a4deb"
-  },
-  "vla-bowl-plate-init1/actions_0007.npy": {
-    "bytes": 688,
-    "sha256": "52ff3787112e7ae542edade3a6f751f73774887dda684e0eb128938ae503b06a"
-  },
-  "vla-bowl-plate-init1/actions_0008.npy": {
-    "bytes": 688,
-    "sha256": "36fe5f243bbb04f04b8db402f6fe7d287896fad776d0e2fa44ae89d6ab4b1683"
-  },
-  "vla-bowl-plate-init1/actions_0009.npy": {
-    "bytes": 688,
-    "sha256": "f9ec09fbcc06e4285fea2464070c4027631cf2dca2395a3911b4838fb7be9609"
-  },
-  "vla-bowl-plate-init1/actions_0010.npy": {
-    "bytes": 688,
-    "sha256": "83eaac4992dca372056067d994d119e09d23611c348d34e0c157a3326e7d8574"
-  },
-  "vla-bowl-plate-init1/actions_0011.npy": {
-    "bytes": 688,
-    "sha256": "377b14cdcfdf9927be6d8000994fdd80b94c5be1f29cbf378a60acc350cbde75"
-  },
-  "vla-bowl-plate-init1/actions_0012.npy": {
-    "bytes": 688,
-    "sha256": "6c6e51df7afca6e8fef8264debaebbc2266f86abb4a9f6bb34bfc8c937f9b592"
-  },
-  "vla-bowl-plate-init1/actions_0013.npy": {
-    "bytes": 688,
-    "sha256": "3a4d1a9fa53e0d9279e23c0fa2118b8cc4a5fc9d619d6688f51324d2372e2625"
-  },
-  "vla-bowl-plate-init1/actions_0014.npy": {
-    "bytes": 688,
-    "sha256": "4ee43f3c61be3fee798b3696bae2f99e90b7229e2d3671191cd122e14976fdd1"
-  },
-  "vla-bowl-plate-init1/executed_actions.npy": {
-    "bytes": 4216,
-    "sha256": "25b579fbc57ece9664d72a6a53b4f19f5301851215d0ea8d30104aa9a1c356ea"
-  },
-  "vla-bowl-plate-init1/inference.jsonl": {
-    "bytes": 1409,
-    "sha256": "ce8d30f03a66f1ba01b76dfbac60e1b2755a2710faae5545b9c56df72f9fbacc"
-  },
-  "vla-bowl-plate-init1/initial_state.npy": {
-    "bytes": 760,
-    "sha256": "7044747a8866009385c3cd726d0f9949236f766e25878b999d336658c22efdd3"
-  },
-  "vla-bowl-plate-init1/paired_cameras.mp4": {
-    "bytes": 130186,
-    "sha256": "c8414eb2c93f46577ec4508fba1ca0f742ac6d51e753ab5881281f82ee4ce763"
-  },
-  "vla-bowl-plate-init1/report.json": {
-    "bytes": 1102,
-    "sha256": "418e3dc9b2098ef8f92ee29eb7606ce1dbba6de50f4e248c64ee1eef96efcd77"
-  },
-  "vla-cream-cheese/actions_0000.npy": {
-    "bytes": 688,
-    "sha256": "ad2e8dbd64317ea30014ddaa206fcd2671f34a1b1f8cf44ef54663a221baf9eb"
-  },
-  "vla-cream-cheese/actions_0001.npy": {
-    "bytes": 688,
-    "sha256": "9b648ae49a6a6bf0f575fe49a140f71cc71d4c8c44c20ef64c12d8ebd76b7e64"
-  },
-  "vla-cream-cheese/actions_0002.npy": {
-    "bytes": 688,
-    "sha256": "e2d88a6e58344346ee0d165f7fbf09746564a44dfdfa52b78fffd21549263d99"
-  },
-  "vla-cream-cheese/actions_0003.npy": {
-    "bytes": 688,
-    "sha256": "6ae28b407ff8c010f8a751321d69e21d7a6b5df6f4e4a2b9390097b76cf308a6"
-  },
-  "vla-cream-cheese/actions_0004.npy": {
-    "bytes": 688,
-    "sha256": "03567916d50f881596ca99d47d51d93555d8bbf421220d181333108d7091304c"
-  },
-  "vla-cream-cheese/actions_0005.npy": {
-    "bytes": 688,
-    "sha256": "7ebda5d4dc3f246660923e0dfddab4035ac2d17da2156cdce3a3c6c195c27c17"
-  },
-  "vla-cream-cheese/actions_0006.npy": {
-    "bytes": 688,
-    "sha256": "127dbee93d40f44c6d04aa59dfa1ef753b77416620fee5a4f705312675859cee"
-  },
-  "vla-cream-cheese/actions_0007.npy": {
-    "bytes": 688,
-    "sha256": "566e258846d559b83507c51b21d58b8aa6db5b463ccdefa5c4c31ed3e84106ab"
-  },
-  "vla-cream-cheese/actions_0008.npy": {
-    "bytes": 688,
-    "sha256": "f5f70eb8ecd9cad456244e73dc60e80dc1130daed13813e90a79d7901b670dac"
-  },
-  "vla-cream-cheese/actions_0009.npy": {
-    "bytes": 688,
-    "sha256": "9f67857a67be2b5b5bd94db5cf8abb076892a3beeb894d25e88497aa84ad9cee"
-  },
-  "vla-cream-cheese/actions_0010.npy": {
-    "bytes": 688,
-    "sha256": "0ed5528658ebfd326a200f687f59b6087abe941f03d27bbed13d2f1046a68b37"
-  },
-  "vla-cream-cheese/actions_0011.npy": {
-    "bytes": 688,
-    "sha256": "6b6f6188006f2d90afe08747fe134f12909cf63e1ecb02e579e969abbbd78731"
-  },
-  "vla-cream-cheese/actions_0012.npy": {
-    "bytes": 688,
-    "sha256": "d6c3c23cb2601c3ddaf8afc045018e99277d31defc821a43582a6b6959bd5a65"
-  },
-  "vla-cream-cheese/actions_0013.npy": {
-    "bytes": 688,
-    "sha256": "c4a78dc3cb50f9913b218d04799f0ce8e56250b802849068cfde80c9dd6924c8"
-  },
-  "vla-cream-cheese/actions_0014.npy": {
-    "bytes": 688,
-    "sha256": "d6b111ce2a8161dd718b0b7ac4efb4172e0c900902c46a76f11832d992e24293"
-  },
-  "vla-cream-cheese/actions_0015.npy": {
-    "bytes": 688,
-    "sha256": "bdbad2b00e33dfc3d0fbf7598fa5617fe85645df9f5ebb064c28b07be682b836"
-  },
-  "vla-cream-cheese/actions_0016.npy": {
-    "bytes": 688,
-    "sha256": "74305138b45414cbc5b6ed587863378686f208c0aab8321449160eff665c9ab1"
-  },
-  "vla-cream-cheese/actions_0017.npy": {
-    "bytes": 688,
-    "sha256": "178060a5b39be3e5ebb09c17541e572095bae89684926eadedb0502762951d58"
-  },
-  "vla-cream-cheese/actions_0018.npy": {
-    "bytes": 688,
-    "sha256": "c3a052bf77882c20e807c79132af9b09bd23ce35f3ac43687bbd1e99463fa0e5"
-  },
-  "vla-cream-cheese/actions_0019.npy": {
-    "bytes": 688,
-    "sha256": "068f9b4732f351822ca5419d925bb9c297dde19231d5a7b2d3c8c3175ef4a728"
-  },
-  "vla-cream-cheese/actions_0020.npy": {
-    "bytes": 688,
-    "sha256": "79983dc77ccf0ce93076f8daffad443c0052a6751097812b291095c1d97f1b10"
-  },
-  "vla-cream-cheese/actions_0021.npy": {
-    "bytes": 688,
-    "sha256": "c25eb701148b4ad0e1d68053a8c9f49f994db6dfebe2b1cb76dd97db58d227d2"
-  },
-  "vla-cream-cheese/actions_0022.npy": {
-    "bytes": 688,
-    "sha256": "dd3244814a53727b4c2643b44358cd34daacf67f9c13aae9ec1f79f8608aa3e2"
-  },
-  "vla-cream-cheese/actions_0023.npy": {
-    "bytes": 688,
-    "sha256": "32c619f00e631b523a818f6766b2be1d3c82844ece721a121b88e14dbb976ee7"
-  },
-  "vla-cream-cheese/actions_0024.npy": {
-    "bytes": 688,
-    "sha256": "00c27d7972d01e895b925ab0828cf6a178a9ab5b5aee0a57aefdd1179dff697e"
-  },
-  "vla-cream-cheese/actions_0025.npy": {
-    "bytes": 688,
-    "sha256": "70fbae76db5a633e89e033eedefcbebf025d91734d1d9b9739e5bd436db92f58"
-  },
-  "vla-cream-cheese/executed_actions.npy": {
-    "bytes": 7184,
-    "sha256": "f60f4ca1ab66b97a2d6f69ee0dd38e3c6bfefb0a20c5bf616692ca5316f7bf37"
-  },
-  "vla-cream-cheese/inference.jsonl": {
-    "bytes": 2458,
-    "sha256": "351b4c7a6baee4f26c6f482f4284c2eaf96462f7c11133affe664169ae3530ca"
-  },
-  "vla-cream-cheese/initial_state.npy": {
-    "bytes": 1008,
-    "sha256": "f3a81c1538d912c794d33ad5dcfdaf5218d21ef6540e74d8ea2d3522c156e4af"
-  },
-  "vla-cream-cheese/paired_cameras.mp4": {
-    "bytes": 190322,
-    "sha256": "602e323f5e234b475f953258b4dd81e77daa28fd0d83344e14cdef58aeea67eb"
-  },
-  "vla-cream-cheese/report.json": {
-    "bytes": 1158,
-    "sha256": "9c354dd6cf9777bcbc4aa13a1b2bf3188819303fb97bd124444cfade91d77e4c"
-  },
-  "vla-drawer/actions_0000.npy": {
-    "bytes": 688,
-    "sha256": "b34b9b3c4514740bac45fe334223c7d1987990fa93cf5caa8c25697aaa9ad3f4"
-  },
-  "vla-drawer/actions_0001.npy": {
-    "bytes": 688,
-    "sha256": "32b5866f7b245c6e1965b9f12d7dded68c7f28080496d47f3ec504f5b9af738a"
-  },
-  "vla-drawer/actions_0002.npy": {
-    "bytes": 688,
-    "sha256": "63adac2f0c100d46e32ce32191cba4d7c7d2f3da51a0dcb93c6c6a267951e41e"
-  },
-  "vla-drawer/actions_0003.npy": {
-    "bytes": 688,
-    "sha256": "145d6fc8a53f5c665ee44ab906b6e4cf01790e553b5eca7212cba1fa7e60e662"
-  },
-  "vla-drawer/actions_0004.npy": {
-    "bytes": 688,
-    "sha256": "a9c19700a47842e61436083e6bca5ccab16065acafb197a0285b90efa3302dc6"
-  },
-  "vla-drawer/actions_0005.npy": {
-    "bytes": 688,
-    "sha256": "f72b541120c7c2e067490a8d29f950db08bc782963aaca9118ebfbdab6eb221a"
-  },
-  "vla-drawer/actions_0006.npy": {
-    "bytes": 688,
-    "sha256": "7209038438043c770996601934ad0d8a6db0d2938294f24ceaabec3ac259655c"
-  },
-  "vla-drawer/actions_0007.npy": {
-    "bytes": 688,
-    "sha256": "b0b1b435bf51133f7b2651af148a4d64a671f20efcd3f31267dd70be9ad4ef21"
-  },
-  "vla-drawer/actions_0008.npy": {
-    "bytes": 688,
-    "sha256": "d29eba6931b953f3da1ffd352f000d761d62a8c502fa809ff04109d9ac329139"
-  },
-  "vla-drawer/actions_0009.npy": {
-    "bytes": 688,
-    "sha256": "fa30f07d586886b4fb23eb8e7ab72a5d8f01257af785c56b0a03be08d9ef26a9"
-  },
-  "vla-drawer/actions_0010.npy": {
-    "bytes": 688,
-    "sha256": "784f23fd7d42f3b51658182f812ff83ded2e990a887cf1f45536cce48e6fb3e4"
-  },
-  "vla-drawer/actions_0011.npy": {
-    "bytes": 688,
-    "sha256": "59f8a13aca7c02b86d731574df381dacfb6a803a42461ab356a4759a22eecbc7"
-  },
-  "vla-drawer/actions_0012.npy": {
-    "bytes": 688,
-    "sha256": "e369121c566a0a0b4cb530f44df49b0fd3480e095de7eb554d4c43cf2325d7a4"
-  },
-  "vla-drawer/actions_0013.npy": {
-    "bytes": 688,
-    "sha256": "b91fc106ea3c182028a1b06648929d97e9ab31c313b4b11821a868f54471a5ec"
-  },
-  "vla-drawer/actions_0014.npy": {
-    "bytes": 688,
-    "sha256": "2cbc1d1291d3c8a8514c47459e67b54e86b193021be6af31dbf0fb2fc995b2bd"
-  },
-  "vla-drawer/actions_0015.npy": {
-    "bytes": 688,
-    "sha256": "e99dd60c37c036b4f1f52944b1c46a7da06dfcb6e03d8911689b2179ad0ab9e0"
-  },
-  "vla-drawer/actions_0016.npy": {
-    "bytes": 688,
-    "sha256": "a283ba469567f18e127d1c2864db8a5fa3a661cc0e67fcf5cbaac61ce7561dd0"
-  },
-  "vla-drawer/actions_0017.npy": {
-    "bytes": 688,
-    "sha256": "64ba195fd1fa4d99a1801763d388c1ce52e21134c9884d982f3cc5389f9650a5"
-  },
-  "vla-drawer/actions_0018.npy": {
-    "bytes": 688,
-    "sha256": "d5c314459d27898f34ac71e32453b3eb3dff3804ec275ba3088e96cf62f6d4fc"
-  },
-  "vla-drawer/actions_0019.npy": {
-    "bytes": 688,
-    "sha256": "e2cbf405cb32f485181361de12f0e6e4bb7429cca0549bc7e7a20d0c3c579cd6"
-  },
-  "vla-drawer/actions_0020.npy": {
-    "bytes": 688,
-    "sha256": "71b7d1e546d3004d6f44a1e2dac4cd797413beeeb3ed27b435cbe29a20c12353"
-  },
-  "vla-drawer/actions_0021.npy": {
-    "bytes": 688,
-    "sha256": "2182427717bc755e84efe913dfd6a39ff2a6ea92848ea0100fd8a2d9a41f3900"
-  },
-  "vla-drawer/actions_0022.npy": {
-    "bytes": 688,
-    "sha256": "62fb2da54d42113af29cf6a6c140bab548880ec7b62d0ab53d87a31db181cf81"
-  },
-  "vla-drawer/executed_actions.npy": {
-    "bytes": 6568,
-    "sha256": "335e3ca0d9604e92a1a1ae7d80cd2ff602139c9d091a3ee185ec134a4dd7f040"
-  },
-  "vla-drawer/inference.jsonl": {
-    "bytes": 2171,
-    "sha256": "5d9bcd5fe9b572b8fd82675b2323fc448112e85e6175e144ec2e8365d792103d"
-  },
-  "vla-drawer/initial_state.npy": {
-    "bytes": 760,
-    "sha256": "a441f32755805a34c11b8f665bb323e194a8aadfb00aed36552c1f84c14aaaa4"
-  },
-  "vla-drawer/paired_cameras.mp4": {
-    "bytes": 175072,
-    "sha256": "59646971be58550526986e33df54269f3912096d12a8735b3862304b31fd5b70"
-  },
-  "vla-drawer/report.json": {
-    "bytes": 1127,
-    "sha256": "0980469bbe44302d815cd1be03672bbb0b7ffcb7ad2055eb65549006a409b994"
-  },
-  "vla-voice-bowl/actions_0000.npy": {
-    "bytes": 688,
-    "sha256": "afd7960e92befd60038db14d426c75922a43ad68d6c404e46850c123c4a7e216"
-  },
-  "vla-voice-bowl/actions_0001.npy": {
-    "bytes": 688,
-    "sha256": "c76f1f7a7164a005888fab9be8506c2898a2b72713cb27e56018950185c74a1f"
-  },
-  "vla-voice-bowl/actions_0002.npy": {
-    "bytes": 688,
-    "sha256": "19962171b2f2b762206056f81c1e3d18f3304abf19687b811c276314b00d9c80"
-  },
-  "vla-voice-bowl/actions_0003.npy": {
-    "bytes": 688,
-    "sha256": "ff946526921b2998f9747aeeab887fc7ba243ee8b3127cfb1f3a4107d12d1c92"
-  },
-  "vla-voice-bowl/actions_0004.npy": {
-    "bytes": 688,
-    "sha256": "e04c61789e0723866a6f19c9c3f266acf705d096a9bc1bd8e6c2a934d55e702f"
-  },
-  "vla-voice-bowl/actions_0005.npy": {
-    "bytes": 688,
-    "sha256": "a5871928bec959478100154a37577ec6d36bfe66745db9536eebda2cc42f7090"
-  },
-  "vla-voice-bowl/actions_0006.npy": {
-    "bytes": 688,
-    "sha256": "1a3d365a4e699122517d91421255346104b2a2c1308302c32eb304e17accde23"
-  },
-  "vla-voice-bowl/actions_0007.npy": {
-    "bytes": 688,
-    "sha256": "e58a6e8b2daa4d18ae830c7c40fb6d75b9468ae0906fb365e5b5f7cdf7498358"
-  },
-  "vla-voice-bowl/actions_0008.npy": {
-    "bytes": 688,
-    "sha256": "21932aff591385b28e022683aa54917a9865994b0299b1dd569fda43672d1cb6"
-  },
-  "vla-voice-bowl/actions_0009.npy": {
-    "bytes": 688,
-    "sha256": "3a8f4e5c6f4db473b073dbdf49292be6cf4f074e1fb37799e381cac5c641394e"
-  },
-  "vla-voice-bowl/actions_0010.npy": {
-    "bytes": 688,
-    "sha256": "628cc63a29dd333ec04433cb4c2ad6fdff682ebc83219b93196dee648ee075d3"
-  },
-  "vla-voice-bowl/actions_0011.npy": {
-    "bytes": 688,
-    "sha256": "9f624d54097e68daa0035ae7206580a61a518ce9aca00e795039d275c32aa512"
-  },
-  "vla-voice-bowl/actions_0012.npy": {
-    "bytes": 688,
-    "sha256": "5dc40b5935f9f9b7290e5fec4119f8c85ddd75334e289e2376f847317300e269"
-  },
-  "vla-voice-bowl/actions_0013.npy": {
-    "bytes": 688,
-    "sha256": "eadce8ca3a9249e4d3b4310bc37ffcc196072e3babdc4155fa8a0445d5c04772"
-  },
-  "vla-voice-bowl/actions_0014.npy": {
-    "bytes": 688,
-    "sha256": "5e192489d06edde0a7204ca17277b1defd707c9b82b1474a6d6550e6dbf929c6"
-  },
-  "vla-voice-bowl/executed_actions.npy": {
-    "bytes": 4272,
-    "sha256": "9d4db5d9cf8f858b2df919678ac8755dd590ae940c44e831c5531013afcb5cb4"
-  },
-  "vla-voice-bowl/inference.jsonl": {
-    "bytes": 1410,
-    "sha256": "8ef9c33895a055d3ff821ace629b845b0607224f1c01a5cd0cbd5ca64b70ecb4"
-  },
-  "vla-voice-bowl/initial_state.npy": {
-    "bytes": 760,
-    "sha256": "9fc5a732c95dd6f3b9b3c1b3d5738fdc763de79a35b90488a2a5328828e4a3e8"
-  },
-  "vla-voice-bowl/paired_cameras.mp4": {
-    "bytes": 130364,
-    "sha256": "896ed5688d691061441cd48d9e1fe536bc386de420dbfafcfac7ba760452c6ef"
-  },
-  "vla-voice-bowl/report.json": {
-    "bytes": 1103,
-    "sha256": "047df4964a5659dbf116a6a1fd187bf36be92413efbe9ae6b770823c13e6552a"
-  },
-  "voice-language-smoke.json": {
-    "bytes": 421,
-    "sha256": "98e668d3666b8e7d037a6d32895030df901fa9612d48a8830af1ca8d325c045c"
-  }
+  "README.md": "2edb37ae029087c4748e425d15d5a111a95ff0dbebf4f84cd3ab4948ab6f77f3",
+  "backup-capability.json": "00f3f817b01adcf9ac18fbf21694589a20a2c12880fe64eb76d8f81b9634d4a0",
+  "checkpoint-manifest.json": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+  "contact-sheet.png": "f6901490b246a7d60b164629232d3dfd7f6a1a1c6b48e8838169397e317139ce",
+  "demo.mp4": "d774716f16968eefd8f939d84b099d2350e49b7b26be6f2c064570f0da8681d8",
+  "language-probe/actions_0.npy": "f40188a40428adbd34adcad9fe3359cf40f766d69a308b4bdbe9ac410390eeda",
+  "language-probe/actions_1.npy": "f40188a40428adbd34adcad9fe3359cf40f766d69a308b4bdbe9ac410390eeda",
+  "language-probe/actions_2.npy": "26b4229e29eaa63ee8021ebc2433c21dc0047d371079f8117b556af6d5f413b6",
+  "language-probe/actions_3.npy": "a36999851581f543328cae0cb654ef47ed9266a28d76ed2176b92085d5170579",
+  "language-probe/observation.npz": "163115f2a0ad31ae22a7de356339b34545de988e9af3de032c082d9b1856f973",
+  "language-probe/observation.png": "95c13840e783c5d80ccda044d0a6bbe53f23b626e3fcf92bdf9fed2ae7b77ba4",
+  "language-probe/report.json": "cea742c11d98d8fb321c3ba0639d3095c8e4f5d6f760e5e7b77b96ef362b014e",
+  "native-complete-report.json": "f2a643ee640160e87eea76112e0948adbdb23ad7ac69329bf6fe29db0f2a136c",
+  "native-panel.png": "30c7334ef8b0af2cbfd4a27089061a0506a04fd7278eaaea43df976aa4102753",
+  "native-ui-check.json": "7d73cf2375def0f57503fc7a282fff0565c1f205ac0c3fbc86f6a600bedc7f1b",
+  "native-viewer.png": "bf69abd15f937f44d7e45c9e7eb81bdf39097e879b0c121413a8e607a2d0e1f2",
+  "policy-environment.json": "3eb4f31e5f1229b470069f1eeb18e58712e453bbf29394c453faddb7ec2a4661",
+  "sim-environment.json": "de5f4fc5ca55fe33daaeea31ee573ff02f160adf7858ad94c083fb5c509d7d34",
+  "source-snapshot.json": "102f8b0649d9aef1c4a066d8df59afce6d8b33e0c194c3b5305f9f2d529f977a",
+  "summary.json": "cd9bd983d5c1a955db0de993b8b5e3542f2a8afb7378ec65766de58f7176a2ee",
+  "vla-bowl-plate/actions_0000.npy": "4da4c7de987b1a67a4bd1cc3c32f9747169bc5d18554accc641d7e0efed9e6f4",
+  "vla-bowl-plate/actions_0001.npy": "91de5e1b0b9a64afd6e914fc99c521511ce9ded49783e7f0af76c7c69db9ea32",
+  "vla-bowl-plate/actions_0002.npy": "83459dfe9bfa142536818591f00e47ef6adae5d1790cb31d24dda3d289989cb5",
+  "vla-bowl-plate/actions_0003.npy": "430aba195b9f4c754096f11559bc2dd6d735d6a6fbb9d1494c23ff95cd00b734",
+  "vla-bowl-plate/actions_0004.npy": "047e3d2d2cc25cdc1467723565b98d134050ae90587bbf42a22f153dbb923bc1",
+  "vla-bowl-plate/actions_0005.npy": "c15695b95250a365721c819d773764ecd96e0332f3f523b84b610983313dce12",
+  "vla-bowl-plate/actions_0006.npy": "4b84ee00fdd09096aa109e317121a04226b93026cf06a7da9c3738991d4ac796",
+  "vla-bowl-plate/actions_0007.npy": "f0aa66a690b20e6d1c4d4527a298779918e7e1d99ae9e1fb9900c332bacb26b8",
+  "vla-bowl-plate/actions_0008.npy": "ca5a13d671668232c8ec51d163713a044dc55f1ee33e5f856cdaa36a5c140478",
+  "vla-bowl-plate/actions_0009.npy": "b9513e2b16f55e0910177445c98f4985e0e5ceefe9f7c4c68457175226462480",
+  "vla-bowl-plate/actions_0010.npy": "adb3ef6c9d8e4c616ec50f379f9391dbf70b792ec8c85120dc324bd1ea164f89",
+  "vla-bowl-plate/actions_0011.npy": "eacf111d58b069bba400f1d8b0b4d0a003435e93c78e5e711ebae7c26e6c3f8f",
+  "vla-bowl-plate/actions_0012.npy": "43115d228fd6cba70be4b47ba59ea31f954bb9d1fcd1330951b01936487ff07f",
+  "vla-bowl-plate/actions_0013.npy": "1725bc07bec71c461a5a8440ac261fde81cb9609bc87a2a5ac686d689d0cb448",
+  "vla-bowl-plate/actions_0014.npy": "a623de23e81ed8200e733f10eb2c2fffc0ff833e3b606a37ee756cfe9b80a738",
+  "vla-bowl-plate/actions_0015.npy": "e56335d61e27ab7de417c9e569b6ac2d601a2e24cfca1abd6812ea96c4bfc714",
+  "vla-bowl-plate/actions_0016.npy": "b4540d56527c97939a3e64c5f8f85172760b1e6853b3d2c36fdd1b4292463a3a",
+  "vla-bowl-plate/executed_actions.npy": "9744c80075a278bc78335fae39934d85953c5870a352cc2c76ac468a4f87ed47",
+  "vla-bowl-plate/inference.jsonl": "95d1415156693473c33e89adc1cd546af614ac2971db1a324978574504f573b6",
+  "vla-bowl-plate/initial_state.npy": "9fc5a732c95dd6f3b9b3c1b3d5738fdc763de79a35b90488a2a5328828e4a3e8",
+  "vla-bowl-plate/paired_cameras.mp4": "55ada2f1abc15b7696be19e3b8c17336b7ce91ff32c3cd287643c7c00a3c3388",
+  "vla-bowl-plate/report.json": "455d580e150b754c7c1aa2cdb650d1196f35479601644530044c9045ce359ddb",
+  "vla-bowl-plate-init1/actions_0000.npy": "0e322d7407f034663bd1776b7cb66366351ca68218ae4f3976956113a071a6c0",
+  "vla-bowl-plate-init1/actions_0001.npy": "2b5c21e06a1b249e19b1c155b28ff7eddf1c132fbd027bac1464303b2766c462",
+  "vla-bowl-plate-init1/actions_0002.npy": "ce5de5b76bba5e7900f29e2ee476cbab19d93486360eddd8419b1872753596bc",
+  "vla-bowl-plate-init1/actions_0003.npy": "cf9f1bf3d76cf410f5f80ad730b95245442a85af676fada26fe93c4633a89e07",
+  "vla-bowl-plate-init1/actions_0004.npy": "2ab29a332c16367f3c4c91d9729b5bd5c2e5a02bbf263fd36cb985b7ec6ec6e0",
+  "vla-bowl-plate-init1/actions_0005.npy": "b0819c45c02b10b45006693cb32554accb790755d7919a14a7f1a96c2a1230d6",
+  "vla-bowl-plate-init1/actions_0006.npy": "3d23b59fa40222568f92605e033f97f3ad905502dc13ed6d53bba622144a4deb",
+  "vla-bowl-plate-init1/actions_0007.npy": "52ff3787112e7ae542edade3a6f751f73774887dda684e0eb128938ae503b06a",
+  "vla-bowl-plate-init1/actions_0008.npy": "36fe5f243bbb04f04b8db402f6fe7d287896fad776d0e2fa44ae89d6ab4b1683",
+  "vla-bowl-plate-init1/actions_0009.npy": "f9ec09fbcc06e4285fea2464070c4027631cf2dca2395a3911b4838fb7be9609",
+  "vla-bowl-plate-init1/actions_0010.npy": "83eaac4992dca372056067d994d119e09d23611c348d34e0c157a3326e7d8574",
+  "vla-bowl-plate-init1/actions_0011.npy": "377b14cdcfdf9927be6d8000994fdd80b94c5be1f29cbf378a60acc350cbde75",
+  "vla-bowl-plate-init1/actions_0012.npy": "6c6e51df7afca6e8fef8264debaebbc2266f86abb4a9f6bb34bfc8c937f9b592",
+  "vla-bowl-plate-init1/actions_0013.npy": "3a4d1a9fa53e0d9279e23c0fa2118b8cc4a5fc9d619d6688f51324d2372e2625",
+  "vla-bowl-plate-init1/actions_0014.npy": "4ee43f3c61be3fee798b3696bae2f99e90b7229e2d3671191cd122e14976fdd1",
+  "vla-bowl-plate-init1/executed_actions.npy": "25b579fbc57ece9664d72a6a53b4f19f5301851215d0ea8d30104aa9a1c356ea",
+  "vla-bowl-plate-init1/inference.jsonl": "ce8d30f03a66f1ba01b76dfbac60e1b2755a2710faae5545b9c56df72f9fbacc",
+  "vla-bowl-plate-init1/initial_state.npy": "7044747a8866009385c3cd726d0f9949236f766e25878b999d336658c22efdd3",
+  "vla-bowl-plate-init1/paired_cameras.mp4": "c8414eb2c93f46577ec4508fba1ca0f742ac6d51e753ab5881281f82ee4ce763",
+  "vla-bowl-plate-init1/report.json": "418e3dc9b2098ef8f92ee29eb7606ce1dbba6de50f4e248c64ee1eef96efcd77",
+  "vla-cream-cheese/actions_0000.npy": "ad2e8dbd64317ea30014ddaa206fcd2671f34a1b1f8cf44ef54663a221baf9eb",
+  "vla-cream-cheese/actions_0001.npy": "9b648ae49a6a6bf0f575fe49a140f71cc71d4c8c44c20ef64c12d8ebd76b7e64",
+  "vla-cream-cheese/actions_0002.npy": "e2d88a6e58344346ee0d165f7fbf09746564a44dfdfa52b78fffd21549263d99",
+  "vla-cream-cheese/actions_0003.npy": "6ae28b407ff8c010f8a751321d69e21d7a6b5df6f4e4a2b9390097b76cf308a6",
+  "vla-cream-cheese/actions_0004.npy": "03567916d50f881596ca99d47d51d93555d8bbf421220d181333108d7091304c",
+  "vla-cream-cheese/actions_0005.npy": "7ebda5d4dc3f246660923e0dfddab4035ac2d17da2156cdce3a3c6c195c27c17",
+  "vla-cream-cheese/actions_0006.npy": "127dbee93d40f44c6d04aa59dfa1ef753b77416620fee5a4f705312675859cee",
+  "vla-cream-cheese/actions_0007.npy": "566e258846d559b83507c51b21d58b8aa6db5b463ccdefa5c4c31ed3e84106ab",
+  "vla-cream-cheese/actions_0008.npy": "f5f70eb8ecd9cad456244e73dc60e80dc1130daed13813e90a79d7901b670dac",
+  "vla-cream-cheese/actions_0009.npy": "9f67857a67be2b5b5bd94db5cf8abb076892a3beeb894d25e88497aa84ad9cee",
+  "vla-cream-cheese/actions_0010.npy": "0ed5528658ebfd326a200f687f59b6087abe941f03d27bbed13d2f1046a68b37",
+  "vla-cream-cheese/actions_0011.npy": "6b6f6188006f2d90afe08747fe134f12909cf63e1ecb02e579e969abbbd78731",
+  "vla-cream-cheese/actions_0012.npy": "d6c3c23cb2601c3ddaf8afc045018e99277d31defc821a43582a6b6959bd5a65",
+  "vla-cream-cheese/actions_0013.npy": "c4a78dc3cb50f9913b218d04799f0ce8e56250b802849068cfde80c9dd6924c8",
+  "vla-cream-cheese/actions_0014.npy": "d6b111ce2a8161dd718b0b7ac4efb4172e0c900902c46a76f11832d992e24293",
+  "vla-cream-cheese/actions_0015.npy": "bdbad2b00e33dfc3d0fbf7598fa5617fe85645df9f5ebb064c28b07be682b836",
+  "vla-cream-cheese/actions_0016.npy": "74305138b45414cbc5b6ed587863378686f208c0aab8321449160eff665c9ab1",
+  "vla-cream-cheese/actions_0017.npy": "178060a5b39be3e5ebb09c17541e572095bae89684926eadedb0502762951d58",
+  "vla-cream-cheese/actions_0018.npy": "c3a052bf77882c20e807c79132af9b09bd23ce35f3ac43687bbd1e99463fa0e5",
+  "vla-cream-cheese/actions_0019.npy": "068f9b4732f351822ca5419d925bb9c297dde19231d5a7b2d3c8c3175ef4a728",
+  "vla-cream-cheese/actions_0020.npy": "79983dc77ccf0ce93076f8daffad443c0052a6751097812b291095c1d97f1b10",
+  "vla-cream-cheese/actions_0021.npy": "c25eb701148b4ad0e1d68053a8c9f49f994db6dfebe2b1cb76dd97db58d227d2",
+  "vla-cream-cheese/actions_0022.npy": "dd3244814a53727b4c2643b44358cd34daacf67f9c13aae9ec1f79f8608aa3e2",
+  "vla-cream-cheese/actions_0023.npy": "32c619f00e631b523a818f6766b2be1d3c82844ece721a121b88e14dbb976ee7",
+  "vla-cream-cheese/actions_0024.npy": "00c27d7972d01e895b925ab0828cf6a178a9ab5b5aee0a57aefdd1179dff697e",
+  "vla-cream-cheese/actions_0025.npy": "70fbae76db5a633e89e033eedefcbebf025d91734d1d9b9739e5bd436db92f58",
+  "vla-cream-cheese/executed_actions.npy": "f60f4ca1ab66b97a2d6f69ee0dd38e3c6bfefb0a20c5bf616692ca5316f7bf37",
+  "vla-cream-cheese/inference.jsonl": "351b4c7a6baee4f26c6f482f4284c2eaf96462f7c11133affe664169ae3530ca",
+  "vla-cream-cheese/initial_state.npy": "f3a81c1538d912c794d33ad5dcfdaf5218d21ef6540e74d8ea2d3522c156e4af",
+  "vla-cream-cheese/paired_cameras.mp4": "602e323f5e234b475f953258b4dd81e77daa28fd0d83344e14cdef58aeea67eb",
+  "vla-cream-cheese/report.json": "9c354dd6cf9777bcbc4aa13a1b2bf3188819303fb97bd124444cfade91d77e4c",
+  "vla-drawer/actions_0000.npy": "b34b9b3c4514740bac45fe334223c7d1987990fa93cf5caa8c25697aaa9ad3f4",
+  "vla-drawer/actions_0001.npy": "32b5866f7b245c6e1965b9f12d7dded68c7f28080496d47f3ec504f5b9af738a",
+  "vla-drawer/actions_0002.npy": "63adac2f0c100d46e32ce32191cba4d7c7d2f3da51a0dcb93c6c6a267951e41e",
+  "vla-drawer/actions_0003.npy": "145d6fc8a53f5c665ee44ab906b6e4cf01790e553b5eca7212cba1fa7e60e662",
+  "vla-drawer/actions_0004.npy": "a9c19700a47842e61436083e6bca5ccab16065acafb197a0285b90efa3302dc6",
+  "vla-drawer/actions_0005.npy": "f72b541120c7c2e067490a8d29f950db08bc782963aaca9118ebfbdab6eb221a",
+  "vla-drawer/actions_0006.npy": "7209038438043c770996601934ad0d8a6db0d2938294f24ceaabec3ac259655c",
+  "vla-drawer/actions_0007.npy": "b0b1b435bf51133f7b2651af148a4d64a671f20efcd3f31267dd70be9ad4ef21",
+  "vla-drawer/actions_0008.npy": "d29eba6931b953f3da1ffd352f000d761d62a8c502fa809ff04109d9ac329139",
+  "vla-drawer/actions_0009.npy": "fa30f07d586886b4fb23eb8e7ab72a5d8f01257af785c56b0a03be08d9ef26a9",
+  "vla-drawer/actions_0010.npy": "784f23fd7d42f3b51658182f812ff83ded2e990a887cf1f45536cce48e6fb3e4",
+  "vla-drawer/actions_0011.npy": "59f8a13aca7c02b86d731574df381dacfb6a803a42461ab356a4759a22eecbc7",
+  "vla-drawer/actions_0012.npy": "e369121c566a0a0b4cb530f44df49b0fd3480e095de7eb554d4c43cf2325d7a4",
+  "vla-drawer/actions_0013.npy": "b91fc106ea3c182028a1b06648929d97e9ab31c313b4b11821a868f54471a5ec",
+  "vla-drawer/actions_0014.npy": "2cbc1d1291d3c8a8514c47459e67b54e86b193021be6af31dbf0fb2fc995b2bd",
+  "vla-drawer/actions_0015.npy": "e99dd60c37c036b4f1f52944b1c46a7da06dfcb6e03d8911689b2179ad0ab9e0",
+  "vla-drawer/actions_0016.npy": "a283ba469567f18e127d1c2864db8a5fa3a661cc0e67fcf5cbaac61ce7561dd0",
+  "vla-drawer/actions_0017.npy": "64ba195fd1fa4d99a1801763d388c1ce52e21134c9884d982f3cc5389f9650a5",
+  "vla-drawer/actions_0018.npy": "d5c314459d27898f34ac71e32453b3eb3dff3804ec275ba3088e96cf62f6d4fc",
+  "vla-drawer/actions_0019.npy": "e2cbf405cb32f485181361de12f0e6e4bb7429cca0549bc7e7a20d0c3c579cd6",
+  "vla-drawer/actions_0020.npy": "71b7d1e546d3004d6f44a1e2dac4cd797413beeeb3ed27b435cbe29a20c12353",
+  "vla-drawer/actions_0021.npy": "2182427717bc755e84efe913dfd6a39ff2a6ea92848ea0100fd8a2d9a41f3900",
+  "vla-drawer/actions_0022.npy": "62fb2da54d42113af29cf6a6c140bab548880ec7b62d0ab53d87a31db181cf81",
+  "vla-drawer/executed_actions.npy": "335e3ca0d9604e92a1a1ae7d80cd2ff602139c9d091a3ee185ec134a4dd7f040",
+  "vla-drawer/inference.jsonl": "5d9bcd5fe9b572b8fd82675b2323fc448112e85e6175e144ec2e8365d792103d",
+  "vla-drawer/initial_state.npy": "a441f32755805a34c11b8f665bb323e194a8aadfb00aed36552c1f84c14aaaa4",
+  "vla-drawer/paired_cameras.mp4": "59646971be58550526986e33df54269f3912096d12a8735b3862304b31fd5b70",
+  "vla-drawer/report.json": "0980469bbe44302d815cd1be03672bbb0b7ffcb7ad2055eb65549006a409b994",
+  "vla-voice-bowl/actions_0000.npy": "afd7960e92befd60038db14d426c75922a43ad68d6c404e46850c123c4a7e216",
+  "vla-voice-bowl/actions_0001.npy": "c76f1f7a7164a005888fab9be8506c2898a2b72713cb27e56018950185c74a1f",
+  "vla-voice-bowl/actions_0002.npy": "19962171b2f2b762206056f81c1e3d18f3304abf19687b811c276314b00d9c80",
+  "vla-voice-bowl/actions_0003.npy": "ff946526921b2998f9747aeeab887fc7ba243ee8b3127cfb1f3a4107d12d1c92",
+  "vla-voice-bowl/actions_0004.npy": "e04c61789e0723866a6f19c9c3f266acf705d096a9bc1bd8e6c2a934d55e702f",
+  "vla-voice-bowl/actions_0005.npy": "a5871928bec959478100154a37577ec6d36bfe66745db9536eebda2cc42f7090",
+  "vla-voice-bowl/actions_0006.npy": "1a3d365a4e699122517d91421255346104b2a2c1308302c32eb304e17accde23",
+  "vla-voice-bowl/actions_0007.npy": "e58a6e8b2daa4d18ae830c7c40fb6d75b9468ae0906fb365e5b5f7cdf7498358",
+  "vla-voice-bowl/actions_0008.npy": "21932aff591385b28e022683aa54917a9865994b0299b1dd569fda43672d1cb6",
+  "vla-voice-bowl/actions_0009.npy": "3a8f4e5c6f4db473b073dbdf49292be6cf4f074e1fb37799e381cac5c641394e",
+  "vla-voice-bowl/actions_0010.npy": "628cc63a29dd333ec04433cb4c2ad6fdff682ebc83219b93196dee648ee075d3",
+  "vla-voice-bowl/actions_0011.npy": "9f624d54097e68daa0035ae7206580a61a518ce9aca00e795039d275c32aa512",
+  "vla-voice-bowl/actions_0012.npy": "5dc40b5935f9f9b7290e5fec4119f8c85ddd75334e289e2376f847317300e269",
+  "vla-voice-bowl/actions_0013.npy": "eadce8ca3a9249e4d3b4310bc37ffcc196072e3babdc4155fa8a0445d5c04772",
+  "vla-voice-bowl/actions_0014.npy": "5e192489d06edde0a7204ca17277b1defd707c9b82b1474a6d6550e6dbf929c6",
+  "vla-voice-bowl/executed_actions.npy": "9d4db5d9cf8f858b2df919678ac8755dd590ae940c44e831c5531013afcb5cb4",
+  "vla-voice-bowl/inference.jsonl": "8ef9c33895a055d3ff821ace629b845b0607224f1c01a5cd0cbd5ca64b70ecb4",
+  "vla-voice-bowl/initial_state.npy": "9fc5a732c95dd6f3b9b3c1b3d5738fdc763de79a35b90488a2a5328828e4a3e8",
+  "vla-voice-bowl/paired_cameras.mp4": "896ed5688d691061441cd48d9e1fe536bc386de420dbfafcfac7ba760452c6ef",
+  "vla-voice-bowl/report.json": "047df4964a5659dbf116a6a1fd187bf36be92413efbe9ae6b770823c13e6552a",
+  "voice-language-smoke.json": "98e668d3666b8e7d037a6d32895030df901fa9612d48a8830af1ca8d325c045c"
 }

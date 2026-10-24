@@ -45,11 +45,11 @@ User reports banana does not move for “把香蕉从盘子里面取出来”. L
 3. Validate put-in → take-out with independent truth and actual native/VLM interface; retain video and results — complete:9/9 physical pairs; actual native button+Qwen banana pair passed,30 tests pass and scoped review cleared.
 4. Update documentation, commit/push and verify clean restore from owned remote — complete: capability608cc1a restored from GitHub into .local/restore-takeout; all74 tracked SHA256 and Git tree match. Receipt evidence/takeout/backup-capability.json.
 
-## Genuine multi-task VLA revision — implementation verified; final backup pending
+## Genuine multi-task VLA revision — complete within measured scope
 User confirms that arbitrary language should condition an actual action model. Existing Qwen+geometry controller is a modular scripted baseline, not a VLA. Preserve it for comparison; do not modify the old pi05 learning project.
 1. Pin compatible official pretrained multi-task checkpoint, code revision and observation/action contract; capture environment — complete: official pi05_libero16objects12.44GB verified CRC32C/SHA256; two isolated environment snapshots.
 2. Isolated native LIBERO entry — complete: actual GPU pi05.sample_actions, 2RGB + state8 + raw language; returned10x7 actions, prefix5; native camera/pause/resume/stop verified.
 3. Actual evaluation — complete: five predeclared episodes across three task definitions all passed task predicates (no failed task omitted); fixed observation/noise repeated prompt diff0, changed prompt diffs0.1534/0.3658. Reports/actions/videos retained; no open-world or full release/retraction claim.
 4. Text/voice integration — complete within tested scope: synthetic Mandarin -> real ASR -> translation -> pi05 -> MuJoCo passed74steps; editable native text/microphone UI. Human microphone unverified.
-5. Focused checks9/9 + Ruff passed. Integration capability fec75f0 already pushed and87trackedfiles restored identically; final display fix and actual evaluation evidence now awaiting final commit/push/restore.
+5. Focused checks9/9 + Ruff passed. Capability a55438df8253b4b1e42aa83926be1281dc3223fa pushed to owned public sencangWei/voice-arm-sim branch prototype/voice-tabletop. Independent GitHub restore matched all228 tracked files by SHA256 and Git tree082f987b32c3edc4592d80041221a3415bcf300c. Receipt evidence/vla/backup-capability.json.
 Acceptance: actual pretrained pi05 inference driving real MuJoCo contacts, documented checkpoint identity, visible language prompt, multi-task results and honest untested boundaries.

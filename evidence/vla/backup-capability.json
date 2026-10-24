@@ -1,0 +1,11 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "commit": "a55438df8253b4b1e42aa83926be1281dc3223fa",
+  "tree": "082f987b32c3edc4592d80041221a3415bcf300c",
+  "tracked_files": 228,
+  "sha256_mismatches": [],
+  "method": "Independent GitHub clone, fetch/fast-forward to capability commit, compare every tracked file byte hash and Git tree",
+  "scope": "Project code, pinned setup/configuration and real VLA simulation evidence; external model weights/environments are downloaded from pinned official sources",
+  "restored_path": "/home/robot/voice-arm-sim/.local/restore-vla-measured"
+}
