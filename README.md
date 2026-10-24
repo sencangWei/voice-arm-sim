@@ -185,3 +185,5 @@ Panda 资产来自已固定版本的 robosuite。本项目未依赖 MuJoCo Menag
 代码、锁定依赖、测试结果与 Demo 已推送至公开仓库 [sencangWei/voice-arm-sim](https://github.com/sencangWei/voice-arm-sim/tree/prototype/voice-tabletop)，分支 `prototype/voice-tabletop`。能力提交 `355d6f1` 已从 GitHub 克隆到独立目录，54 个文件的 SHA256 与 Git tree 全部一致，详见[恢复核对记录](evidence/backup-capability.json)。模型权重、虚拟环境和语音样本不在仓库内，按本文命令单独准备。
 
 原生窗口与水果改版已备份为能力提交 `6014a80`；独立从 GitHub 克隆后，67个跟踪文件 SHA256 和 Git tree 全部一致，见[原生版恢复记录](evidence/native/backup-capability.json)。
+
+取出动作修复已备份为能力提交 `608cc1a`，代码、9组物理回归、实际面板与仿真并列 Demo 均已从 GitHub 独立恢复，74个跟踪文件 SHA256 和 Git tree 全部匹配，见[取出版恢复记录](evidence/takeout/backup-capability.json)。

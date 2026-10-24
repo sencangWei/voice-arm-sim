@@ -38,9 +38,9 @@ User rejects fixed-angle, laggy browser view and crude fruit proxies. Replace pr
 5. Document, review and backup — complete; 17 tests pass, lifecycle findings fixed. Capability6014a80 pushed to owned public origin and restored in .local/restore-native; all67 tracked SHA256 and tree matched. Receipt evidence/native/backup-capability.json.
 Success: MuJoCo original window opens; drag rotates/pans and scroll zooms; commands execute without web browser, pause/stop/reset responsive; recognizable fruit and unchanged tested grasp behavior.
 
-## Take-out command repair — in progress
+## Take-out command repair — complete
 User reports banana does not move for “把香蕉从盘子里面取出来”. Live state and events show clarification with zero steps: validator and controller only implemented put-in.
 1. Reproduce with failing command tests — complete, four tests fail on original validator.
 2. Add explicit take-out intent, camera-confirmed free tabletop destination, physical grasp/release and source/result checks — complete.
 3. Validate put-in → take-out with independent truth and actual native/VLM interface; retain video and results — complete:9/9 physical pairs; actual native button+Qwen banana pair passed,30 tests pass and scoped review cleared.
-4. Update documentation, commit/push and verify clean restore from owned remote.
+4. Update documentation, commit/push and verify clean restore from owned remote — complete: capability608cc1a restored from GitHub into .local/restore-takeout; all74 tracked SHA256 and Git tree match. Receipt evidence/takeout/backup-capability.json.

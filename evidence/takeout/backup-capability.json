@@ -1,0 +1,11 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "prototype/voice-tabletop",
+  "capability_commit": "608cc1af9ad4d95bcfa9ed8463f2f1ba0910b0e7",
+  "restored_to": "/home/robot/voice-arm-sim/.local/restore-takeout",
+  "tracked_files_sha256_compared": 74,
+  "mismatches": [],
+  "tree": "0a1846bce19b9d8c154ecad34acf9a35662fa8d6",
+  "restored_tree": "0a1846bce19b9d8c154ecad34acf9a35662fa8d6",
+  "passed": true
+}
