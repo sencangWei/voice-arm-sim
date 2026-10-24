@@ -1,0 +1,15 @@
+{
+  "parameters": {
+    "model.transformer": 4029677056,
+    "model.vision_backbone": 439117264,
+    "model.action_expert": 577564448,
+    "lm_head.weight": 395837440
+  },
+  "bf16_weight_gib": {
+    "model.transformer": 7.506,
+    "model.vision_backbone": 0.818,
+    "model.action_expert": 1.076,
+    "lm_head.weight": 0.737
+  },
+  "note": "Architecture-only estimate; no actual weight load or inference yet"
+}

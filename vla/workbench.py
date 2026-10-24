@@ -53,13 +53,15 @@ class Workbench:
         except queue.Full:
             return False  # Never accumulate a long joystick movement backlog.
 
-    def _payload(self):
+    def _payload(self, image_size=None):
         from openpi_client import image_tools
-        return observation_payload(self.obs, self.prompt, image_tools)
+        size = image_size or self.scene.get("source_model", {}).get("image_size", 224)
+        return observation_payload(self.obs, self.prompt, image_tools, size)
 
     def _publish(self):
         payload = self._payload()
         self._update(ready=True, running=self.running, manual=self.recorder is not None,
+                     policy_backend=self.scene.get("source_model", {}).get("backend"),
                      steps=len(self.actions), frames=self.recorder.meta["frame_count"] if self.recorder else 0,
                      grip=self.grip,
                      images=(payload["observation/image"], payload["observation/wrist_image"]),
@@ -117,8 +119,8 @@ class Workbench:
         self._update(status="正在连接模型、加载 MuJoCo 场景……")
         self.client = connect_policy(port)
         model = self.client.get_server_metadata()
-        if model.get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora"):
-            raise ValueError("当前端口不是此项目的 π0.5 VLA 服务")
+        if model.get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora", "official-molmoact2-libero-vla"):
+            raise ValueError("当前端口不是此项目支持的 VLA 服务")
         initial = np.asarray(states[initial_state])
         identity = dict(suite=self.args.suite, task_id=task_id, initial_state=initial_state,
                         initial_state_sha256=hashlib.sha256(initial.tobytes()).hexdigest())
@@ -159,7 +161,9 @@ class Workbench:
             self.viewer.sync()
 
     def _step(self, action, human=False):
-        payload = self._payload()
+        # Corrections retain the existing training format, independent of the
+        # inference model's camera resolution.
+        payload = self._payload(224) if human else None
         self.obs, _, self.done, _ = self.env.step(np.asarray(action).tolist())
         self.actions.append(np.asarray(action).copy())
         if human:

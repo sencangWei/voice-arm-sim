@@ -1,0 +1,10 @@
+[
+  {
+    "chinese": "帮我把酒瓶放到碗里面",
+    "model_instruction": "Please put the wine bottle into the bowl."
+  },
+  {
+    "chinese": "把碗放到盘子上",
+    "model_instruction": "Put the bowl on the plate."
+  }
+]

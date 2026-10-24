@@ -47,10 +47,10 @@ def load_initial_states(task):
     return torch.load(path, weights_only=False)
 
 
-def observation_payload(obs, prompt, image_tools):
-    """Official rotate180, resize/pad224, position+axis-angle+gripper state8."""
+def observation_payload(obs, prompt, image_tools, image_size=224):
+    """Rotate180, resize/pad to model resolution, position+axis-angle+gripper8."""
     images = [image_tools.convert_to_uint8(image_tools.resize_with_pad(
-        np.ascontiguousarray(obs[key][::-1, ::-1]), 224, 224))
+        np.ascontiguousarray(obs[key][::-1, ::-1]), image_size, image_size))
         for key in ("agentview_image", "robot0_eye_in_hand_image")]
     quat = np.asarray(obs["robot0_eef_quat"], dtype=float).copy()
     w = np.clip(quat[3], -1., 1.)
@@ -95,7 +95,7 @@ def connect_policy(port):
     return BoundedPolicy("127.0.0.1", port)
 
 
-def rollout(args, stop=None, paused=None, status=print):
+def rollout(args, stop=None, paused=None, status=print, success_check=None):
     """Run one episode; only ten official settling steps use dummy actions."""
     configure_libero()
     from libero.libero import benchmark, get_libero_path
@@ -110,6 +110,8 @@ def rollout(args, stop=None, paused=None, status=print):
         seed=args.seed, replan_steps=args.replan_steps, max_steps=args.max_steps,
         score_definition="selected LIBERO task predicates, independent of prompt override",
         result="exception", steps=0, policy_calls=0)
+    if success_check is not None:
+        report["score_definition"] = success_check.definition
     env = viewer = client = video = None
     executed_actions = []
     started = time.monotonic()
@@ -131,8 +133,9 @@ def rollout(args, stop=None, paused=None, status=print):
         status("Connecting to genuine VLA policy")
         client = connect_policy(args.port)
         report["server_metadata"] = client.get_server_metadata()
-        if report["server_metadata"].get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora"):
+        if report["server_metadata"].get("backend") not in ("official-pi05-libero-vla", "local-pi05-libero-lora", "official-molmoact2-libero-vla"):
             raise ValueError("Expected this project's official or LoRA VLA server on this port")
+        image_size = report["server_metadata"].get("image_size", 224)
         env = OffScreenRenderEnv(bddl_file_name=str(Path(get_libero_path("bddl_files")) /
             task.problem_folder / task.bddl_file), camera_heights=256, camera_widths=256)
         env.seed(args.seed)
@@ -168,7 +171,7 @@ def rollout(args, stop=None, paused=None, status=print):
                 if stop.is_set() or (viewer is not None and not viewer.is_running()):
                     report["result"] = "stopped"
                     break
-                payload = observation_payload(obs, report["prompt"], image_tools)
+                payload = observation_payload(obs, report["prompt"], image_tools, image_size)
                 video.append_data(np.concatenate((payload["observation/image"], payload["observation/wrist_image"]), axis=1))
                 if not plan:
                     status(f"Inferring step {step}")
@@ -192,10 +195,12 @@ def rollout(args, stop=None, paused=None, status=print):
                 report["steps"] = step + 1
                 if viewer is not None:
                     viewer.sync()
-                if done:
+                report["original_task_predicate"] = bool(done)
+                satisfied = bool(done) if success_check is None else success_check(env)
+                if satisfied:
                     report["result"] = "success"
                     break
-        payload = observation_payload(obs, report["prompt"], image_tools)
+        payload = observation_payload(obs, report["prompt"], image_tools, image_size)
         video.append_data(np.concatenate((payload["observation/image"], payload["observation/wrist_image"]), axis=1))
     except Exception:
         report["result"] = "exception"

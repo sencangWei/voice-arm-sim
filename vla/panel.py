@@ -29,7 +29,7 @@ class ChinesePanel:
     def __init__(self, args):
         self.args = args
         self.root = tk.Tk()
-        self.root.title("π0.5 语音机械臂 · 中文仿真与学习工作台")
+        self.root.title("VLA 语音机械臂 · 中文仿真与学习工作台")
         self.root.geometry("900x1260+30+40")
         self.root.minsize(880, 1200)
         # Same explicit pixel font as the earlier Chinese LabPanel. Tk's default
@@ -63,7 +63,8 @@ class ChinesePanel:
         header = ttk.Frame(self.root, padding=12)
         header.grid(row=0, column=0, sticky="ew")
         header.columnconfigure(1, weight=1)
-        ttk.Label(header, text="π0.5 真实模型 · MuJoCo 本地仿真", font=(family, -24, "bold")).grid(
+        self.model_title = tk.StringVar(value="VLA 模型 · MuJoCo 本地仿真")
+        ttk.Label(header, textvariable=self.model_title, font=(family, -24, "bold")).grid(
             row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
         ttk.Label(header, text="仿真任务").grid(row=1, column=0, sticky="w")
         self.task = ttk.Combobox(header, state="readonly", values=[f"{i} · {self.task_names[i]}"
@@ -233,7 +234,7 @@ class ChinesePanel:
     def _training_page(self):
         page = self.page("模型与训练")
         self.parent = tk.StringVar(value=str(ROOT / "models/pi05_libero"))
-        ttk.Label(page, text="父模型目录（官方模型或本项目完成的 LoRA checkpoint）").grid(row=0, column=0, sticky="w")
+        ttk.Label(page, text="π0.5 父模型目录（本页微调仅适用于 π0.5）").grid(row=0, column=0, sticky="w")
         ttk.Entry(page, textvariable=self.parent).grid(row=1, column=0, sticky="ew", pady=5)
         self.row_buttons(page, 2, (("启动所选模型", self.start_model),
                                    ("停止本面板模型", self.stop_model),
@@ -390,6 +391,10 @@ class ChinesePanel:
 
     def refresh(self):
         state = self.lab.state()
+        backend = state.get("policy_backend")
+        if backend:
+            model = "MolmoAct2" if backend == "official-molmoact2-libero-vla" else "π0.5"
+            self.model_title.set(model + " 真实模型 · MuJoCo 本地仿真")
         if state["manual"] and not self.was_manual:
             self.grip = state.get("grip", -1.)
         self.was_manual = state["manual"]

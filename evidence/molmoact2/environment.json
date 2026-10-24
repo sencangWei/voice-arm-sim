@@ -1,0 +1,46 @@
+{
+  "accelerator": {
+    "exit_code": 0,
+    "status": "ok",
+    "stderr": "",
+    "stdout": "NVIDIA GeForce RTX 5090 D, GPU-71a86a09-01c8-24fd-306c-6fa42c11719b, 595.84, 32607"
+  },
+  "artifacts": [
+    {
+      "path": "evidence/models/manifest.json",
+      "sha256": "7b5485a535d388f1877fcd21f3cbd72140cd70fe240bd0475ef3a4e0ece078ea",
+      "size": 4219
+    },
+    {
+      "path": "evidence/vla/checkpoint-manifest.json",
+      "sha256": "2cb374c23ffd39d8b4ccf3da2557936e8c4da055763b28792d656801aa6abc02",
+      "size": 6103
+    }
+  ],
+  "environment": {},
+  "packages": {
+    "flax": "not-installed",
+    "jax": "0.6.2",
+    "jaxlib": "0.6.2",
+    "numpy": "2.2.6",
+    "orbax-checkpoint": "not-installed"
+  },
+  "python": {
+    "executable": "/usr/bin/python3",
+    "implementation": "CPython",
+    "version": "3.10.12"
+  },
+  "repository": {
+    "branch": "prototype/voice-tabletop",
+    "commit": "06b52dd31413be252de10bb8949ed6e6a16c1625",
+    "dirty": true,
+    "status": "ok"
+  },
+  "root": "/home/robot/voice-arm-sim",
+  "system": {
+    "architecture": "x86_64",
+    "os": "Linux",
+    "release": "6.8.0-138-generic"
+  },
+  "scope": "Initial host preflight executed with system Python; Molmo runtime packages are in runtime.json."
+}

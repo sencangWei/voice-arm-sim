@@ -54,3 +54,11 @@ Actual official pi05_libero16objects12,439,085,481bytes passed CRC32C/SHA256. GP
 
 ## Chinese language boundary
 English leaked through task.language defaults, task labels and translated ASR display. Labels now Chinese; ASR original retained; worker translates typed/spoken Chinese through actual8911 Qwen service before policy execution. Scene stores user_instruction plus internal task. Failed translation cannot reuse the previous prompt. Native measured Chinese task81steps/17calls passed selected predicate; human microphone not tested this run.
+
+## MolmoAct2 deployment evidence (in progress)
+
+- Official continuous inference performs normalization and unnormalization internally; do not apply pi05 statistics or flip gripper signs. Official LIBERO contract is two ordered256RGB images rotated180°, state8 and raw instruction, returning10x7.
+- Available GPU is shared with user services. Meta architecture calculation places transformer7.506GiB and action expert1.076GiB BF16 on GPU, vision0.818GiB and unused language output head0.737GiB on CPU. This estimate excludes activations; actual model loading remains to verify.
+- Accelerate CPU entries can mean weight offload while compute still executes on GPU. Explicit module placement is used instead. Upstream vision moves image pixels to its device but not pooled patch indices; a local pre-hook moves both. Zero-weight CPU operator compatibility passes, not a trained capability result.
+- Actual baseline pi05: bowl-on-plate success84steps; wine-bottle-in-bowl failure300steps. All failed actions and video retained. Goal8/init0 SHA66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd. Changed-destination scoring uses its own approximate contact/release relation, never the original bowl predicate.
+- Actual Chinese translation maps 帮我把酒瓶放到碗里面 to Please put the wine bottle into the bowl.; the destination is preserved. This checks translation only, not model understanding or physical execution.

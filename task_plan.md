@@ -68,3 +68,12 @@ Acceptance: readable Chinese controls at native desktop size, manual correction 
 2. Translate arbitrary Chinese through actual local Qwen, retain original and reject failed translation — complete; no word-to-action mapping.
 3. Native actual Chinese instruction smoke — complete: 帮我把碗放到盘子上,81steps/17calls,official predicate true;20tests/Ruff pass,GUI left paused.
 4. Owned remote backup and independent restore — complete: capability ff82282038cda561e3b0d63193114f893de22e2f independently fetched from owned sencangWei/voice-arm-sim, all246 tracked SHA256 hashes and Git tree matched; receipt evidence/vla/chinese-command-backup.json.
+
+## MolmoAct2 independent deployment — in progress
+User authorized deployment and actual tests of an alternative pretrained VLA; preserve all current services and the older pi05-handson project.
+1. Pin official model/source, inspect inference contract and capture environment — complete: HF revision0d24a92, reference LeRobot28b4f72; two rotated256RGB/state8, official unnormalized10x7 continuous actions.
+2. Install isolated runtime and obtain verified official LIBERO checkpoint — runtime complete; checkpoint download ongoing, no inference claim yet.
+3. Load model within available GPU/RAM without stopping existing jobs; validate real actions.
+4. Run matched MuJoCo baseline and changed-destination tests, retain videos and distinguish official predicates from custom goals.
+5. Document measured limitations, run focused checks, commit/push and verify independent remote restore.
+Acceptance: actual checkpoint inference drives real simulation, reproducible configuration and honest command-specific results; no promise of arbitrary object generalization.
