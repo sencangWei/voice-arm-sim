@@ -1,0 +1,10 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "feature/visual-semantic-grasp",
+  "commit": "0b876f510787cae00a153c381f101e150a225a1b",
+  "restore_method": "independent bare fetch from remote; git archive extracted into new directory; compare every tracked file SHA256 and symlink targets",
+  "restored_files": 1412,
+  "all_content_match": true,
+  "weights_changed": false,
+  "scope": "voice-arm-sim capability code, regression tests, replay fixture, failure videos and raw evidence; no base or LoRA weights"
+}
