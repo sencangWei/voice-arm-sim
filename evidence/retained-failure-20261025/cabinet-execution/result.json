@@ -1,0 +1,78 @@
+{
+  "backend": "Qwen3-VL intent + pi05 grasp + RGB-D/OSC place",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 36,
+  "chinese": "把酒瓶放柜子上",
+  "policy": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        248,
+        256,
+        300,
+        416
+      ]
+    },
+    "destination": {
+      "label": "cabinet",
+      "bbox_2d": [
+        678,
+        351,
+        1000,
+        820
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.3251841143341413,
+      0.21202217874709672,
+      1.0149523385064696
+    ],
+    "refined_point": [
+      -0.31067064018984764,
+      0.20857208473864589,
+      0.9263282637245551
+    ],
+    "tabletop": 0.901,
+    "pixels": 9068,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "destination": {
+    "raw_point": [
+      0.1383307703467993,
+      -0.19948367491376132,
+      1.126835272995044
+    ],
+    "refined_point": [
+      0.02315371222655635,
+      -0.23560853430956646,
+      1.0979432355957306
+    ],
+    "tabletop": 0.901,
+    "pixels": 36038,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "exception": "TimeoutError: 180 步内未检测到抬起的抓取候选；请检查抓取",
+  "control_steps": 180,
+  "wall_duration_s": 23.69295857299585
+}

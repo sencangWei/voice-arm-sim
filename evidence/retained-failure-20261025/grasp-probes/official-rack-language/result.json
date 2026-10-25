@@ -1,0 +1,25 @@
+{
+  "diagnostic_only": true,
+  "original_user_goal": "把酒瓶放柜子上",
+  "probe_prompt": "put the wine bottle on the rack",
+  "policy": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "replayed_actions": 210,
+  "noise_seed_rule": "42 + control_step // 5",
+  "result": "no_lifted_grasp_candidate",
+  "actual_task_success": null,
+  "input_sha256": "4cfb09dbd7416ae70278b428f3e7efb0b29ea4356eaa75b3eb66f096cc191cb0",
+  "control_steps": 180,
+  "minimum_closed_eef_z": null
+}

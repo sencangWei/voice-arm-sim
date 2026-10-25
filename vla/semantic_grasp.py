@@ -142,7 +142,7 @@ class VisualSkill:
             raws = [image_bytes(rgb), image_bytes(wrist)]
             for name, raw in zip(("completion-agent.png", "completion-wrist.png"), raws):
                 (self.output / name).write_bytes(raw)
-            self.status("已松爪撤手，正在用两路当前画面核对是否完成；机械臂保持停止")
+            self.status("已松爪撤手，正在用当前全景核对是否完成；腕部画面已留档，机械臂保持停止")
             response = self.request(task_port, "verify", {"text": text,
                 "images": [base64.b64encode(raw).decode() for raw in raws]})
             (self.output / "completion-model.json").write_text(json.dumps(response, ensure_ascii=False, indent=2))

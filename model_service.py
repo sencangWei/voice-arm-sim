@@ -161,18 +161,37 @@ def visual_task(payload, verify=False):
         hashes.append(hashlib.sha256(raw).hexdigest())
     processor, model = MODELS["processor"], MODELS["vision"]
     prompt = COMPLETION_PROMPT if verify else TASK_PROMPT
+    # The moving wrist view caused false "still held" judgments after retreat.
+    # Bind both archived request images, but evaluate relations from the global view.
     messages = [{"role": "user", "content": [
-        *[{"type": "image", "image": image} for image in images],
+        *[{"type": "image", "image": image} for image in (images[:1] if verify else images)],
         {"type": "text", "text": prompt + text}]}]
+    started = time.monotonic()
     inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
         return_dict=True, return_tensors="pt").to(model.device)
-    started = time.monotonic()
     with torch.inference_mode():
         ids = model.generate(**inputs, max_new_tokens=192 if verify else 384, do_sample=False)
     answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
     LOG.info("%s %r -> %s", "verify" if verify else "task", text, answer)
-    return {("judgment" if verify else "task"): (parse_completion if verify else parse_task)(answer),
-            "raw": answer, "image_sha256": hashes if verify else hashes[0],
+    repair = None
+    try:
+        value = (parse_completion if verify else parse_task)(answer)
+    except json.JSONDecodeError as exc:
+        # Observed Qwen serialization defect: an extra opening brace before
+        # destination. Remove only that token; all labels, boxes and intent stay
+        # byte-identical. Unknown syntax and invalid schemas still fail closed.
+        if (verify or exc.msg != "Expecting property name enclosed in double quotes"
+                or not exc.doc[exc.pos:].startswith('{"destination"')):
+            raise
+        normalized = exc.doc[:exc.pos] + exc.doc[exc.pos + 1:]
+        value = parse_task(normalized)
+        repair = dict(operation="remove_extra_open_brace_before_destination",
+                      offset=exc.pos, normalized=normalized, parse_error=str(exc))
+        LOG.warning("Normalized task serialization at offset %d", exc.pos)
+    return {("judgment" if verify else "task"): value,
+            "raw": answer, "serialization_repair": repair,
+            "image_sha256": hashes if verify else hashes[0],
+            "model_input_image_sha256": hashes[:1] if verify else hashes,
             "model": MODEL_IDS["vision"], "revision": MODEL_REVISIONS["vision"],
             "device": str(model.device), "inference_s": time.monotonic() - started}
 

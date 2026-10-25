@@ -1,0 +1,8 @@
+{
+  "asr": false,
+  "vision": true,
+  "ready": true,
+  "error": null,
+  "backend": "local-qwen",
+  "busy": false
+}

@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "not_completed",
+    "reason": "酒瓶仍被夹爪夹持，未释放至灶台，夹爪未撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"not_completed\",\n  \"reason\": \"酒瓶仍被夹爪夹持，未释放至灶台，夹爪未撤离。\"\n}",
+  "attempts": [
+    {
+      "raw": "{\n  \"verdict\": \"not_completed\",\n  \"reason\": \"酒瓶仍被夹爪夹持，未释放至灶台，夹爪未撤离。\"\n}"
+    }
+  ],
+  "image_sha256": [
+    "4cfb09dbd7416ae70278b428f3e7efb0b29ea4356eaa75b3eb66f096cc191cb0",
+    "d28994aa2c71b1278b0c3b455c5fef2285cb5eb8ad75a0e953a5420a2a49919c"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 13.090695405000588
+}
