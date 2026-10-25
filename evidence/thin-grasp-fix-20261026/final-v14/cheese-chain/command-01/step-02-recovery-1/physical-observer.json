@@ -1,0 +1,39 @@
+{
+  "joints": {
+    "wooden_cabinet_1_top_level": 0.0,
+    "wooden_cabinet_1_middle_level": 0.0,
+    "wooden_cabinet_1_bottom_level": 0.0
+  },
+  "objects": {
+    "wine_bottle_1": {
+      "position": [
+        -0.1941961465580799,
+        -0.03720879067913176,
+        0.8988609548408878
+      ],
+      "held": false
+    },
+    "cream_cheese_1": {
+      "position": [
+        -0.21546591725600572,
+        0.16631627517058117,
+        0.9366439122455996
+      ],
+      "held": false
+    }
+  },
+  "predicates": {
+    "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+    "on wine_bottle_1 flat_stove_1_cook_region": false,
+    "on wine_bottle_1 plate_1": false,
+    "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+    "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+    "on cream_cheese_1 flat_stove_1_cook_region": true,
+    "on cream_cheese_1 plate_1": false,
+    "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+  },
+  "predicate_errors": {
+    "on wine_bottle_1 main_table": "'main_table'",
+    "on cream_cheese_1 main_table": "'main_table'"
+  }
+}

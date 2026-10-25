@@ -163,7 +163,12 @@ class VisualControl(VisualSkill):
         # Use upper object pixels, excluding an attached tabletop/support at its
         # base. The Panda palm extends to only 3 cm above TCP, so a deep
         # top-down approach hits the object before its fingers can close.
-        upper = visible[visible[:, 2] >= np.quantile(visible[:, 2], .65)]
+        # A thin box's entire top lies in a narrow height band. A percentile
+        # selects just its high edge under even sub-millimetre tilt, shifting
+        # the grasp toward neighbouring objects. Keep its measured top face.
+        threshold = (top - .003 if top - self.report['source']['tabletop'] < .04
+                     else np.quantile(visible[:, 2], .65))
+        upper = visible[visible[:, 2] >= threshold]
         xy = np.median(upper[:, :2], axis=0)
         center, mode = xy.copy(), "top_parallel"
         if np.min(np.ptp(upper[:, :2], axis=0)) > .08:

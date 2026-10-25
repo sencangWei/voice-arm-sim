@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶已从灶台移至桌面，底部接触桌面，机械臂已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶已从灶台移至桌面，底部接触桌面，机械臂已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "adfe4b1a0182339b2165e08ccb02bc3d936528ef1b4ec127a6ff4bc8181ee064",
+    "e5fa3c1c1b1bf6322c8206de3946b43d62b1047154ce10d784bf311990b8c69c"
+  ],
+  "model_input_image_sha256": [
+    "adfe4b1a0182339b2165e08ccb02bc3d936528ef1b4ec127a6ff4bc8181ee064"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.4688109480048297
+}

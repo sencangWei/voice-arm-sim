@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "uncertain",
+    "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+  },
+  "raw": "{\n  \"verdict\": \"uncertain\",\n  \"reason\": \"蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "6937b65582d314462d410a8b0fb8f14b2a52884ee564b007aa830452c1311495",
+    "c4887859e77e7c79e00c70a2ff1331faf58b1fff160045910d59fd4ddc749cae"
+  ],
+  "model_input_image_sha256": [
+    "6937b65582d314462d410a8b0fb8f14b2a52884ee564b007aa830452c1311495"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.606473523992463
+}

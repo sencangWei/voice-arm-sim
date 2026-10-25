@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在盘子上，盘子位于桌面，酒瓶底部由盘子支撑，机械臂已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶已放置在盘子上，盘子位于桌面，酒瓶底部由盘子支撑，机械臂已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "b8faf77485ac60679b15b37079df23fc1ba67772bffe35af008c1ebf3cbf7243",
+    "178f0bdacca3f4d7c8cde31dfd307caa941b4419b9c84f75e3ae1290505131cb"
+  ],
+  "model_input_image_sha256": [
+    "b8faf77485ac60679b15b37079df23fc1ba67772bffe35af008c1ebf3cbf7243"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.5573366370081203
+}

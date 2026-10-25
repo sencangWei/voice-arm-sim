@@ -1,0 +1,874 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "step_unconfirmed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 1,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "把蓝色奶酪盒放到盘子里",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/cheese-chain/command-01/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒放到盘子里",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.9721751000033692,
+            "inference_s": 0.9657114830042701,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.395224831008818,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.5759765499969944,
+            "inference_s": 0.5633565330062993,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "blue cheese box",
+            "bbox_2d": [
+              286,
+              582,
+              351,
+              666
+            ]
+          },
+          "destination": {
+            "label": "plate",
+            "bbox_2d": [
+              416,
+              635,
+              601,
+              766
+            ]
+          },
+          "relation": "on",
+          "english": "Place the blue cheese box on the plate."
+        },
+        "source": {
+          "raw_point": [
+            -0.038778455309975035,
+            0.14540427911847645,
+            0.9191939615643471
+          ],
+          "refined_point": [
+            -0.0395408736404822,
+            0.14644497563970957,
+            0.9189472415667375
+          ],
+          "tabletop": 0.901,
+          "pixels": 1091,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            0.03253739407232448,
+            -0.007511562646520231,
+            0.9078096496542991
+          ],
+          "refined_point": [
+            0.03686062585853167,
+            -0.010835922744822611,
+            0.9083545055834155
+          ],
+          "tabletop": 0.901,
+          "pixels": 2332,
+          "support_pixels": 5048,
+          "support_plane_z": 0.908,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.0435231491718725,
+            0.14702345638048245,
+            0.913
+          ],
+          "top": 0.9196508418533561,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.0435231491718725,
+            0.14702345638048245
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.04561141122434037,
+          "support_margin": 0.05761141122434037,
+          "rotation": [
+            [
+              0.9999989677804757,
+              0.0005990893752543362,
+              0.0013059593806294147
+            ],
+            [
+              0.0005982349436541409,
+              -0.9999996068406203,
+              0.0006545483611941918
+            ],
+            [
+              0.0013063510001480162,
+              -0.0006537664150201082,
+              -0.9999989330177004
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.2554020340030547,
+        "hold_check": {
+          "gaps": [
+            0.04221797489466043,
+            0.04221743967041083,
+            0.042217625510775375,
+            0.04221754451867582,
+            0.04221799827372509,
+            0.042217897700216014,
+            0.0422178822751251,
+            0.04221769800796696,
+            0.04221743915172113,
+            0.04221761028605025,
+            0.04221788726609996,
+            0.042217818970630205,
+            0.04221772798221544,
+            0.042217371643745644,
+            0.042217993631462156,
+            0.04221784616009648,
+            0.04221769562289311,
+            0.04221767414813467,
+            0.042217673028751734,
+            0.04221800403448492
+          ],
+          "eef_drift": 0.0041642078949899065,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 195,
+        "grasp_eef": [
+          -0.04418481733589603,
+          0.14672459836828483,
+          0.9192007576415535
+        ],
+        "offset_xy": [
+          0.0006616681640235281,
+          0.000298858012197617
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "blue cheese box",
+              "bbox_2d": [
+                286,
+                582,
+                351,
+                666
+              ]
+            },
+            "destination": {
+              "label": "plate",
+              "bbox_2d": [
+                416,
+                635,
+                601,
+                766
+              ]
+            },
+            "relation": "on",
+            "english": "Place the blue cheese box on the plate."
+          },
+          "min_z": 0.913,
+          "offset_xy": [
+            0.0006616681640235281,
+            0.000298858012197617
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.03686062585853167,
+            -0.010835922744822611,
+            0.9083545055834155
+          ],
+          "goal_meta": {
+            "raw_point": [
+              0.03253739407232448,
+              -0.007511562646520231,
+              0.9078096496542991
+            ],
+            "refined_point": [
+              0.03686062585853167,
+              -0.010835922744822611,
+              0.9083545055834155
+            ],
+            "tabletop": 0.901,
+            "pixels": 2332,
+            "support_pixels": 5048,
+            "support_plane_z": 0.908,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "clearance_z": 1.2,
+        "destination_reobserved": {
+          "raw_point": [
+            0.03449041263258312,
+            -0.007499436423675119,
+            0.9077769135284571
+          ],
+          "refined_point": [
+            0.03277243637404614,
+            0.0015015657502196803,
+            0.9080733977719264
+          ],
+          "tabletop": 0.901,
+          "pixels": 2333,
+          "support_pixels": 4997,
+          "support_plane_z": 0.908,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.05761141122434037,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 4.692823567005689,
+        "release_gap": 0.07991902885994627,
+        "completion": {
+          "verdict": "completed",
+          "reason": "蓝色奶酪盒已放置在盘子上，盘子位于桌面，物体底部由盘子支撑，机械臂已撤离。"
+        },
+        "control_steps": 358,
+        "wall_duration_s": 5.409676862007473
+      }
+    },
+    {
+      "number": 2,
+      "instruction": "把蓝色奶酪盒拿到灶台上",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/cheese-chain/command-01/step-02",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "visual_uncertain",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒拿到灶台上",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.032488764001755,
+            "inference_s": 1.0250944449944654,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.40934164699865505,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.6154199549928308,
+            "inference_s": 0.6025909260060871,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "blue cheese box",
+            "bbox_2d": [
+              462,
+              638,
+              525,
+              738
+            ]
+          },
+          "destination": {
+            "label": "stove",
+            "bbox_2d": [
+              158,
+              388,
+              385,
+              538
+            ]
+          },
+          "relation": "on",
+          "english": "Pick up the blue cheese box and place it on the stove."
+        },
+        "source": {
+          "raw_point": [
+            0.04048682931870751,
+            0.004409586127623485,
+            0.9298092183583867
+          ],
+          "refined_point": [
+            0.0371681923149515,
+            0.00444653428255235,
+            0.9290661846726755
+          ],
+          "tabletop": 0.901,
+          "pixels": 1698,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            -0.2393343106140381,
+            0.21138017700275907,
+            0.9297216858509512
+          ],
+          "refined_point": [
+            -0.2408927600823253,
+            0.20694110602291207,
+            0.9262437191320192
+          ],
+          "tabletop": 0.901,
+          "pixels": 3447,
+          "support_pixels": 6370,
+          "support_plane_z": 0.926,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            0.014383221240367061,
+            0.0030421325853243327,
+            0.9208310245804953
+          ],
+          "top": 0.9328310245804953,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            0.014383221240367061,
+            0.0030421325853243327
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.03788729866179247,
+          "support_margin": 0.049887298661792465,
+          "rotation": [
+            [
+              0.9999986969088605,
+              0.0004201420685505206,
+              0.0015587370603384304
+            ],
+            [
+              0.0004191614862212112,
+              -0.9999997141041076,
+              0.0006293610660822384
+            ],
+            [
+              0.0015590010357620766,
+              -0.00062870688342457,
+              -0.9999985871207145
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.327849736000644,
+        "hold_check": {
+          "gaps": [
+            0.042215695890487084,
+            0.04221714270922575,
+            0.04221569849137203,
+            0.04221369253033665,
+            0.04221698122779206,
+            0.04221366998561933,
+            0.042216964288163336,
+            0.042213670139995274,
+            0.04221696448739901,
+            0.042213670007754396,
+            0.04221696449557803,
+            0.04221366988087666,
+            0.04221696450951361,
+            0.042213669767907275,
+            0.04221679057774609,
+            0.04221596298876508,
+            0.042217210478317224,
+            0.04221592319422046,
+            0.04221720563345798,
+            0.04221592362999495
+          ],
+          "eef_drift": 0.004016095379969531,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 162,
+        "grasp_eef": [
+          0.013623780148235981,
+          0.002793076956274784,
+          0.9263075415841813
+        ],
+        "offset_xy": [
+          0.0007594410921310801,
+          0.00024905562904954876
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "blue cheese box",
+              "bbox_2d": [
+                462,
+                638,
+                525,
+                738
+              ]
+            },
+            "destination": {
+              "label": "stove",
+              "bbox_2d": [
+                158,
+                388,
+                385,
+                538
+              ]
+            },
+            "relation": "on",
+            "english": "Pick up the blue cheese box and place it on the stove."
+          },
+          "min_z": 0.9208310245804953,
+          "offset_xy": [
+            0.0007594410921310801,
+            0.00024905562904954876
+          ],
+          "source_base": 0.901,
+          "destination": [
+            -0.2408927600823253,
+            0.20694110602291207,
+            0.9262437191320192
+          ],
+          "goal_meta": {
+            "raw_point": [
+              -0.2393343106140381,
+              0.21138017700275907,
+              0.9297216858509512
+            ],
+            "refined_point": [
+              -0.2408927600823253,
+              0.20694110602291207,
+              0.9262437191320192
+            ],
+            "tabletop": 0.901,
+            "pixels": 3447,
+            "support_pixels": 6370,
+            "support_plane_z": 0.926,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "clearance_z": 1.2,
+        "destination_reobserved": {
+          "raw_point": [
+            -0.2393343106140381,
+            0.21138017700275907,
+            0.9297216858509512
+          ],
+          "refined_point": [
+            -0.22485553327425167,
+            0.16578863379953357,
+            0.9316557176271066
+          ],
+          "tabletop": 0.901,
+          "pixels": 3447,
+          "support_pixels": 6364,
+          "support_plane_z": 0.926,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.049887298661792465,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 4.49226310699305,
+        "release_gap": 0.07989924314688956,
+        "completion": {
+          "verdict": "uncertain",
+          "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+        },
+        "control_steps": 331,
+        "wall_duration_s": 5.251982040004805
+      }
+    },
+    {
+      "number": 2,
+      "instruction": "把蓝色奶酪盒拿到灶台上",
+      "recovery": "reverify",
+      "output": ".local/combination-fix-20261026/final-v14/cheese-chain/command-01/step-02-recovery-1",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "visual_uncertain",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒拿到灶台上",
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "blue cheese box",
+              "bbox_2d": [
+                462,
+                638,
+                525,
+                738
+              ]
+            },
+            "destination": {
+              "label": "stove",
+              "bbox_2d": [
+                158,
+                388,
+                385,
+                538
+              ]
+            },
+            "relation": "on",
+            "english": "Pick up the blue cheese box and place it on the stove."
+          },
+          "min_z": 0.9208310245804953,
+          "offset_xy": [
+            0.0007594410921310801,
+            0.00024905562904954876
+          ],
+          "source_base": 0.901,
+          "destination": [
+            -0.2408927600823253,
+            0.20694110602291207,
+            0.9262437191320192
+          ],
+          "goal_meta": {
+            "raw_point": [
+              -0.2393343106140381,
+              0.21138017700275907,
+              0.9297216858509512
+            ],
+            "refined_point": [
+              -0.2408927600823253,
+              0.20694110602291207,
+              0.9262437191320192
+            ],
+            "tabletop": 0.901,
+            "pixels": 3447,
+            "support_pixels": 6370,
+            "support_plane_z": 0.926,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "geometric_grasp": {
+          "target": [
+            0.014383221240367061,
+            0.0030421325853243327,
+            0.9208310245804953
+          ],
+          "top": 0.9328310245804953,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            0.014383221240367061,
+            0.0030421325853243327
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.03788729866179247,
+          "support_margin": 0.049887298661792465,
+          "rotation": [
+            [
+              0.9999986969088605,
+              0.0004201420685505206,
+              0.0015587370603384304
+            ],
+            [
+              0.0004191614862212112,
+              -0.9999997141041076,
+              0.0006293610660822384
+            ],
+            [
+              0.0015590010357620766,
+              -0.00062870688342457,
+              -0.9999985871207145
+            ]
+          ]
+        },
+        "motion_completed": true,
+        "release_gap": 0.07989924314688956,
+        "request_timings": [
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.6199659120029537,
+            "inference_s": 0.606473523992463,
+            "device": "cuda:0"
+          }
+        ],
+        "completion": {
+          "verdict": "uncertain",
+          "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+        },
+        "control_steps": 0,
+        "wall_duration_s": 0.7525080979976337
+      }
+    },
+    {
+      "number": 2,
+      "instruction": "把蓝色奶酪盒拿到灶台上",
+      "recovery": "reverify",
+      "output": ".local/combination-fix-20261026/final-v14/cheese-chain/command-01/step-02-recovery-2",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "visual_uncertain",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒拿到灶台上",
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "blue cheese box",
+              "bbox_2d": [
+                462,
+                638,
+                525,
+                738
+              ]
+            },
+            "destination": {
+              "label": "stove",
+              "bbox_2d": [
+                158,
+                388,
+                385,
+                538
+              ]
+            },
+            "relation": "on",
+            "english": "Pick up the blue cheese box and place it on the stove."
+          },
+          "min_z": 0.9208310245804953,
+          "offset_xy": [
+            0.0007594410921310801,
+            0.00024905562904954876
+          ],
+          "source_base": 0.901,
+          "destination": [
+            -0.2408927600823253,
+            0.20694110602291207,
+            0.9262437191320192
+          ],
+          "goal_meta": {
+            "raw_point": [
+              -0.2393343106140381,
+              0.21138017700275907,
+              0.9297216858509512
+            ],
+            "refined_point": [
+              -0.2408927600823253,
+              0.20694110602291207,
+              0.9262437191320192
+            ],
+            "tabletop": 0.901,
+            "pixels": 3447,
+            "support_pixels": 6370,
+            "support_plane_z": 0.926,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "geometric_grasp": {
+          "target": [
+            0.014383221240367061,
+            0.0030421325853243327,
+            0.9208310245804953
+          ],
+          "top": 0.9328310245804953,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            0.014383221240367061,
+            0.0030421325853243327
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.03788729866179247,
+          "support_margin": 0.049887298661792465,
+          "rotation": [
+            [
+              0.9999986969088605,
+              0.0004201420685505206,
+              0.0015587370603384304
+            ],
+            [
+              0.0004191614862212112,
+              -0.9999997141041076,
+              0.0006293610660822384
+            ],
+            [
+              0.0015590010357620766,
+              -0.00062870688342457,
+              -0.9999985871207145
+            ]
+          ]
+        },
+        "motion_completed": true,
+        "release_gap": 0.07989924314688956,
+        "request_timings": [
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.6219835559895728,
+            "inference_s": 0.6068936999945436,
+            "device": "cuda:0"
+          }
+        ],
+        "completion": {
+          "verdict": "uncertain",
+          "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+        },
+        "control_steps": 0,
+        "wall_duration_s": 0.7474884980038041
+      }
+    }
+  ],
+  "control_steps": 689,
+  "chinese": "把蓝色奶酪盒放到盘子里，再把它拿到灶台上",
+  "recoveries": [
+    {
+      "step": 2,
+      "attempt": 1,
+      "decision": {
+        "action": "reverify",
+        "reason": "蓝色奶酪盒位置不明确，视觉遮挡或核验不确定，需重新观察确认其当前状态和位置",
+        "progress": "uncertain",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.13194656372070312,
+      "made_progress": false,
+      "consecutive_no_progress": 1,
+      "attempted": true,
+      "control_steps": 0,
+      "result": "visual_uncertain",
+      "completion": {
+        "verdict": "uncertain",
+        "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+      }
+    },
+    {
+      "step": 2,
+      "attempt": 2,
+      "decision": {
+        "action": "reverify",
+        "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上，需重新观察核验其当前状态和位置",
+        "progress": "uncertain",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.0,
+      "made_progress": false,
+      "consecutive_no_progress": 2,
+      "attempted": true,
+      "control_steps": 0,
+      "result": "visual_uncertain",
+      "completion": {
+        "verdict": "uncertain",
+        "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上。"
+      }
+    },
+    {
+      "step": 2,
+      "attempt": 3,
+      "decision": {
+        "action": "reverify",
+        "reason": "蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上，需重新观察核验其当前状态和位置",
+        "progress": "uncertain",
+        "step": null
+      },
+      "executed": false,
+      "observation_change_fraction": 0.0,
+      "made_progress": false,
+      "consecutive_no_progress": 3
+    }
+  ],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.1697125759965274,
+      "inference_s": 1.1628713939862791,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.6094063119962811,
+      "inference_s": 0.597349589006626,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.772764498993638,
+      "inference_s": 0.7606606250046752,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.780105325000477,
+      "inference_s": 0.7669817260029959,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把蓝色奶酪盒放到盘子里",
+        "destination_kind": "support_surface"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把蓝色奶酪盒拿到灶台上",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "recovery_stop": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上，需重新观察核验其当前状态和位置"
+  },
+  "completion": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；蓝色奶酪盒在图中未被明确识别，且其位置与灶台关系不清晰，无法确认是否已放置在灶台上，需重新观察核验其当前状态和位置"
+  },
+  "wall_duration_s": 15.839867572998628
+}

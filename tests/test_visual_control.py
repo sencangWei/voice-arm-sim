@@ -240,3 +240,20 @@ def test_narrow_source_on_wide_touching_support_uses_top_grasp(tmp_path):
     skill.confirm_hold = lambda: None
     skill.grasp({}, None, np.ones(cloud.shape[:2], bool), cloud)
     assert skill.report['geometric_grasp']['mode'] == 'top_parallel'
+
+
+def test_slightly_tilted_thin_box_does_not_grasp_only_its_high_corner(tmp_path):
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2])),
+                          None, tmp_path/'run')
+    skill.report['source'] = dict(tabletop=.901)
+    x, y = np.meshgrid(np.linspace(-.04, .04, 81), np.linspace(.12, .16, 41))
+    # Less than a millimetre of real tilt must not shift a thin box's grasp
+    # to the high edge. The old top-35-percent selection moves it >1 cm.
+    z = .920 + .015 * (y-.14)
+    cloud = np.stack([x, y, z], axis=-1)
+    skill.oriented_move = lambda target, *args: skill.obs.update(robot0_eef_pos=np.asarray(target))
+    skill.step = lambda *args: None
+    skill.confirm_hold = lambda: None
+    skill.grasp({}, None, np.ones(x.shape, bool), cloud)
+    target = np.asarray(skill.report['geometric_grasp']['target'])
+    assert np.linalg.norm(target[:2] - [0., .14]) < .002

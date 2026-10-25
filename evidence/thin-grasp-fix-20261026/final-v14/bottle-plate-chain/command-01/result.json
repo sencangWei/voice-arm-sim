@@ -1,0 +1,552 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 2,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "把酒瓶放到盘子里",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/bottle-plate-chain/command-01/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到盘子里",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.9580629900010535,
+            "inference_s": 0.9517431349959224,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.40389889499056153,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.5706057009956567,
+            "inference_s": 0.5573366370081203,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "酒瓶",
+            "bbox_2d": [
+              512,
+              367,
+              570,
+              548
+            ]
+          },
+          "destination": {
+            "label": "盘子",
+            "bbox_2d": [
+              416,
+              630,
+              600,
+              767
+            ]
+          },
+          "relation": "in",
+          "english": "Place the wine bottle into the plate."
+        },
+        "source": {
+          "raw_point": [
+            -0.17896014110353797,
+            -0.03555836280068459,
+            0.9818553440465317
+          ],
+          "refined_point": [
+            -0.18304815917391415,
+            -0.037905271647643436,
+            0.9740872588182212
+          ],
+          "tabletop": 0.901,
+          "pixels": 1225,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            0.030581368399508646,
+            -0.007523688386794978,
+            0.9078462044353175
+          ],
+          "refined_point": [
+            0.03696199577414738,
+            -0.00868853140751024,
+            0.9081858047171503
+          ],
+          "tabletop": 0.901,
+          "pixels": 4307,
+          "method": "visible round rim circle fit; low visible interior depth",
+          "rim_radius": 0.06577630103568591,
+          "rim_residual": 0.0020101243469147104,
+          "rim_coverage": 6.253515637251812
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.18833192167419854,
+            -0.0376332927600514,
+            1.0465393804025152
+          ],
+          "top": 1.0585393804025152,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.18833192167419854,
+            -0.0376332927600514
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.013174172536421613,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999970790922222,
+              -0.000584401844667507,
+              0.0023452678968592304
+            ],
+            [
+              -0.0005831902656210999,
+              -0.999999696167397,
+              -0.0005172564433601087
+            ],
+            [
+              0.002345569469910046,
+              0.0005158871950940181,
+              -0.9999971160779736
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.2343800889939303,
+        "hold_check": {
+          "gaps": [
+            0.014878951925544521,
+            0.014878775562710134,
+            0.014878669245121517,
+            0.014878600328072512,
+            0.014878549285170833,
+            0.014878503525765769,
+            0.014878452703504422,
+            0.01487838510083782,
+            0.014878295378368812,
+            0.014878179768598298,
+            0.01487803577851518,
+            0.014877862504153426,
+            0.014881463410116036,
+            0.014860480137064962,
+            0.014856657826438503,
+            0.01485608458837073,
+            0.01485584947397003,
+            0.014855645340751608,
+            0.014855442970645338,
+            0.014855241040034068
+          ],
+          "eef_drift": 0.0031580650436836178,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 125,
+        "grasp_eef": [
+          -0.18905750245306793,
+          -0.03752841332555319,
+          1.0537263536711354
+        ],
+        "offset_xy": [
+          0.0007255807788693891,
+          -0.00010487943449821041
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "酒瓶",
+              "bbox_2d": [
+                512,
+                367,
+                570,
+                548
+              ]
+            },
+            "destination": {
+              "label": "盘子",
+              "bbox_2d": [
+                416,
+                630,
+                600,
+                767
+              ]
+            },
+            "relation": "in",
+            "english": "Place the wine bottle into the plate."
+          },
+          "min_z": 1.0465393804025152,
+          "offset_xy": [
+            0.0007255807788693891,
+            -0.00010487943449821041
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.03696199577414738,
+            -0.00868853140751024,
+            0.9081858047171503
+          ],
+          "goal_meta": {
+            "raw_point": [
+              0.030581368399508646,
+              -0.007523688386794978,
+              0.9078462044353175
+            ],
+            "refined_point": [
+              0.03696199577414738,
+              -0.00868853140751024,
+              0.9081858047171503
+            ],
+            "tabletop": 0.901,
+            "pixels": 4307,
+            "method": "visible round rim circle fit; low visible interior depth",
+            "rim_radius": 0.06577630103568591,
+            "rim_residual": 0.0020101243469147104,
+            "rim_coverage": 6.253515637251812
+          },
+          "destination_kind": "circular_container"
+        },
+        "clearance_z": 1.2,
+        "destination_reobserved": {
+          "raw_point": [
+            0.0306043122807389,
+            -0.00601876131860602,
+            0.9078718688954953
+          ],
+          "refined_point": [
+            0.03686804367428898,
+            -0.008626012226581652,
+            0.9081828883113945
+          ],
+          "tabletop": 0.901,
+          "pixels": 4249,
+          "method": "visible round rim circle fit; low visible interior depth",
+          "rim_radius": 0.06548171146770679,
+          "rim_residual": 0.002084982215998462,
+          "rim_coverage": 6.253660340567518
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 3.799775363993831,
+        "release_gap": 0.07978562519558993,
+        "completion": {
+          "verdict": "completed",
+          "reason": "酒瓶已放置在盘子上，盘子位于桌面，酒瓶底部由盘子支撑，机械臂已撤离。"
+        },
+        "control_steps": 261,
+        "wall_duration_s": 4.5220588609954575
+      }
+    },
+    {
+      "number": 2,
+      "instruction": "把酒瓶放到柜子顶部",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/bottle-plate-chain/command-01/step-02",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到柜子顶部",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.0208320780075155,
+            "inference_s": 1.0112220290029654,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.45787963800830767,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.49126335700566415,
+            "inference_s": 0.4781363880028948,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "酒瓶",
+            "bbox_2d": [
+              478,
+              546,
+              544,
+              719
+            ]
+          },
+          "destination": {
+            "label": "柜子顶部",
+            "bbox_2d": [
+              688,
+              349,
+              1000,
+              578
+            ]
+          },
+          "relation": "on",
+          "english": "Place the wine bottle on the top of the cabinet"
+        },
+        "source": {
+          "raw_point": [
+            0.043419713355518974,
+            -0.008413248761890387,
+            0.9928013190936599
+          ],
+          "refined_point": [
+            0.04138215068510609,
+            -0.009377144985987556,
+            0.9699177210897894
+          ],
+          "tabletop": 0.901,
+          "pixels": 2050,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            0.021207200441117458,
+            -0.227658946102055,
+            1.1272075873186715
+          ],
+          "refined_point": [
+            0.023335163675685944,
+            -0.2440634375747125,
+            1.12720156630381
+          ],
+          "tabletop": 0.901,
+          "pixels": 14188,
+          "support_pixels": 14589,
+          "support_plane_z": 1.127,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            0.03605921623919506,
+            -0.012084286365350763,
+            1.0536573924265191
+          ],
+          "top": 1.0656573924265191,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            0.03605921623919506,
+            -0.012084286365350763
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.017342676327951372,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999924913961074,
+              -0.0006713627611623369,
+              0.003816598413398636
+            ],
+            [
+              -0.0006683056172843984,
+              -0.9999994548958602,
+              -0.0008022316277051284
+            ],
+            [
+              0.0038171349213957082,
+              0.0007996749499070126,
+              -0.999992394971565
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.325612304994138,
+        "hold_check": {
+          "gaps": [
+            0.014957922784365512,
+            0.01495793409987483,
+            0.014957944847356243,
+            0.01495795513459168,
+            0.0149579649784192,
+            0.014957974396109124,
+            0.014957983405412174,
+            0.014957992023258886,
+            0.014958000264273703,
+            0.014958008161438757,
+            0.014958015710397093,
+            0.014958022927616246,
+            0.01495802982771411,
+            0.01495803642355903,
+            0.014958042727714341,
+            0.014958048752836673,
+            0.01495805451108963,
+            0.014958060014113842,
+            0.01495806527304817,
+            0.014958070298550199
+          ],
+          "eef_drift": 0.004219656132137861,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 113,
+        "grasp_eef": [
+          0.03497409409691749,
+          -0.011858603954696805,
+          1.0605988701195357
+        ],
+        "offset_xy": [
+          0.0010851221422775656,
+          -0.00022568241065395837
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "酒瓶",
+              "bbox_2d": [
+                478,
+                546,
+                544,
+                719
+              ]
+            },
+            "destination": {
+              "label": "柜子顶部",
+              "bbox_2d": [
+                688,
+                349,
+                1000,
+                578
+              ]
+            },
+            "relation": "on",
+            "english": "Place the wine bottle on the top of the cabinet"
+          },
+          "min_z": 1.0536573924265191,
+          "offset_xy": [
+            0.0010851221422775656,
+            -0.00022568241065395837
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.023335163675685944,
+            -0.2440634375747125,
+            1.12720156630381
+          ],
+          "goal_meta": {
+            "raw_point": [
+              0.021207200441117458,
+              -0.227658946102055,
+              1.1272075873186715
+            ],
+            "refined_point": [
+              0.023335163675685944,
+              -0.2440634375747125,
+              1.12720156630381
+            ],
+            "tabletop": 0.901,
+            "pixels": 14188,
+            "support_pixels": 14589,
+            "support_plane_z": 1.127,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "clearance_z": 1.326858958730329,
+        "destination_reobserved": {
+          "raw_point": [
+            0.13497045729417612,
+            -0.20597108172171813,
+            1.1268465616266061
+          ],
+          "refined_point": [
+            0.040036602714830005,
+            -0.2209585762957366,
+            1.1271456823941786
+          ],
+          "tabletop": 0.901,
+          "pixels": 15213,
+          "support_pixels": 15866,
+          "support_plane_z": 1.127,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.06,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 3.714966594998259,
+        "release_gap": 0.07954832095946485,
+        "completion": {
+          "verdict": "completed",
+          "reason": "酒瓶已放置在柜子顶部，底部被柜面支撑，且机械臂已撤离。"
+        },
+        "control_steps": 233,
+        "wall_duration_s": 4.348402710995288
+      }
+    }
+  ],
+  "control_steps": 494,
+  "chinese": "把酒瓶放到盘子里，然后把它放到柜子顶部",
+  "recoveries": [],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.1735271560028195,
+      "inference_s": 1.1668375489971368,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到盘子里",
+        "destination_kind": "circular_container"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到柜子顶部",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "completion": {
+    "reason": "全部 2 步均逐步通过视觉核对"
+  },
+  "wall_duration_s": 10.115950148989214
+}

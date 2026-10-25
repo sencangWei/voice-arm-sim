@@ -1,0 +1,551 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 2,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "把酒瓶从灶台拿到桌面上",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/bottle-chain/command-02/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶从灶台拿到桌面上",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.9832029859971954,
+            "inference_s": 0.974735262003378,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.41734353099309374,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.4815468309971038,
+            "inference_s": 0.4688109480048297,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "酒瓶",
+            "bbox_2d": [
+              270,
+              310,
+              328,
+              478
+            ]
+          },
+          "destination": {
+            "label": "桌面",
+            "bbox_2d": [
+              0,
+              330,
+              1000,
+              1000
+            ]
+          },
+          "relation": "on",
+          "english": "Take the wine bottle from the stove and place it on the table."
+        },
+        "source": {
+          "raw_point": [
+            -0.2258170278749292,
+            0.1750367877006596,
+            1.0174500071996837
+          ],
+          "refined_point": [
+            -0.2304896647264052,
+            0.17827786209134477,
+            0.9716510402610614
+          ],
+          "tabletop": 0.901,
+          "pixels": 2042,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            -0.0032599476088227552,
+            -0.0015463755613761183,
+            0.9089149951589217
+          ],
+          "refined_point": [
+            0.0927523228335152,
+            0.08668634932856721,
+            0.9009764436634602
+          ],
+          "tabletop": 0.901,
+          "pixels": 112707,
+          "support_pixels": 116121,
+          "support_plane_z": 0.901,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.23242184994407622,
+            0.17286550347053747,
+            1.0770227104765298
+          ],
+          "top": 1.0890227104765298,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.23242184994407622,
+            0.17286550347053747
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.018582027013216533,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999978304382622,
+              0.000587761743291444,
+              0.001998413095895732
+            ],
+            [
+              0.000586309380673804,
+              -0.9999995636625367,
+              0.0007272661456010489
+            ],
+            [
+              0.0019988396831308063,
+              -0.0007260928794076611,
+              -0.9999977387119692
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.2879134440008784,
+        "hold_check": {
+          "gaps": [
+            0.014849853537440817,
+            0.014849824173629376,
+            0.014849802609561417,
+            0.014849783134419136,
+            0.014849765072379159,
+            0.01484974768406631,
+            0.014849731209076459,
+            0.014849715690093124,
+            0.01484970167724163,
+            0.014849688515086442,
+            0.014849675966399266,
+            0.014849663837721941,
+            0.014849652030790883,
+            0.014849640563392002,
+            0.014849629513114056,
+            0.014849618744379836,
+            0.014849608249167649,
+            0.01484959802919263,
+            0.01484958808198499,
+            0.014849578406250025
+          ],
+          "eef_drift": 0.005568350981943089,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 153,
+        "grasp_eef": [
+          -0.23306815923533947,
+          0.1727358629349655,
+          1.0828716040892523
+        ],
+        "offset_xy": [
+          0.0006463092912632473,
+          0.0001296405355719621
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "酒瓶",
+              "bbox_2d": [
+                270,
+                310,
+                328,
+                478
+              ]
+            },
+            "destination": {
+              "label": "桌面",
+              "bbox_2d": [
+                0,
+                330,
+                1000,
+                1000
+              ]
+            },
+            "relation": "on",
+            "english": "Take the wine bottle from the stove and place it on the table."
+          },
+          "min_z": 1.0770227104765298,
+          "offset_xy": [
+            0.0006463092912632473,
+            0.0001296405355719621
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.0927523228335152,
+            0.08668634932856721,
+            0.9009764436634602
+          ],
+          "goal_meta": {
+            "raw_point": [
+              -0.0032599476088227552,
+              -0.0015463755613761183,
+              0.9089149951589217
+            ],
+            "refined_point": [
+              0.0927523228335152,
+              0.08668634932856721,
+              0.9009764436634602
+            ],
+            "tabletop": 0.901,
+            "pixels": 112707,
+            "support_pixels": 116121,
+            "support_plane_z": 0.901,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "clearance_z": 1.3384858662446717,
+        "destination_reobserved": {
+          "raw_point": [
+            -0.0032599476088227552,
+            -0.0015463755613761183,
+            0.9089149951589217
+          ],
+          "refined_point": [
+            -0.2224002160290489,
+            0.05489604378532122,
+            0.9012465134466487
+          ],
+          "tabletop": 0.901,
+          "pixels": 112707,
+          "support_pixels": 115613,
+          "support_plane_z": 0.901,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.06,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 4.204129737991025,
+        "release_gap": 0.07990679393240183,
+        "completion": {
+          "verdict": "completed",
+          "reason": "酒瓶已从灶台移至桌面，底部接触桌面，机械臂已撤离。"
+        },
+        "control_steps": 305,
+        "wall_duration_s": 4.834256625996204
+      }
+    },
+    {
+      "number": 2,
+      "instruction": "把蓝色奶酪盒放到柜子顶部",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/bottle-chain/command-02/step-02",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒放到柜子顶部",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.0747520260047168,
+            "inference_s": 1.0627050479961326,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.42813491899869405,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.45090134198835585,
+            "inference_s": 0.43883005299721844,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "blue cheese box",
+            "bbox_2d": [
+              286,
+              582,
+              347,
+              666
+            ]
+          },
+          "destination": {
+            "label": "top of cabinet",
+            "bbox_2d": [
+              688,
+              347,
+              1000,
+              820
+            ]
+          },
+          "relation": "on",
+          "english": "Place the blue cheese box on the top of the cabinet."
+        },
+        "source": {
+          "raw_point": [
+            -0.03881292503546008,
+            0.14699202704577669,
+            0.9191597999154405
+          ],
+          "refined_point": [
+            -0.03905412817640003,
+            0.14667866203630542,
+            0.9189488187242227
+          ],
+          "tabletop": 0.901,
+          "pixels": 1084,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            0.13665264020449475,
+            -0.2021475502839024,
+            1.12683992579348
+          ],
+          "refined_point": [
+            0.031754239636523685,
+            -0.24265632031134293,
+            1.1271755236058636
+          ],
+          "tabletop": 0.901,
+          "pixels": 15213,
+          "support_pixels": 15866,
+          "support_plane_z": 1.127,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.043523149114209736,
+            0.1470526825414502,
+            0.913
+          ],
+          "top": 0.9196508758913511,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.043523149114209736,
+            0.1470526825414502
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.04541519775394687,
+          "support_margin": 0.057415197753946864,
+          "rotation": [
+            [
+              0.9999993667459528,
+              0.0005971120925264778,
+              0.0009539207737391641
+            ],
+            [
+              0.000596593335879789,
+              -0.9999996740661952,
+              0.0005440072562661169
+            ],
+            [
+              0.0009542452961352756,
+              -0.0005434378089947501,
+              -0.9999993970454495
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.3707900179870194,
+        "hold_check": {
+          "gaps": [
+            0.0422187720224349,
+            0.04221794125782471,
+            0.042217783295948316,
+            0.042217300973511146,
+            0.04221749522806377,
+            0.04221721827459981,
+            0.04221545544665272,
+            0.04221714041708566,
+            0.04221755768802661,
+            0.042217589890501894,
+            0.04221499652341518,
+            0.0422173478217011,
+            0.042217201864314116,
+            0.042217733187474724,
+            0.042217903970051006,
+            0.04221782362634355,
+            0.04221773094240844,
+            0.042217420352049013,
+            0.042218042366364034,
+            0.04221779688717668
+          ],
+          "eef_drift": 0.007583085378358795,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 242,
+        "grasp_eef": [
+          -0.04407375061635703,
+          0.14678888938002557,
+          0.9194146294707572
+        ],
+        "offset_xy": [
+          0.0005506015021472938,
+          0.0002637931614246358
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "blue cheese box",
+              "bbox_2d": [
+                286,
+                582,
+                347,
+                666
+              ]
+            },
+            "destination": {
+              "label": "top of cabinet",
+              "bbox_2d": [
+                688,
+                347,
+                1000,
+                820
+              ]
+            },
+            "relation": "on",
+            "english": "Place the blue cheese box on the top of the cabinet."
+          },
+          "min_z": 0.913,
+          "offset_xy": [
+            0.0005506015021472938,
+            0.0002637931614246358
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.031754239636523685,
+            -0.24265632031134293,
+            1.1271755236058636
+          ],
+          "goal_meta": {
+            "raw_point": [
+              0.13665264020449475,
+              -0.2021475502839024,
+              1.12683992579348
+            ],
+            "refined_point": [
+              0.031754239636523685,
+              -0.24265632031134293,
+              1.1271755236058636
+            ],
+            "tabletop": 0.901,
+            "pixels": 15213,
+            "support_pixels": 15866,
+            "support_plane_z": 1.127,
+            "method": "visible horizontal support plane inside model destination box"
+          },
+          "destination_kind": "support_surface"
+        },
+        "clearance_z": 1.3394845250201062,
+        "destination_reobserved": {
+          "raw_point": [
+            0.1366526404549343,
+            -0.20559324526340655,
+            1.1268399263176228
+          ],
+          "refined_point": [
+            -0.034985951395808956,
+            -0.21825173150299798,
+            1.1273851124767216
+          ],
+          "tabletop": 0.901,
+          "pixels": 15213,
+          "support_pixels": 15866,
+          "support_plane_z": 1.127,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.057415197753946864,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 5.194077481995919,
+        "release_gap": 0.07985683674452722,
+        "completion": {
+          "verdict": "completed",
+          "reason": "蓝色奶酪盒已放置在柜子顶部，且机械臂已撤离。"
+        },
+        "control_steps": 417,
+        "wall_duration_s": 5.800320484995609
+      }
+    }
+  ],
+  "control_steps": 722,
+  "chinese": "把酒瓶从灶台拿到桌面上，然后把蓝色奶酪盒放到柜子顶部",
+  "recoveries": [],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.2337838770035887,
+      "inference_s": 1.2271161840035347,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放，目的地类型明确",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶从灶台拿到桌面上",
+        "destination_kind": "support_surface"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把蓝色奶酪盒放到柜子顶部",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "completion": {
+    "reason": "全部 2 步均逐步通过视觉核对"
+  },
+  "wall_duration_s": 11.942876233995776
+}

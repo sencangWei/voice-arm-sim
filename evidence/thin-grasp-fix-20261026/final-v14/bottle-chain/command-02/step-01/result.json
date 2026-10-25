@@ -1,0 +1,247 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把酒瓶从灶台拿到桌面上",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 0.9832029859971954,
+      "inference_s": 0.974735262003378,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.41734353099309374,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.4815468309971038,
+      "inference_s": 0.4688109480048297,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        270,
+        310,
+        328,
+        478
+      ]
+    },
+    "destination": {
+      "label": "桌面",
+      "bbox_2d": [
+        0,
+        330,
+        1000,
+        1000
+      ]
+    },
+    "relation": "on",
+    "english": "Take the wine bottle from the stove and place it on the table."
+  },
+  "source": {
+    "raw_point": [
+      -0.2258170278749292,
+      0.1750367877006596,
+      1.0174500071996837
+    ],
+    "refined_point": [
+      -0.2304896647264052,
+      0.17827786209134477,
+      0.9716510402610614
+    ],
+    "tabletop": 0.901,
+    "pixels": 2042,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.0032599476088227552,
+      -0.0015463755613761183,
+      0.9089149951589217
+    ],
+    "refined_point": [
+      0.0927523228335152,
+      0.08668634932856721,
+      0.9009764436634602
+    ],
+    "tabletop": 0.901,
+    "pixels": 112707,
+    "support_pixels": 116121,
+    "support_plane_z": 0.901,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.23242184994407622,
+      0.17286550347053747,
+      1.0770227104765298
+    ],
+    "top": 1.0890227104765298,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.23242184994407622,
+      0.17286550347053747
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.018582027013216533,
+    "support_margin": 0.06,
+    "rotation": [
+      [
+        0.9999978304382622,
+        0.000587761743291444,
+        0.001998413095895732
+      ],
+      [
+        0.000586309380673804,
+        -0.9999995636625367,
+        0.0007272661456010489
+      ],
+      [
+        0.0019988396831308063,
+        -0.0007260928794076611,
+        -0.9999977387119692
+      ]
+    ]
+  },
+  "first_control_wall_s": 1.2879134440008784,
+  "hold_check": {
+    "gaps": [
+      0.014849853537440817,
+      0.014849824173629376,
+      0.014849802609561417,
+      0.014849783134419136,
+      0.014849765072379159,
+      0.01484974768406631,
+      0.014849731209076459,
+      0.014849715690093124,
+      0.01484970167724163,
+      0.014849688515086442,
+      0.014849675966399266,
+      0.014849663837721941,
+      0.014849652030790883,
+      0.014849640563392002,
+      0.014849629513114056,
+      0.014849618744379836,
+      0.014849608249167649,
+      0.01484959802919263,
+      0.01484958808198499,
+      0.014849578406250025
+    ],
+    "eef_drift": 0.005568350981943089,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 153,
+  "grasp_eef": [
+    -0.23306815923533947,
+    0.1727358629349655,
+    1.0828716040892523
+  ],
+  "offset_xy": [
+    0.0006463092912632473,
+    0.0001296405355719621
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "酒瓶",
+        "bbox_2d": [
+          270,
+          310,
+          328,
+          478
+        ]
+      },
+      "destination": {
+        "label": "桌面",
+        "bbox_2d": [
+          0,
+          330,
+          1000,
+          1000
+        ]
+      },
+      "relation": "on",
+      "english": "Take the wine bottle from the stove and place it on the table."
+    },
+    "min_z": 1.0770227104765298,
+    "offset_xy": [
+      0.0006463092912632473,
+      0.0001296405355719621
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.0927523228335152,
+      0.08668634932856721,
+      0.9009764436634602
+    ],
+    "goal_meta": {
+      "raw_point": [
+        -0.0032599476088227552,
+        -0.0015463755613761183,
+        0.9089149951589217
+      ],
+      "refined_point": [
+        0.0927523228335152,
+        0.08668634932856721,
+        0.9009764436634602
+      ],
+      "tabletop": 0.901,
+      "pixels": 112707,
+      "support_pixels": 116121,
+      "support_plane_z": 0.901,
+      "method": "visible horizontal support plane inside model destination box"
+    },
+    "destination_kind": "support_surface"
+  },
+  "clearance_z": 1.3384858662446717,
+  "destination_reobserved": {
+    "raw_point": [
+      -0.0032599476088227552,
+      -0.0015463755613761183,
+      0.9089149951589217
+    ],
+    "refined_point": [
+      -0.2224002160290489,
+      0.05489604378532122,
+      0.9012465134466487
+    ],
+    "tabletop": 0.901,
+    "pixels": 112707,
+    "support_pixels": 115613,
+    "support_plane_z": 0.901,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.06,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 4.204129737991025,
+  "release_gap": 0.07990679393240183,
+  "completion": {
+    "verdict": "completed",
+    "reason": "酒瓶已从灶台移至桌面，底部接触桌面，机械臂已撤离。"
+  },
+  "control_steps": 305,
+  "wall_duration_s": 4.834256625996204
+}

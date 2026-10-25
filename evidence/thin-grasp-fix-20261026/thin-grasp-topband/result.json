@@ -1,0 +1,102 @@
+{
+  "mode": "topband",
+  "result": "lifted",
+  "physical_lift": 0.32795487631051956,
+  "physical_contact": true,
+  "source_before": [
+    -0.047810780196188285,
+    0.14822894590683605,
+    0.9089069548372153
+  ],
+  "source_after": [
+    -0.046082913601411535,
+    0.14533167004511666,
+    1.2368618311477348
+  ],
+  "report": {
+    "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+    "end_to_end_vla": false,
+    "controller_object_truth": false,
+    "semantic_success": null,
+    "result": "not_started",
+    "grasp_verification": "proprioceptive candidate only; requires video review",
+    "inference_calls": 0,
+    "source": {
+      "raw_point": [
+        -0.04101149300770579,
+        0.1456624635634359,
+        0.9191985198365291
+      ],
+      "refined_point": [
+        -0.0395408736404822,
+        0.14644497563970957,
+        0.9189472415667375
+      ],
+      "tabletop": 0.901,
+      "pixels": 1091,
+      "method": "depth component clipped to model box; visible point median"
+    },
+    "geometric_grasp": {
+      "target": [
+        -0.0435231491718725,
+        0.14702345638048245,
+        0.913
+      ],
+      "top": 0.9196508418533561,
+      "source_base": 0.901,
+      "mode": "top_parallel",
+      "center_xy": [
+        -0.0435231491718725,
+        0.14702345638048245
+      ],
+      "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+      "footprint_radius": 0.04561141122434037,
+      "support_margin": 0.05761141122434037,
+      "rotation": [
+        [
+          0.9999988826510462,
+          0.001299750049769228,
+          0.000738475772794911
+        ],
+        [
+          0.0013005620616655749,
+          -0.9999985490875793,
+          -0.0011001641057279948
+        ],
+        [
+          0.0007370447629800658,
+          0.0011011233100343388,
+          -0.9999991221458513
+        ]
+      ]
+    },
+    "first_control_wall_s": 0.2478011009952752,
+    "hold_check": {
+      "gaps": [
+        0.04212530029832899,
+        0.04212364381186389,
+        0.04212224513837702,
+        0.0421208103909515,
+        0.042119106325702135,
+        0.042117378552714455,
+        0.042115917257981854,
+        0.042114221341328154,
+        0.04211306030453835,
+        0.04211171429139059,
+        0.04211010307344713,
+        0.04210871231811993,
+        0.04210713160118313,
+        0.042105799650929115,
+        0.042104166098941756,
+        0.04210330578274485,
+        0.04210183868798828,
+        0.04210078082371557,
+        0.042099198735510615,
+        0.04209809378844989
+      ],
+      "eef_drift": 0.004727163762970411,
+      "accepted": true,
+      "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+    }
+  }
+}

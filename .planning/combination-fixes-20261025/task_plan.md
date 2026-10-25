@@ -13,4 +13,7 @@
 - 撤回：固定夹取朝向候选启发式，真实复测未稳定夹持且使盘子取物退步。
 - 测试：266 passed、18 subtests passed；test_vla_artifacts.py 因既有依赖缺失排除。
 - 独立离屏测试未改用户旧面板现场；本轮没有训练、没有真机操作。
+- 后续薄盒修正：完整顶部高度带避免微倾斜造成高侧偏心。同状态 A/B 从撞盘沿变为抬升 32.8 cm。
+- 最新 final-v14 为 5 完整、1 部分、2 未完成：盒子已放灶台但视觉漏报；抽屉放入仍无净空合格落点；取出未有有效前置条件。
+- 后续报告：evidence/thin-grasp-fix-20261026/README.md；267 passed、18 subtests passed，未放宽物理或视觉验收。
 - 报告：evidence/combination-fix-20261026/README.md；备份恢复收据写入 .local/combination-fix-20261026-final-remote-restore.json。

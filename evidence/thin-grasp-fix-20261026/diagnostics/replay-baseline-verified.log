@@ -1,0 +1,19 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Warning: make sure gym is installed if you want to use the GymWrapper.
+张爪抬起并调整朝向
+张爪抬起并调整朝向：控制步 20
+移动到当前视觉物体上方
+移动到当前视觉物体上方：控制步 40
+下降到视觉抓取位置
+下降到视觉抓取位置：控制步 60
+下降到视觉抓取位置：控制步 80
+下降到视觉抓取位置：控制步 100
+下降到视觉抓取位置：控制步 120
+下降到视觉抓取位置：控制步 140
+RECEIPT {"mode": "baseline", "result": "TimeoutError: \u4e0b\u964d\u5230\u89c6\u89c9\u6293\u53d6\u4f4d\u7f6e \u672a\u6536\u655b\uff1b\u4fdd\u7559\u73b0\u573a", "physical_lift": 0.0, "physical_contact": false, "source_before": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "source_after": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "report": {"backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC", "end_to_end_vla": false, "controller_object_truth": false, "semantic_success": null, "result": "not_started", "grasp_verification": "proprioceptive candidate only; requires video review", "inference_calls": 0, "source": {"raw_point": [-0.04101149300770579, 0.1456624635634359, 0.9191985198365291], "refined_point": [-0.0395408736404822, 0.14644497563970957, 0.9189472415667375], "tabletop": 0.901, "pixels": 1091, "method": "depth component clipped to model box; visible point median"}, "geometric_grasp": {"target": [-0.04999407813398682, 0.1368519196104938, 0.913], "top": 0.9196508418533561, "source_base": 0.901, "mode": "top_parallel", "center_xy": [-0.04999407813398682, 0.1368519196104938], "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth", "footprint_radius": 0.03824086483455938, "support_margin": 0.050240864834559376}, "first_control_wall_s": 0.251448283001082}}

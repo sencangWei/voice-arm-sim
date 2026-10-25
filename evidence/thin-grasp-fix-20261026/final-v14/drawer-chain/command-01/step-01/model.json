@@ -1,0 +1,29 @@
+{
+  "drawer": {
+    "action": "open",
+    "level": "middle",
+    "handle_bbox_2d": [
+      680,
+      500,
+      730,
+      570
+    ],
+    "cabinet_bbox_2d": [
+      680,
+      345,
+      1000,
+      820
+    ]
+  },
+  "raw": "{\n    \"action\": \"open\",\n    \"level\": \"middle\",\n    \"handle_bbox_2d\": [\n        680,\n        500,\n        730,\n        570\n    ],\n    \"cabinet_bbox_2d\": [\n        680,\n        345,\n        1000,\n        820\n    ]\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+  "model_input_image_sha256": [
+    "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0137322719965596
+}

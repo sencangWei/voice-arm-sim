@@ -1,0 +1,35 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        462,
+        638,
+        525,
+        738
+      ]
+    },
+    "destination": {
+      "label": "stove",
+      "bbox_2d": [
+        158,
+        388,
+        385,
+        538
+      ]
+    },
+    "relation": "on",
+    "english": "Pick up the blue cheese box and place it on the stove."
+  },
+  "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[462, 638, 525, 738]},\"destination\":{\"label\":\"stove\",\"bbox_2d\": [158, 388, 385, 538]},\"relation\":\"on\",\"english\":\"Pick up the blue cheese box and place it on the stove.\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "c8fbd3bb3386045785258efcb009ab8db312dfc1aff440b35158445e41353984",
+  "model_input_image_sha256": [
+    "c8fbd3bb3386045785258efcb009ab8db312dfc1aff440b35158445e41353984"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0250944449944654
+}

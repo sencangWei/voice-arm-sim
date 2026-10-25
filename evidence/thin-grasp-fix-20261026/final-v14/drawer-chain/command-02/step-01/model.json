@@ -1,0 +1,39 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        286,
+        582,
+        351,
+        663
+      ]
+    },
+    "destination": {
+      "label": "third layer of drawer",
+      "bbox_2d": [
+        512,
+        500,
+        738,
+        788
+      ]
+    },
+    "relation": "in",
+    "english": "Place the blue cheese box in the third layer of the drawer."
+  },
+  "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[286, 582, 351, 663]},{\"destination\":{\"label\":\"third layer of drawer\",\"bbox_2d\": [512, 500, 738, 788]}},\"relation\":\"in\",\"english\":\"Place the blue cheese box in the third layer of the drawer.\"}",
+  "serialization_repair": {
+    "operation": "unwrap_destination_object",
+    "normalized": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[286, 582, 351, 663]},\"destination\":{\"label\":\"third layer of drawer\",\"bbox_2d\": [512, 500, 738, 788]},\"relation\":\"in\",\"english\":\"Place the blue cheese box in the third layer of the drawer.\"}",
+    "parse_error": "Expecting property name enclosed in double quotes: line 1 column 70 (char 69)"
+  },
+  "serialization_retry": null,
+  "image_sha256": "37a50cd6e23a4726ee3c0351e3587ae65e516f72a7894c1210be3e3aafbb100a",
+  "model_input_image_sha256": [
+    "37a50cd6e23a4726ee3c0351e3587ae65e516f72a7894c1210be3e3aafbb100a"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0468294930033153
+}

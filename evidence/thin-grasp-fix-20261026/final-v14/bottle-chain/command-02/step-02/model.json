@@ -1,0 +1,39 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        286,
+        582,
+        347,
+        666
+      ]
+    },
+    "destination": {
+      "label": "top of cabinet",
+      "bbox_2d": [
+        688,
+        347,
+        1000,
+        820
+      ]
+    },
+    "relation": "on",
+    "english": "Place the blue cheese box on the top of the cabinet."
+  },
+  "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[286, 582, 347, 666]},{\"destination\":{\"label\":\"top of cabinet\",\"bbox_2d\": [688, 347, 1000, 820]}},\"relation\":\"on\",\"english\":\"Place the blue cheese box on the top of the cabinet.\"}",
+  "serialization_repair": {
+    "operation": "unwrap_destination_object",
+    "normalized": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[286, 582, 347, 666]},\"destination\":{\"label\":\"top of cabinet\",\"bbox_2d\": [688, 347, 1000, 820]},\"relation\":\"on\",\"english\":\"Place the blue cheese box on the top of the cabinet.\"}",
+    "parse_error": "Expecting property name enclosed in double quotes: line 1 column 70 (char 69)"
+  },
+  "serialization_retry": null,
+  "image_sha256": "a629c5525634fdc66e89b6ba519a7f9b99665709cb7f6feb06329fe894f31717",
+  "model_input_image_sha256": [
+    "a629c5525634fdc66e89b6ba519a7f9b99665709cb7f6feb06329fe894f31717"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0627050479961326
+}

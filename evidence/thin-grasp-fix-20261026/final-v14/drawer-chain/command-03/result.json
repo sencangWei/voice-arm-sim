@@ -1,0 +1,87 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "step_unconfirmed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 0,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "打开第三层抽屉",
+      "recovery": null,
+      "output": ".local/combination-fix-20261026/final-v14/drawer-chain/command-03/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "打开第三层抽屉",
+        "skill": "open_drawer",
+        "request_timings": [
+          {
+            "endpoint": "drawer",
+            "port": 8911,
+            "wall_s": 0.6572570210119011,
+            "inference_s": 0.6489338259998476,
+            "device": "cuda:0"
+          }
+        ],
+        "verification_box": [
+          500,
+          347,
+          1000,
+          820
+        ],
+        "verification_action": "open",
+        "exception": "ValueError: 当前深度无法独立确认三层把手，未发送动作",
+        "control_steps": 0,
+        "wall_duration_s": 0.763358344003791
+      }
+    }
+  ],
+  "control_steps": 0,
+  "chinese": "打开第三层抽屉，把里面的奶酪盒拿出来放到桌面上，再关上第三层抽屉",
+  "recoveries": [],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.585048282999196,
+      "inference_s": 1.5770094939944101,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "三步抓放与抽屉操作",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "open_drawer",
+        "instruction": "打开第三层抽屉",
+        "destination_kind": "drawer_interior"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把里面的奶酪盒拿出来放到桌面上",
+        "destination_kind": "support_surface"
+      },
+      {
+        "skill": "close_drawer",
+        "instruction": "关上第三层抽屉",
+        "destination_kind": "drawer_interior"
+      }
+    ]
+  },
+  "recovery_error": "{\"error\": \"无效的任务步骤字段\"}",
+  "completion": {
+    "reason": "ValueError: 当前深度无法独立确认三层把手，未发送动作"
+  },
+  "wall_duration_s": 3.142911989998538
+}

@@ -1,0 +1,135 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "打开柜子第三层抽屉",
+  "skill": "open_drawer",
+  "request_timings": [
+    {
+      "endpoint": "drawer",
+      "port": 8911,
+      "wall_s": 0.6639077839936363,
+      "inference_s": 0.6563778730051126,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.4959508250030922,
+      "inference_s": 0.4847519869945245,
+      "device": "cuda:0"
+    }
+  ],
+  "verification_box": [
+    688,
+    357,
+    1000,
+    820
+  ],
+  "verification_action": "open",
+  "task": {
+    "action": "open",
+    "level": "bottom",
+    "handle_bbox_2d": [
+      666,
+      595,
+      725,
+      700
+    ],
+    "cabinet_bbox_2d": [
+      688,
+      357,
+      1000,
+      820
+    ]
+  },
+  "geometry": {
+    "handle": [
+      0.03295812001741394,
+      -0.1334745062797642,
+      0.9542547706441485
+    ],
+    "outward_normal": [
+      0.01475260371482281,
+      0.9998911744203134,
+      0.0
+    ],
+    "plane_points": 418,
+    "handle_front_separation": 0.0195731311974709,
+    "method": "model cabinet + three measured horizontal bars ranked by height; no object truth",
+    "observed_handle_heights": [
+      1.092,
+      1.0170000000000001,
+      0.9480000000000001
+    ],
+    "selected_level": "bottom",
+    "model_handle": [
+      0.03295812001741394,
+      -0.1334745062797642,
+      0.9542547706441485
+    ]
+  },
+  "drawer_verification": {
+    "geometry": {
+      "handle": [
+        0.03295812001741394,
+        -0.1334745062797642,
+        0.9542547706441485
+      ],
+      "outward_normal": [
+        0.01475260371482281,
+        0.9998911744203134,
+        0.0
+      ],
+      "plane_points": 418,
+      "handle_front_separation": 0.0195731311974709,
+      "method": "model cabinet + three measured horizontal bars ranked by height; no object truth",
+      "observed_handle_heights": [
+        1.092,
+        1.0170000000000001,
+        0.9480000000000001
+      ],
+      "selected_level": "bottom",
+      "model_handle": [
+        0.03295812001741394,
+        -0.1334745062797642,
+        0.9542547706441485
+      ]
+    },
+    "initial": {
+      "handle_band_m": -0.005605320124181642,
+      "cabinet_front_m": -0.02749999999999975,
+      "band_points": 719,
+      "cabinet_plane_points": 1160
+    }
+  },
+  "first_control_wall_s": 0.9022849609900732,
+  "motion_completed": true,
+  "release_gap": 0.0794787954500894,
+  "drawer_depth_check": {
+    "accepted": true,
+    "displacement_m": 0.14899039672231595,
+    "handle_to_closed_front_m": 0.17088507659813407,
+    "observation": {
+      "handle_band_m": 0.14338507659813432,
+      "cabinet_front_m": -0.02749999999999975,
+      "band_points": 691,
+      "cabinet_plane_points": 1160
+    },
+    "reason": "相机深度确认移动与终态"
+  },
+  "model_completion": {
+    "verdict": "completed",
+    "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+  },
+  "completion": {
+    "verdict": "completed",
+    "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+  },
+  "control_steps": 208,
+  "wall_duration_s": 3.275944051987608
+}

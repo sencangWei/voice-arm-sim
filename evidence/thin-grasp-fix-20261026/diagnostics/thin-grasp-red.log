@@ -1,0 +1,30 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_slightly_tilted_thin_box_does_not_grasp_only_its_high_corner _______
+
+tmp_path = PosixPath('/tmp/pytest-of-robot/pytest-173/test_slightly_tilted_thin_box_0')
+
+    def test_slightly_tilted_thin_box_does_not_grasp_only_its_high_corner(tmp_path):
+        skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2])),
+                              None, tmp_path/'run')
+        skill.report['source'] = dict(tabletop=.901)
+        x, y = np.meshgrid(np.linspace(-.04, .04, 81), np.linspace(.12, .16, 41))
+        # Less than a millimetre of real tilt must not shift a thin box's grasp
+        # to the high edge. The old top-35-percent selection moves it >1 cm.
+        z = .920 + .015 * (y-.14)
+        cloud = np.stack([x, y, z], axis=-1)
+        skill.oriented_move = lambda target, *args: skill.obs.update(robot0_eef_pos=np.asarray(target))
+        skill.step = lambda *args: None
+        skill.confirm_hold = lambda: None
+        skill.grasp({}, None, np.ones(x.shape, bool), cloud)
+        target = np.asarray(skill.report['geometric_grasp']['target'])
+>       assert np.linalg.norm(target[:2] - [0., .14]) < .002
+E       AssertionError: assert 0.012999999999999984 < 0.002
+E        +  where 0.012999999999999984 = <function norm at 0x7369c14c0630>((array([0.   , 0.153]) - [0.0, 0.14]))
+E        +    where <function norm at 0x7369c14c0630> = <module 'numpy.linalg' from '/home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/numpy/linalg/__init__.py'>.norm
+E        +      where <module 'numpy.linalg' from '/home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/numpy/linalg/__init__.py'> = np.linalg
+
+tests/test_visual_control.py:259: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_visual_control.py::test_slightly_tilted_thin_box_does_not_grasp_only_its_high_corner
+1 failed, 20 deselected in 0.12s

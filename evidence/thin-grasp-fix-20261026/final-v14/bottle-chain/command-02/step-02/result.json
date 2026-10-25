@@ -1,0 +1,247 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放到柜子顶部",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 1.0747520260047168,
+      "inference_s": 1.0627050479961326,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.42813491899869405,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.45090134198835585,
+      "inference_s": 0.43883005299721844,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        286,
+        582,
+        347,
+        666
+      ]
+    },
+    "destination": {
+      "label": "top of cabinet",
+      "bbox_2d": [
+        688,
+        347,
+        1000,
+        820
+      ]
+    },
+    "relation": "on",
+    "english": "Place the blue cheese box on the top of the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.03881292503546008,
+      0.14699202704577669,
+      0.9191597999154405
+    ],
+    "refined_point": [
+      -0.03905412817640003,
+      0.14667866203630542,
+      0.9189488187242227
+    ],
+    "tabletop": 0.901,
+    "pixels": 1084,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      0.13665264020449475,
+      -0.2021475502839024,
+      1.12683992579348
+    ],
+    "refined_point": [
+      0.031754239636523685,
+      -0.24265632031134293,
+      1.1271755236058636
+    ],
+    "tabletop": 0.901,
+    "pixels": 15213,
+    "support_pixels": 15866,
+    "support_plane_z": 1.127,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.043523149114209736,
+      0.1470526825414502,
+      0.913
+    ],
+    "top": 0.9196508758913511,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.043523149114209736,
+      0.1470526825414502
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.04541519775394687,
+    "support_margin": 0.057415197753946864,
+    "rotation": [
+      [
+        0.9999993667459528,
+        0.0005971120925264778,
+        0.0009539207737391641
+      ],
+      [
+        0.000596593335879789,
+        -0.9999996740661952,
+        0.0005440072562661169
+      ],
+      [
+        0.0009542452961352756,
+        -0.0005434378089947501,
+        -0.9999993970454495
+      ]
+    ]
+  },
+  "first_control_wall_s": 1.3707900179870194,
+  "hold_check": {
+    "gaps": [
+      0.0422187720224349,
+      0.04221794125782471,
+      0.042217783295948316,
+      0.042217300973511146,
+      0.04221749522806377,
+      0.04221721827459981,
+      0.04221545544665272,
+      0.04221714041708566,
+      0.04221755768802661,
+      0.042217589890501894,
+      0.04221499652341518,
+      0.0422173478217011,
+      0.042217201864314116,
+      0.042217733187474724,
+      0.042217903970051006,
+      0.04221782362634355,
+      0.04221773094240844,
+      0.042217420352049013,
+      0.042218042366364034,
+      0.04221779688717668
+    ],
+    "eef_drift": 0.007583085378358795,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 242,
+  "grasp_eef": [
+    -0.04407375061635703,
+    0.14678888938002557,
+    0.9194146294707572
+  ],
+  "offset_xy": [
+    0.0005506015021472938,
+    0.0002637931614246358
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "blue cheese box",
+        "bbox_2d": [
+          286,
+          582,
+          347,
+          666
+        ]
+      },
+      "destination": {
+        "label": "top of cabinet",
+        "bbox_2d": [
+          688,
+          347,
+          1000,
+          820
+        ]
+      },
+      "relation": "on",
+      "english": "Place the blue cheese box on the top of the cabinet."
+    },
+    "min_z": 0.913,
+    "offset_xy": [
+      0.0005506015021472938,
+      0.0002637931614246358
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.031754239636523685,
+      -0.24265632031134293,
+      1.1271755236058636
+    ],
+    "goal_meta": {
+      "raw_point": [
+        0.13665264020449475,
+        -0.2021475502839024,
+        1.12683992579348
+      ],
+      "refined_point": [
+        0.031754239636523685,
+        -0.24265632031134293,
+        1.1271755236058636
+      ],
+      "tabletop": 0.901,
+      "pixels": 15213,
+      "support_pixels": 15866,
+      "support_plane_z": 1.127,
+      "method": "visible horizontal support plane inside model destination box"
+    },
+    "destination_kind": "support_surface"
+  },
+  "clearance_z": 1.3394845250201062,
+  "destination_reobserved": {
+    "raw_point": [
+      0.1366526404549343,
+      -0.20559324526340655,
+      1.1268399263176228
+    ],
+    "refined_point": [
+      -0.034985951395808956,
+      -0.21825173150299798,
+      1.1273851124767216
+    ],
+    "tabletop": 0.901,
+    "pixels": 15213,
+    "support_pixels": 15866,
+    "support_plane_z": 1.127,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.057415197753946864,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 5.194077481995919,
+  "release_gap": 0.07985683674452722,
+  "completion": {
+    "verdict": "completed",
+    "reason": "蓝色奶酪盒已放置在柜子顶部，且机械臂已撤离。"
+  },
+  "control_steps": 417,
+  "wall_duration_s": 5.800320484995609
+}
