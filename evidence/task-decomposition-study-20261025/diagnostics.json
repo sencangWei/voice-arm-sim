@@ -1,0 +1,495 @@
+{
+  "scope": "Offline parser reproduction and saved report inspection; no model or robot was run",
+  "local_head": "f98bb9b6187025dd5e876487c72078f68d5856a1",
+  "compound_instruction_payload": {
+    "source": {
+      "label": "cream cheese",
+      "bbox_2d": [
+        288,
+        582,
+        347,
+        663
+      ]
+    },
+    "destination": {
+      "label": "third layer of the cabinet",
+      "bbox_2d": [
+        625,
+        391,
+        1000,
+        820
+      ]
+    },
+    "relation": "in",
+    "english": "Open the third layer of the cabinet, put the cream cheese inside, and then close the third layer."
+  },
+  "single_pick_place_parser_accepts_compound_english_without_action_sequence": true,
+  "in_relation_enters_circular_container_fitting_branches": 2,
+  "interpretation": "The schema has no representation for opening/closing. Acceptance of a faithful translation does not imply task coverage.",
+  "saved_reports": [
+    {
+      "path": "runs/response-grasp-20261025/panel/scene_1792919136272247701/semantic_1792919143519687348/result.json",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把碗放到盘子上",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.9908164859953104,
+            "inference_s": 0.984217802004423,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.48595498700160533,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.5265199409914203,
+            "inference_s": 0.5190298030065605,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "碗",
+            "bbox_2d": [
+              436,
+              505,
+              575,
+              612
+            ]
+          },
+          "destination": {
+            "label": "盘子",
+            "bbox_2d": [
+              419,
+              635,
+              601,
+              765
+            ]
+          },
+          "relation": "on",
+          "english": "Place the bowl on the plate."
+        },
+        "source": {
+          "raw_point": [
+            -0.12735343203521854,
+            -0.005097076759487887,
+            0.9123193825674095
+          ],
+          "refined_point": [
+            -0.11926093276993693,
+            -0.005096610314276237,
+            0.93272766725378
+          ],
+          "tabletop": 0.901,
+          "pixels": 2710,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            0.03251456511186024,
+            -0.009014173380096534,
+            0.9077840326274725
+          ],
+          "refined_point": [
+            0.03686062585853167,
+            -0.010835922744822611,
+            0.9083545055834155
+          ],
+          "tabletop": 0.901,
+          "pixels": 2332,
+          "support_pixels": 5048,
+          "support_plane_z": 0.908,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.09501214693357013,
+            0.04757759780727479,
+            0.9298483256929096
+          ],
+          "top": 0.9518483256929097,
+          "source_base": 0.9090990755564304,
+          "mode": "round_rim",
+          "center_xy": [
+            -0.09501214693357013,
+            -0.006074136120629077
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "bottom_radius": 0.03174767474959855,
+          "support_margin": 0.039747674749598554
+        },
+        "first_control_wall_s": 1.5277116939978441,
+        "hold_check": {
+          "gaps": [
+            0.006014351315860608,
+            0.006001809764649828,
+            0.005989295324919191,
+            0.0059767589059185,
+            0.005964177012005383,
+            0.005951540256203201,
+            0.005938786072240675,
+            0.005926005425584361,
+            0.00591328363053803,
+            0.0059005732251483775,
+            0.0058878490050265145,
+            0.005875098584799473,
+            0.005862316156356424,
+            0.005849498717205996,
+            0.005836585881060751,
+            0.005823506049888536,
+            0.005810708283262938,
+            0.0057980469769049565,
+            0.005785461535842265,
+            0.00577292284819277
+          ],
+          "eef_drift": 0.0041178060077776135,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 180,
+        "grasp_eef": [
+          -0.09574548781111032,
+          0.04732801700219928,
+          0.9354580800327768
+        ],
+        "offset_xy": [
+          0.0007333408775401923,
+          -0.05340215312282836
+        ],
+        "clearance_z": 1.2,
+        "destination_reobserved": {
+          "raw_point": [
+            0.030512456250636477,
+            -0.012039130795061926,
+            0.907769121003344
+          ],
+          "refined_point": [
+            0.008702501061940926,
+            -0.007658974337789414,
+            0.9083229417867521
+          ],
+          "tabletop": 0.901,
+          "pixels": 2333,
+          "support_pixels": 4978,
+          "support_plane_z": 0.908,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.039747674749598554,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 24.82493047400203,
+        "release_gap": 0.07991455946918057,
+        "completion": {
+          "verdict": "completed",
+          "reason": "碗已放置在盘子上，且机械臂已撤离，无夹持或悬空迹象。"
+        },
+        "control_steps": 337,
+        "wall_duration_s": 25.48487919800391
+      }
+    },
+    {
+      "path": "runs/response-grasp-20261025/panel/scene_1792919136272247701/semantic_1792919191575847582/result.json",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到灶台顶部",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.9476447159977397,
+            "inference_s": 0.9391324809985235,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.5048225579957943,
+            "inference_s": null,
+            "device": null
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.4935216669982765,
+            "inference_s": 0.48447192399180494,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "wine bottle",
+            "bbox_2d": [
+              505,
+              367,
+              575,
+              535
+            ]
+          },
+          "destination": {
+            "label": "stove top",
+            "bbox_2d": [
+              160,
+              388,
+              388,
+              535
+            ]
+          },
+          "relation": "on",
+          "english": "Place the wine bottle on the stove top."
+        },
+        "source": {
+          "raw_point": [
+            -0.18159024603028884,
+            -0.03548971737652251,
+            0.9883278476010734
+          ],
+          "refined_point": [
+            -0.18178276748415645,
+            -0.03740267823512883,
+            0.9688018809177353
+          ],
+          "tabletop": 0.901,
+          "pixels": 1367,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "raw_point": [
+            -0.23977996426665893,
+            0.20939496490845083,
+            0.9316675938499761
+          ],
+          "refined_point": [
+            -0.2408927600823253,
+            0.20694110602291207,
+            0.9262437191320192
+          ],
+          "tabletop": 0.901,
+          "pixels": 3447,
+          "support_pixels": 6366,
+          "support_plane_z": 0.926,
+          "method": "visible horizontal support plane inside model destination box"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.1881325971495873,
+            -0.03759591211290333,
+            1.046535103965102
+          ],
+          "top": 1.058535103965102,
+          "source_base": 0.9140403985570401,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.1881325971495873,
+            -0.03759591211290333
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth"
+        },
+        "first_control_wall_s": 1.2342569489992457,
+        "hold_check": {
+          "gaps": [
+            0.014845484174890098,
+            0.014845431127527904,
+            0.014845379848481315,
+            0.014845330588220395,
+            0.01484528339185072,
+            0.014845238117301162,
+            0.014845194285778953,
+            0.014845151898890838,
+            0.014845110978687298,
+            0.014845071446075988,
+            0.01484503325307138,
+            0.0148449963577892,
+            0.014844960719856418,
+            0.01484492629765731,
+            0.014844893049996238,
+            0.014844860936897502,
+            0.014844829919705937,
+            0.014844799961057212,
+            0.014844771024839349,
+            0.014844743076155287
+          ],
+          "eef_drift": 0.0032148775277204304,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 148,
+        "grasp_eef": [
+          -0.1882217064446779,
+          -0.037561699297467326,
+          1.0535363951707941
+        ],
+        "offset_xy": [
+          8.910929509059473e-05,
+          -3.4212815436002186e-05
+        ],
+        "clearance_z": 1.2,
+        "destination_reobserved": {
+          "raw_point": [
+            -0.2393343106140381,
+            0.21138017700275907,
+            0.9297216858509512
+          ],
+          "refined_point": [
+            -0.23843350744840774,
+            0.17498289628223412,
+            0.9281183775300544
+          ],
+          "tabletop": 0.901,
+          "pixels": 3447,
+          "support_pixels": 6364,
+          "support_plane_z": 0.926,
+          "method": "visible horizontal support plane inside model destination box",
+          "edge_margin": 0.06,
+          "landing_selection": "nearest visible convex support interior to held source; no object truth"
+        },
+        "motion_completed": true,
+        "motion_finished_wall_s": 20.298927522002487,
+        "release_gap": 0.07976599303870952,
+        "completion": {
+          "verdict": "completed",
+          "reason": "酒瓶已放置在灶台顶部的白色平台上，且机械臂已撤离。"
+        },
+        "control_steps": 275,
+        "wall_duration_s": 20.934922543005086
+      }
+    },
+    {
+      "path": "runs/response-grasp-20261025/panel/scene_1792919136272247701/semantic_1792919271621672448/result.json",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "打开柜子第三层，把奶油奶酪放进去，之后合上第三层",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.176084892009385,
+            "inference_s": 1.1675691639975412,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "cream cheese",
+            "bbox_2d": [
+              288,
+              582,
+              347,
+              663
+            ]
+          },
+          "destination": {
+            "label": "third layer of the cabinet",
+            "bbox_2d": [
+              625,
+              391,
+              1000,
+              820
+            ]
+          },
+          "relation": "in",
+          "english": "Open the third layer of the cabinet, put the cream cheese inside, and then close the third layer."
+        },
+        "exception": "ValueError: 容器圆沿拟合不可靠，停止放置",
+        "control_steps": 0,
+        "wall_duration_s": 1.3280869769951096
+      }
+    },
+    {
+      "path": "runs/response-grasp-20261025/panel/scene_1792919136272247701/semantic_1792919312372379474/result.json",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "打开柜子第三层，把奶油奶酪放进去，之后合上第三层",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.1906861900060903,
+            "inference_s": 1.1845894389989553,
+            "device": "cuda:0"
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "cream cheese",
+            "bbox_2d": [
+              288,
+              582,
+              347,
+              663
+            ]
+          },
+          "destination": {
+            "label": "third layer of the cabinet",
+            "bbox_2d": [
+              625,
+              391,
+              1000,
+              820
+            ]
+          },
+          "relation": "in",
+          "english": "Open the third layer of the cabinet, put the cream cheese inside, and then close the third layer."
+        },
+        "exception": "ValueError: 容器圆沿拟合不可靠，停止放置",
+        "control_steps": 0,
+        "wall_duration_s": 1.3303206870041322
+      }
+    }
+  ]
+}

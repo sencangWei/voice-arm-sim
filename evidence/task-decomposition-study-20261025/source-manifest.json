@@ -1,0 +1,114 @@
+{
+  "scope": "Pinned upstream source retrieval; not an upstream runtime acceptance test",
+  "date": "2026-10-25",
+  "sources": [
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "docs/ARCHITECTURE.md",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/docs/ARCHITECTURE.md",
+      "bytes": 28796,
+      "sha256": "674bcf84b3ee36f00ff31a8e0529a2b1276acecfc7e6618d71e309c4a20320a3",
+      "git_blob_sha1": "42aba0c712eb9437705a93aa5bd5d06b38e7a7dc"
+    },
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "vector_os_nano/vcli/native_loop.py",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/vector_os_nano/vcli/native_loop.py",
+      "bytes": 42640,
+      "sha256": "cdab74b5d1da5bd4eda4148f10714e13e2e4009955f081b874131f05ad52fdc0",
+      "git_blob_sha1": "6f5fd6690e14ecd31b7688ee2c76c6ced5f8e7f2"
+    },
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "vector_os_nano/core/executor.py",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/vector_os_nano/core/executor.py",
+      "bytes": 10979,
+      "sha256": "b301c65fdec557e80387440328b90363b5cf61a795f27f4d5f82c149e5546873",
+      "git_blob_sha1": "af2103903aa0aa15563fa19f09969f07ccf0a04f"
+    },
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "vector_os_nano/core/skill.py",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/vector_os_nano/core/skill.py",
+      "bytes": 14300,
+      "sha256": "0f26aa50d07068e071c7b17cba1655d144911bd7d76f8ad77261316bc82c87d0",
+      "git_blob_sha1": "dc1a9285df1b43d4fda7066f574f7467a6980d35"
+    },
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "vector_os_nano/hardware/sim/mujoco_perception.py",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/vector_os_nano/hardware/sim/mujoco_perception.py",
+      "bytes": 6971,
+      "sha256": "cf188b44fdf4253e03c4c6e6e18b1a4ab2e80450dca87b654227c8e02fd20459",
+      "git_blob_sha1": "599bb9c87932a0f8ba4538fd6e13a12ab6820343"
+    },
+    {
+      "repo": "VectorRobotics/vector-os-nano",
+      "commit": "cd7029aad15d6510c956f504e57181cbb6651996",
+      "path": "vector_os_nano/hardware/sim/mujoco_gripper.py",
+      "url": "https://github.com/VectorRobotics/vector-os-nano/blob/cd7029aad15d6510c956f504e57181cbb6651996/vector_os_nano/hardware/sim/mujoco_gripper.py",
+      "bytes": 10843,
+      "sha256": "c96c60f6d6f8b3779af3c9414274f3b5179d3aa201d27b04da30dd64dd3a0fe8",
+      "git_blob_sha1": "a7b5eca97b39b5dcc94941e7d8d66d455caa46b7"
+    },
+    {
+      "repo": "TommyZihao/vlm_arm",
+      "commit": "3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7",
+      "path": "agent_demo_20250328/utils_agent.py",
+      "url": "https://github.com/TommyZihao/vlm_arm/blob/3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7/agent_demo_20250328/utils_agent.py",
+      "bytes": 9044,
+      "sha256": "74a0024f5c4e9f865117d8f6f24371f3dfcc49060841f0cf98c60cbd81ceba3d",
+      "git_blob_sha1": "9bc3ef222ab37ac710c41be33018bec04b523bd5"
+    },
+    {
+      "repo": "TommyZihao/vlm_arm",
+      "commit": "3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7",
+      "path": "agent_demo_20250328/agent_go.py",
+      "url": "https://github.com/TommyZihao/vlm_arm/blob/3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7/agent_demo_20250328/agent_go.py",
+      "bytes": 3155,
+      "sha256": "b9f28117e890be0be10b17a612e5b1ce142341e58225861537065c43dc8d581d",
+      "git_blob_sha1": "b35ff0bb578f18bb66c86a9efd988eafb3dbc555"
+    },
+    {
+      "repo": "TommyZihao/vlm_arm",
+      "commit": "3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7",
+      "path": "agent_demo_20250328/utils_vlm_move.py",
+      "url": "https://github.com/TommyZihao/vlm_arm/blob/3534c4b93230a2d5d4398d0f6bd7c43a58c8c8e7/agent_demo_20250328/utils_vlm_move.py",
+      "bytes": 3679,
+      "sha256": "f0d1ef8db4306ac5f7bcd24d1ffb128b91232444c38710b44845510045155e44",
+      "git_blob_sha1": "ceea641815c013a1a15aff8dfc0d301e54a7a51d"
+    },
+    {
+      "repo": "renyimen2026/wheelarm-lab",
+      "commit": "25fdb62fae8ffd340e9e023987a62ff4d0254c45",
+      "path": "wheel_arm_navigation/wheel_arm_navigation/llm.py",
+      "url": "https://github.com/renyimen2026/wheelarm-lab/blob/25fdb62fae8ffd340e9e023987a62ff4d0254c45/wheel_arm_navigation/wheel_arm_navigation/llm.py",
+      "bytes": 8332,
+      "sha256": "8e2c3cd91278aef4896961bf85b5b7e3e6d2bd90849e88fb3933b31a22a99699",
+      "git_blob_sha1": "7261e6ac27f9819ae3dc5b1a32819576289ac4b8"
+    },
+    {
+      "repo": "renyimen2026/wheelarm-lab",
+      "commit": "25fdb62fae8ffd340e9e023987a62ff4d0254c45",
+      "path": "wheel_arm_navigation/wheel_arm_navigation/mission_runner.py",
+      "url": "https://github.com/renyimen2026/wheelarm-lab/blob/25fdb62fae8ffd340e9e023987a62ff4d0254c45/wheel_arm_navigation/wheel_arm_navigation/mission_runner.py",
+      "bytes": 3094,
+      "sha256": "709c7710a2d2749aa0357f6382daf8f65ea47fb4185ea8aa71d5600bbb5211cb",
+      "git_blob_sha1": "7aee1d88d5a5cbb424326290f9bade1d690d2ab9"
+    },
+    {
+      "repo": "renyimen2026/wheelarm-lab",
+      "commit": "25fdb62fae8ffd340e9e023987a62ff4d0254c45",
+      "path": "README.md",
+      "url": "https://github.com/renyimen2026/wheelarm-lab/blob/25fdb62fae8ffd340e9e023987a62ff4d0254c45/README.md",
+      "bytes": 17766,
+      "sha256": "01f9ea06aded25ae3e90930ea1c31da0a527b127b42c0e300a6d97ef95242a9b",
+      "git_blob_sha1": "e2b97b1539fd26bfb7593d07f5d0f34ead6cf9e8"
+    }
+  ]
+}
