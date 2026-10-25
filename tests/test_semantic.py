@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from vla.semantic import parse_task
-from vla.semantic_grasp import VisualSkill, region_point
+from vla.semantic_grasp import VisualSkill, nearby_support_point, region_point
 
 
 def task():
@@ -53,6 +53,26 @@ def test_depth_refines_current_model_region_and_supports_clear_table():
         region_point(cloud, [350, 700, 550, 900])
 
 
+def test_source_component_cannot_extend_into_touching_support():
+    y, x = np.mgrid[:80, :100]
+    cloud = np.stack((x*.001, y*.001, np.full(x.shape, .901)), axis=-1)
+    cloud[10:30, 10:80, 2] = .95  # object and touching support form one component
+    target, mask, _ = region_point(cloud, [100, 125, 300, 375])
+    assert .01 <= target[0] <= .03
+    assert not mask[:, 32:].any()
+
+
+def test_on_destination_uses_horizontal_top_instead_of_vertical_cabinet_body():
+    y, x = np.mgrid[:100, :100]
+    cloud = np.stack((x*.002, y*.002, np.full(x.shape, .901)), axis=-1)
+    cloud[10:35, 30:80, 2] = 1.127
+    cloud[35:90, 30:80, 0] = .16  # vertical side, varying height
+    cloud[35:90, 30:80, 2] = np.linspace(1.127, .92, 55)[:, None]
+    target, _, metadata = region_point(cloud, [300, 100, 800, 900], allow_table=True)
+    assert target[2] == pytest.approx(1.127)
+    assert "horizontal support plane" in metadata["method"]
+
+
 def test_pause_during_slow_model_request_does_not_wait_for_inference(tmp_path, monkeypatch):
     entered, release, stopped = threading.Event(), threading.Event(), threading.Event()
     def slow_request(*args):
@@ -73,6 +93,17 @@ def test_pause_during_slow_model_request_does_not_wait_for_inference(tmp_path, m
         release.set()
 
 
+def test_large_support_landing_uses_nearby_interior_and_keeps_edge_margin():
+    y, x = np.mgrid[:101, :101]
+    cloud = np.stack((x*.002, y*.002, np.full(x.shape, 1.127)), axis=-1)
+    target = nearby_support_point(cloud, np.ones(x.shape, dtype=bool), [-.2, .1])
+    assert .060 <= target[0] <= .062
+    assert target[1] == pytest.approx(.1)
+    assert target[2] == pytest.approx(1.127)
+    with pytest.raises(ValueError, match="边缘余量"):
+        nearby_support_point(cloud, np.ones(x.shape, dtype=bool), [0., 0.], margin=.11)
+
+
 def test_paused_skill_never_executes_a_queued_action(tmp_path):
     advanced = []
     skill = VisualSkill(None, None, None, tmp_path / "trial", stop=lambda: True,
@@ -85,6 +116,31 @@ def test_paused_skill_never_executes_a_queued_action(tmp_path):
 def test_existing_outputs_are_never_overwritten(tmp_path):
     with pytest.raises(FileExistsError):
         VisualSkill(None, None, None, tmp_path)
+
+
+@pytest.mark.parametrize("widths,accepted", [
+    (np.linspace(.04, .001, 20), False),  # empty fingers briefly cross plausible widths
+    ([.04] * 19 + [.001], False),       # object slips at end of check
+    ([.04, .044] * 10, False),          # unstable obstruction
+    ([.04] * 20, True),
+])
+def test_hold_requires_settled_width_not_transient_closure(tmp_path, widths, accepted):
+    obs = {"robot0_eef_pos": np.array([0., 0., 1.1]),
+           "robot0_gripper_qpos": np.array([.02, -.02])}
+    skill = VisualSkill(None, obs, None, tmp_path / "trial")
+    sequence = iter(widths)
+    def step(action, phase):
+        np.testing.assert_array_equal(action, [0.] * 6 + [1.])
+        gap = next(sequence)
+        obs["robot0_gripper_qpos"] = np.array([gap/2, -gap/2])
+    skill.step = step
+    if accepted:
+        skill.confirm_hold()
+    else:
+        with pytest.raises(RuntimeError, match="稳定持有"):
+            skill.confirm_hold()
+    assert skill.report["hold_check"]["accepted"] is accepted
+    assert len(skill.report["hold_check"]["gaps"]) == 20
 
 
 def test_panel_observation_size_stays_constant_in_video(tmp_path, monkeypatch):
@@ -111,6 +167,8 @@ def test_panel_observation_size_stays_constant_in_video(tmp_path, monkeypatch):
     masks = iter([np.array([[True, False]]), np.array([[False, True]])])
     monkeypatch.setattr("vla.semantic_grasp.region_point",
         lambda *a: (np.array([0., 0., 1.]), next(masks), {"tabletop": .9}))
+    monkeypatch.setattr("vla.semantic_grasp.circular_container_point",
+        lambda *a: (np.array([0., 0., 1.]), {}))
     skill = VisualSkill(None, obs, Client(), tmp_path / "panel", advance=lambda a: obs)
     skill.capture = lambda: (rgb, None)
     skill.request = lambda *a: {"task": task(), "image_sha256": hashlib.sha256(image_bytes(rgb)).hexdigest()}
@@ -170,3 +228,24 @@ def test_closed_gripper_and_stale_images_cannot_be_completed(tmp_path):
     with pytest.raises(ValueError, match="image"):
         skill.verify_completion("put it down", 8912)
     assert skill.report["semantic_success"] is not True
+
+
+def test_source_on_elevated_support_keeps_bottle_neck():
+    from vla.semantic_grasp import region_point
+    y, x = np.mgrid[:100, :100]
+    cloud = np.stack((x * .002, y * .002, np.full_like(x, .90, dtype=float)), axis=-1)
+    cloud[20:70, 40:60, 2] = 1.28
+    point, mask, _ = region_point(cloud, [400, 200, 600, 700])
+    assert point[2] == pytest.approx(1.28)
+    assert mask[30, 50]
+    assert not mask[0, 0]
+
+
+def test_support_landing_accepts_visible_raised_center_with_same_edge_margin():
+    from vla.semantic_grasp import nearby_support_point
+    y, x = np.mgrid[:101, :101]
+    cloud = np.stack((x*.002, y*.002, np.full_like(x, .93, dtype=float)), axis=-1)
+    center = (x-50)**2 + (y-50)**2 < 25**2
+    cloud[center, 2] += .004
+    target = nearby_support_point(cloud, ~center, [.1, .1])
+    assert np.allclose(target, [.1, .1, .934])

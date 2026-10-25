@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶位于碗内，碗放置在桌面上，夹爪已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶位于碗内，碗放置在桌面上，夹爪已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "1cd556276cb35b4e00ddfcfca96bd00db7c4ba968d3c8f74e7b13c47832ac788",
+    "4b276fd1a94e55e806991387aff84dae7f472ab85aca91f1415acd47207bdf05"
+  ],
+  "model_input_image_sha256": [
+    "1cd556276cb35b4e00ddfcfca96bd00db7c4ba968d3c8f74e7b13c47832ac788"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 16.134512561009615
+}

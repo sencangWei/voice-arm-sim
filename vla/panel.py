@@ -64,7 +64,7 @@ class ChinesePanel:
         header = ttk.Frame(self.root, padding=12)
         header.grid(row=0, column=0, sticky="ew")
         header.columnconfigure(1, weight=1)
-        self.model_title = tk.StringVar(value="VLA 模型 · MuJoCo 本地仿真")
+        self.model_title = tk.StringVar(value="视觉指令控制 · MuJoCo 本地仿真")
         ttk.Label(header, textvariable=self.model_title, font=(family, -24, "bold")).grid(
             row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
         ttk.Label(header, text="仿真任务").grid(row=1, column=0, sticky="w")
@@ -157,16 +157,16 @@ class ChinesePanel:
         page = self.page("仿真与语音")
         self.step_limit = tk.StringVar(value=str(self.args.max_steps or 0))
         self.row_buttons(page, 0, (("执行当前指令", lambda: self.send("semantic", self.prompt.get())),
-                                   ("暂停模型", lambda: self.send("pause")),
+                                   ("暂停执行", lambda: self.send("pause")),
                                    ("保存本轮结果", lambda: self.send("save"))))
         self.row_buttons(page, 1, (("重置三维视角", lambda: self.send("camera", False)),
                                    ("俯视对准", lambda: self.send("camera", True)),
                                    ("开始／结束 Demo", lambda: self.send("video"))))
         ttk.Label(page, text="使用顺序：首次加载场景 → 输入／说出指令 → 点击“执行当前指令”。\n"
-                  "看当前画面选物体和目的地 → π0.5 抓取 → RGB-D 搬运、松爪、撤手 → 视觉核对后停止。\n"
+                  "视觉模型理解中文、选物体 → RGB-D 定位与通用抓放控制 → 松爪撤手 → 视觉核对后停止。\n"
                   "完成或未确认都保留现场；改写指令再次执行，不用重置，不用再点 VLA。\n"
                   "视觉解析与核对使用本机 CPU，各可能需 2～3 分钟；等待时不发送动作。\n"
-                  "目前支持一次抓放；复杂摆放可能失败，视觉核对也可能误判。",
+                  "上方采用视觉＋几何控制，不是 VLA；适用于分离、直立且夹爪可容纳的物体。复杂摆放可能失败。",
                   wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
         limit = ttk.Frame(page)
         limit.grid(row=3, column=0, sticky="w", pady=6)
@@ -481,8 +481,8 @@ class ChinesePanel:
         backend = state.get("policy_backend")
         if backend:
             model = "MolmoAct2" if backend == "official-molmoact2-libero-vla" else "π0.5"
-            self.model_title.set(model + " 真实模型 · MuJoCo 本地仿真")
-            self.checkpoint_text.set("模型权重：" + (state.get("checkpoint_source") or backend))
+            self.model_title.set("视觉指令控制 · MuJoCo 本地仿真")
+            self.checkpoint_text.set(model + " 独立 VLA 调试权重：" + (state.get("checkpoint_source") or backend))
         if state["manual"] and not self.was_manual:
             self.grip = state.get("grip", -1.)
         self.was_manual = state["manual"]

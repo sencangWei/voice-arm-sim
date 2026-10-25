@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "state_exact_match": true,
+  "state_sha256": "2335c0edc3a68069c8299f04dc0552aa1a6460f0024e7fed7daba65f5ebdf120",
+  "ignore_done": true,
+  "task_id": 9,
+  "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818",
+  "automatic_motion_steps": 0
+}

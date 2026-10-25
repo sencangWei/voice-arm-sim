@@ -1,0 +1,145 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把酒瓶放到碗里面",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        272,
+        312,
+        328,
+        483
+      ]
+    },
+    "destination": {
+      "label": "碗",
+      "bbox_2d": [
+        438,
+        506,
+        572,
+        612
+      ]
+    },
+    "relation": "in",
+    "english": "Place the wine bottle into the bowl."
+  },
+  "source": {
+    "raw_point": [
+      -0.2255889649001407,
+      0.17541933009003285,
+      1.0134782240869042
+    ],
+    "refined_point": [
+      -0.23034967263513462,
+      0.17787369150512553,
+      0.9696378500025601
+    ],
+    "tabletop": 0.901,
+    "pixels": 2075,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.12574932101320913,
+      -0.005093591564306369,
+      0.9114757946165757
+    ],
+    "refined_point": [
+      -0.09557680923608,
+      -0.0061394048028633845,
+      0.9091002458753051
+    ],
+    "tabletop": 0.901,
+    "pixels": 2706,
+    "method": "visible round rim circle fit; low visible interior depth",
+    "rim_radius": 0.054486479277611376,
+    "rim_residual": 0.0007437161266459096,
+    "rim_coverage": 6.228403476988615
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.23371551464631457,
+      0.17295447106724537,
+      1.0770282465719423
+    ],
+    "top": 1.0890282465719423,
+    "source_base": 0.922809440844614,
+    "method": "upper visible RGB-D median; top-down parallel jaws; no object truth"
+  },
+  "hold_check": {
+    "gaps": [
+      0.014844086593966334,
+      0.014844044590801547,
+      0.01484401237538829,
+      0.014843982545856345,
+      0.01484395463496295,
+      0.014843927980063149,
+      0.014843902139542751,
+      0.014843878035647398,
+      0.014843856139200778,
+      0.014843835615093861,
+      0.014843816061186337,
+      0.014843797263696577,
+      0.01484377913672117,
+      0.014843761558473795,
+      0.014843744735198658,
+      0.014843728486532138,
+      0.014843712763544563,
+      0.014843697560283808,
+      0.014843682867227898,
+      0.01484366867203863
+    ],
+    "eef_drift": 0.006075197331991033,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 152,
+  "grasp_eef": [
+    -0.23434953870253472,
+    0.1728053087290458,
+    1.0831528538634068
+  ],
+  "offset_xy": [
+    0.0006340240562201505,
+    0.00014916233819958769
+  ],
+  "clearance_z": 1.3378568274072749,
+  "destination_reobserved": {
+    "raw_point": [
+      -0.12558295397188113,
+      -0.008487409795436487,
+      0.9116240294838199
+    ],
+    "refined_point": [
+      -0.09555229561973873,
+      -0.00624096924608128,
+      0.9090987097012609
+    ],
+    "tabletop": 0.901,
+    "pixels": 2699,
+    "method": "visible round rim circle fit; low visible interior depth",
+    "rim_radius": 0.05445623462364682,
+    "rim_residual": 0.000747804046153184,
+    "rim_coverage": 6.228297653906204
+  },
+  "motion_completed": true,
+  "release_gap": 0.07991813660766775,
+  "completion": {
+    "verdict": "completed",
+    "reason": "酒瓶位于碗内，碗放置在桌面上，夹爪已撤离。"
+  },
+  "control_steps": 321,
+  "wall_duration_s": 66.33190138000646
+}

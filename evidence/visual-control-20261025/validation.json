@@ -1,0 +1,22 @@
+{
+  "commands": [
+    {
+      "command": ".venv-vla-sim/bin/python -m pytest tests --ignore=tests/test_vla_artifacts.py -q",
+      "exit_code": 0,
+      "tests_passed": 173,
+      "subtests_passed": 18
+    },
+    {
+      "command": ".venv-vla/bin/python -m pytest tests/test_vla_artifacts.py -q",
+      "exit_code": 0,
+      "tests_passed": 2
+    },
+    {
+      "command": "ruff check changed Python modules, tests, restore_panel.py and replay_sequence.py",
+      "exit_code": 0
+    }
+  ],
+  "hardware_motion": false,
+  "new_training": false,
+  "independent_agent_review": "Not performed: requested reviewer could not start with this account/model combination."
+}

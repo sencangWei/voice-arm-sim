@@ -1,0 +1,139 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把酒瓶放到碗里面",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        270,
+        310,
+        330,
+        481
+      ]
+    },
+    "destination": {
+      "label": "碗",
+      "bbox_2d": [
+        436,
+        505,
+        575,
+        612
+      ]
+    },
+    "relation": "in",
+    "english": "Put the bottle into the bowl."
+  },
+  "source": {
+    "raw_point": [
+      -0.2262520481887137,
+      0.1753366204199907,
+      1.0150970173539364
+    ],
+    "refined_point": [
+      -0.2310560578314121,
+      0.17817612300307414,
+      0.9668725851959081
+    ],
+    "tabletop": 0.901,
+    "pixels": 2144,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.12735343203521854,
+      -0.005097076759487887,
+      0.9123193825674095
+    ],
+    "refined_point": [
+      -0.11926093276993693,
+      -0.005096610314276237,
+      0.9327296344803271
+    ],
+    "tabletop": 0.901,
+    "pixels": 2710,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.2336446934611338,
+      0.17295743649732528,
+      1.0770250482493884
+    ],
+    "top": 1.0890250482493884,
+    "source_base": 0.9228006646553901,
+    "method": "upper visible RGB-D median; top-down parallel jaws; no object truth"
+  },
+  "hold_check": {
+    "gaps": [
+      0.014844080125841732,
+      0.014844039420879501,
+      0.014844007540589918,
+      0.014843977961797952,
+      0.014843950271578102,
+      0.01484392373185039,
+      0.01484389812419522,
+      0.014843874238371338,
+      0.014843852547078231,
+      0.014843832171877673,
+      0.014843812747351533,
+      0.014843794066129385,
+      0.014843776048381017,
+      0.014843758580863517,
+      0.01484374186538059,
+      0.014843725712159937,
+      0.014843710081977213,
+      0.014843694969208562,
+      0.01484368036399705,
+      0.014843666254056684
+    ],
+    "eef_drift": 0.005898195547511137,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 152,
+  "grasp_eef": [
+    -0.23428397750606547,
+    0.1728185797149265,
+    1.0831179718965271
+  ],
+  "offset_xy": [
+    0.0006392840449316595,
+    0.0001388567823987774
+  ],
+  "clearance_z": 1.3377608437530777,
+  "destination_reobserved": {
+    "raw_point": [
+      -0.12558295397188113,
+      -0.008487409795436487,
+      0.9116240294838199
+    ],
+    "refined_point": [
+      -0.11918971746807616,
+      -0.005103699866845297,
+      0.932462328413328
+    ],
+    "tabletop": 0.901,
+    "pixels": 2680,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "motion_completed": true,
+  "release_gap": 0.07990261686807337,
+  "completion": {
+    "verdict": "completed",
+    "reason": "酒瓶已置于碗内，且夹爪已撤离。"
+  },
+  "control_steps": 311,
+  "wall_duration_s": 86.07577930401021
+}

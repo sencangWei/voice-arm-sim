@@ -46,7 +46,7 @@ def world_cloud(depth, intrinsic, extrinsic):
     return camera @ extrinsic[:3, :3].T + extrinsic[:3, 3]
 
 
-def locate_surface(cloud, point):
+def locate_surface(cloud, point, *, bounds=None, ceiling=None):
     """Select a depth-continuous tabletop component near a model pixel.
 
     This geometric heuristic assumes separated tabletop objects, not learned
@@ -64,7 +64,9 @@ def locate_surface(cloud, point):
         raise ValueError('No visible tabletop plane')
     tabletop = float(values[np.argmax(counts)])
     y, x = np.mgrid[:height, :width]
-    mask = (z > tabletop + .007) & (z < tabletop + .30)
+    mask = np.isfinite(cloud).all(axis=-1) & (z > tabletop + .007) & (z < (tabletop + .30 if ceiling is None else ceiling))
+    if bounds is not None:
+        mask &= bounds
     indices = np.full((height, width), -1, dtype=int)
     indices[mask] = np.arange(mask.sum())
     edges = []

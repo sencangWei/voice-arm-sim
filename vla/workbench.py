@@ -224,16 +224,12 @@ class Workbench:
                 raise ValueError("请先保存人工片段，再开始视觉抓放")
             self.running = False
             self.plan.clear()
-            self._ensure_policy()
-            if self.scene["source_model"].get("backend") not in (
-                    "official-pi05-libero-vla", "local-pi05-libero-lora"):
-                raise ValueError("视觉分层抓放目前需要选择 π0.5 服务（8766）")
             text = str(values[0]).strip()
             if not text:
                 raise ValueError("指令不能为空")
-            from vla.semantic_grasp import VisualSkill
+            from vla.visual_control import VisualControl
             output = self.output / f"semantic_{time.time_ns()}"
-            record = dict(control_step=len(self.actions), mode="visual-semantic-hybrid",
+            record = dict(control_step=len(self.actions), mode="visual-geometric-control",
                 instruction=text, output=str(output), semantic_success=None, result="in_progress")
             self.scene["user_instruction"] = text
             self.scene["last_instruction_result"] = dict(record)
@@ -252,7 +248,7 @@ class Workbench:
             self._update(running=True)
             skill = None
             try:
-                skill = VisualSkill(self.env, self.obs, self.client, output,
+                skill = VisualControl(self.env, self.obs, None, output,
                     advance=advance, stop=lambda: self.interrupt.is_set() or self.quit.is_set()
                         or (self.viewer is not None and not self.viewer.is_running()),
                     heartbeat=lambda: self.viewer.sync() if self.viewer else None,

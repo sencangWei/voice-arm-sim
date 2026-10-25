@@ -44,8 +44,11 @@ def image_bytes(rgb):
 def region_point(cloud, box, allow_table=False):
     """Depth-component refinement at the model's normalized bounding-box center."""
     point = {"x": (box[0] + box[2]) / 2000, "y": (box[1] + box[3]) / 2000}
+    height, width = cloud.shape[:2]
+    x0, y0, x1, y1 = np.rint(np.asarray(box) / 1000 * [width-1, height-1, width-1, height-1]).astype(int)
+    bounds = np.zeros((height, width), dtype=bool)
+    bounds[y0:y1+1, x0:x1+1] = True
     if allow_table:
-        height, width = cloud.shape[:2]
         u, v = round(point["x"] * (width - 1)), round(point["y"] * (height - 1))
         z = cloud[..., 2]
         values, counts = np.unique(np.round(z[(z > .7) & (z < 1.05)], 3), return_counts=True)
@@ -58,10 +61,85 @@ def region_point(cloud, box, allow_table=False):
                 target = np.median(visible, axis=0)
                 return target, patch, dict(raw_point=cloud[v, u].tolist(), refined_point=target.tolist(),
                     tabletop=tabletop, pixels=int(patch.sum()), method="visible planar table patch at model-selected pixel")
-    target, mask, metadata = locate_surface(cloud, point)
+            # Cabinet sides and support tops can form one depth component.
+            # Select measured horizontal pixels inside the model's destination
+            # box rather than the median height of the entire cabinet body.
+            normal = np.cross(cloud[1:-1, 2:] - cloud[1:-1, :-2],
+                              cloud[2:, 1:-1] - cloud[:-2, 1:-1])
+            length = np.linalg.norm(normal, axis=-1)
+            flat = np.zeros(z.shape, dtype=bool)
+            flat[1:-1, 1:-1] = (length > 1e-10) & (np.abs(normal[..., 2]) > .98 * length)
+            flat &= bounds & np.isfinite(cloud).all(axis=-1) & (z >= tabletop-.004) & (z < 1.30)
+            heights, counts = np.unique(np.round(z[flat], 3), return_counts=True)
+            if len(counts) and counts.max() >= 60:
+                level = float(heights[np.argmax(counts)])
+                plane = flat & (np.abs(z - level) < .002)
+                target = np.median(cloud[plane], axis=0)
+                return target, plane, dict(raw_point=cloud[v, u].tolist(), refined_point=target.tolist(),
+                    tabletop=tabletop, pixels=int(plane.sum()),
+                    method="visible horizontal support plane inside model destination box")
+    target, mask, metadata = (locate_surface(cloud, point) if allow_table else
+                              locate_surface(cloud, point, bounds=bounds, ceiling=1.50))
+    mask &= bounds
+    if mask.sum() < 60:
+        raise ValueError("Too few depth pixels inside model object box")
+    # A touching support must not pull the source point outside the selected
+    # object. Median visible pixels avoid the bounds of an attached stove.
+    target = np.median(cloud[mask], axis=0)
+    metadata.update(refined_point=target.tolist(), pixels=int(mask.sum()),
+                    method="depth component clipped to model box; visible point median")
     if not np.isfinite(target).all():
         raise ValueError("Invalid RGB-D target")
     return target, mask, metadata
+
+
+def nearby_support_point(cloud, mask, reference, margin=.060):
+    """Choose a visible planar landing point with a measured edge margin.
+
+    This only handles convex support tops and small tabletop objects. It avoids
+    unnecessarily extending the arm to the center of a large support. The 6 cm
+    inset reserves space for a small object's footprint and the observed 2–3 cm
+    visible-surface / grasp-offset error; it is not a general collision planner.
+    """
+    from scipy.spatial import ConvexHull
+    visible = cloud[mask]
+    edges = ConvexHull(visible[:, :2]).equations
+    # A support may have a slightly raised center (e.g. a stove burner).
+    # Keep the same edge margin but consider its actual visible top pixels,
+    # instead of requiring the landing point to lie on the surrounding plane.
+    level = float(np.median(visible[:, 2]))
+    measured = cloud[np.isfinite(cloud).all(axis=-1) &
+                     (cloud[..., 2] >= level-.002) & (cloud[..., 2] <= level+.015)]
+    interior = np.all(measured[:, :2] @ edges[:, :2].T + edges[:, 2] <= -margin, axis=1)
+    candidates = measured[interior]
+    if not len(candidates):
+        raise ValueError("可见支撑面没有留足边缘余量的落点，停止放置")
+    return candidates[np.argmin(np.linalg.norm(candidates[:, :2] - np.asarray(reference)[:2], axis=1))].copy()
+
+
+def circular_container_point(cloud, mask):
+    """Fit a visible round rim; a bowl's front surface median is off-center.
+
+    This bounded controller supports round open containers, not arbitrary bins.
+    Reject poor fits instead of silently placing against a guessed center.
+    """
+    visible = cloud[mask]
+    rim = visible[visible[:, 2] >= np.quantile(visible[:, 2], .90), :2]
+    if len(rim) < 60 or np.ptp(visible[:, 2]) < .01:
+        raise ValueError("容器可见圆沿不足，停止放置")
+    matrix = np.c_[2 * rim, np.ones(len(rim))]
+    fit, _, rank, _ = np.linalg.lstsq(matrix, np.sum(rim**2, axis=1), rcond=None)
+    center = fit[:2]
+    radius_squared = fit[2] + np.sum(center**2)
+    residual = float(np.std(np.linalg.norm(rim - center, axis=1)))
+    angles = np.sort(np.arctan2(*(rim - center).T[::-1]))
+    coverage = 2 * np.pi - np.max(np.diff(np.r_[angles, angles[0] + 2 * np.pi]))
+    if rank != 3 or not .02**2 < radius_squared < .25**2 or residual > .004 or coverage < np.pi:
+        raise ValueError("容器圆沿拟合不可靠，停止放置")
+    target = np.r_[center, np.quantile(visible[:, 2], .05)]
+    return target, dict(method="visible round rim circle fit; low visible interior depth",
+        refined_point=target.tolist(), rim_radius=float(np.sqrt(radius_squared)),
+        rim_residual=residual, rim_coverage=float(coverage))
 
 
 class VisualSkill:
@@ -129,6 +207,26 @@ class VisualSkill:
                 return
         raise TimeoutError(f"{phase} 未收敛；保留现场，请人工检查")
 
+    def confirm_hold(self):
+        """Reject transient closing widths before transporting a grasp candidate.
+
+        Stable width is still not proof of object identity or contact. In
+        particular, fingers obstructed by a support can pass this check.
+        """
+        gaps = []
+        start = np.asarray(self.obs["robot0_eef_pos"]).copy()
+        for _ in range(20):
+            self.step(np.r_[np.zeros(6), 1.], "检查稳定持有")
+            gaps.append(float(np.abs(self.obs["robot0_gripper_qpos"]).sum()))
+        settled = np.asarray(gaps[-10:])
+        drift = float(np.linalg.norm(np.asarray(self.obs["robot0_eef_pos"]) - start))
+        accepted = bool(np.isfinite(settled).all() and np.all((settled > .003) & (settled < .075))
+                        and np.ptp(settled) < .002 and drift < .012)
+        self.report["hold_check"] = dict(gaps=gaps, eef_drift=drift, accepted=accepted,
+            method="20 closed hold controls; final 10 widths stable; proprioceptive candidate only")
+        if not accepted:
+            raise RuntimeError("抓取候选未通过稳定持有检查（可能抓空或滑落），已停止运输；保留现场")
+
     def verify_completion(self, text, task_port):
         # No simulator object identities, poses, predicates or planned coordinates.
         self.report["semantic_success"] = None
@@ -154,14 +252,43 @@ class VisualSkill:
                                            "uncertain": None}[judgment["verdict"]]
         self.report["result"] = "visual_" + judgment["verdict"]
 
+    def grasp(self, task, source, source_mask, cloud):
+        from openpi_client import image_tools
+        queue, grasp_eef, min_z = [], None, None
+        self.status("π0.5 正在抓取；尚未接管运输")
+        for step in range(180):
+            if not queue:
+                payload = observation_payload(self.obs, task["english"], image_tools)
+                payload["_probe_noise_seed"] = 42 + step // 5
+                prediction = validate_actions(self.client.infer(payload)["actions"], 5)
+                self.report["inference_calls"] += 1
+                np.save(self.output / f"prediction-{step:03d}.npy", prediction)
+                queue.extend(prediction[:5])
+            action = np.asarray(queue.pop(0))
+            eef = np.asarray(self.obs["robot0_eef_pos"])
+            gap = float(np.abs(self.obs["robot0_gripper_qpos"]).sum())
+            if action[-1] > .5 and (min_z is None or eef[2] < min_z):
+                min_z, grasp_eef = float(eef[2]), eef.copy()
+            if min_z is not None and eef[2] > min_z + .07 and .003 < gap < .075 and action[-1] > .5:
+                break
+            self.step(action, "VLA 抓取")
+        else:
+            raise TimeoutError("180 步内未检测到抬起的抓取候选；请检查抓取")
+        return min_z, grasp_eef, source[:2] - grasp_eef[:2]
+
+    def release_height(self, min_z, destination_z, tabletop):
+        return min_z + (destination_z - tabletop) + .018
+
+    def policy_metadata(self):
+        return self.client.get_server_metadata()
+
     def run(self, text, task_port=8912):
         import imageio.v2 as imageio
-        from openpi_client import image_tools
         started = time.monotonic()
-        self.report.update(chinese=text, policy=self.client.get_server_metadata())
+        self.report.update(chinese=text, policy=self.policy_metadata())
         try:
             if self.report["policy"].get("backend") not in (
-                    "official-pi05-libero-vla", "local-pi05-libero-lora"):
+                    "official-pi05-libero-vla", "local-pi05-libero-lora", "visual-geometric-control"):
                 raise ValueError("This experimental skill requires a pi05 policy")
             rgb, cloud = self.capture()
             raw = image_bytes(rgb)
@@ -178,6 +305,9 @@ class VisualSkill:
                 raise InterruptedError("用户已暂停")
             source, source_mask, source_meta = region_point(cloud, task["source"]["bbox_2d"])
             destination, goal_mask, goal_meta = region_point(cloud, task["destination"]["bbox_2d"], task["relation"] == "on")
+            if task["relation"] == "in":
+                destination, container_meta = circular_container_point(cloud, goal_mask)
+                goal_meta.update(container_meta)
             if (source_mask & goal_mask).sum() > .5 * min(source_mask.sum(), goal_mask.sum()):
                 raise ValueError("源物体和目的地落在同一深度区域，停止以免搬错目标")
             np.savez_compressed(self.output / "geometry.npz", cloud=cloud,
@@ -186,33 +316,14 @@ class VisualSkill:
             self.status(f"模型选择：{task['source']['label']} → {task['destination']['label']} ({task['relation']})")
             self.writer = imageio.get_writer(self.output / "demo.mp4", fps=20)
             self.writer.append_data(np.ascontiguousarray(self.obs["agentview_image"][::-1, ::-1]))
-            queue, grasp_eef, min_z = [], None, None
-            self.status("π0.5 正在抓取；尚未接管运输")
-            for step in range(180):
-                if not queue:
-                    payload = observation_payload(self.obs, task["english"], image_tools)
-                    payload["_probe_noise_seed"] = 42 + step // 5
-                    prediction = validate_actions(self.client.infer(payload)["actions"], 5)
-                    self.report["inference_calls"] += 1
-                    np.save(self.output / f"prediction-{step:03d}.npy", prediction)
-                    queue.extend(prediction[:5])
-                action = np.asarray(queue.pop(0))
-                eef = np.asarray(self.obs["robot0_eef_pos"])
-                gap = float(np.abs(self.obs["robot0_gripper_qpos"]).sum())
-                if action[-1] > .5 and (min_z is None or eef[2] < min_z):
-                    min_z, grasp_eef = float(eef[2]), eef.copy()
-                if min_z is not None and eef[2] > min_z + .07 and .003 < gap < .075 and action[-1] > .5:
-                    break
-                self.step(action, "VLA 抓取")
-            else:
-                raise TimeoutError("180 步内未检测到抬起的抓取候选；请检查抓取")
-            offset = source[:2] - grasp_eef[:2]
+            min_z, grasp_eef, offset = self.grasp(task, source, source_mask, cloud)
             if np.linalg.norm(offset) > .10:
                 raise ValueError("抓取位置偏离视觉源物体，停止运输")
+            self.confirm_hold()
             self.report.update(handover_step=len(self.trace), grasp_eef=grasp_eef.tolist(), offset_xy=offset.tolist())
             eef = np.asarray(self.obs["robot0_eef_pos"])
             # Clear a raised support with the held object's bottom, not just TCP.
-            release_z = min_z + (destination[2] - goal_meta["tabletop"]) + .018
+            release_z = self.release_height(min_z, destination[2], goal_meta["tabletop"])
             safe_z = max(1.20, release_z + .035, float(eef[2]))
             self.report["clearance_z"] = safe_z
             self.move(np.r_[eef[:2], safe_z], 1., "抬起避让")
@@ -226,10 +337,18 @@ class VisualSkill:
             (self.output / "relocalize.json").write_text(json.dumps(location, ensure_ascii=False, indent=2))
             if not location.get("bbox_2d"):
                 raise ValueError("当前画面找不到目的地，已停止；不会换成预设位置")
-            destination, _, metadata = region_point(cloud, location["bbox_2d"], task["relation"] == "on")
+            destination, support_mask, metadata = region_point(cloud, location["bbox_2d"], task["relation"] == "on")
+            if task["relation"] == "in":
+                destination, container_meta = circular_container_point(cloud, support_mask)
+                metadata.update(container_meta)
+            if metadata["method"] == "visible horizontal support plane inside model destination box":
+                destination = nearby_support_point(cloud, support_mask,
+                    np.asarray(self.obs["robot0_eef_pos"])[:2] + offset)
+                metadata.update(refined_point=destination.tolist(), edge_margin=.060,
+                    landing_selection="nearest visible convex support interior to held source; no object truth")
             self.report["destination_reobserved"] = metadata
             target_xy = destination[:2] - offset
-            release_z = min_z + (destination[2] - goal_meta["tabletop"]) + .018
+            release_z = self.release_height(min_z, destination[2], goal_meta["tabletop"])
             if release_z + .035 > safe_z:
                 safe_z = release_z + .035
                 self.move(np.r_[self.obs["robot0_eef_pos"][:2], safe_z], 1., "更新避让高度")

@@ -1,0 +1,185 @@
+{
+  "suite": "libero_goal",
+  "task_id": 9,
+  "initial_state": 0,
+  "initial_state_sha256": "2335c0edc3a68069c8299f04dc0552aa1a6460f0024e7fed7daba65f5ebdf120",
+  "task": "Place the wine bottle into the bowl.",
+  "user_instruction": "把酒瓶放到碗里面",
+  "task_language": "put the wine bottle on the rack",
+  "source_model": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "seed": 7,
+  "replan_steps": 5,
+  "policy_port": 8766,
+  "scenario_key": "a51b3b909a156a52139c6d3cb8be9c98689d517763ed96e4398d90670ce5d53f",
+  "restored_from": "/home/robot/voice-arm-sim/evidence/visual-control-20261025/retained-state.npy",
+  "initial_settle_steps": 0,
+  "last_instruction_result": {
+    "control_step": 578,
+    "mode": "visual-geometric-control",
+    "instruction": "把酒瓶放到碗里面",
+    "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818/semantic_1792917156829964093",
+    "semantic_success": true,
+    "result": "visual_completed",
+    "task": {
+      "source": {
+        "label": "酒瓶",
+        "bbox_2d": [
+          272,
+          312,
+          328,
+          483
+        ]
+      },
+      "destination": {
+        "label": "碗",
+        "bbox_2d": [
+          438,
+          506,
+          572,
+          612
+        ]
+      },
+      "relation": "in",
+      "english": "Place the wine bottle into the bowl."
+    },
+    "completion": {
+      "verdict": "completed",
+      "reason": "酒瓶位于碗内，碗放置在桌面上，夹爪已撤离。"
+    },
+    "exception": null
+  },
+  "control_modes": [
+    {
+      "control_step": 0,
+      "mode": "visual-geometric-control",
+      "instruction": "把酒瓶放柜子上",
+      "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818/semantic_1792916652339352735",
+      "semantic_success": null,
+      "result": "exception",
+      "completion": null,
+      "exception": "RuntimeError: {\"error\": \"Expected one source, destination, relation and faithful English instruction\"}"
+    },
+    {
+      "control_step": 0,
+      "mode": "visual-geometric-control",
+      "instruction": "把酒瓶放柜子上",
+      "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818/semantic_1792916882153169349",
+      "semantic_success": true,
+      "result": "visual_completed",
+      "task": {
+        "source": {
+          "label": "wine bottle",
+          "bbox_2d": [
+            248,
+            256,
+            300,
+            416
+          ]
+        },
+        "destination": {
+          "label": "cabinet",
+          "bbox_2d": [
+            672,
+            351,
+            1000,
+            820
+          ]
+        },
+        "relation": "on",
+        "english": "Place the wine bottle on the cabinet."
+      },
+      "completion": {
+        "verdict": "completed",
+        "reason": "酒瓶已放置在柜子顶部，底部由柜子支撑，且机械臂已撤离。"
+      },
+      "exception": null
+    },
+    {
+      "control_step": 286,
+      "mode": "visual-geometric-control",
+      "instruction": "把酒瓶放到灶台上",
+      "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818/semantic_1792916986688217227",
+      "semantic_success": true,
+      "result": "visual_completed",
+      "task": {
+        "source": {
+          "label": "wine bottle",
+          "bbox_2d": [
+            784,
+            188,
+            878,
+            422
+          ]
+        },
+        "destination": {
+          "label": "stove",
+          "bbox_2d": [
+            158,
+            388,
+            388,
+            538
+          ]
+        },
+        "relation": "on",
+        "english": "Place the wine bottle on the stove."
+      },
+      "completion": {
+        "verdict": "completed",
+        "reason": "酒瓶已放置在灶台的金属托盘上，且机械臂已撤离。"
+      },
+      "exception": null
+    },
+    {
+      "control_step": 578,
+      "mode": "visual-geometric-control",
+      "instruction": "把酒瓶放到碗里面",
+      "output": "/home/robot/voice-arm-sim/runs/visual-control-20261025/panel/scene_1792916604486825818/semantic_1792917156829964093",
+      "semantic_success": true,
+      "result": "visual_completed",
+      "task": {
+        "source": {
+          "label": "酒瓶",
+          "bbox_2d": [
+            272,
+            312,
+            328,
+            483
+          ]
+        },
+        "destination": {
+          "label": "碗",
+          "bbox_2d": [
+            438,
+            506,
+            572,
+            612
+          ]
+        },
+        "relation": "in",
+        "english": "Place the wine bottle into the bowl."
+      },
+      "completion": {
+        "verdict": "completed",
+        "reason": "酒瓶位于碗内，碗放置在桌面上，夹爪已撤离。"
+      },
+      "exception": null
+    }
+  ],
+  "reason": "visual_semantic_finished",
+  "steps": 899,
+  "policy_calls": 0,
+  "official_predicate": false,
+  "instruction_success": null
+}

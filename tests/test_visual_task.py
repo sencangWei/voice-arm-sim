@@ -53,10 +53,36 @@ def test_observed_extra_brace_preserves_every_model_selected_value(monkeypatch):
 
 @pytest.mark.parametrize("answer", ["{", VALID[:-1], BROKEN.replace('"destination"', '"other"')])
 def test_unknown_syntax_fails_closed_without_guessing(monkeypatch, answer):
-    payload, calls = mock_vision(monkeypatch, [answer])
+    payload, calls = mock_vision(monkeypatch, [answer, answer])
     with pytest.raises(json.JSONDecodeError):
         model_service.visual_task(payload)
+    assert len(calls) == 2
+
+
+def test_invalid_serialization_reasks_once_from_same_image(monkeypatch):
+    broken = VALID[:-1]
+    payload, calls = mock_vision(monkeypatch, [broken, VALID])
+    response = model_service.visual_task(payload)
+    assert response["task"] == json.loads(VALID)
+    assert len(calls) == 2
+    assert calls[0][0]["content"][0]["image"] is calls[1][0]["content"][0]["image"]
+    assert response["serialization_retry"]["raw"] == broken
+    assert "合法 JSON" in calls[1][0]["content"][-1]["text"]
+
+
+def test_observed_missing_closures_preserve_all_model_values(monkeypatch):
+    broken = '{"source":{"label":"酒瓶","bbox_2d":[272,310,330,481],"destination":{"label":"碗","bbox_2d":[438,505,572,612],"relation":"in","english":"Place the wine bottle into the bowl."}}'
+    payload, calls = mock_vision(monkeypatch, [broken])
+    response = model_service.visual_task(payload)
     assert len(calls) == 1
+    assert response["raw"] == broken
+    assert response["task"] == {
+        "source": {"label": "酒瓶", "bbox_2d": [272, 310, 330, 481]},
+        "destination": {"label": "碗", "bbox_2d": [438, 505, 572, 612]},
+        "relation": "in", "english": "Place the wine bottle into the bowl."}
+    repair = response["serialization_repair"]
+    assert repair["operation"] == "close_source_and_destination_objects"
+    assert json.loads(repair["normalized"]) == response["task"]
 
 
 @pytest.mark.parametrize("answer", ["null", '{"actions":[1,2]}', BROKEN.replace('"on"', '"under"'), BROKEN.replace("248,256,300,416", "300,256,248,416")])

@@ -9,6 +9,7 @@ import json
 import logging
 import os
 import platform
+import re
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -167,29 +168,56 @@ def visual_task(payload, verify=False):
         *[{"type": "image", "image": image} for image in (images[:1] if verify else images)],
         {"type": "text", "text": prompt + text}]}]
     started = time.monotonic()
-    inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
-        return_dict=True, return_tensors="pt").to(model.device)
-    with torch.inference_mode():
-        ids = model.generate(**inputs, max_new_tokens=192 if verify else 384, do_sample=False)
-    answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
-    LOG.info("%s %r -> %s", "verify" if verify else "task", text, answer)
-    repair = None
-    try:
-        value = (parse_completion if verify else parse_task)(answer)
-    except json.JSONDecodeError as exc:
-        # Observed Qwen serialization defect: an extra opening brace before
-        # destination. Remove only that token; all labels, boxes and intent stay
-        # byte-identical. Unknown syntax and invalid schemas still fail closed.
-        if (verify or exc.msg != "Expecting property name enclosed in double quotes"
-                or not exc.doc[exc.pos:].startswith('{"destination"')):
-            raise
-        normalized = exc.doc[:exc.pos] + exc.doc[exc.pos + 1:]
-        value = parse_task(normalized)
-        repair = dict(operation="remove_extra_open_brace_before_destination",
-                      offset=exc.pos, normalized=normalized, parse_error=str(exc))
-        LOG.warning("Normalized task serialization at offset %d", exc.pos)
+    repair, retry = None, None
+    for attempt in range(2):
+        inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
+            return_dict=True, return_tensors="pt").to(model.device)
+        with torch.inference_mode():
+            ids = model.generate(**inputs, max_new_tokens=192 if verify else 384, do_sample=False)
+        answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
+        LOG.info("%s %r -> %s", "verify" if verify else "task", text, answer)
+        try:
+            value = (parse_completion if verify else parse_task)(answer)
+            break
+        except json.JSONDecodeError as exc:
+            # Observed wire error: both leaf objects were left open. Repair only
+            # this exact shape; preserve every model-produced scalar and box.
+            string = r'"(?:[^"\\]|\\.)*"'
+            item = rf'\{{\s*"label"\s*:\s*{string}\s*,\s*"bbox_2d"\s*:\s*\[[^\[\]{{}}]*\]'
+            missing_closures = None if verify else re.fullmatch(
+                rf'\s*\{{\s*"source"\s*:\s*({item})\s*,\s*"destination"\s*:\s*({item})'
+                rf'\s*,\s*"relation"\s*:\s*({string})\s*,\s*"english"\s*:\s*({string})\s*\}}\s*\}}\s*',
+                exc.doc)
+            if missing_closures:
+                source, destination, relation, english = missing_closures.groups()
+                normalized = ('{"source":' + source + '},"destination":' + destination
+                              + '},"relation":' + relation + ',"english":' + english + '}')
+                value = parse_task(normalized)
+                repair = dict(operation="close_source_and_destination_objects",
+                              normalized=normalized, parse_error=str(exc))
+                LOG.warning("Closed missing task object delimiters without changing values")
+                break
+            # Preserve the exact, previously observed single-token repair.
+            if (not verify and exc.msg == "Expecting property name enclosed in double quotes"
+                    and exc.doc[exc.pos:].startswith('{"destination"')):
+                normalized = exc.doc[:exc.pos] + exc.doc[exc.pos + 1:]
+                value = parse_task(normalized)
+                repair = dict(operation="remove_extra_open_brace_before_destination",
+                              offset=exc.pos, normalized=normalized, parse_error=str(exc))
+                LOG.warning("Normalized task serialization at offset %d", exc.pos)
+                break
+            if verify or attempt:
+                raise
+            # Re-observe the same image once with a stricter format reminder.
+            # Never invent coordinates, move on malformed JSON, or retry forever.
+            retry = dict(raw=answer, parse_error=str(exc))
+            reminder = ("上次输出不是合法 JSON。重新查看同一张图并解析原指令。"
+                        "source 和 destination 各自的对象必须先闭合；relation 和 english 在根对象内。\n")
+            messages = [{"role": "user", "content": [
+                *messages[0]["content"][:-1], {"type": "text", "text": reminder + prompt + text}]}]
+            LOG.warning("Retrying task serialization once: %s", exc)
     return {("judgment" if verify else "task"): value,
-            "raw": answer, "serialization_repair": repair,
+            "raw": answer, "serialization_repair": repair, "serialization_retry": retry,
             "image_sha256": hashes if verify else hashes[0],
             "model_input_image_sha256": hashes[:1] if verify else hashes,
             "model": MODEL_IDS["vision"], "revision": MODEL_REVISIONS["vision"],

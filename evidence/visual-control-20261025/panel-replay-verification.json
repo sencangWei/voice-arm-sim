@@ -1,0 +1,36 @@
+{
+  "result": "PASS",
+  "method": "one initial restore; replay recorded GUI actions; no inference or reset between commands",
+  "total_controls": 899,
+  "commands": [
+    {
+      "instruction": "把酒瓶放柜子上",
+      "end_step": 286,
+      "image_exact_match": true,
+      "image_sha256": "7d939baaedeffc991a393d3eeff69124f301473223188b76cf5ae698728cdca5",
+      "physical_placement": true,
+      "gripper_contact": false,
+      "passed": true
+    },
+    {
+      "instruction": "把酒瓶放到灶台上",
+      "end_step": 578,
+      "image_exact_match": true,
+      "image_sha256": "8688e1f4421f1c7e224b1f90774e75c57334cc74b5f69f8976973cae5e7d18ce",
+      "physical_placement": true,
+      "gripper_contact": false,
+      "passed": true
+    },
+    {
+      "instruction": "把酒瓶放到碗里面",
+      "end_step": 899,
+      "image_exact_match": true,
+      "image_sha256": "2960dcf006920529d6d74d18b9e75108fc4b8f079625ccb94dca9016e42171b5",
+      "physical_placement": true,
+      "gripper_contact": false,
+      "passed": true
+    }
+  ],
+  "final_bowl_streak": 88,
+  "scoring_definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation"
+}

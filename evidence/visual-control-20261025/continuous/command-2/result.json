@@ -1,0 +1,141 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把酒瓶放到灶台上",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        784,
+        188,
+        878,
+        422
+      ]
+    },
+    "destination": {
+      "label": "stove",
+      "bbox_2d": [
+        158,
+        388,
+        388,
+        538
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the stove."
+  },
+  "source": {
+    "raw_point": [
+      -0.03479091949442181,
+      -0.21682455120218816,
+      1.2143353452183525
+    ],
+    "refined_point": [
+      -0.03526164225153622,
+      -0.2220701390590093,
+      1.1797865419382614
+    ],
+    "tabletop": 0.901,
+    "pixels": 3410,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.23910144513903941,
+      0.2095035878387533,
+      0.9298981939458911
+    ],
+    "refined_point": [
+      -0.2408927600823253,
+      0.20694110602291207,
+      0.9262437191320192
+    ],
+    "tabletop": 0.901,
+    "pixels": 3447,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.03950793508094558,
+      -0.2217889290273123,
+      1.2742358369613778
+    ],
+    "top": 1.2862358369613778,
+    "source_base": 1.1273784010484715,
+    "method": "upper visible RGB-D median; top-down parallel jaws; no object truth"
+  },
+  "hold_check": {
+    "gaps": [
+      0.014846258896183965,
+      0.014846278954318311,
+      0.014846298574342758,
+      0.014846316704622036,
+      0.014846333895629338,
+      0.014846352616019052,
+      0.014846372138516094,
+      0.014846391744403152,
+      0.014846411376309758,
+      0.014846431011518703,
+      0.014846450621080516,
+      0.014849461959754257,
+      0.014855919301508223,
+      0.01484767937868765,
+      0.014846615371050101,
+      0.014846499882230642,
+      0.014846492783871068,
+      0.014846497586197785,
+      0.014846503518306273,
+      0.014846509403436667
+    ],
+    "eef_drift": 0.009162180204630402,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 90,
+  "grasp_eef": [
+    -0.03726428617240424,
+    -0.22270358943334576,
+    1.2812428760496413
+  ],
+  "offset_xy": [
+    -0.0022436489085413402,
+    0.0009146604060334684
+  ],
+  "clearance_z": 1.3417853811570521,
+  "destination_reobserved": {
+    "raw_point": [
+      -0.2393343106140381,
+      0.21138017700275907,
+      0.9297216858509512
+    ],
+    "refined_point": [
+      -0.238063433613098,
+      0.17650736736518047,
+      0.9306849915313875
+    ],
+    "tabletop": 0.901,
+    "pixels": 3447,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.06,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "release_gap": 0.07991079368576914,
+  "completion": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在灶台的金属托盘上，且机械臂已撤离。"
+  },
+  "control_steps": 292,
+  "wall_duration_s": 47.677990363998106
+}

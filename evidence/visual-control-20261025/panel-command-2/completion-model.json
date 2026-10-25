@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在灶台的金属托盘上，且机械臂已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶已放置在灶台的金属托盘上，且机械臂已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "8688e1f4421f1c7e224b1f90774e75c57334cc74b5f69f8976973cae5e7d18ce",
+    "783ca09ed1438d0abf1a76f7da30b37d668dbc060810e7815ddd7e6003739c2d"
+  ],
+  "model_input_image_sha256": [
+    "8688e1f4421f1c7e224b1f90774e75c57334cc74b5f69f8976973cae5e7d18ce"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 16.144204160998925
+}
