@@ -1,0 +1,30 @@
+{
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        536,
+        362,
+        595,
+        528
+      ]
+    },
+    "destination": {
+      "label": "架子",
+      "bbox_2d": [
+        688,
+        98,
+        966,
+        377
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the shelf."
+  },
+  "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[536,362,595,528]},\"destination\":{\"label\":\"架子\",\"bbox_2d\": [688,98,966,377]},\"relation\":\"on\",\"english\":\"Place the wine bottle on the shelf.\"}",
+  "image_sha256": "5d5ce0457d9bece048180af4d86ddc5a0bce69d1f78a6d15f59f1dd95abd39c2",
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 17.565960572988843
+}

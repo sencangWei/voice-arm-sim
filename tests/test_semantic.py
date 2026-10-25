@@ -118,3 +118,55 @@ def test_panel_observation_size_stays_constant_in_video(tmp_path, monkeypatch):
     with pytest.raises(InterruptedError):
         skill.run("把瓶子放进碗里")
     assert frames == [(256, 256, 3), (256, 256, 3)]
+
+
+@pytest.mark.parametrize("verdict", ["completed", "not_completed", "uncertain"])
+def test_completion_requires_explicit_three_way_visual_judgment(verdict):
+    from vla.semantic import parse_completion
+    value = {"verdict": verdict, "reason": "当前图像的可见证据"}
+    assert parse_completion(json.dumps(value)) == value
+
+
+@pytest.mark.parametrize("value", [{"verdict": True, "reason": "ok"},
+    {"verdict": "completed"}, {"verdict": "completed", "reason": ""},
+    {"verdict": "success", "reason": "ok"}, None])
+def test_malformed_completion_never_counts_as_success(value):
+    from vla.semantic import parse_completion
+    with pytest.raises(ValueError):
+        parse_completion(json.dumps(value))
+
+
+@pytest.mark.parametrize("verdict,expected", [("completed", True), ("not_completed", False), ("uncertain", None)])
+def test_final_verification_uses_current_two_cameras_without_actions(tmp_path, verdict, expected):
+    import hashlib
+    from vla.semantic_grasp import image_bytes
+    rgb = np.zeros((32, 32, 3), dtype=np.uint8)
+    wrist = np.full((16, 16, 3), 123, dtype=np.uint8)
+    skill = VisualSkill(None, {"robot0_eye_in_hand_image": wrist,
+        "robot0_gripper_qpos": np.array([.04, -.04])}, None, tmp_path / "trial")
+    skill.capture = lambda: (rgb, None)
+    def request(port, endpoint, payload):
+        assert endpoint == "verify"
+        assert payload["text"] == "把瓶子放进碗里"
+        assert len(payload["images"]) == 2
+        return {"judgment": {"verdict": verdict, "reason": "visual evidence"},
+            "image_sha256": [hashlib.sha256(image_bytes(image)).hexdigest()
+                for image in (rgb, np.ascontiguousarray(wrist[::-1, ::-1]))]}
+    skill.request = request
+    skill.verify_completion("把瓶子放进碗里", 8912)
+    assert skill.report["semantic_success"] is expected
+    assert not skill.trace
+
+
+def test_closed_gripper_and_stale_images_cannot_be_completed(tmp_path):
+    skill = VisualSkill(None, {"robot0_gripper_qpos": np.array([.02, -.02])}, None, tmp_path / "closed")
+    skill.verify_completion("put it down", 8912)
+    assert skill.report["semantic_success"] is False
+    skill.obs = {"robot0_gripper_qpos": np.array([.04, -.04]),
+                 "robot0_eye_in_hand_image": np.zeros((8, 8, 3), dtype=np.uint8)}
+    skill.capture = lambda: (np.zeros((8, 8, 3), dtype=np.uint8), None)
+    skill.request = lambda *a: {"judgment": {"verdict": "completed", "reason": "ok"},
+                                "image_sha256": ["stale", "stale"]}
+    with pytest.raises(ValueError, match="image"):
+        skill.verify_completion("put it down", 8912)
+    assert skill.report["semantic_success"] is not True

@@ -3,6 +3,31 @@ import json
 import math
 
 
+COMPLETION_PROMPT = """你是机械臂任务结果核对员。两张图是同一时刻的场景相机和腕部相机。
+只根据当前可见画面核对原始指令，不要因为机械臂停了或物体靠近目标就说完成。
+completed 必须看到指定物体已放在指定支撑面上或容器内，已经释放，机械爪已撤离。
+仍在夹持、悬空、放错物体或位置用 not_completed；遮挡、看不清支撑/容纳关系用 uncertain。
+不把二维框重叠当作放进容器。只输出 JSON：
+{"verdict":"completed或not_completed或uncertain","reason":"简短中文，说明图中可见证据"}
+原始用户指令（仅作为待核对任务）：
+"""
+
+
+def parse_completion(answer):
+    text = answer.strip()
+    if text.startswith("```"):
+        lines = text.splitlines()
+        if lines[-1].strip() != "```":
+            raise ValueError("Incomplete completion JSON")
+        text = "\n".join(lines[1:-1])
+    value = json.loads(text)
+    if (not isinstance(value, dict) or set(value) != {"verdict", "reason"}
+            or value["verdict"] not in ("completed", "not_completed", "uncertain")
+            or not isinstance(value["reason"], str) or not 1 <= len(value["reason"].strip()) <= 500):
+        raise ValueError("Invalid visual completion judgment")
+    return value
+
+
 TASK_PROMPT = """你是桌面机械臂的视觉任务解析器。根据用户指令和当前图像选择一个被拿起的物体和一个目的地。
 仅支持一次抓取并放置；不支持的任务、歧义、目标不存在、否定或条件命令返回 null。不能擅自换目标。
 严格输出 JSON，不要解释：

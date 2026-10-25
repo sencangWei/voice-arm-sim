@@ -233,12 +233,15 @@ class Workbench:
                 raise ValueError("指令不能为空")
             from vla.semantic_grasp import VisualSkill
             output = self.output / f"semantic_{time.time_ns()}"
+            record = dict(control_step=len(self.actions), mode="visual-semantic-hybrid",
+                instruction=text, output=str(output), semantic_success=None, result="in_progress")
+            self.scene["user_instruction"] = text
+            self.scene["last_instruction_result"] = dict(record)
+            self.scene.setdefault("control_modes", []).append(record)
             def on_task(task):
                 self.prompt = task["english"]
                 self.scene.update(task=self.prompt, user_instruction=text)
-                self.scene.setdefault("control_modes", []).append(dict(
-                    control_step=len(self.actions), mode="visual-semantic-hybrid", task=task,
-                    output=str(output), semantic_success=None))
+                record["task"] = task
             def advance(action):
                 self._step(action)
                 if self.viewer:
@@ -255,11 +258,22 @@ class Workbench:
                     heartbeat=lambda: self.viewer.sync() if self.viewer else None,
                     on_task=on_task, status=lambda message: self._update(status=message))
                 skill.run(text)
-                self._update(status=f"抓放流程结束，请核对实际结果；未自动判定成功。记录：{output.name}")
+                success = skill.report.get("semantic_success")
+                label = "视觉核对通过" if success is True else "未完成" if success is False else "无法确认完成"
+                reason = (skill.report.get("completion") or {}).get("reason", "请核对实际画面")
+                self._update(status=f"{label}：{reason}。已自动停止并保留现场；输入下一条指令后点击执行。")
             finally:
                 if skill:
                     self.calls += skill.report["inference_calls"]
+                    record.update(semantic_success=skill.report.get("semantic_success"),
+                        result=skill.report.get("result", "exception"),
+                        completion=skill.report.get("completion"), exception=skill.report.get("exception"))
+                else:
+                    record["result"] = "exception"
+                self.scene["last_instruction_result"] = dict(record)
                 self.semantic_active = False
+                self.running = False
+                self.plan.clear()
                 self._publish()
                 self._save_scene("visual_semantic_finished")
         elif name == "run":

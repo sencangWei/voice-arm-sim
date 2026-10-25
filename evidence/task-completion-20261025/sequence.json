@@ -1,0 +1,81 @@
+[
+  {
+    "control_step": 0,
+    "mode": "visual-semantic-hybrid",
+    "instruction": "把碗放到盘子上",
+    "output": "/home/robot/voice-arm-sim/runs/task-completion-20261025/sequence/scene_1792910979960530300/semantic_1792910981790354424",
+    "semantic_success": true,
+    "result": "visual_completed",
+    "task": {
+      "source": {
+        "label": "碗",
+        "bbox_2d": [
+          442,
+          500,
+          578,
+          609
+        ]
+      },
+      "destination": {
+        "label": "盘子",
+        "bbox_2d": [
+          420,
+          650,
+          607,
+          800
+        ]
+      },
+      "relation": "on",
+      "english": "Place the bowl on the plate."
+    },
+    "completion": {
+      "verdict": "completed",
+      "reason": "碗已清晰可见放置在盘子上，且机械臂已撤离"
+    },
+    "exception": null,
+    "exception_observed": null,
+    "same_environment": true,
+    "reset_between_commands": false,
+    "idle_state_unchanged": true,
+    "start_state_sha256": "34b09d839b8f8fb608aedfc5aec9a1118e6fb6e775b5ff289e29a76b31d613ee",
+    "end_state_sha256": "d7ae324ace5032f5e051f36e65cadda9dbc6eb2c7b660e33d901c82839fe1f2b"
+  },
+  {
+    "control_step": 245,
+    "mode": "visual-semantic-hybrid",
+    "instruction": "把酒瓶放到架子上",
+    "output": "/home/robot/voice-arm-sim/runs/task-completion-20261025/sequence/scene_1792910979960530300/semantic_1792911028430564039",
+    "semantic_success": null,
+    "result": "exception",
+    "task": {
+      "source": {
+        "label": "酒瓶",
+        "bbox_2d": [
+          536,
+          362,
+          595,
+          528
+        ]
+      },
+      "destination": {
+        "label": "架子",
+        "bbox_2d": [
+          688,
+          98,
+          966,
+          377
+        ]
+      },
+      "relation": "on",
+      "english": "Place the wine bottle on the shelf."
+    },
+    "completion": null,
+    "exception": "TimeoutError: 180 步内未检测到抬起的抓取候选；请检查抓取",
+    "exception_observed": "TimeoutError('180 步内未检测到抬起的抓取候选；请检查抓取')",
+    "same_environment": true,
+    "reset_between_commands": false,
+    "idle_state_unchanged": true,
+    "start_state_sha256": "d7ae324ace5032f5e051f36e65cadda9dbc6eb2c7b660e33d901c82839fe1f2b",
+    "end_state_sha256": "a7a6700d273035434e210bdaa88f6c5f9e6f2c0aa9ee9d6203b0ea173b1a7cdc"
+  }
+]

@@ -135,35 +135,44 @@ def load_models(device="cuda:0", vision_only=False):
         LOG.exception("Model loading failed")
 
 
-def visual_task(payload):
+def visual_task(payload, verify=False):
     """Actual image + Chinese instruction -> model-selected source and goal."""
     import torch
     from PIL import Image
-    from vla.semantic import TASK_PROMPT, parse_task
+    from vla.semantic import COMPLETION_PROMPT, TASK_PROMPT, parse_completion, parse_task
 
     if not isinstance(payload, dict):
         raise ValueError("Expected a JSON object")
-    text, encoded = payload.get("text"), payload.get("image")
+    text = payload.get("text")
+    encoded_images = payload.get("images") if verify else [payload.get("image")]
+    if not isinstance(encoded_images, list) or len(encoded_images) != (2 if verify else 1):
+        raise ValueError("Expected current camera images")
     if not isinstance(text, str) or not text.strip() or len(text) > 500:
         raise ValueError("Expected an instruction of at most 500 characters")
-    if not isinstance(encoded, str):
-        raise ValueError("Expected a base64 image")
-    raw = base64.b64decode(encoded, validate=True)
-    with Image.open(io.BytesIO(raw)) as source:
-        if source.format not in ("PNG", "JPEG") or source.width * source.height > 4_000_000:
-            raise ValueError("Expected a JPEG/PNG image under four million pixels")
-        image = source.convert("RGB")
+    images, hashes = [], []
+    for encoded in encoded_images:
+        if not isinstance(encoded, str):
+            raise ValueError("Expected a base64 image")
+        raw = base64.b64decode(encoded, validate=True)
+        with Image.open(io.BytesIO(raw)) as source:
+            if source.format not in ("PNG", "JPEG") or source.width * source.height > 4_000_000:
+                raise ValueError("Expected a JPEG/PNG image under four million pixels")
+            images.append(source.convert("RGB"))
+        hashes.append(hashlib.sha256(raw).hexdigest())
     processor, model = MODELS["processor"], MODELS["vision"]
+    prompt = COMPLETION_PROMPT if verify else TASK_PROMPT
     messages = [{"role": "user", "content": [
-        {"type": "image", "image": image}, {"type": "text", "text": TASK_PROMPT + text}]}]
+        *[{"type": "image", "image": image} for image in images],
+        {"type": "text", "text": prompt + text}]}]
     inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
         return_dict=True, return_tensors="pt").to(model.device)
     started = time.monotonic()
     with torch.inference_mode():
-        ids = model.generate(**inputs, max_new_tokens=384, do_sample=False)
+        ids = model.generate(**inputs, max_new_tokens=192 if verify else 384, do_sample=False)
     answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
-    LOG.info("task %r -> %s", text, answer)
-    return {"task": parse_task(answer), "raw": answer, "image_sha256": hashlib.sha256(raw).hexdigest(),
+    LOG.info("%s %r -> %s", "verify" if verify else "task", text, answer)
+    return {("judgment" if verify else "task"): (parse_completion if verify else parse_task)(answer),
+            "raw": answer, "image_sha256": hashes if verify else hashes[0],
             "model": MODEL_IDS["vision"], "revision": MODEL_REVISIONS["vision"],
             "device": str(model.device), "inference_s": time.monotonic() - started}
 
@@ -323,7 +332,7 @@ class Handler(BaseHTTPRequestHandler):
             self.respond(404, {"error": "Unknown endpoint"})
 
     def do_POST(self):
-        if self.path not in ("/transcribe", "/ground", "/locate", "/translate", "/task"):
+        if self.path not in ("/transcribe", "/ground", "/locate", "/translate", "/task", "/verify"):
             self.respond(404, {"error": "Unknown endpoint"})
             return
         try:
@@ -351,7 +360,7 @@ class Handler(BaseHTTPRequestHandler):
                 result = (
                     transcribe(body)
                     if self.path == "/transcribe"
-                    else visual_task(json.loads(body)) if self.path == "/task"
+                    else visual_task(json.loads(body), verify=self.path == "/verify") if self.path in ("/task", "/verify")
                     else translate(json.loads(body)) if self.path == "/translate"
                     else ground(json.loads(body), locate=self.path == "/locate")
                 )

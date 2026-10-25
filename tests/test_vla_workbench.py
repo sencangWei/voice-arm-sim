@@ -128,6 +128,7 @@ def test_visual_command_uses_same_scene_and_updates_correction_instruction(tmp_p
 
 def test_visual_command_clears_busy_after_constructor_failure(tmp_path, monkeypatch):
     lab = semantic_workbench(tmp_path)
+    lab.scene["last_instruction_result"] = {"semantic_success": True, "instruction": "old"}
     def fail(*args, **kwargs):
         raise OSError("output unavailable")
     monkeypatch.setattr("vla.semantic_grasp.VisualSkill", fail)
@@ -135,6 +136,9 @@ def test_visual_command_clears_busy_after_constructor_failure(tmp_path, monkeypa
         lab._command("semantic", ("把酒瓶放到盘子上",))
     assert not lab.semantic_active and not lab.running
     assert lab.scene["stop_reason"] == "visual_semantic_finished"
+    assert lab.scene["last_instruction_result"]["semantic_success"] is None
+    assert lab.scene["last_instruction_result"]["result"] == "exception"
+    assert lab.scene["last_instruction_result"]["instruction"] == "把酒瓶放到盘子上"
 
 
 def test_visual_command_does_not_discard_pause_arriving_during_reconnect(tmp_path, monkeypatch):
@@ -307,3 +311,26 @@ def test_unlimited_run_still_pauses_when_official_goal_is_satisfied():
     lab._save_scene = lambda reason: lab.scene.update(stop_reason=reason)
     lab._infer_step()
     assert not lab.running and lab.scene["stop_reason"] == "predicate_satisfied"
+
+
+@pytest.mark.parametrize("success,word", [(True, "视觉核对通过"), (False, "未完成"), (None, "无法确认")])
+def test_completed_command_returns_idle_and_next_instruction_keeps_scene(tmp_path, monkeypatch, success, word):
+    lab = semantic_workbench(tmp_path)
+    env, obs = lab.env, lab.obs
+    class Skill:
+        def __init__(self, scene, observation, client, output, **callbacks):
+            assert scene is env and observation is obs
+            self.callbacks = callbacks
+            self.report = {"inference_calls": 1, "semantic_success": success,
+                           "result": "test", "completion": {"reason": "image evidence"}}
+        def run(self, text):
+            self.callbacks["on_task"]({"english": text})
+    monkeypatch.setattr("vla.semantic_grasp.VisualSkill", Skill)
+    for text in ("put bottle on plate", "put bottle on table"):
+        lab._command("semantic", (text,))
+        assert not lab.running and not lab.semantic_active and not lab.plan
+        assert lab.env is env and lab.obs is obs
+        assert word in lab.snapshot["status"]
+        assert lab.scene["control_modes"][-1]["semantic_success"] is success
+        assert lab.scene["last_instruction_result"]["instruction"] == text
+    assert len(lab.scene["control_modes"]) == 2

@@ -1,0 +1,6 @@
+{
+  "case": "bowl-on-plate",
+  "success": true,
+  "evaluated_control_steps": 246,
+  "note": "Independent relation monitored at actual control steps; video review required"
+}

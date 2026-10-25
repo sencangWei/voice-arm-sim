@@ -2,7 +2,8 @@
 
 No simulator object identities/poses enter the controller. Geometry assumes a
 separated tabletop scene. Gripper width/lift is only a grasp candidate, not proof
-of contact. Completion is unscored unless an independent evaluator is requested.
+of contact. Completion is a fallible, fresh-image VLM judgment after release/retreat;
+independent physical scoring remains separate.
 """
 import argparse
 import base64
@@ -20,7 +21,7 @@ import numpy as np
 
 from vla.hybrid import locate_surface, servo_action, world_cloud
 from vla.run import configure_libero, connect_policy, load_initial_states, observation_payload, validate_actions
-from vla.semantic import parse_task
+from vla.semantic import parse_completion, parse_task
 
 
 def post(port, endpoint, payload, timeout=300):
@@ -128,6 +129,31 @@ class VisualSkill:
                 return
         raise TimeoutError(f"{phase} 未收敛；保留现场，请人工检查")
 
+    def verify_completion(self, text, task_port):
+        # No simulator object identities, poses, predicates or planned coordinates.
+        self.report["semantic_success"] = None
+        gap = float(np.abs(self.obs["robot0_gripper_qpos"]).sum())
+        self.report["release_gap"] = gap
+        if not np.isfinite(gap) or gap < .06:
+            judgment = {"verdict": "not_completed", "reason": "夹爪尚未充分打开，不能确认释放"}
+        else:
+            rgb, _ = self.capture()
+            wrist = np.ascontiguousarray(self.obs["robot0_eye_in_hand_image"][::-1, ::-1])
+            raws = [image_bytes(rgb), image_bytes(wrist)]
+            for name, raw in zip(("completion-agent.png", "completion-wrist.png"), raws):
+                (self.output / name).write_bytes(raw)
+            self.status("已松爪撤手，正在用两路当前画面核对是否完成；机械臂保持停止")
+            response = self.request(task_port, "verify", {"text": text,
+                "images": [base64.b64encode(raw).decode() for raw in raws]})
+            (self.output / "completion-model.json").write_text(json.dumps(response, ensure_ascii=False, indent=2))
+            if response.get("image_sha256") != [hashlib.sha256(raw).hexdigest() for raw in raws]:
+                raise ValueError("Completion image does not match current observation")
+            judgment = parse_completion(json.dumps(response["judgment"]))
+        self.report["completion"] = judgment
+        self.report["semantic_success"] = {"completed": True, "not_completed": False,
+                                           "uncertain": None}[judgment["verdict"]]
+        self.report["result"] = "visual_" + judgment["verdict"]
+
     def run(self, text, task_port=8912):
         import imageio.v2 as imageio
         from openpi_client import image_tools
@@ -215,7 +241,8 @@ class VisualSkill:
             self.move(np.r_[target_xy, safe_z], -1., "撤手")
             for _ in range(30):
                 self.step(servo_action(self.obs["robot0_eef_pos"], np.r_[target_xy, safe_z], -1.), "稳定观察")
-            self.report["result"] = "motion_completed_unscored"
+            self.report["motion_completed"] = True
+            self.verify_completion(text, task_port)
         except Exception as exc:
             self.report.update(result="interrupted" if isinstance(exc, InterruptedError) else "exception",
                 exception=f"{type(exc).__name__}: {exc}")
@@ -287,7 +314,7 @@ def main():
         finally:
             # Evaluator truth remains outside the controller, including on error.
             if args.score:
-                score = dict(case=args.score, success=bool(skill.report["result"] == "motion_completed_unscored"
+                score = dict(case=args.score, success=bool(skill.report.get("motion_completed")
                     and measured and measured[-1]), evaluated_control_steps=len(measured),
                     note="Independent relation monitored at actual control steps; video review required")
                 (args.output / "evaluation.json").write_text(json.dumps(score, indent=2))

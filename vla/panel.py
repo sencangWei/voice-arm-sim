@@ -85,7 +85,7 @@ class ChinesePanel:
         self.prompt = tk.StringVar(value=args.prompt or self.task_names[args.task_id])
         ttk.Label(header, text="告诉机械臂要做什么（可以打中文，也可以说中文）").grid(row=3, column=0, columnspan=3, sticky="w")
         ttk.Entry(header, textvariable=self.prompt).grid(row=4, column=0, columnspan=3, sticky="ew", pady=6)
-        ttk.Label(header, text="先选场景，再用自己的话说；当前测试按所选场景检查结果。", foreground="#555555").grid(
+        ttk.Label(header, text="首次加载场景；后续直接换指令并执行，无需重置物体和机械臂。", foreground="#555555").grid(
             row=5, column=0, columnspan=3, sticky="w")
         self.checkpoint_text = tk.StringVar(value="模型权重：加载场景后显示")
         ttk.Label(header, textvariable=self.checkpoint_text, wraplength=850, foreground="#555555").grid(
@@ -156,21 +156,21 @@ class ChinesePanel:
     def _operation_page(self):
         page = self.page("仿真与语音")
         self.step_limit = tk.StringVar(value=str(self.args.max_steps or 0))
-        self.row_buttons(page, 0, (("视觉理解抓放", lambda: self.send("semantic", self.prompt.get())),
-                                   ("开始／继续 VLA", self.run_model),
+        self.row_buttons(page, 0, (("执行当前指令", lambda: self.send("semantic", self.prompt.get())),
                                    ("暂停模型", lambda: self.send("pause")),
                                    ("保存本轮结果", lambda: self.send("save"))))
         self.row_buttons(page, 1, (("重置三维视角", lambda: self.send("camera", False)),
                                    ("俯视对准", lambda: self.send("camera", True)),
                                    ("开始／结束 Demo", lambda: self.send("video"))))
-        ttk.Label(page, text="视觉理解抓放：看当前画面选物体和目的地，π0.5 抓取，RGB-D 控制搬运与松爪。\n"
-                  "需视觉服务 8912；首次解析可能需 2～3 分钟。支持暂停与人工纠正，复杂摆放可能失败。\n"
-                  "鼠标在 MuJoCo 窗口中旋转、平移、缩放视角。\n"
-                  "原任务达标后自动暂停；自定义指令需观察确认，可人工暂停或接管。\n"
-                  "Demo 录制两路模型相机；三维窗口可独立调整视角。", wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
+        ttk.Label(page, text="使用顺序：首次加载场景 → 输入／说出指令 → 点击“执行当前指令”。\n"
+                  "看当前画面选物体和目的地 → π0.5 抓取 → RGB-D 搬运、松爪、撤手 → 视觉核对后停止。\n"
+                  "完成或未确认都保留现场；改写指令再次执行，不用重置，不用再点 VLA。\n"
+                  "视觉解析与核对使用本机 CPU，各可能需 2～3 分钟；等待时不发送动作。\n"
+                  "目前支持一次抓放；复杂摆放可能失败，视觉核对也可能误判。",
+                  wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
         limit = ttk.Frame(page)
         limit.grid(row=3, column=0, sticky="w", pady=6)
-        ttk.Label(limit, text="本轮步数上限（0＝不限）").pack(side="left")
+        ttk.Label(limit, text="VLA 调试上限（0＝不限；不影响上方指令执行）").pack(side="left")
         ttk.Entry(limit, textvariable=self.step_limit, width=7).pack(side="left", padx=8)
         from desktop_panel import Panel
         devices = Panel.capture_devices()
@@ -179,12 +179,14 @@ class ChinesePanel:
         ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=5, column=0, sticky="ew", pady=5)
         self.mic = ttk.Button(page, text="开始录音", command=lambda: self.perform(self.toggle_recording))
         self.mic.grid(row=6, column=0, sticky="w", pady=6)
-        self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击开始。")
+        self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击“执行当前指令”。")
         ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=7, column=0, sticky="w", pady=6)
-        self.row_buttons(page, 8, (("旧版分层实验（非纯 VLA）", lambda: self.start_hybrid("fresh")),
+        self.row_buttons(page, 8, (("仅 VLA 调试", self.run_model),
+                                   ("旧版分层实验", lambda: self.start_hybrid("fresh")),
                                    ("停止规划执行", self.stop_hybrid)))
-        ttk.Label(page, text="上方“开始／继续 VLA”直接使用模型动作；旧版实验包含几何运输与松爪。\n"
-                  "旧版实验会打开独立窗口，固定布局 0；不用于验证纯模型的指令理解能力。",
+        ttk.Label(page, text="下方为独立调试入口，不是上方执行按钮的下一步。\n"
+                  "仅 VLA 调试：直接连续预测动作，自定义指令没有自动完成核对，需手动暂停。\n"
+                  "旧版分层实验会打开独立窗口、固定布局 0；日常连续指令请用上方按钮。",
                   wraplength=835).grid(row=9, column=0, sticky="w", pady=6)
         ttk.Label(page, textvariable=self.hybrid_status, wraplength=835, foreground="#174f80").grid(
             row=10, column=0, sticky="w", pady=6)
