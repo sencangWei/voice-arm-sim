@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在灶台的圆形加热区域上，且机械臂已撤离，无夹持接触。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶已放置在灶台的圆形加热区域上，且机械臂已撤离，无夹持接触。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "b7b659320fc8348cd5fa040ceb2e51a38733841626651d210859fe8693ffbf71",
+    "5f4a007800dd0a71c814f6c4d7847e9fc6d43cb8f3a3aecdd819288f3180c1f7"
+  ],
+  "model_input_image_sha256": [
+    "b7b659320fc8348cd5fa040ceb2e51a38733841626651d210859fe8693ffbf71"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.5516139960091095
+}

@@ -1,0 +1,39 @@
+{
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        272,
+        309,
+        332,
+        488
+      ]
+    },
+    "destination": {
+      "label": "碗",
+      "bbox_2d": [
+        436,
+        584,
+        578,
+        710
+      ]
+    },
+    "relation": "in",
+    "english": "Place the wine bottle into the bowl."
+  },
+  "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[272, 309, 332, 488],\"destination\":{\"label\":\"碗\",\"bbox_2d\": [436, 584, 578, 710],\"relation\":\"in\",\"english\":\"Place the wine bottle into the bowl.\"}}",
+  "serialization_repair": {
+    "operation": "close_source_and_destination_objects",
+    "normalized": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[272, 309, 332, 488]},\"destination\":{\"label\":\"碗\",\"bbox_2d\": [436, 584, 578, 710]},\"relation\":\"in\",\"english\":\"Place the wine bottle into the bowl.\"}",
+    "parse_error": "Expecting ',' delimiter: line 1 column 181 (char 180)"
+  },
+  "serialization_retry": null,
+  "image_sha256": "b7b659320fc8348cd5fa040ceb2e51a38733841626651d210859fe8693ffbf71",
+  "model_input_image_sha256": [
+    "b7b659320fc8348cd5fa040ceb2e51a38733841626651d210859fe8693ffbf71"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.9705710609996459
+}

@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "碗已放置在盘子上，且机械臂已撤离，无夹持迹象。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"碗已放置在盘子上，且机械臂已撤离，无夹持迹象。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "eb315fbb23dcd30e35380867811502214d97f4c298d460d44d9c67d3791c781c",
+    "ccec23b5beffa6f749ba16d0b6187929f09fe23a18faf6088b2508326cd6dd64"
+  ],
+  "model_input_image_sha256": [
+    "eb315fbb23dcd30e35380867811502214d97f4c298d460d44d9c67d3791c781c"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.4865153749997262
+}

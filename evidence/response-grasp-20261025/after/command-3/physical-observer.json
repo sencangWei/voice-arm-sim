@@ -1,0 +1,962 @@
+[
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": true
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": false,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  },
+  {
+    "placed": true,
+    "held": false
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "task": {
+    "source": {
+      "label": "碗",
+      "bbox_2d": [
+        442,
+        516,
+        570,
+        610
+      ]
+    },
+    "destination": {
+      "label": "盘子",
+      "bbox_2d": [
+        416,
+        630,
+        599,
+        767
+      ]
+    },
+    "relation": "on",
+    "english": "Place the bowl on the plate."
+  },
+  "raw": "{\"source\":{\"label\":\"碗\",\"bbox_2d\":[442, 516, 570, 610]},\"destination\":{\"label\":\"盘子\",\"bbox_2d\": [416, 630, 599, 767]},\"relation\":\"on\",\"english\":\"Place the bowl on the plate.\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "a8684d4c0e172ea2d3e62d0e3e14d56079c58a6ce35ed7515e4777b11de98fa6",
+  "model_input_image_sha256": [
+    "a8684d4c0e172ea2d3e62d0e3e14d56079c58a6ce35ed7515e4777b11de98fa6"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.9613157749990933
+}

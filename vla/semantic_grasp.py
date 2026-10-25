@@ -75,8 +75,18 @@ def region_point(cloud, box, allow_table=False):
                 level = float(heights[np.argmax(counts)])
                 plane = flat & (np.abs(z - level) < .002)
                 target = np.median(cloud[plane], axis=0)
-                return target, plane, dict(raw_point=cloud[v, u].tolist(), refined_point=target.tolist(),
+                # Include a shallow raised rim connected to the selected plane.
+                # The flat interior alone underestimates a plate's footprint;
+                # bounds and depth separation exclude the surrounding table.
+                from scipy.ndimage import label
+                connected, _ = label(bounds & np.isfinite(cloud).all(axis=-1) &
+                    (z >= level-.002) & (z <= level+.015))
+                ids, sizes = np.unique(connected[plane], return_counts=True)
+                component = ids[np.argmax(sizes)]
+                support = connected == component
+                return target, support, dict(raw_point=cloud[v, u].tolist(), refined_point=target.tolist(),
                     tabletop=tabletop, pixels=int(plane.sum()),
+                    support_pixels=int(support.sum()), support_plane_z=level,
                     method="visible horizontal support plane inside model destination box")
     target, mask, metadata = (locate_surface(cloud, point) if allow_table else
                               locate_surface(cloud, point, bounds=bounds, ceiling=1.50))
@@ -124,7 +134,9 @@ def circular_container_point(cloud, mask):
     Reject poor fits instead of silently placing against a guessed center.
     """
     visible = cloud[mask]
-    rim = visible[visible[:, 2] >= np.quantile(visible[:, 2], .90), :2]
+    # A mildly tilted rim spans several heights. Its upper fifth retains a
+    # measurable arc on both sides; the upper tenth can contain only one side.
+    rim = visible[visible[:, 2] >= np.quantile(visible[:, 2], .80), :2]
     if len(rim) < 60 or np.ptp(visible[:, 2]) < .01:
         raise ValueError("容器可见圆沿不足，停止放置")
     matrix = np.c_[2 * rim, np.ones(len(rim))]
@@ -164,6 +176,7 @@ class VisualSkill:
                 replies.put((post(port, endpoint, payload, timeout), None))
             except Exception as exc:
                 replies.put((None, exc))
+        started = time.monotonic()
         threading.Thread(target=worker, daemon=True).start()
         while True:
             if self.stop():
@@ -175,6 +188,9 @@ class VisualSkill:
                 continue
             if error:
                 raise error
+            self.report.setdefault("request_timings", []).append(dict(
+                endpoint=endpoint, port=port, wall_s=time.monotonic()-started,
+                inference_s=response.get("inference_s"), device=response.get("device")))
             return response
 
     def capture(self):
@@ -191,6 +207,8 @@ class VisualSkill:
             raise InterruptedError("用户已暂停")
         action = np.asarray(action, dtype=float)
         validate_actions(action[None], 1)
+        if not self.trace and hasattr(self, "started"):
+            self.report["first_control_wall_s"] = time.monotonic() - self.started
         self.obs = self.advance(action) if self.advance else self.env.step(action.tolist())[0]
         self.trace.append(dict(step=len(self.trace), phase=phase, action=action.tolist(),
             eef=self.obs["robot0_eef_pos"].tolist(), gripper=self.obs["robot0_gripper_qpos"].tolist()))
@@ -285,6 +303,7 @@ class VisualSkill:
     def run(self, text, task_port=8912):
         import imageio.v2 as imageio
         started = time.monotonic()
+        self.started = started
         self.report.update(chinese=text, policy=self.policy_metadata())
         try:
             if self.report["policy"].get("backend") not in (
@@ -293,7 +312,7 @@ class VisualSkill:
             rgb, cloud = self.capture()
             raw = image_bytes(rgb)
             (self.output / "input.png").write_bytes(raw)
-            self.status("模型正在看当前画面并解析中文指令（CPU 服务约需 2～3 分钟）")
+            self.status("模型正在看当前画面并解析中文指令；解析完成后开始动作")
             response = self.request(task_port, "task", {"text": text, "image": base64.b64encode(raw).decode()})
             (self.output / "model.json").write_text(json.dumps(response, ensure_ascii=False, indent=2))
             if response.get("image_sha256") != hashlib.sha256(raw).hexdigest():
@@ -342,9 +361,10 @@ class VisualSkill:
                 destination, container_meta = circular_container_point(cloud, support_mask)
                 metadata.update(container_meta)
             if metadata["method"] == "visible horizontal support plane inside model destination box":
+                margin = self.report.get("geometric_grasp", {}).get("support_margin", .060)
                 destination = nearby_support_point(cloud, support_mask,
-                    np.asarray(self.obs["robot0_eef_pos"])[:2] + offset)
-                metadata.update(refined_point=destination.tolist(), edge_margin=.060,
+                    np.asarray(self.obs["robot0_eef_pos"])[:2] + offset, margin=margin)
+                metadata.update(refined_point=destination.tolist(), edge_margin=margin,
                     landing_selection="nearest visible convex support interior to held source; no object truth")
             self.report["destination_reobserved"] = metadata
             target_xy = destination[:2] - offset
@@ -361,6 +381,7 @@ class VisualSkill:
             for _ in range(30):
                 self.step(servo_action(self.obs["robot0_eef_pos"], np.r_[target_xy, safe_z], -1.), "稳定观察")
             self.report["motion_completed"] = True
+            self.report["motion_finished_wall_s"] = time.monotonic() - started
             self.verify_completion(text, task_port)
         except Exception as exc:
             self.report.update(result="interrupted" if isinstance(exc, InterruptedError) else "exception",

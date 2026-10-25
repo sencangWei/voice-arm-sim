@@ -1,0 +1,89 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Warning: make sure gym is installed if you want to use the GymWrapper.
+模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型选择：碗 → 盘子 (on)
+张爪抬起并调整朝向
+张爪抬起并调整朝向：控制步 20
+张爪抬起并调整朝向：控制步 40
+移动到当前视觉物体上方
+下降到视觉抓取位置
+下降到视觉抓取位置：控制步 60
+下降到视觉抓取位置：控制步 80
+闭爪：控制步 100
+检查稳定持有：控制步 120
+闭爪抬起
+闭爪抬起：控制步 140
+闭爪抬起：控制步 160
+闭爪抬起：控制步 180
+检查稳定持有：控制步 200
+抬起避让
+重新观察并定位目的地
+搬运到新定位的目的地
+搬运到新定位的目的地：控制步 220
+下降放置
+下降放置：控制步 240
+下降放置：控制步 260
+撤手
+撤手：控制步 280
+撤手：控制步 300
+撤手：控制步 320
+稳定观察：控制步 340
+已松爪撤手，正在用当前全景核对是否完成；腕部画面已留档，机械臂保持停止
+{"instruction": "把碗放到盘子上", "passed": true, "exception": null, "controller_result": "visual_completed", "control_steps": 351, "first_control_wall_s": 1.490466182003729, "wall_duration_s": 5.418056003007223, "final_physical": {"placed": true, "held": false}}
+模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型选择：wine bottle → stove (on)
+张爪抬起并调整朝向
+移动到当前视觉物体上方
+移动到当前视觉物体上方：控制步 20
+下降到视觉抓取位置
+下降到视觉抓取位置：控制步 40
+下降到视觉抓取位置：控制步 60
+闭爪：控制步 80
+检查稳定持有：控制步 100
+闭爪抬起
+闭爪抬起：控制步 120
+检查稳定持有：控制步 140
+抬起避让
+重新观察并定位目的地
+搬运到新定位的目的地
+搬运到新定位的目的地：控制步 160
+搬运到新定位的目的地：控制步 180
+下降放置
+下降放置：控制步 200
+松爪：控制步 220
+撤手
+撤手：控制步 240
+稳定观察：控制步 260
+已松爪撤手，正在用当前全景核对是否完成；腕部画面已留档，机械臂保持停止
+{"instruction": "把酒瓶放到灶台上", "passed": true, "exception": null, "controller_result": "visual_completed", "control_steps": 276, "first_control_wall_s": 1.1897617789945798, "wall_duration_s": 4.600176680993172, "final_physical": {"placed": true, "held": false}}
+模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型选择：酒瓶 → 碗 (in)
+张爪抬起并调整朝向
+移动到当前视觉物体上方
+下降到视觉抓取位置
+下降到视觉抓取位置：控制步 20
+闭爪：控制步 40
+检查稳定持有：控制步 60
+闭爪抬起
+闭爪抬起：控制步 80
+检查稳定持有：控制步 100
+抬起避让
+重新观察并定位目的地
+搬运到新定位的目的地
+搬运到新定位的目的地：控制步 120
+搬运到新定位的目的地：控制步 140
+下降放置
+下降放置：控制步 160
+松爪：控制步 180
+撤手
+撤手：控制步 200
+稳定观察：控制步 220
+稳定观察：控制步 240
+已松爪撤手，正在用当前全景核对是否完成；腕部画面已留档，机械臂保持停止
+{"instruction": "把酒瓶放到碗里面", "passed": true, "exception": null, "controller_result": "visual_completed", "control_steps": 240, "first_control_wall_s": 1.1642164049990242, "wall_duration_s": 4.390826589995413, "final_physical": {"placed": true, "held": false}}

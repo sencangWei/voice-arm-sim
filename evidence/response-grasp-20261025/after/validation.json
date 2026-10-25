@@ -1,0 +1,48 @@
+{
+  "result": "PASS",
+  "from_retained_failure": true,
+  "no_reset_between_commands": true,
+  "controller_object_truth": false,
+  "initial_state_sha256": "06e0c36f6cccd0908cca28c01a19f6c90adc40d260f749ed8b0ee3739e43b81a",
+  "commands": [
+    {
+      "instruction": "把碗放到盘子上",
+      "passed": true,
+      "exception": null,
+      "controller_result": "visual_completed",
+      "control_steps": 351,
+      "first_control_wall_s": 1.490466182003729,
+      "wall_duration_s": 5.418056003007223,
+      "final_physical": {
+        "placed": true,
+        "held": false
+      }
+    },
+    {
+      "instruction": "把酒瓶放到灶台上",
+      "passed": true,
+      "exception": null,
+      "controller_result": "visual_completed",
+      "control_steps": 276,
+      "first_control_wall_s": 1.1897617789945798,
+      "wall_duration_s": 4.600176680993172,
+      "final_physical": {
+        "placed": true,
+        "held": false
+      }
+    },
+    {
+      "instruction": "把酒瓶放到碗里面",
+      "passed": true,
+      "exception": null,
+      "controller_result": "visual_completed",
+      "control_steps": 240,
+      "first_control_wall_s": 1.1642164049990242,
+      "wall_duration_s": 4.390826589995413,
+      "final_physical": {
+        "placed": true,
+        "held": false
+      }
+    }
+  ]
+}

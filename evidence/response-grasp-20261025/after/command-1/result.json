@@ -1,0 +1,177 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把碗放到盘子上",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 0.9701276830019196,
+      "inference_s": 0.9613157749990933,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.43844168199575506,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.49588917499931995,
+      "inference_s": 0.4865153749997262,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "碗",
+      "bbox_2d": [
+        442,
+        516,
+        570,
+        610
+      ]
+    },
+    "destination": {
+      "label": "盘子",
+      "bbox_2d": [
+        416,
+        630,
+        599,
+        767
+      ]
+    },
+    "relation": "on",
+    "english": "Place the bowl on the plate."
+  },
+  "source": {
+    "raw_point": [
+      -0.12360672535376482,
+      -0.006791320985071702,
+      0.9088422978976555
+    ],
+    "refined_point": [
+      -0.11653732974910869,
+      -0.005106112809182968,
+      0.9330271447305896
+    ],
+    "tabletop": 0.901,
+    "pixels": 2478,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      0.0306043122807389,
+      -0.00601876131860602,
+      0.9078718688954953
+    ],
+    "refined_point": [
+      -0.006426202381934587,
+      0.021535142836064874,
+      0.9010596799230083
+    ],
+    "tabletop": 0.901,
+    "pixels": 1381,
+    "support_pixels": 1263,
+    "support_plane_z": 0.901,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.09264728008022442,
+      0.04605419127486087,
+      0.9456920999951914
+    ],
+    "top": 0.9676920999951915,
+    "source_base": 0.9097835686778288,
+    "mode": "round_rim",
+    "center_xy": [
+      -0.09264728008022442,
+      -0.005793494548313988
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "bottom_radius": 0.03709815955943548,
+    "support_margin": 0.04509815955943548
+  },
+  "first_control_wall_s": 1.490466182003729,
+  "hold_check": {
+    "gaps": [
+      0.005605105949502229,
+      0.005598609593262778,
+      0.005592170349928391,
+      0.005585768269848098,
+      0.005579392875819548,
+      0.005573039434665369,
+      0.005566707702367847,
+      0.005560390314039848,
+      0.005554087659482581,
+      0.0055478001864644536,
+      0.005541526934236146,
+      0.00553526743575408,
+      0.005529021589005623,
+      0.005522789356642925,
+      0.005516570693742019,
+      0.005510365547849012,
+      0.005504173894012251,
+      0.00549799568763305,
+      0.0054918308777919655,
+      0.005485679412560736
+    ],
+    "eef_drift": 0.0036760422726004245,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 200,
+  "grasp_eef": [
+    -0.0933871908299694,
+    0.04581612667475867,
+    0.95103838521669
+  ],
+  "offset_xy": [
+    0.0007399107497449708,
+    -0.05160962122307266
+  ],
+  "clearance_z": 1.2,
+  "destination_reobserved": {
+    "raw_point": [
+      0.030535400131842416,
+      -0.010533873703682342,
+      0.9077947854634716
+    ],
+    "refined_point": [
+      0.014767244588801631,
+      -0.006097118525788738,
+      0.9082131804916694
+    ],
+    "tabletop": 0.901,
+    "pixels": 2333,
+    "support_pixels": 5016,
+    "support_plane_z": 0.908,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.04509815955943548,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 4.792245618999004,
+  "release_gap": 0.07990253418836064,
+  "completion": {
+    "verdict": "completed",
+    "reason": "碗已放置在盘子上，且机械臂已撤离，无夹持迹象。"
+  },
+  "control_steps": 351,
+  "wall_duration_s": 5.418056003007223
+}
