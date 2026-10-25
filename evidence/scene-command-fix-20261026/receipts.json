@@ -1,0 +1,29 @@
+[
+  {
+    "result": "unsupported",
+    "semantic_success": null,
+    "completed_steps": 0,
+    "control_steps": 0,
+    "exception": null,
+    "command": "打开炉灶",
+    "scene_qpos_unchanged": true
+  },
+  {
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 1,
+    "control_steps": 281,
+    "exception": null,
+    "command": "把酒瓶放到盘子上",
+    "scene_qpos_unchanged": false
+  },
+  {
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 1,
+    "control_steps": 238,
+    "exception": null,
+    "command": "把酒瓶从盘子上拿到柜子顶部",
+    "scene_qpos_unchanged": false
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "unsupported",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 0,
+  "steps": [],
+  "control_steps": 0,
+  "chinese": "打开炉灶",
+  "recoveries": [],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 0.9112603090034099,
+      "inference_s": 0.8977723449934274,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "unsupported",
+    "reason": "尚未实现旋转炉灶旋钮的技能",
+    "missing_skills": [
+      "turn_on_stove"
+    ],
+    "steps": [
+      {
+        "skill": "unsupported",
+        "instruction": "打开炉灶",
+        "destination_kind": "unsupported"
+      }
+    ]
+  },
+  "completion": {
+    "reason": "尚未实现旋转炉灶旋钮的技能"
+  },
+  "wall_duration_s": 0.9576866069983225
+}

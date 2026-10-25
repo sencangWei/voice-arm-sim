@@ -1,0 +1,23 @@
+{
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶从盘子上拿到柜子顶部",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "raw": "{\n  \"status\": \"ready\",\n  \"reason\": \"两步抓放\",\n  \"missing_skills\": [],\n  \"steps\": [\n    {\n      \"skill\": \"pick_place\",\n      \"instruction\": \"把酒瓶从盘子上拿到柜子顶部\",\n      \"destination_kind\": \"support_surface\"\n    }\n  ]\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "cf21ded4260a62cd93d103db79ed07d9dfc7f6ed63cbd6dbd4f428abeada8090",
+  "model_input_image_sha256": [],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.8216354400065029
+}

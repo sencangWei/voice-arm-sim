@@ -66,6 +66,16 @@ def test_whole_request_plan_uses_dedicated_prompt_and_binds_image(monkeypatch):
     assert response["model_input_image_sha256"] == []
 
 
+def test_observed_stove_refusal_returns_plan_instead_of_service_error(monkeypatch):
+    plan = dict(status="unsupported", reason="打开炉灶不属于技能表内动作",
+                missing_skills=[], steps=[])
+    payload, calls = mock_vision(monkeypatch, [json.dumps(plan, ensure_ascii=False)])
+    payload["text"] = "打开炉灶"
+    response = model_service.visual_task(payload, plan=True)
+    assert response["plan"] == plan
+    assert len(calls) == 1
+
+
 def test_failure_log_is_supplied_to_model_without_replacing_original_task(monkeypatch):
     plan = dict(status="clarify", reason="请先核对是否仍持有酒瓶", missing_skills=[], steps=[])
     payload, calls = mock_vision(monkeypatch, [json.dumps(plan, ensure_ascii=False)])

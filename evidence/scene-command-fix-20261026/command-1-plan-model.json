@@ -1,0 +1,25 @@
+{
+  "plan": {
+    "status": "unsupported",
+    "reason": "尚未实现旋转炉灶旋钮的技能",
+    "missing_skills": [
+      "turn_on_stove"
+    ],
+    "steps": [
+      {
+        "skill": "unsupported",
+        "instruction": "打开炉灶",
+        "destination_kind": "unsupported"
+      }
+    ]
+  },
+  "raw": "{\"status\":\"unsupported\",\"reason\":\"尚未实现旋转炉灶旋钮的技能\",\"missing_skills\":[\"turn_on_stove\"],\"steps\":[{\"skill\":\"unsupported\",\"instruction\":\"打开炉灶\",\"destination_kind\":\"unsupported\"}]}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+  "model_input_image_sha256": [],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.8977723449934274
+}

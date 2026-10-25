@@ -1,0 +1,14 @@
+{
+  "instruction": "打开炉灶",
+  "gui_scene_task_id": 7,
+  "original_model_answer": {
+    "status": "unsupported",
+    "reason": "打开炉灶不属于技能表内动作",
+    "missing_skills": [],
+    "steps": []
+  },
+  "original_http_status": 400,
+  "error": "计划状态与缺失技能矛盾",
+  "control_steps": 0,
+  "source": ".local/manual-panel-20261026-010543/sessions/scene_1792948351984931657/semantic_1792948357562516781/result.json"
+}

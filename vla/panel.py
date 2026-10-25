@@ -67,12 +67,11 @@ class ChinesePanel:
         self.model_title = tk.StringVar(value="视觉指令控制 · MuJoCo 本地仿真")
         ttk.Label(header, textvariable=self.model_title, font=(family, -24, "bold")).grid(
             row=0, column=0, columnspan=3, sticky="w", pady=(0, 8))
-        ttk.Label(header, text="仿真任务").grid(row=1, column=0, sticky="w")
+        ttk.Label(header, text="仿真场景").grid(row=1, column=0, sticky="w")
         self.task = ttk.Combobox(header, state="readonly", values=[f"{i} · {self.task_names[i]}"
             for i in range(self.tasks.n_tasks)], width=45)
         self.task.current(args.task_id)
         self.task.grid(row=1, column=1, columnspan=2, sticky="ew", padx=8)
-        self.task.bind("<<ComboboxSelected>>", lambda _: self.prompt.set(self.task_names[self.task.current()]))
         self.initial = tk.StringVar(value=str(args.initial_state))
         self.port = tk.StringVar(value=str(args.port))
         options = ttk.Frame(header)
@@ -85,7 +84,7 @@ class ChinesePanel:
         self.prompt = tk.StringVar(value=args.prompt or self.task_names[args.task_id])
         ttk.Label(header, text="告诉机械臂要做什么（可以打中文，也可以说中文）").grid(row=3, column=0, columnspan=3, sticky="w")
         ttk.Entry(header, textvariable=self.prompt).grid(row=4, column=0, columnspan=3, sticky="ew", pady=6)
-        ttk.Label(header, text="首次加载场景；后续直接换指令并执行，无需重置物体和机械臂。", foreground="#555555").grid(
+        ttk.Label(header, text="菜单选择场景，不代表已支持其中的官方任务；切换场景不会替换你的指令。", foreground="#555555").grid(
             row=5, column=0, columnspan=3, sticky="w")
         self.checkpoint_text = tk.StringVar(value="模型权重：加载场景后显示")
         ttk.Label(header, textvariable=self.checkpoint_text, wraplength=850, foreground="#555555").grid(
@@ -108,7 +107,7 @@ class ChinesePanel:
         self._correction_page()
         self._training_page()
         self._results_page()
-        self.status = tk.StringVar(value="请选择任务并加载场景。")
+        self.status = tk.StringVar(value="请选择场景并加载。")
         ttk.Label(self.root, textvariable=self.status, wraplength=850, padding=12, foreground="#174f80").grid(
             row=3, column=0, sticky="ew")
         self.root.protocol("WM_DELETE_WINDOW", self.close)
@@ -168,7 +167,8 @@ class ChinesePanel:
                   foreground="#174f80").grid(row=2, column=0, sticky="w", pady=6)
         ttk.Label(page, text="使用顺序：首次加载场景 → 输入／说出指令 → 点击“执行当前指令”。\n"
                   "每步重新看图抓放，松爪撤手后核验；失败时模型看现场并选择恢复动作，执行后再次核验。\n"
-                  "每步最多自动恢复两次；仍未完成则停止保留现场。底层抽屉开、放入、关闭已完成仿真单例验证。\n"
+                  "当前技能：抓取放置、开关三层滑动抽屉；尚不支持炉灶旋钮、推盘、铰链柜门。\n"
+                  "连续指令无需重置；重复恢复无进展时停止并保留现场。抽屉任务仍有失败情况。\n"
                   "本页使用视觉＋几何控制；独立 VLA 调试在单独标签页，无需依次点击。",
                   wraplength=835).grid(row=3, column=0, sticky="w", pady=8)
         from desktop_panel import Panel

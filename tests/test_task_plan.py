@@ -86,6 +86,20 @@ def test_unsupported_is_zero_motion(tmp_path, monkeypatch):
     assert (controller.output / "result.json").is_file()
 
 
+def test_observed_stove_rejection_with_empty_missing_list_is_zero_motion(tmp_path, monkeypatch):
+    # Actual Qwen response from the GUI on 2026-10-26: refusal is valid even
+    # when no machine-readable missing-skill identifier was supplied.
+    value = dict(status="unsupported", reason="打开炉灶不属于技能表内动作",
+                 missing_skills=[], steps=[])
+    assert parse_plan(json.dumps(value, ensure_ascii=False)) == value
+    controller, events = runner(tmp_path, monkeypatch, value)
+    report = controller.run("打开炉灶")
+    assert report["result"] == "unsupported"
+    assert report["completion"]["reason"] == value["reason"]
+    assert report["control_steps"] == 0
+    assert not any(isinstance(e, tuple) for e in events)
+
+
 def test_steps_reuse_updated_observation_and_stop_after_all_verified(tmp_path, monkeypatch):
     controller, events = runner(tmp_path, monkeypatch, plan("酒瓶放柜顶", "酒瓶放灶台"))
     report = controller.run("先把酒瓶放柜顶，再放灶台")

@@ -7,7 +7,7 @@ PLAN_PROMPT = """把中文指令分成按顺序执行的步骤，只输出 JSON�
 目的地类型：support_surface = 桌面、柜顶、灶台、浅盘等支撑表面；circular_container = 碗等开放深容器；drawer_interior = 三层滑动抽屉内部（开关抽屉也用此类型）；unsupported = 其他封闭柜内等。
 浅盘使用 support_surface / on，即使中文说“盘子里”；碗使用 circular_container / in。保留原文对象和目的地，不把盘子换成桌面。
 三层抽屉从上往下编号，第三层是底层。每一步必须带上同一层数，代词要展开。不支持铰链柜门、倾倒、切割、递给人，不能删掉这些步骤。
-整体 status：全部步骤技能与目的地支持则 ready；含不支持步骤则 unsupported；没有说清对象或目的地名称才 clarify。
+整体 status：全部步骤技能与目的地支持则 ready；含不支持步骤则 unsupported，并在 missing_skills 写明缺少的技能；没有说清对象或目的地名称才 clarify。
 不要询问初始位置或可抓取性，也不要询问柜顶、桌面、灶台是不是支撑面；实际定位由执行器在各步开始时完成。
 每步只包含一个动作，代词必须换成对应物体名，保留原文目的地。最多8步。
 字段固定为 status, reason, missing_skills, steps。每步字段固定为 skill, instruction, destination_kind。
@@ -16,6 +16,8 @@ skill 只能是 pick_place/open_drawer/close_drawer/unsupported，不能填 read
 示例输出：{"status":"ready","reason":"两步抓放","missing_skills":[],"steps":[{"skill":"pick_place","instruction":"把苹果放到桌面","destination_kind":"support_surface"},{"skill":"pick_place","instruction":"把苹果放进碗里","destination_kind":"circular_container"}]}
 示例输入：打开柜子第三层，把奶油奶酪放进去，之后合上第三层
 示例输出：{"status":"ready","reason":"依次打开底层抽屉、放入奶油奶酪、关闭底层抽屉","missing_skills":[],"steps":[{"skill":"open_drawer","instruction":"打开柜子第三层抽屉","destination_kind":"drawer_interior"},{"skill":"pick_place","instruction":"把奶油奶酪放进柜子第三层抽屉","destination_kind":"drawer_interior"},{"skill":"close_drawer","instruction":"关闭柜子第三层抽屉","destination_kind":"drawer_interior"}]}
+示例输入：打开炉灶
+示例输出：{"status":"unsupported","reason":"尚未实现旋转炉灶旋钮的技能","missing_skills":["turn_on_stove"],"steps":[{"skill":"unsupported","instruction":"打开炉灶","destination_kind":"unsupported"}]}
 示例输入：把这个放过去
 示例输出：{"status":"clarify","reason":"请说明物体和目的地名称","missing_skills":[],"steps":[]}
 若附有执行失败日志，reason 给出针对失败的建议，仍保留原指令的步骤，不能改成另一任务。不输出代码、坐标或 Markdown。
@@ -49,6 +51,8 @@ def parse_plan(answer):
         if status == "ready" and (step["skill"] == "unsupported" or step["destination_kind"] == "unsupported"
                 or step["skill"] in ("open_drawer", "close_drawer") and step["destination_kind"] != "drawer_interior"):
             raise ValueError("ready 计划含有不支持的技能")
-    if status == "ready" and missing or status == "unsupported" and not missing:
+    # An explicit refusal with a reason is safe even without a skill identifier.
+    # TaskRunner never executes non-ready plans; do not turn a refusal into HTTP 400.
+    if status == "ready" and missing:
         raise ValueError("计划状态与缺失技能矛盾")
     return value
