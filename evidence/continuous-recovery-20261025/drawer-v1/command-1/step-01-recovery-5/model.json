@@ -1,0 +1,35 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        536,
+        604,
+        648,
+        666
+      ]
+    },
+    "destination": {
+      "label": "third layer drawer interior",
+      "bbox_2d": [
+        505,
+        528,
+        738,
+        789
+      ]
+    },
+    "relation": "in",
+    "english": "Put the blue cheese box into the third layer drawer interior."
+  },
+  "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[536, 604, 648, 666]},\"destination\":{\"label\":\"third layer drawer interior\",\"bbox_2d\": [505, 528, 738, 789]},\"relation\":\"in\",\"english\":\"Put the blue cheese box into the third layer drawer interior.\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "67d07e0f2624e6ceda535901f65001b0c8ed04f2acb0cd16a1e08d8380c83725",
+  "model_input_image_sha256": [
+    "67d07e0f2624e6ceda535901f65001b0c8ed04f2acb0cd16a1e08d8380c83725"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0124930089950794
+}

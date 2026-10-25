@@ -1,0 +1,38 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        619,
+        394,
+        684,
+        517
+      ]
+    },
+    "destination": {
+      "label": "third layer drawer inside cabinet",
+      "bbox_2d": [
+        500,
+        500,
+        730,
+        790
+      ]
+    },
+    "relation": "in",
+    "english": "put the blue cheese box into the third layer drawer inside the cabinet"
+  },
+  "raw": "{\n  \"source\": {\n    \"label\": \"blue cheese box\",\n    \"bbox_2d\": [\n      619,\n      394,\n      684,\n      517\n    ]\n  },\n  \"destination\": {\n    \"label\": \"third layer drawer inside cabinet\",\n    \"bbox_2d\": [\n      500,\n      500,\n      730,\n      790\n    ]\n  },\n  \"relation\": \"in\",\n  \"english\": \"put the blue cheese box into the third layer drawer inside the cabinet\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": {
+    "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[850,117,916,189],\"destination\":{\"label\":\"third layer drawer\",\"bbox_2d\": [616,388,738,520],\"relation\":\"in\"},\"english\":\"Put the blue cheese box in the third layer drawer.\"}",
+    "parse_error": "Expecting ',' delimiter: line 1 column 219 (char 218)"
+  },
+  "image_sha256": "0c68375c269ec0453ae86c3d776f6959cb294d9966911e7338c1be3fe1c6328a",
+  "model_input_image_sha256": [
+    "0c68375c269ec0453ae86c3d776f6959cb294d9966911e7338c1be3fe1c6328a"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 2.4012719099991955
+}

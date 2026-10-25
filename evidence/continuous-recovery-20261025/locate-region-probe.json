@@ -1,0 +1,33 @@
+[
+  {
+    "target": "柜子第三层抽屉内部",
+    "response": {
+      "bbox_2d": [],
+      "label": null
+    }
+  },
+  {
+    "target": "酒瓶",
+    "response": {
+      "bbox_2d": [
+        512,
+        367,
+        567,
+        530
+      ],
+      "label": "酒瓶"
+    }
+  },
+  {
+    "target": "the open bottom drawer interior",
+    "response": {
+      "bbox_2d": [
+        512,
+        528,
+        740,
+        798
+      ],
+      "label": "the open bottom drawer interior"
+    }
+  }
+]

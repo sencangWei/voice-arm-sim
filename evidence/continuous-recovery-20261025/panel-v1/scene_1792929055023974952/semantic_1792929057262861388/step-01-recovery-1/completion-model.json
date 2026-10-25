@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+  },
+  "raw": "{\"verdict\":\"completed\",\"reason\":\"图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "04364ec2cb986ec7e7e4adb043893d3de8543ad143e0f8576cbf4c8c34e81b46",
+    "8842923ab4e932139c2671187faa6cd86e0207286f98add0e060ab0ceef2a400"
+  ],
+  "model_input_image_sha256": [
+    "04364ec2cb986ec7e7e4adb043893d3de8543ad143e0f8576cbf4c8c34e81b46"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.48528278300364036
+}

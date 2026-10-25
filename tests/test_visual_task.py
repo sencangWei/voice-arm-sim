@@ -39,6 +39,17 @@ def mock_vision(monkeypatch, answers):
     return payload, calls
 
 
+def test_destination_localization_accepts_visible_regions_without_inventing_boxes(monkeypatch):
+    detection = dict(bbox_2d=[515, 535, 735, 730], label='抽屉内部')
+    payload, calls = mock_vision(monkeypatch, [json.dumps([detection]), '[]'])
+    payload['target'] = '柜子第三层抽屉内部'
+    assert model_service.ground(payload, locate=True) == detection
+    prompt = calls[0][0]['content'][-1]['text']
+    assert payload['target'] in prompt and '物体或区域' in prompt
+    assert '当前可见' in prompt
+    assert model_service.ground(payload, locate=True) == dict(bbox_2d=[], label=None)
+
+
 def test_whole_request_plan_uses_dedicated_prompt_and_binds_image(monkeypatch):
     import hashlib
     plan = dict(status="unsupported", reason="缺少开关抽屉技能", missing_skills=["open_drawer"],
@@ -173,3 +184,25 @@ def test_completion_uses_global_view_and_archives_request_hashes(monkeypatch):
     assert len(result["image_sha256"]) == 2
     assert result["model_input_image_sha256"] == result["image_sha256"][:1]
     assert result["judgment"]["verdict"] == "completed"
+
+
+def test_recovery_compares_previous_and_current_images_with_history(monkeypatch):
+    import hashlib
+    answer = dict(action='retry_grasp', reason='物体仍在桌上，首次空抓',
+                  progress='no_progress', step=None)
+    payload, calls = mock_vision(monkeypatch, [json.dumps(answer, ensure_ascii=False)])
+    payload['before_image'] = payload['image']
+    stream = io.BytesIO()
+    Image.new('RGB', (8, 8), 'red').save(stream, format='PNG')
+    payload['image'] = base64.b64encode(stream.getvalue()).decode()
+    payload['failure'] = dict(history=[dict(attempt=1, result='empty_grasp')])
+    result = model_service.visual_task(payload, recovery=True)
+    content = calls[0][0]['content']
+    assert len([item for item in content if item['type'] == 'image']) == 2
+    hashes = [hashlib.sha256(base64.b64decode(payload[key])).hexdigest()
+              for key in ('before_image', 'image')]
+    assert result['model_input_image_sha256'] == hashes
+    assert result['before_image_sha256'] == hashes[0]
+    assert result['image_sha256'] == hashes[1]
+    assert 'empty_grasp' in content[-1]['text']
+    assert result['recovery'] == answer

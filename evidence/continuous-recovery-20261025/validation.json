@@ -1,0 +1,10 @@
+{
+  "test_command": "rtk proxy env OPENBLAS_NUM_THREADS=1 .venv-vla/bin/python -m pytest -q tests",
+  "test_result": "250 passed in 1.17s",
+  "review": "self-review; independent agents unavailable with configured account/model",
+  "markdown_links": "all relative links in report exist",
+  "latest_native_acceptance": "PARTIAL_FAIL: placement succeeds, closure not confirmed",
+  "final_code_consecutive_repeat": "PASS: 2/2 commands without reset; 244 and 292 control steps",
+  "hardware_access": false,
+  "new_training": false
+}

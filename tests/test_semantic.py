@@ -15,6 +15,46 @@ def task():
                 relation="in", english="Put the bottle into the bowl.")
 
 
+@pytest.mark.parametrize('bad_response', [None, 'stale_image', 'wrong_relation'])
+def test_missing_destination_reparses_unchanged_goal_on_current_image(tmp_path, bad_response):
+    import hashlib
+    from vla.semantic_grasp import image_bytes
+    rgb = np.zeros((8, 8, 3), dtype=np.uint8)
+    skill = VisualSkill(None, {}, None, tmp_path / 'relocalize')
+    skill.report['chinese'] = '把瓶子放进碗里'
+    calls = []
+    def request(port, endpoint, payload, **kwargs):
+        calls.append(endpoint)
+        if endpoint == 'locate':
+            return {'bbox_2d': [], 'label': None}
+        assert payload['text'] == '把瓶子放进碗里'
+        fresh = task()
+        fresh['destination']['bbox_2d'] = [450, 450, 650, 650]
+        if bad_response == 'wrong_relation':
+            fresh['relation'] = 'on'
+        return {'task': fresh, 'image_sha256': 'stale' if bad_response == 'stale_image'
+                else hashlib.sha256(image_bytes(rgb)).hexdigest()}
+    skill.request = request
+    if bad_response:
+        with pytest.raises(ValueError):
+            skill.relocalize_destination(task(), rgb, 8911)
+    else:
+        location = skill.relocalize_destination(task(), rgb, 8911)
+        assert location['bbox_2d'] == [450, 450, 650, 650]
+        assert (skill.output / 'relocalize-task.json').exists()
+    assert calls == ['locate', 'task'] and not skill.trace
+
+
+def test_visible_destination_does_not_trigger_task_reparse(tmp_path):
+    skill = VisualSkill(None, {}, None, tmp_path / 'visible')
+    def request(port, endpoint, payload, **kwargs):
+        assert endpoint == 'locate'
+        return {'bbox_2d': [400, 400, 600, 600], 'label': 'bowl'}
+    skill.request = request
+    assert skill.relocalize_destination(task(), np.zeros((8, 8, 3), dtype=np.uint8), 8911)[
+        'bbox_2d'] == [400, 400, 600, 600]
+
+
 def test_leaf_relation_disagreement_with_plan_never_reaches_geometry_or_motion(tmp_path):
     import hashlib
     from vla.semantic_grasp import image_bytes

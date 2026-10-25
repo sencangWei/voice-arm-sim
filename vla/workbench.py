@@ -276,7 +276,8 @@ class Workbench:
                         completion=skill.report.get("completion"), exception=skill.report.get("exception"),
                         plan=skill.report.get("plan"), completed_steps=skill.report.get("completed_steps"),
                         recoveries=skill.report.get("recoveries", []),
-                        recovery_error=skill.report.get("recovery_error"))
+                        recovery_error=skill.report.get("recovery_error"),
+                        recovery_stop=skill.report.get("recovery_stop"))
                 else:
                     record["result"] = "exception"
                 self.scene["last_instruction_result"] = dict(record)

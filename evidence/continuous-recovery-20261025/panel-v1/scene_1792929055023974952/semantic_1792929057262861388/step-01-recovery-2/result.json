@@ -1,0 +1,213 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 1.5426754579966655,
+      "inference_s": 1.532265584988636,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.06532621299265884,
+      "inference_s": null,
+      "device": null
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "蓝色奶酪盒",
+      "bbox_2d": [
+        286,
+        580,
+        351,
+        660
+      ]
+    },
+    "destination": {
+      "label": "柜子第三层抽屉内部",
+      "bbox_2d": [
+        500,
+        500,
+        738,
+        788
+      ]
+    },
+    "relation": "in",
+    "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.0432563361759305,
+      0.14592236929682273,
+      0.9191992920303113
+    ],
+    "refined_point": [
+      -0.04097688897196361,
+      0.14641904449054996,
+      0.9189556443077608
+    ],
+    "tabletop": 0.901,
+    "pixels": 1065,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "method": "visible drawer floor depth mode",
+    "tabletop": 0.924,
+    "point": [
+      0.03775371343336109,
+      -0.04583736972785687,
+      0.924627001148335
+    ],
+    "selection": "nearest supported floor interior",
+    "floor_width_axis": [
+      -0.994413875224396,
+      0.10555114760721267,
+      0.0
+    ],
+    "edge_margin": 0.035
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.05001173570027517,
+      0.1366014010951942,
+      0.913
+    ],
+    "top": 0.9196509682801947,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.05001173570027517,
+      0.1366014010951942
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.038208894875839845,
+    "support_margin": 0.06,
+    "rotation": [
+      [
+        0.9999939619119234,
+        0.002275781821851959,
+        -0.0026262057791426475
+      ],
+      [
+        0.0022704006016023813,
+        -0.9999953209434129,
+        -0.0020502127667288783
+      ],
+      [
+        -0.0026308593279226475,
+        0.0020442378481827193,
+        -0.9999944498200062
+      ]
+    ]
+  },
+  "first_control_wall_s": 1.8201124589977553,
+  "hold_check": {
+    "gaps": [
+      0.042218005117904744,
+      0.0422134098189524,
+      0.04221692355506183,
+      0.04221749953290467,
+      0.04221752580541537,
+      0.04221341599503074,
+      0.04221707259862503,
+      0.04221741505423314,
+      0.04221803274345293,
+      0.04221778891435199,
+      0.042217494967099214,
+      0.04221760072485252,
+      0.04221811039058962,
+      0.04221786378430167,
+      0.04221777829061987,
+      0.04221740549748988,
+      0.042218070399828084,
+      0.042217829514648926,
+      0.04221740963682503,
+      0.042217484583338176
+    ],
+    "eef_drift": 0.004910797243633566,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 225,
+  "grasp_eef": [
+    -0.046731076671092366,
+    0.13830675775970047,
+    0.918138682432583
+  ],
+  "offset_xy": [
+    -0.0032806590291828072,
+    -0.0017053566645062745
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "蓝色奶酪盒",
+        "bbox_2d": [
+          286,
+          580,
+          351,
+          660
+        ]
+      },
+      "destination": {
+        "label": "柜子第三层抽屉内部",
+        "bbox_2d": [
+          500,
+          500,
+          738,
+          788
+        ]
+      },
+      "relation": "in",
+      "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+    },
+    "min_z": 0.913,
+    "offset_xy": [
+      -0.0032806590291828072,
+      -0.0017053566645062745
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.03775371343336109,
+      -0.04583736972785687,
+      0.924627001148335
+    ],
+    "goal_meta": {
+      "method": "visible drawer floor depth mode",
+      "tabletop": 0.924,
+      "point": [
+        0.03775371343336109,
+        -0.04583736972785687,
+        0.924627001148335
+      ],
+      "selection": "nearest supported floor interior",
+      "floor_width_axis": [
+        -0.994413875224396,
+        0.10555114760721267,
+        0.0
+      ],
+      "edge_margin": 0.035
+    },
+    "destination_kind": "drawer_interior"
+  },
+  "clearance_z": 1.2428033331628396,
+  "exception": "ValueError: 当前画面找不到目的地；保留夹持等待恢复",
+  "control_steps": 226,
+  "wall_duration_s": 17.27659316000063
+}

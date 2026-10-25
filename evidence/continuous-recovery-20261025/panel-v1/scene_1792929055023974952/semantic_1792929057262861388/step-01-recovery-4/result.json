@@ -1,0 +1,102 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": false,
+  "result": "visual_not_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "蓝色奶酪盒",
+        "bbox_2d": [
+          286,
+          580,
+          351,
+          660
+        ]
+      },
+      "destination": {
+        "label": "柜子第三层抽屉内部",
+        "bbox_2d": [
+          500,
+          500,
+          738,
+          788
+        ]
+      },
+      "relation": "in",
+      "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+    },
+    "min_z": 0.913,
+    "offset_xy": [
+      -0.0032806590291828072,
+      -0.0017053566645062745
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.03775371343336109,
+      -0.04583736972785687,
+      0.924627001148335
+    ],
+    "goal_meta": {
+      "method": "visible drawer floor depth mode",
+      "tabletop": 0.924,
+      "point": [
+        0.03775371343336109,
+        -0.04583736972785687,
+        0.924627001148335
+      ],
+      "selection": "nearest supported floor interior",
+      "floor_width_axis": [
+        -0.994413875224396,
+        0.10555114760721267,
+        0.0
+      ],
+      "edge_margin": 0.035
+    },
+    "destination_kind": "drawer_interior"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.05001173570027517,
+      0.1366014010951942,
+      0.913
+    ],
+    "top": 0.9196509682801947,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.05001173570027517,
+      0.1366014010951942
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.038208894875839845,
+    "support_margin": 0.06,
+    "rotation": [
+      [
+        0.9999939619119234,
+        0.002275781821851959,
+        -0.0026262057791426475
+      ],
+      [
+        0.0022704006016023813,
+        -0.9999953209434129,
+        -0.0020502127667288783
+      ],
+      [
+        -0.0026308593279226475,
+        0.0020442378481827193,
+        -0.9999944498200062
+      ]
+    ]
+  },
+  "release_gap": 0.04221756745274135,
+  "completion": {
+    "verdict": "not_completed",
+    "reason": "夹爪尚未充分打开，不能确认释放"
+  },
+  "control_steps": 0,
+  "wall_duration_s": 0.04850661200180184
+}

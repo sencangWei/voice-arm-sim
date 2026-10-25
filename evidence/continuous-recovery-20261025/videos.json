@@ -1,0 +1,80 @@
+[
+  {
+    "file": "consecutive-v1/command-2/demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "293"
+      }
+    ],
+    "format": {
+      "duration": "14.650000"
+    }
+  },
+  {
+    "file": "consecutive-v1/command-1/demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "245"
+      }
+    ],
+    "format": {
+      "duration": "12.250000"
+    }
+  },
+  {
+    "file": "drawer-v4/command-1/demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "971"
+      }
+    ],
+    "format": {
+      "duration": "48.550000"
+    }
+  },
+  {
+    "file": "empty-v1/demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "301"
+      }
+    ],
+    "format": {
+      "duration": "15.050000"
+    }
+  },
+  {
+    "file": "holding-v1/demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "265"
+      }
+    ],
+    "format": {
+      "duration": "13.250000"
+    }
+  },
+  {
+    "file": "panel-v2/partial-demo.mp4",
+    "programs": [],
+    "streams": [
+      {
+        "r_frame_rate": "20/1",
+        "nb_frames": "699"
+      }
+    ],
+    "format": {
+      "duration": "34.950000"
+    }
+  }
+]

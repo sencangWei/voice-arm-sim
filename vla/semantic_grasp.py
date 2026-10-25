@@ -368,6 +368,28 @@ class VisualSkill:
     def align_for_place(self, metadata, offset):
         return offset
 
+    def relocalize_destination(self, task, rgb, task_port):
+        raw = image_bytes(rgb)
+        encoded = base64.b64encode(raw).decode()
+        location = self.request(task_port, 'locate', dict(target=task['destination']['label'],
+            image=encoded), timeout=90)
+        (self.output / 'relocalize.json').write_text(json.dumps(location, ensure_ascii=False, indent=2))
+        if not location.get('bbox_2d'):
+            # Bare region labels can lose the task context (e.g. drawer interior).
+            # Ask again with the unchanged goal and this same current image;
+            # never reuse the pre-grasp box or replace the held source/goal.
+            response = self.request(task_port, 'task', dict(
+                text=self.report.get('chinese') or task['english'], image=encoded))
+            (self.output / 'relocalize-task.json').write_text(
+                json.dumps(response, ensure_ascii=False, indent=2))
+            if response.get('image_sha256') != hashlib.sha256(raw).hexdigest():
+                raise ValueError('Destination response image does not match current observation')
+            fresh = parse_task(json.dumps(response['task']))
+            if fresh['relation'] != task['relation']:
+                raise ValueError('目的地重新定位改变了原指令关系；保留夹持等待恢复')
+            location = fresh['destination']
+        return location
+
     def place(self, task, min_z, offset, destination, goal_meta, task_port, destination_kind=None):
         eef = np.asarray(self.obs['robot0_eef_pos'])
         release_z = self.release_height(min_z, destination[2], goal_meta['tabletop'])
@@ -377,11 +399,7 @@ class VisualSkill:
         rgb, cloud = self.capture()
         (self.output / 'reobserve.png').write_bytes(image_bytes(rgb))
         self.status('重新观察并定位目的地')
-        location = self.request(task_port, 'locate', dict(target=task['destination']['label'],
-            image=base64.b64encode(image_bytes(rgb)).decode()), timeout=90)
-        (self.output / 'relocalize.json').write_text(json.dumps(location, ensure_ascii=False, indent=2))
-        if not location.get('bbox_2d'):
-            raise ValueError('当前画面找不到目的地；保留夹持等待恢复')
+        location = self.relocalize_destination(task, rgb, task_port)
         destination, mask, metadata = self.landing_point(cloud, location['bbox_2d'],
                                                        task['relation'], destination_kind)
         if metadata['method'] == 'visible horizontal support plane inside model destination box':

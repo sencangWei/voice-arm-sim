@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "reverify",
+    "reason": "当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确",
+    "progress": "uncertain",
+    "step": null
+  },
+  "raw": "{\"action\":\"reverify\",\"reason\":\"当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确\",\"progress\":\"uncertain\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "d6f5f5d205004180463cd61e82282eea10488ecc685b34ac8e5ef3ce8e285634",
+  "before_image_sha256": "a252cf3db1a62690e4e572109204b36d41d25585216730a396dc93a8a92005f5",
+  "model_input_image_sha256": [
+    "a252cf3db1a62690e4e572109204b36d41d25585216730a396dc93a8a92005f5",
+    "d6f5f5d205004180463cd61e82282eea10488ecc685b34ac8e5ef3ce8e285634"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.7703156049974496
+}

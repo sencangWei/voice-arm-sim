@@ -1,0 +1,184 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "蓝色奶酪盒",
+        "bbox_2d": [
+          286,
+          581,
+          351,
+          663
+        ]
+      },
+      "destination": {
+        "label": "柜子第三层抽屉内部",
+        "bbox_2d": [
+          505,
+          500,
+          738,
+          789
+        ]
+      },
+      "relation": "in",
+      "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+    },
+    "min_z": 0.9130724836998658,
+    "offset_xy": [
+      0.0005463638608984925,
+      0.0002656571204038005
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.03971529417830544,
+      -0.04576101888504662,
+      0.9246207570334517
+    ],
+    "goal_meta": {
+      "method": "visible drawer floor depth mode",
+      "tabletop": 0.924,
+      "point": [
+        0.03971529417830544,
+        -0.04576101888504662,
+        0.9246207570334517
+      ],
+      "selection": "nearest supported floor interior",
+      "floor_width_axis": [
+        -0.9944344041800792,
+        0.10535756158440092,
+        0.0
+      ],
+      "edge_margin": 0.035
+    },
+    "destination_kind": "drawer_interior"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.047311727082409494,
+      0.13493954610098036,
+      0.9130724836998658
+    ],
+    "top": 0.9250724836998658,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.047311727082409494,
+      0.13493954610098036
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.05709950448436663,
+    "support_margin": 0.06509950448436663,
+    "rotation": [
+      [
+        0.9999994179432259,
+        0.0005838636018100368,
+        0.0009073127927036416
+      ],
+      [
+        0.0005833448814881772,
+        -0.9999996663366193,
+        0.0005718700893108652
+      ],
+      [
+        0.0009076463840967004,
+        -0.0005713404801764734,
+        -0.999999424873883
+      ]
+    ]
+  },
+  "first_control_wall_s": 0.0001899920025607571,
+  "hold_check": {
+    "gaps": [
+      0.042217585495536586,
+      0.04221821656212928,
+      0.04221794219301253,
+      0.042217631669557026,
+      0.042218248598879765,
+      0.04221793764557358,
+      0.04221753931967867,
+      0.04221784063338739,
+      0.042218046674727366,
+      0.0422175550782875,
+      0.042217682964699806,
+      0.042218147637809414,
+      0.04221771834385974,
+      0.04221776740523965,
+      0.0422175844402319,
+      0.042217874395957505,
+      0.04221754494401589,
+      0.04221735148398412,
+      0.0422175710004762,
+      0.04221797829065191
+    ],
+    "eef_drift": 9.378494536402223e-05,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "clearance_z": 1.24358117901555,
+  "request_timings": [
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.06236127500596922,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 2.4081075270078145,
+      "inference_s": 2.4012719099991955,
+      "device": "cuda:0"
+    }
+  ],
+  "destination_reobserved": {
+    "method": "visible drawer floor depth mode",
+    "tabletop": 0.924,
+    "point": [
+      -0.057843387692740555,
+      -0.07673541574583573,
+      0.9249301218972042
+    ],
+    "selection": "nearest supported floor interior",
+    "floor_width_axis": [
+      -0.9982253879739925,
+      0.05954892781714954,
+      0.0
+    ],
+    "edge_margin": 0.06509950448436663
+  },
+  "placement_orientation": {
+    "rotation": [
+      [
+        0.05954892781714954,
+        0.9982253879739925,
+        0.0
+      ],
+      [
+        0.9982253879739925,
+        -0.05954892781714954,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0,
+        -1.0
+      ]
+    ],
+    "offset_xy": [
+      -0.00023232256627554005,
+      0.0005613492494634498
+    ],
+    "method": "visible floor principal axis; short palm dimension toward cabinet"
+  },
+  "exception": "TimeoutError: 下降放置 未收敛；保留现场，请人工检查",
+  "control_steps": 176,
+  "wall_duration_s": 4.158858067996334
+}

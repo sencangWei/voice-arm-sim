@@ -1,0 +1,76 @@
+[
+  {
+    "command": "把酒瓶放到柜子顶部",
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 1,
+    "control_steps": 244,
+    "recoveries": [],
+    "physical": {
+      "joints": {
+        "wooden_cabinet_1_top_level": 0.0,
+        "wooden_cabinet_1_middle_level": 0.0,
+        "wooden_cabinet_1_bottom_level": 0.0
+      },
+      "bodies": {
+        "cream_cheese_1_main": [
+          -0.047810780196188285,
+          0.14822894590683605,
+          0.9089069548372153
+        ],
+        "wine_bottle_1_main": [
+          -0.05033071182914215,
+          -0.22177236015561172,
+          1.1268798430399993
+        ],
+        "wooden_cabinet_1_main": [
+          0.024606057580419297,
+          -0.2390302016152794,
+          0.905
+        ],
+        "flat_stove_1_main": [
+          -0.417336611084815,
+          0.21046825161347532,
+          0.905
+        ]
+      }
+    }
+  },
+  {
+    "command": "把酒瓶从柜子顶部拿到灶台上",
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 1,
+    "control_steps": 292,
+    "recoveries": [],
+    "physical": {
+      "joints": {
+        "wooden_cabinet_1_top_level": 0.0,
+        "wooden_cabinet_1_middle_level": 0.0,
+        "wooden_cabinet_1_bottom_level": 0.0
+      },
+      "bodies": {
+        "cream_cheese_1_main": [
+          -0.047810780196188285,
+          0.14822894590683605,
+          0.9089069548372153
+        ],
+        "wine_bottle_1_main": [
+          -0.23911537523542342,
+          0.17539269806428068,
+          0.9293609548408879
+        ],
+        "wooden_cabinet_1_main": [
+          0.024606057580419297,
+          -0.2390302016152794,
+          0.905
+        ],
+        "flat_stove_1_main": [
+          -0.417336611084815,
+          0.21046825161347532,
+          0.905
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "resume_place",
+    "reason": "酒瓶仍被夹持，柜子顶部目标可见，可继续放置",
+    "progress": "no_progress",
+    "step": null
+  },
+  "raw": "{\"action\":\"resume_place\",\"reason\":\"酒瓶仍被夹持，柜子顶部目标可见，可继续放置\",\"progress\":\"no_progress\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "9ed9913c8b33adbaa7a2f667732bf082d53405f9fb8abd851ae93eb84f7e00f6",
+  "before_image_sha256": "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+  "model_input_image_sha256": [
+    "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+    "9ed9913c8b33adbaa7a2f667732bf082d53405f9fb8abd851ae93eb84f7e00f6"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.48375532099453267
+}

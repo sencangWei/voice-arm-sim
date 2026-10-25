@@ -1,0 +1,39 @@
+{
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        850,
+        117,
+        912,
+        189
+      ]
+    },
+    "destination": {
+      "label": "third layer drawer",
+      "bbox_2d": [
+        619,
+        388,
+        738,
+        520
+      ]
+    },
+    "relation": "in",
+    "english": "put the blue cheese box in the third layer drawer"
+  },
+  "raw": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[850,117,912,189],\"destination\":{\"label\":\"third layer drawer\",\"bbox_2d\": [619,388,738,520],\"relation\":\"in\",\"english\":\"put the blue cheese box in the third layer drawer\"}}",
+  "serialization_repair": {
+    "operation": "close_source_and_destination_objects",
+    "normalized": "{\"source\":{\"label\":\"blue cheese box\",\"bbox_2d\":[850,117,912,189]},\"destination\":{\"label\":\"third layer drawer\",\"bbox_2d\": [619,388,738,520]},\"relation\":\"in\",\"english\":\"put the blue cheese box in the third layer drawer\"}",
+    "parse_error": "Expecting ',' delimiter: line 1 column 218 (char 217)"
+  },
+  "serialization_retry": null,
+  "image_sha256": "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d",
+  "model_input_image_sha256": [
+    "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.9237183160003042
+}

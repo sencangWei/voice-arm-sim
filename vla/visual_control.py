@@ -55,6 +55,7 @@ class VisualControl(VisualSkill):
         """Execute a model-selected recovery without resetting the scene."""
         import imageio.v2 as imageio
         self.started = time.monotonic()
+        self.report['chinese'] = text
         if self.stop():
             raise InterruptedError('用户已暂停')
         if action == 'retry_grasp':

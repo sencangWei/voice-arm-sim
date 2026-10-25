@@ -1,0 +1,266 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 1.516378566986532,
+      "inference_s": 1.508706250009709,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.4588520069955848,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.42517920800310094,
+      "inference_s": 0.4162767219968373,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "蓝色奶酪盒",
+      "bbox_2d": [
+        286,
+        581,
+        351,
+        663
+      ]
+    },
+    "destination": {
+      "label": "柜子第三层抽屉内部",
+      "bbox_2d": [
+        505,
+        500,
+        738,
+        789
+      ]
+    },
+    "relation": "in",
+    "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.04101149300770579,
+      0.1456624635634359,
+      0.9191985198365291
+    ],
+    "refined_point": [
+      -0.0384246515567897,
+      0.14546443628651723,
+      0.9189607753805248
+    ],
+    "tabletop": 0.901,
+    "pixels": 1138,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "method": "visible drawer floor depth mode",
+    "tabletop": 0.924,
+    "point": [
+      0.03971529417830544,
+      -0.04576101888504662,
+      0.9246207570334517
+    ],
+    "selection": "nearest supported floor interior",
+    "floor_width_axis": [
+      -0.9944344041800792,
+      0.10535756158440092,
+      0.0
+    ],
+    "edge_margin": 0.035
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.047311727082409494,
+      0.13493954610098036,
+      0.9130724836998658
+    ],
+    "top": 0.9250724836998658,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.047311727082409494,
+      0.13493954610098036
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.05709950448436663,
+    "support_margin": 0.06509950448436663,
+    "rotation": [
+      [
+        0.9999994179432259,
+        0.0005838636018100368,
+        0.0009073127927036416
+      ],
+      [
+        0.0005833448814881772,
+        -0.9999996663366193,
+        0.0005718700893108652
+      ],
+      [
+        0.0009076463840967004,
+        -0.0005713404801764734,
+        -0.999999424873883
+      ]
+    ]
+  },
+  "first_control_wall_s": 1.7902896520099603,
+  "hold_check": {
+    "gaps": [
+      0.04221875594536681,
+      0.04221805575475135,
+      0.04221787251536405,
+      0.04221796352211226,
+      0.04221350987948752,
+      0.04221699210044734,
+      0.04221737213123759,
+      0.04221786306697514,
+      0.04221772257580139,
+      0.042217508175036354,
+      0.04221823992575805,
+      0.04221794562729607,
+      0.04221763265024934,
+      0.04221824862808763,
+      0.04221792727459346,
+      0.042217630618176544,
+      0.04221824858086605,
+      0.04221789026554629,
+      0.04221759536594158,
+      0.042218117702134184
+    ],
+    "eef_drift": 0.004776788308981697,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 221,
+  "grasp_eef": [
+    -0.047858090943307986,
+    0.13467388898057656,
+    0.920382075774167
+  ],
+  "offset_xy": [
+    0.0005463638608984925,
+    0.0002656571204038005
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "蓝色奶酪盒",
+        "bbox_2d": [
+          286,
+          581,
+          351,
+          663
+        ]
+      },
+      "destination": {
+        "label": "柜子第三层抽屉内部",
+        "bbox_2d": [
+          505,
+          500,
+          738,
+          789
+        ]
+      },
+      "relation": "in",
+      "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+    },
+    "min_z": 0.9130724836998658,
+    "offset_xy": [
+      0.0005463638608984925,
+      0.0002656571204038005
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.03971529417830544,
+      -0.04576101888504662,
+      0.9246207570334517
+    ],
+    "goal_meta": {
+      "method": "visible drawer floor depth mode",
+      "tabletop": 0.924,
+      "point": [
+        0.03971529417830544,
+        -0.04576101888504662,
+        0.9246207570334517
+      ],
+      "selection": "nearest supported floor interior",
+      "floor_width_axis": [
+        -0.9944344041800792,
+        0.10535756158440092,
+        0.0
+      ],
+      "edge_margin": 0.035
+    },
+    "destination_kind": "drawer_interior"
+  },
+  "clearance_z": 1.2435295762621223,
+  "destination_reobserved": {
+    "method": "visible drawer floor depth mode",
+    "tabletop": 0.924,
+    "point": [
+      -0.005006922821909621,
+      -0.07508334342134673,
+      0.9247626164820983
+    ],
+    "selection": "nearest supported floor interior",
+    "floor_width_axis": [
+      -0.9926108073381046,
+      0.12134160521270645,
+      0.0
+    ],
+    "edge_margin": 0.06509950448436663
+  },
+  "placement_orientation": {
+    "rotation": [
+      [
+        0.12134160521270645,
+        0.9926108073381046,
+        0.0
+      ],
+      [
+        0.9926108073381046,
+        -0.12134160521270645,
+        0.0
+      ],
+      [
+        0.0,
+        -0.0,
+        -1.0
+      ]
+    ],
+    "offset_xy": [
+      -0.00019706196237139704,
+      0.0005746767244811339
+    ],
+    "method": "visible floor principal axis; short palm dimension toward cabinet"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 5.672553266005707,
+  "release_gap": 0.07991539895774405,
+  "completion": {
+    "verdict": "completed",
+    "reason": "蓝色奶酪盒位于打开的抽屉内，且机械臂已撤离。"
+  },
+  "control_steps": 430,
+  "wall_duration_s": 6.215834558010101
+}

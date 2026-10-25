@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "resume_place",
+    "reason": "抽屉已打开，蓝色奶酪盒仍被夹持，可直接继续放置到抽屉内部",
+    "progress": "no_progress",
+    "step": null
+  },
+  "raw": "{\"action\":\"resume_place\",\"reason\":\"抽屉已打开，蓝色奶酪盒仍被夹持，可直接继续放置到抽屉内部\",\"progress\":\"no_progress\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d",
+  "before_image_sha256": "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+  "model_input_image_sha256": [
+    "abddbbf3628ad90d4e7f95bcda9bb4e0c94fdd8e9bad42f96e7c53a421a1a259",
+    "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.5816185659932671
+}

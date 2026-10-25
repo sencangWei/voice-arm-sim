@@ -1,0 +1,23 @@
+[
+  {
+    "target": "柜子第三层抽屉内部",
+    "response": {
+      "bbox_2d": [],
+      "label": null
+    }
+  },
+  {
+    "target": "柜子最下面已经打开的抽屉内部底板",
+    "response": {
+      "bbox_2d": [],
+      "label": null
+    }
+  },
+  {
+    "target": "柜子第三层抽屉内部。请框选可见内部底板区域，不要框选整个柜子或把手。目标可以是物体的一部分或空间区域",
+    "response": {
+      "bbox_2d": [],
+      "label": null
+    }
+  }
+]

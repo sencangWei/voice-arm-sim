@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "reverify",
+    "reason": "当前画面中机械臂仍夹持物体，但抽屉已打开，视觉遮挡或放置未收敛情况需重新核验确认放置状态",
+    "progress": "uncertain",
+    "step": null
+  },
+  "raw": "{\"action\":\"reverify\",\"reason\":\"当前画面中机械臂仍夹持物体，但抽屉已打开，视觉遮挡或放置未收敛情况需重新核验确认放置状态\",\"progress\":\"uncertain\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "7f6ba81cfcfcba1ab98a139e58cba02bdb4b598c63958e9dd9f1d8d9be213620",
+  "before_image_sha256": "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d",
+  "model_input_image_sha256": [
+    "0bd60cc5119eb2b7b8c3701f2cbf6ec28243298528182e7d474d4615bbe5675d",
+    "7f6ba81cfcfcba1ab98a139e58cba02bdb4b598c63958e9dd9f1d8d9be213620"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.6937951669970062
+}

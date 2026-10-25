@@ -1,0 +1,99 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "first_control_wall_s": 0.00036998600990045816,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 1.0794610739976633,
+      "inference_s": 1.0714904300111812,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "蓝色奶酪盒",
+      "bbox_2d": [
+        541,
+        604,
+        652,
+        666
+      ]
+    },
+    "destination": {
+      "label": "柜子第三层抽屉内部",
+      "bbox_2d": [
+        508,
+        528,
+        738,
+        789
+      ]
+    },
+    "relation": "in",
+    "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.002009771042902897,
+      -0.07539464148039428,
+      0.945073795809815
+    ],
+    "refined_point": [
+      -0.0021412589785590463,
+      -0.07506900153818757,
+      0.9445072437294733
+    ],
+    "tabletop": 0.901,
+    "pixels": 1856,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "method": "visible drawer floor depth mode",
+    "tabletop": 0.924,
+    "point": [
+      0.011644007403308843,
+      -0.07859311840530248,
+      0.9247098047578337
+    ],
+    "selection": "nearest supported floor interior",
+    "floor_width_axis": [
+      -0.9968745597604477,
+      0.0790007095057617,
+      0.0
+    ],
+    "edge_margin": 0.035
+  },
+  "geometric_grasp": {
+    "target": [
+      0.00019921913567139127,
+      -0.07457027028424573,
+      0.9410000000000001
+    ],
+    "top": 0.9454255649818981,
+    "source_base": 0.9247760356636803,
+    "mode": "top_parallel",
+    "center_xy": [
+      0.00019921913567139127,
+      -0.07457027028424573
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.041195452166087554,
+    "support_margin": 0.06
+  },
+  "exception": "TimeoutError: 下降到视觉抓取位置 未收敛；保留现场",
+  "control_steps": 139,
+  "wall_duration_s": 2.2028034169925377
+}

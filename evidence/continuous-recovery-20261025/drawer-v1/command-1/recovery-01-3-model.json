@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "retry_grasp",
+    "reason": "蓝色奶酪盒位于桌面，未被夹持，需重新抓取以进行放置，当前未执行抓取动作，故需重试抓取",
+    "progress": "no_progress",
+    "step": null
+  },
+  "raw": "{\"action\":\"retry_grasp\",\"reason\":\"蓝色奶酪盒位于桌面，未被夹持，需重新抓取以进行放置，当前未执行抓取动作，故需重试抓取\",\"progress\":\"no_progress\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "31c74d6365f0460fe5a2a16826f2a5370f31cbbe5abe460709b42ec9fd92edc8",
+  "before_image_sha256": "28f5654f924a6fcffbf7c5610a814117d9b8dd70994fddc8e5944a48a15e4da9",
+  "model_input_image_sha256": [
+    "28f5654f924a6fcffbf7c5610a814117d9b8dd70994fddc8e5944a48a15e4da9",
+    "31c74d6365f0460fe5a2a16826f2a5370f31cbbe5abe460709b42ec9fd92edc8"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.6705014199978905
+}

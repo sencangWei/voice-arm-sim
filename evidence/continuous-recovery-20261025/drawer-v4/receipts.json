@@ -1,0 +1,84 @@
+[
+  {
+    "command": "把蓝色奶酪盒放进柜子第三层抽屉里面，然后关闭第三层抽屉",
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 2,
+    "control_steps": 970,
+    "recoveries": [
+      {
+        "step": 1,
+        "attempt": 1,
+        "decision": {
+          "action": "prepare",
+          "reason": "抽屉未打开，无法将蓝色奶酪盒放入，需先打开第三层抽屉以准备放置",
+          "progress": "no_progress",
+          "step": {
+            "skill": "open_drawer",
+            "instruction": "打开柜子第三层抽屉",
+            "destination_kind": "drawer_interior"
+          }
+        },
+        "executed": true,
+        "observation_change_fraction": 0.0,
+        "made_progress": false,
+        "consecutive_no_progress": 1,
+        "attempted": true,
+        "control_steps": 264,
+        "result": "visual_completed",
+        "completion": {
+          "verdict": "completed",
+          "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+        },
+        "preparation_success": true
+      },
+      {
+        "step": 1,
+        "attempt": 2,
+        "executed": true,
+        "decision": {
+          "action": "continue_original",
+          "reason": "前置目标已核验，继续既有原步骤"
+        },
+        "made_progress": true,
+        "consecutive_no_progress": 0,
+        "attempted": true,
+        "control_steps": 430,
+        "result": "visual_completed",
+        "completion": {
+          "verdict": "completed",
+          "reason": "蓝色奶酪盒位于打开的抽屉内，且机械臂已撤离。"
+        }
+      }
+    ],
+    "physical": {
+      "joints": {
+        "wooden_cabinet_1_top_level": 0.0,
+        "wooden_cabinet_1_middle_level": 0.0,
+        "wooden_cabinet_1_bottom_level": 0.0016598264752232653
+      },
+      "bodies": {
+        "cream_cheese_1_main": [
+          -0.005721995124557625,
+          -0.23122513661252778,
+          0.9347658429319797
+        ],
+        "wine_bottle_1_main": [
+          -0.1941961465580799,
+          -0.03720879067913176,
+          0.8988609548408878
+        ],
+        "wooden_cabinet_1_main": [
+          0.024606057580419297,
+          -0.2390302016152794,
+          0.905
+        ],
+        "flat_stove_1_main": [
+          -0.417336611084815,
+          0.21046825161347532,
+          0.905
+        ]
+      }
+    }
+  }
+]

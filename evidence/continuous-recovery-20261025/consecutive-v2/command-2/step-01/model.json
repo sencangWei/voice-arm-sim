@@ -1,0 +1,35 @@
+{
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        778,
+        181,
+        867,
+        416
+      ]
+    },
+    "destination": {
+      "label": "灶台",
+      "bbox_2d": [
+        158,
+        388,
+        386,
+        535
+      ]
+    },
+    "relation": "on",
+    "english": "Take the wine bottle from the top of the cabinet and place it on the stove."
+  },
+  "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[778, 181, 867, 416]},\"destination\":{\"label\":\"灶台\",\"bbox_2d\": [158, 388, 386, 535]},\"relation\":\"on\",\"english\":\"Take the wine bottle from the top of the cabinet and place it on the stove.\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "b208e855591c54b6b3520f7fb037df15bad14337e51360687407e885c0f376a6",
+  "model_input_image_sha256": [
+    "b208e855591c54b6b3520f7fb037df15bad14337e51360687407e885c0f376a6"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0437734940060182
+}

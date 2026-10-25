@@ -19,6 +19,7 @@ class TaskRunner(VisualControl):
         self.on_plan = on_plan
         self.report.update(backend="Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
                            completed_steps=0, steps=[], control_steps=0)
+        self.recovery_before = None
 
     def make_plan(self, text, port, failure=None):
         rgb, _ = self.capture()
@@ -40,38 +41,58 @@ class TaskRunner(VisualControl):
         raw = image_bytes(rgb)
         name = f'recovery-{number:02d}-{attempt}'
         (self.output / f'{name}-input.png').write_bytes(raw)
+        before = rgb if self.recovery_before is None else self.recovery_before
+        change = float(np.mean(np.max(np.abs(rgb.astype(float) - before.astype(float)), axis=-1) > 12))
+        before_raw = image_bytes(before)
+        (self.output / f'{name}-before.png').write_bytes(before_raw)
+        history = [dict(attempt=r['attempt'], decision=r['decision'], result=r.get('result'),
+                        preparation_success=r.get('preparation_success'),
+                        completion=r.get('completion'), made_progress=r.get('made_progress'))
+                   for r in self.report['recoveries'] if r['step'] == number][-6:]
         failure = dict(step=number, instruction=step, completed_steps=self.report['completed_steps'],
             result=previous.get('result'), exception=previous.get('exception'),
             completion=previous.get('completion'), hold_check=previous.get('hold_check'),
             drawer_depth_check=previous.get('drawer_depth_check'),
             grasp_context=bool(previous.get('grasp_context')),
-            motion_completed=previous.get('motion_completed', False))
-        allowed = ({'retry_drawer', 'reverify', 'stop'} if step['skill'] != 'pick_place'
-                   else {'retry_grasp', 'reverify', 'stop'})
+            motion_completed=previous.get('motion_completed', False), history=history,
+            remaining_steps=self.report.get('plan', {}).get('steps', [step])[number-1:],
+            observation_change_fraction=change)
+        allowed = ({'retry_drawer', 'reverify', 'prepare', 'stop'} if step['skill'] != 'pick_place'
+                   else {'retry_grasp', 'reverify', 'prepare', 'stop'})
         if previous.get('grasp_context'):
             allowed.add('resume_place')
             gap = float(np.abs(self.obs.get('robot0_gripper_qpos', [0., 0.])).sum())
             failure['current_gripper_gap'] = gap
             if not previous.get('motion_completed') and .003 < gap < .075:
                 allowed.discard('retry_grasp')
+                allowed.discard('prepare')
                 failure['possibly_holding_object'] = True
         failure['allowed_actions'] = sorted(allowed)
         response = self.request(port, 'recovery', dict(text=text, failure=failure,
-            image=base64.b64encode(raw).decode()))
+            image=base64.b64encode(raw).decode(), before_image=base64.b64encode(before_raw).decode()))
         (self.output / f'{name}-model.json').write_text(json.dumps(response, ensure_ascii=False, indent=2))
         if response.get('image_sha256') != hashlib.sha256(raw).hexdigest():
             raise ValueError('Recovery image does not match current observation')
+        if response.get('before_image_sha256') not in (None, hashlib.sha256(before_raw).hexdigest()):
+            raise ValueError('Recovery baseline image does not match observation')
         decision = parse_recovery(json.dumps(response['recovery'], ensure_ascii=False))
         if decision['action'] not in allowed:
             raise ValueError('恢复动作不适用于原始技能')
         if decision['action'] == 'resume_place' and not previous.get('grasp_context'):
             raise ValueError('没有持有上下文，拒绝继续放置')
-        entry = dict(step=number, attempt=attempt, decision=decision, executed=False)
+        if decision['action'] == 'prepare' and decision['step'] == step:
+            raise ValueError('前置步骤不能重复当前目标；原步骤应直接重试或核验')
+        entry = dict(step=number, attempt=attempt, decision=decision, executed=False,
+                     observation_change_fraction=change,
+                     made_progress=decision.get('progress') == 'progress' and change >= .01)
+        self.recovery_before = rgb
         self.report['recoveries'].append(entry)
         return entry
 
     def execute_leaf(self, step, number, port, prefix, recovery=None, previous=None):
         action = recovery['decision']['action'] if recovery else None
+        if action == 'prepare':
+            step = recovery['decision']['step']
         cls = DrawerControl if step['skill'] != 'pick_place' and action != 'reverify' else VisualControl
         suffix = f"-recovery-{recovery['attempt']}" if recovery else ''
         leaf = cls(self.env, self.obs, None, self.output / f'step-{number:02d}{suffix}',
@@ -97,13 +118,66 @@ class TaskRunner(VisualControl):
         finally:
             if recovery:
                 recovery.update(executed=bool(leaf.trace) or action == 'reverify',
-                                control_steps=len(leaf.trace), result=leaf.report.get('result'))
+                                control_steps=len(leaf.trace), result=leaf.report.get('result'),
+                                completion=leaf.report.get('completion'))
             self.obs = leaf.obs
             self.trace.extend(leaf.trace)
             self.report['inference_calls'] += leaf.report['inference_calls']
             self.report['steps'].append(dict(number=number, instruction=step['instruction'],
                 recovery=action, output=str(leaf.output), report=leaf.report))
         return leaf.report
+
+    def recover_step(self, text, port, number, step, previous, prefix, started):
+        """Replan one action at a time; preserve unresolved parent goals."""
+        pending, stagnant = [], 0
+        for attempt in range(1, 13):
+            if self.stop():
+                raise InterruptedError('用户已暂停')
+            if time.monotonic() - started > 600:
+                self.report['recovery_stop'] = dict(kind='safety_budget', reason='恢复超过10分钟，保留现场检查')
+                return previous if not pending else pending[0][1]
+            if previous.get('semantic_success') is True:
+                if not pending:
+                    return previous
+                step, previous, preparation = pending.pop()
+                preparation['preparation_success'] = True
+                # A preparation is a plan insertion: verified helper, then the
+                # unchanged parent. Never ask the model to wrap that parent as
+                # another prerequisite or use its stale pre-helper failure.
+                continuation = dict(step=number, attempt=attempt, executed=False,
+                    decision=dict(action='continue_original', reason='前置目标已核验，继续既有原步骤'),
+                    made_progress=True, consecutive_no_progress=0)
+                self.report['recoveries'].append(continuation)
+                previous = self.execute_leaf(step, number, port, prefix, continuation, previous)
+                stagnant = 0
+                continue
+            recovery = self.recovery_decision(text, port, number, step, previous, attempt)
+            decision = recovery['decision']
+            if self.stop():
+                raise InterruptedError('用户已暂停')
+            stagnant = 0 if recovery['made_progress'] else stagnant + 1
+            recovery['consecutive_no_progress'] = stagnant
+            if decision['action'] == 'stop' or stagnant >= 3:
+                self.report['recovery_stop'] = dict(kind='model_stop' if decision['action'] == 'stop' else 'no_progress',
+                    reason=decision['reason'] if decision['action'] == 'stop' else
+                    '连续3次观察未见目标进展，保留现场；' + decision['reason'])
+                return previous if not pending else pending[0][1]
+            if decision['action'] == 'prepare':
+                if len(pending) >= 3:
+                    self.report['recovery_stop'] = dict(kind='preparation_depth', reason='前置目标反复嵌套，保留现场检查')
+                    return pending[0][1]
+                pending.append((step, previous, recovery))
+                self.status(prefix + '重新规划前置步骤：' + decision['step']['instruction'])
+            previous = self.execute_leaf(step, number, port, prefix, recovery, previous)
+            if decision['action'] == 'prepare':
+                step = decision['step']
+                recovery['preparation_success'] = previous.get('semantic_success')
+        # The emergency cap is independent of success. It must never turn a
+        # last-iteration helper completion into completion of its parent goal.
+        if previous.get('semantic_success') is True and not pending:
+            return previous
+        self.report['recovery_stop'] = dict(kind='safety_budget', reason='达到12次恢复动作保护上限，任务尚未确认完成')
+        return previous if not pending else pending[0][1]
 
     def run(self, text, task_port=8911):
         started = time.monotonic()
@@ -127,26 +201,19 @@ class TaskRunner(VisualControl):
                 self.status(prefix + step["instruction"])
                 if self.stop():
                     raise InterruptedError("用户已暂停；未发送后续动作")
+                self.recovery_before = self.capture()[0]
                 previous = self.execute_leaf(step, number, task_port, prefix)
-                for attempt in range(1, 3):
-                    if previous.get('semantic_success') is True:
-                        break
-                    if self.stop():
-                        raise InterruptedError('用户已暂停')
+                if previous.get('semantic_success') is not True:
                     try:
-                        recovery = self.recovery_decision(text, task_port, number, step, previous, attempt)
-                        if recovery['decision']['action'] == 'stop':
-                            break
-                        previous = self.execute_leaf(step, number, task_port, prefix, recovery, previous)
+                        previous = self.recover_step(text, task_port, number, step, previous, prefix, time.monotonic())
                     except InterruptedError:
                         raise
                     except Exception as exc:
                         self.report['recovery_error'] = str(exc)
-                        break
                 success = previous.get('semantic_success')
                 if success is not True:
                     self.report.update(result="step_failed" if success is False else "step_unconfirmed",
-                        semantic_success=success, completion=previous.get("completion") or
+                        semantic_success=success, completion=self.report.get('recovery_stop') or previous.get("completion") or
                         {"reason": previous.get("exception", "恢复后仍未确认完成，保留现场")})
                     return self.report
                 self.report["completed_steps"] += 1

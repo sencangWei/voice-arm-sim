@@ -1,0 +1,786 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": false,
+  "result": "step_failed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 0,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+      "recovery": null,
+      "output": "/home/robot/voice-arm-sim/.local/continuous-recovery-20261025/panel-v1/scene_1792929055023974952/semantic_1792929057262861388/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "exception": "RuntimeError: {\"error\": \"Expected one source, destination, relation and faithful English instruction\"}",
+        "control_steps": 0,
+        "wall_duration_s": 0.9910572470107581
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "打开柜子第三层抽屉",
+      "recovery": "prepare",
+      "output": "/home/robot/voice-arm-sim/.local/continuous-recovery-20261025/panel-v1/scene_1792929055023974952/semantic_1792929057262861388/step-01-recovery-1",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": true,
+        "result": "visual_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "打开柜子第三层抽屉",
+        "skill": "open_drawer",
+        "request_timings": [
+          {
+            "endpoint": "drawer",
+            "port": 8911,
+            "wall_s": 0.6576344450004399,
+            "inference_s": 0.6512361519999104,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "verify",
+            "port": 8911,
+            "wall_s": 0.496838042003219,
+            "inference_s": 0.48528278300364036,
+            "device": "cuda:0"
+          }
+        ],
+        "verification_box": [
+          670,
+          347,
+          1000,
+          817
+        ],
+        "verification_action": "open",
+        "task": {
+          "action": "open",
+          "level": "bottom",
+          "handle_bbox_2d": [
+            670,
+            607,
+            730,
+            700
+          ],
+          "cabinet_bbox_2d": [
+            670,
+            347,
+            1000,
+            817
+          ]
+        },
+        "geometry": {
+          "handle": [
+            0.03465451678403125,
+            -0.13418105383470685,
+            0.9547196692119069
+          ],
+          "outward_normal": [
+            0.0027843330464313748,
+            0.9999961237372306,
+            0.0
+          ],
+          "plane_points": 387,
+          "handle_front_separation": 0.016678790497054615,
+          "method": "model handle region + RGB-D vertical front-plane fit; no object truth"
+        },
+        "drawer_verification": {
+          "geometry": {
+            "handle": [
+              0.03465451678403125,
+              -0.13418105383470685,
+              0.9547196692119069
+            ],
+            "outward_normal": [
+              0.0027843330464313748,
+              0.9999961237372306,
+              0.0
+            ],
+            "plane_points": 387,
+            "handle_front_separation": 0.016678790497054615,
+            "method": "model handle region + RGB-D vertical front-plane fit; no object truth"
+          },
+          "initial": {
+            "handle_band_m": -0.004918835257049559,
+            "cabinet_front_m": -0.02749999999999975,
+            "band_points": 692,
+            "cabinet_plane_points": 1607
+          }
+        },
+        "first_control_wall_s": 0.8703596460109111,
+        "motion_completed": true,
+        "release_gap": 0.07947641572967742,
+        "drawer_depth_check": {
+          "accepted": true,
+          "displacement_m": 0.1518884356634297,
+          "handle_to_closed_front_m": 0.17446960040637988,
+          "observation": {
+            "handle_band_m": 0.14696960040638013,
+            "cabinet_front_m": -0.02749999999999975,
+            "band_points": 678,
+            "cabinet_plane_points": 1607
+          },
+          "reason": "相机深度确认移动与终态"
+        },
+        "model_completion": {
+          "verdict": "completed",
+          "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+        },
+        "completion": {
+          "verdict": "completed",
+          "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+        },
+        "control_steps": 263,
+        "wall_duration_s": 19.333256477009854
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+      "recovery": "continue_original",
+      "output": "/home/robot/voice-arm-sim/.local/continuous-recovery-20261025/panel-v1/scene_1792929055023974952/semantic_1792929057262861388/step-01-recovery-2",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.5426754579966655,
+            "inference_s": 1.532265584988636,
+            "device": "cuda:0"
+          },
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.06532621299265884,
+            "inference_s": null,
+            "device": null
+          }
+        ],
+        "task": {
+          "source": {
+            "label": "蓝色奶酪盒",
+            "bbox_2d": [
+              286,
+              580,
+              351,
+              660
+            ]
+          },
+          "destination": {
+            "label": "柜子第三层抽屉内部",
+            "bbox_2d": [
+              500,
+              500,
+              738,
+              788
+            ]
+          },
+          "relation": "in",
+          "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+        },
+        "source": {
+          "raw_point": [
+            -0.0432563361759305,
+            0.14592236929682273,
+            0.9191992920303113
+          ],
+          "refined_point": [
+            -0.04097688897196361,
+            0.14641904449054996,
+            0.9189556443077608
+          ],
+          "tabletop": 0.901,
+          "pixels": 1065,
+          "method": "depth component clipped to model box; visible point median"
+        },
+        "destination": {
+          "method": "visible drawer floor depth mode",
+          "tabletop": 0.924,
+          "point": [
+            0.03775371343336109,
+            -0.04583736972785687,
+            0.924627001148335
+          ],
+          "selection": "nearest supported floor interior",
+          "floor_width_axis": [
+            -0.994413875224396,
+            0.10555114760721267,
+            0.0
+          ],
+          "edge_margin": 0.035
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.05001173570027517,
+            0.1366014010951942,
+            0.913
+          ],
+          "top": 0.9196509682801947,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.05001173570027517,
+            0.1366014010951942
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.038208894875839845,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999939619119234,
+              0.002275781821851959,
+              -0.0026262057791426475
+            ],
+            [
+              0.0022704006016023813,
+              -0.9999953209434129,
+              -0.0020502127667288783
+            ],
+            [
+              -0.0026308593279226475,
+              0.0020442378481827193,
+              -0.9999944498200062
+            ]
+          ]
+        },
+        "first_control_wall_s": 1.8201124589977553,
+        "hold_check": {
+          "gaps": [
+            0.042218005117904744,
+            0.0422134098189524,
+            0.04221692355506183,
+            0.04221749953290467,
+            0.04221752580541537,
+            0.04221341599503074,
+            0.04221707259862503,
+            0.04221741505423314,
+            0.04221803274345293,
+            0.04221778891435199,
+            0.042217494967099214,
+            0.04221760072485252,
+            0.04221811039058962,
+            0.04221786378430167,
+            0.04221777829061987,
+            0.04221740549748988,
+            0.042218070399828084,
+            0.042217829514648926,
+            0.04221740963682503,
+            0.042217484583338176
+          ],
+          "eef_drift": 0.004910797243633566,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "handover_step": 225,
+        "grasp_eef": [
+          -0.046731076671092366,
+          0.13830675775970047,
+          0.918138682432583
+        ],
+        "offset_xy": [
+          -0.0032806590291828072,
+          -0.0017053566645062745
+        ],
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "蓝色奶酪盒",
+              "bbox_2d": [
+                286,
+                580,
+                351,
+                660
+              ]
+            },
+            "destination": {
+              "label": "柜子第三层抽屉内部",
+              "bbox_2d": [
+                500,
+                500,
+                738,
+                788
+              ]
+            },
+            "relation": "in",
+            "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+          },
+          "min_z": 0.913,
+          "offset_xy": [
+            -0.0032806590291828072,
+            -0.0017053566645062745
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.03775371343336109,
+            -0.04583736972785687,
+            0.924627001148335
+          ],
+          "goal_meta": {
+            "method": "visible drawer floor depth mode",
+            "tabletop": 0.924,
+            "point": [
+              0.03775371343336109,
+              -0.04583736972785687,
+              0.924627001148335
+            ],
+            "selection": "nearest supported floor interior",
+            "floor_width_axis": [
+              -0.994413875224396,
+              0.10555114760721267,
+              0.0
+            ],
+            "edge_margin": 0.035
+          },
+          "destination_kind": "drawer_interior"
+        },
+        "clearance_z": 1.2428033331628396,
+        "exception": "ValueError: 当前画面找不到目的地；保留夹持等待恢复",
+        "control_steps": 226,
+        "wall_duration_s": 17.27659316000063
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+      "recovery": "resume_place",
+      "output": "/home/robot/voice-arm-sim/.local/continuous-recovery-20261025/panel-v1/scene_1792929055023974952/semantic_1792929057262861388/step-01-recovery-3",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "蓝色奶酪盒",
+              "bbox_2d": [
+                286,
+                580,
+                351,
+                660
+              ]
+            },
+            "destination": {
+              "label": "柜子第三层抽屉内部",
+              "bbox_2d": [
+                500,
+                500,
+                738,
+                788
+              ]
+            },
+            "relation": "in",
+            "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+          },
+          "min_z": 0.913,
+          "offset_xy": [
+            -0.0032806590291828072,
+            -0.0017053566645062745
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.03775371343336109,
+            -0.04583736972785687,
+            0.924627001148335
+          ],
+          "goal_meta": {
+            "method": "visible drawer floor depth mode",
+            "tabletop": 0.924,
+            "point": [
+              0.03775371343336109,
+              -0.04583736972785687,
+              0.924627001148335
+            ],
+            "selection": "nearest supported floor interior",
+            "floor_width_axis": [
+              -0.994413875224396,
+              0.10555114760721267,
+              0.0
+            ],
+            "edge_margin": 0.035
+          },
+          "destination_kind": "drawer_interior"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.05001173570027517,
+            0.1366014010951942,
+            0.913
+          ],
+          "top": 0.9196509682801947,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.05001173570027517,
+            0.1366014010951942
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.038208894875839845,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999939619119234,
+              0.002275781821851959,
+              -0.0026262057791426475
+            ],
+            [
+              0.0022704006016023813,
+              -0.9999953209434129,
+              -0.0020502127667288783
+            ],
+            [
+              -0.0026308593279226475,
+              0.0020442378481827193,
+              -0.9999944498200062
+            ]
+          ]
+        },
+        "first_control_wall_s": 0.00018461799481883645,
+        "hold_check": {
+          "gaps": [
+            0.04221769222423041,
+            0.042217485192273405,
+            0.04221750860217949,
+            0.04221552062156263,
+            0.04221756021336938,
+            0.04221771453913073,
+            0.04221771020095333,
+            0.04221770965321569,
+            0.042217886183001596,
+            0.04221772933587238,
+            0.042217474311400285,
+            0.04221764471121525,
+            0.04221792204478268,
+            0.042217674710661166,
+            0.04221775260264435,
+            0.04221745231352543,
+            0.0422180750478056,
+            0.042217829925634665,
+            0.042217410894796775,
+            0.04221759296710452
+          ],
+          "eef_drift": 9.900189026970303e-05,
+          "accepted": true,
+          "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+        },
+        "clearance_z": 1.2428549206998936,
+        "request_timings": [
+          {
+            "endpoint": "locate",
+            "port": 8911,
+            "wall_s": 0.061246534998645075,
+            "inference_s": null,
+            "device": null
+          }
+        ],
+        "exception": "ValueError: 当前画面找不到目的地；保留夹持等待恢复",
+        "control_steps": 21,
+        "wall_duration_s": 1.669924005997018
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+      "recovery": "reverify",
+      "output": "/home/robot/voice-arm-sim/.local/continuous-recovery-20261025/panel-v1/scene_1792929055023974952/semantic_1792929057262861388/step-01-recovery-4",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": false,
+        "result": "visual_not_completed",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "grasp_context": {
+          "task": {
+            "source": {
+              "label": "蓝色奶酪盒",
+              "bbox_2d": [
+                286,
+                580,
+                351,
+                660
+              ]
+            },
+            "destination": {
+              "label": "柜子第三层抽屉内部",
+              "bbox_2d": [
+                500,
+                500,
+                738,
+                788
+              ]
+            },
+            "relation": "in",
+            "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+          },
+          "min_z": 0.913,
+          "offset_xy": [
+            -0.0032806590291828072,
+            -0.0017053566645062745
+          ],
+          "source_base": 0.901,
+          "destination": [
+            0.03775371343336109,
+            -0.04583736972785687,
+            0.924627001148335
+          ],
+          "goal_meta": {
+            "method": "visible drawer floor depth mode",
+            "tabletop": 0.924,
+            "point": [
+              0.03775371343336109,
+              -0.04583736972785687,
+              0.924627001148335
+            ],
+            "selection": "nearest supported floor interior",
+            "floor_width_axis": [
+              -0.994413875224396,
+              0.10555114760721267,
+              0.0
+            ],
+            "edge_margin": 0.035
+          },
+          "destination_kind": "drawer_interior"
+        },
+        "geometric_grasp": {
+          "target": [
+            -0.05001173570027517,
+            0.1366014010951942,
+            0.913
+          ],
+          "top": 0.9196509682801947,
+          "source_base": 0.901,
+          "mode": "top_parallel",
+          "center_xy": [
+            -0.05001173570027517,
+            0.1366014010951942
+          ],
+          "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+          "footprint_radius": 0.038208894875839845,
+          "support_margin": 0.06,
+          "rotation": [
+            [
+              0.9999939619119234,
+              0.002275781821851959,
+              -0.0026262057791426475
+            ],
+            [
+              0.0022704006016023813,
+              -0.9999953209434129,
+              -0.0020502127667288783
+            ],
+            [
+              -0.0026308593279226475,
+              0.0020442378481827193,
+              -0.9999944498200062
+            ]
+          ]
+        },
+        "release_gap": 0.04221756745274135,
+        "completion": {
+          "verdict": "not_completed",
+          "reason": "夹爪尚未充分打开，不能确认释放"
+        },
+        "control_steps": 0,
+        "wall_duration_s": 0.04850661200180184
+      }
+    }
+  ],
+  "control_steps": 510,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉里面，然后关闭第三层抽屉",
+  "recoveries": [
+    {
+      "step": 1,
+      "attempt": 1,
+      "decision": {
+        "action": "prepare",
+        "reason": "抽屉未打开，需先打开第三层抽屉才能放置蓝色奶酪盒，当前未执行前置条件，应先准备打开抽屉",
+        "progress": "no_progress",
+        "step": {
+          "skill": "open_drawer",
+          "instruction": "打开柜子第三层抽屉",
+          "destination_kind": "drawer_interior"
+        }
+      },
+      "executed": true,
+      "observation_change_fraction": 0.0,
+      "made_progress": false,
+      "consecutive_no_progress": 1,
+      "attempted": true,
+      "control_steps": 263,
+      "result": "visual_completed",
+      "completion": {
+        "verdict": "completed",
+        "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+      },
+      "preparation_success": true
+    },
+    {
+      "step": 1,
+      "attempt": 2,
+      "executed": true,
+      "decision": {
+        "action": "continue_original",
+        "reason": "前置目标已核验，继续既有原步骤"
+      },
+      "made_progress": true,
+      "consecutive_no_progress": 0,
+      "attempted": true,
+      "control_steps": 226,
+      "result": "exception",
+      "completion": null
+    },
+    {
+      "step": 1,
+      "attempt": 3,
+      "decision": {
+        "action": "resume_place",
+        "reason": "蓝色奶酪盒仍被夹持，抽屉已打开且内部可见，可继续放置原物体",
+        "progress": "no_progress",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.1835174560546875,
+      "made_progress": false,
+      "consecutive_no_progress": 1,
+      "attempted": true,
+      "control_steps": 21,
+      "result": "exception",
+      "completion": null
+    },
+    {
+      "step": 1,
+      "attempt": 4,
+      "decision": {
+        "action": "reverify",
+        "reason": "当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确",
+        "progress": "uncertain",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.001308441162109375,
+      "made_progress": false,
+      "consecutive_no_progress": 2,
+      "attempted": true,
+      "control_steps": 0,
+      "result": "visual_not_completed",
+      "completion": {
+        "verdict": "not_completed",
+        "reason": "夹爪尚未充分打开，不能确认释放"
+      }
+    },
+    {
+      "step": 1,
+      "attempt": 5,
+      "decision": {
+        "action": "reverify",
+        "reason": "当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确",
+        "progress": "uncertain",
+        "step": null
+      },
+      "executed": false,
+      "observation_change_fraction": 0.0,
+      "made_progress": false,
+      "consecutive_no_progress": 3
+    }
+  ],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.2717429559997981,
+      "inference_s": 1.2639631609927164,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.8651554880052572,
+      "inference_s": 0.8495257900067372,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.5972120700025698,
+      "inference_s": 0.5844675870030187,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.7859940880007343,
+      "inference_s": 0.7703156049974496,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.7616298080101842,
+      "inference_s": 0.7491545169905294,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放与抽屉操作",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把蓝色奶酪盒放进柜子第三层抽屉里面",
+        "destination_kind": "drawer_interior"
+      },
+      {
+        "skill": "close_drawer",
+        "instruction": "关闭柜子第三层抽屉",
+        "destination_kind": "drawer_interior"
+      }
+    ]
+  },
+  "recovery_stop": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确"
+  },
+  "completion": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；当前画面中蓝色奶酪盒未被夹持，且抽屉已打开，但原目标物体未出现在抽屉内，需重新核验是否夹持成功或位置正确"
+  },
+  "wall_duration_s": 44.18276581898681
+}
