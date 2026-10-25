@@ -54,7 +54,15 @@ def test_thin_box_grasp_reaches_its_sides_instead_of_closing_above(tmp_path):
     tcp_z = skill.report['geometric_grasp']['target'][2]
     assert .901 < tcp_z < .920
     assert tcp_z-.009 < .919  # fingertip intersects the object's side height
-    assert skill.report['geometric_grasp']['support_margin'] > .03
+    margin = skill.report['geometric_grasp']['support_margin']
+    assert .035 <= margin < .05
+    # A thin box fits on a small plate. A universal 6 cm inset wrongly
+    # rejects every point on this measured, partly occluded support.
+    px, py = np.meshgrid(np.linspace(-.065, .065, 100), np.linspace(-.055, .055, 100))
+    plate = np.stack([px, py, np.full_like(px, .908)], axis=-1)
+    mask = (px/.065)**2 + (py/.055)**2 <= 1
+    point = nearby_support_point(plate, mask, [0., .2], margin=margin)
+    assert np.linalg.norm(point[:2]) < .03
 
 
 def test_drawer_landing_prefers_exposed_near_edge_with_margin(tmp_path):
@@ -163,6 +171,20 @@ def test_plate_landing_uses_connected_shallow_rim_without_table_pixels():
     assert np.all(z[mask] > .90)
     target = nearby_support_point(cloud, mask, [0., 0.], margin=.034)
     assert np.linalg.norm(target[:2]) < .003
+
+
+def test_support_landing_avoids_obstacle_inside_the_convex_table_boundary():
+    y, x = np.mgrid[-.2:.201:.004, -.2:.201:.004]
+    z = np.full(x.shape, .90)
+    # A raised stove occupies a hole inside the selected table support. Its
+    # low base is at table height; the convex hull alone fills that hole.
+    stove = (np.abs(x) < .06) & (np.abs(y) < .06)
+    z[stove] = .925
+    cloud = np.stack([x, y, z], axis=-1)
+    mask = ~stove
+    target = nearby_support_point(cloud, mask, [0., 0.], margin=.04)
+    obstacle_xy = cloud[stove, :2]
+    assert np.min(np.linalg.norm(obstacle_xy - target[:2], axis=1)) >= .04
 
 
 def test_visual_controller_defaults_to_gpu_task_service(tmp_path, monkeypatch):

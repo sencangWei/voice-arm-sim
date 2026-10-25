@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "蓝色奶酪盒已放置在灶台表面，且机械臂已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"蓝色奶酪盒已放置在灶台表面，且机械臂已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "235177d733f9128df89879573f5a1a3f99d187d78b4be0360069377d36dfbe05",
+    "398a5f0615d7a217ad23cbfb2b35288d54863ffff0f1dd55d1b745814641cb1a"
+  ],
+  "model_input_image_sha256": [
+    "235177d733f9128df89879573f5a1a3f99d187d78b4be0360069377d36dfbe05"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.44519054000556935
+}

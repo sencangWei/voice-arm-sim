@@ -20,6 +20,7 @@ class TaskRunner(VisualControl):
         self.report.update(backend="Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
                            completed_steps=0, steps=[], control_steps=0)
         self.recovery_before = None
+        self.drawer_contexts = {}
 
     def make_plan(self, text, port, failure=None):
         rgb, _ = self.capture()
@@ -59,6 +60,11 @@ class TaskRunner(VisualControl):
             observation_change_fraction=change)
         allowed = ({'retry_drawer', 'reverify', 'prepare', 'stop'} if step['skill'] != 'pick_place'
                    else {'retry_grasp', 'reverify', 'prepare', 'stop'})
+        if (not previous.get('motion_completed')
+                or (previous.get('drawer_depth_check') or {}).get('accepted') is False):
+            # An unfinished descent/pull needs an action, not repeated verdicts
+            # on an unchanged scene. Preserve rechecks after completed motion.
+            allowed.discard('reverify')
         if previous.get('grasp_context'):
             allowed.add('resume_place')
             gap = float(np.abs(self.obs.get('robot0_gripper_qpos', [0., 0.])).sum())
@@ -107,7 +113,8 @@ class TaskRunner(VisualControl):
                 leaf.recover(step['instruction'], action, previous, task_port=port,
                              destination_kind=step['destination_kind'])
             elif step['skill'] != 'pick_place':
-                leaf.run(step['instruction'], task_port=port, skill=step['skill'])
+                leaf.run(step['instruction'], task_port=port, skill=step['skill'],
+                         drawer_contexts=self.drawer_contexts)
             else:
                 leaf.run(step['instruction'], task_port=port, destination_kind=step['destination_kind'])
         except InterruptedError:
@@ -121,6 +128,13 @@ class TaskRunner(VisualControl):
                                 control_steps=len(leaf.trace), result=leaf.report.get('result'),
                                 completion=leaf.report.get('completion'))
             self.obs = leaf.obs
+            task = leaf.report.get('task', {})
+            if (step['skill'] != 'pick_place' and leaf.report.get('semantic_success') is True
+                    and task.get('action') in ('open', 'close') and task.get('level')):
+                if task['action'] == 'open':
+                    self.drawer_contexts[task['level']] = leaf.report
+                else:
+                    self.drawer_contexts.pop(task['level'], None)
             self.trace.extend(leaf.trace)
             self.report['inference_calls'] += leaf.report['inference_calls']
             self.report['steps'].append(dict(number=number, instruction=step['instruction'],

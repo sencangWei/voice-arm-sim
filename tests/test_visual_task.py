@@ -138,6 +138,16 @@ def test_valid_output_uses_one_inference(monkeypatch):
     assert len(calls) == 1
 
 
+def test_leaf_prompt_reiterates_complete_schema_immediately_before_instruction(monkeypatch):
+    # Recorded retained-scene requests omitted destination or the translation.
+    payload, calls = mock_vision(monkeypatch, [VALID])
+    model_service.visual_task(payload)
+    prompt = calls[0][0]['content'][-1]['text']
+    assert prompt.endswith('实际任务：\n' + payload['text'])
+    assert '四个根字段 source、destination、relation、english 全部存在' in prompt
+    assert '不能只输出源物体' in prompt
+
+
 def test_observed_destination_wrapper_after_source_only_retry(monkeypatch):
     partial = '{"source":{"label":"blue cheese box","bbox_2d":[286,582,351,663]}}'
     broken = '{"source":{"label":"蓝色奶酪盒","bbox_2d": [286, 581, 351, 663]},{"destination":{"label":"柜子第三层抽屉","bbox_2d": [505, 357, 741, 798]}},"relation":"in","english":"Put the blue cheese box into the third layer drawer of the cabinet."}'

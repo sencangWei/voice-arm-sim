@@ -1,0 +1,6 @@
+{
+  "independent_review": "unavailable",
+  "reason": "Installed code-reviewer uses gpt-5.5, rejected by account with model_not_found",
+  "fallback": "Direct review of all changed production code, targeted regression tests and recorded simulation with independent physical observations",
+  "remaining_failure": "Collision-blocked cheese grasp and dependent retrieval remain uncompleted"
+}

@@ -1,0 +1,28 @@
+{
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放与抽屉操作",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把蓝色奶酪盒放进第三层抽屉",
+        "destination_kind": "drawer_interior"
+      },
+      {
+        "skill": "close_drawer",
+        "instruction": "关闭第三层抽屉",
+        "destination_kind": "drawer_interior"
+      }
+    ]
+  },
+  "raw": "{\n  \"status\": \"ready\",\n  \"reason\": \"两步抓放与抽屉操作\",\n  \"missing_skills\": [],\n  \"steps\": [\n    {\n      \"skill\": \"pick_place\",\n      \"instruction\": \"把蓝色奶酪盒放进第三层抽屉\",\n      \"destination_kind\": \"drawer_interior\"\n    },\n    {\n      \"skill\": \"close_drawer\",\n      \"instruction\": \"关闭第三层抽屉\",\n      \"destination_kind\": \"drawer_interior\"\n    }\n  ]\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "37a50cd6e23a4726ee3c0351e3587ae65e516f72a7894c1210be3e3aafbb100a",
+  "model_input_image_sha256": [],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.2143778460012982
+}

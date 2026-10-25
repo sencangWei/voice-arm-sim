@@ -304,3 +304,11 @@ def test_pause_in_step_callback_never_starts_motion(tmp_path, monkeypatch):
         controller.run("先放柜顶再放灶台")
     assert not any(isinstance(e, tuple) for e in events)
     assert controller.report["completed_steps"] == 0
+
+
+def test_flat_plate_and_bowl_have_distinct_shared_destination_contract():
+    from vla.task_plan import PLAN_PROMPT
+    from vla.semantic import TASK_PROMPT
+    for prompt in (PLAN_PROMPT, TASK_PROMPT):
+        assert "浅盘使用 support_surface / on" in prompt
+        assert "碗使用 circular_container / in" in prompt

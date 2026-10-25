@@ -118,6 +118,82 @@ def handle_geometry(cloud, task):
                 else 'model handle region + RGB-D vertical front-plane fit; no object truth'))
 
 
+def ordered_handle_geometry(cloud, task):
+    """Check three closed horizontal bars by measured height, not model boxes.
+
+    This bounded three-drawer skill rejects occluded/missing bars. The model
+    supplies the cabinet, action and requested level; depth supplies the order.
+    """
+    anchor, normal, geometry = handle_geometry(cloud, task)
+    delta = cloud - anchor
+    depth = delta @ normal
+    lateral = delta @ np.cross(normal, [0., 0., 1.])
+    normals = np.cross(cloud[1:-1, 2:] - cloud[1:-1, :-2],
+                       cloud[2:, 1:-1] - cloud[:-2, 1:-1])
+    lengths = np.linalg.norm(normals, axis=-1)
+    vertical = np.zeros(cloud.shape[:2], dtype=bool)
+    vertical[1:-1, 1:-1] = (lengths > 1e-10) & (np.abs(normals[..., 2]) < .3 * lengths)
+    cabinet = box_points(cloud, task['cabinet_bbox_2d'])
+    near = (np.isfinite(cloud).all(axis=-1) & (np.abs(lateral) < .08)
+            & (depth > -.008) & (depth < .025)
+            & (cloud[..., 2] >= cabinet[:, 2].min())
+            & (cloud[..., 2] <= cabinet[:, 2].max()))
+    points = cloud[near & vertical]
+    bins, counts = np.unique(np.round(points[:, 2] / .003), return_counts=True)
+    heights = []
+    for index in np.argsort(-counts, kind='stable'):
+        height = bins[index] * .003
+        if any(abs(height - old) < .02 for old in heights):
+            continue
+        bar = points[np.abs(points[:, 2] - height) < .007]
+        if len(bar) < 40 or np.ptp(bar[:, 2]) < .002:
+            continue
+        eigenvalues = np.linalg.eigvalsh(np.cov(bar[:, :2].T))
+        if eigenvalues[-1] > .0003 and eigenvalues[-1] > 4 * eigenvalues[0]:
+            heights.append(float(height))
+    if len(heights) != 3:
+        raise ValueError('当前深度无法独立确认三层把手，未发送动作')
+    heights.sort(reverse=True)
+    level = ('top', 'middle', 'bottom').index(task['level'])
+    handle = anchor
+    if abs(anchor[2] - heights[level]) >= .02:
+        bar = cloud[near & (np.abs(cloud[..., 2] - heights[level]) < .010)]
+        bar = bar[bar @ normal >= np.quantile(bar @ normal, .65)]
+        handle = np.median(bar, axis=0)
+    geometry.update(handle=handle.tolist(), observed_handle_heights=heights,
+                    selected_level=task['level'], model_handle=anchor.tolist(),
+                    method='model cabinet + three measured horizontal bars ranked by height; no object truth')
+    return handle, normal, geometry
+
+
+def reacquire_open_handle(cloud, context, level):
+    """Reacquire a verified opening in fresh depth; prior coordinates are a gate."""
+    if (context.get('semantic_success') is not True
+            or context.get('task', {}).get('action') != 'open'
+            or context['task'].get('level') != level
+            or context.get('drawer_depth_check', {}).get('accepted') is not True):
+        raise ValueError('缺少同层已核验的打开观测')
+    geometry = context['geometry']
+    normal = np.asarray(geometry['outward_normal'])
+    predicted = (np.asarray(geometry['handle'])
+                 + normal * context['drawer_depth_check']['displacement_m'])
+    delta = cloud - predicted
+    near = (np.isfinite(cloud).all(axis=-1) & (np.abs(delta[..., 2]) < .012)
+            & (np.abs(delta @ np.cross(normal, [0., 0., 1.])) < .07)
+            & (np.abs(delta @ normal) < .035))
+    bar = cloud[near]
+    if len(bar) < 40:
+        raise ValueError('当前深度没有重找到已打开把手，未发送动作')
+    eigenvalues = np.linalg.eigvalsh(np.cov(bar[:, :2].T))
+    if eigenvalues[-1] < .0003 or eigenvalues[-1] < 4 * eigenvalues[0]:
+        raise ValueError('当前观测不支持细长把手，未发送动作')
+    selected = bar[bar @ normal >= np.quantile(bar @ normal, .65)]
+    handle = np.median(selected, axis=0)
+    return handle, normal, dict(geometry, handle=handle.tolist(),
+        predicted_handle=predicted.tolist(), current_bar_points=len(bar),
+        method='verified prior opening + reacquired current RGB-D horizontal bar; no object truth')
+
+
 def drawer_depth_observation(cloud, geometry):
     """Measure the visible handle-height band and a stationary cabinet front."""
     if cloud is None:
@@ -134,7 +210,17 @@ def drawer_depth_observation(cloud, geometry):
                  & (depth > -.25) & (depth < .25)]
     if len(band) < 40 or np.ptp(np.quantile(band, [.25, .75])) > .04:
         raise ValueError('把手高度深度不足或被遮挡，不能确认抽屉移动')
-    front = depth[(np.abs(lateral) < .065) & (delta[:, 2] > .06) & (delta[:, 2] < .18)]
+    # A top drawer has no stationary front above it. Use observed vertical
+    # surfaces on either side of the height band; horizontal table pixels must
+    # never become a closed-front reference.
+    vertical = np.zeros(cloud.shape[:2], dtype=bool)
+    normals = np.cross(cloud[1:-1, 2:] - cloud[1:-1, :-2],
+                       cloud[2:, 1:-1] - cloud[:-2, 1:-1])
+    lengths = np.linalg.norm(normals, axis=-1)
+    vertical[1:-1, 1:-1] = (lengths > 1e-10) & (np.abs(normals[..., 2]) < .2 * lengths)
+    vertical = vertical.reshape(-1)[np.isfinite(np.asarray(cloud).reshape(-1, 3)).all(axis=1)]
+    front = depth[vertical & (np.abs(lateral) < .065)
+                  & (np.abs(delta[:, 2]) > .06) & (np.abs(delta[:, 2]) < .18)]
     counts, edges = np.histogram(front, bins=np.arange(-.30, .251, .005))
     peak = int(np.argmax(counts))
     reference = float(edges[peak] + .0025) if counts[peak] >= 100 else None
@@ -186,7 +272,7 @@ class DrawerControl(VisualControl):
                     return
         raise TimeoutError(f'{phase} 未收敛')
 
-    def run(self, text, task_port=8911, skill='open_drawer'):
+    def run(self, text, task_port=8911, skill='open_drawer', drawer_contexts=None):
         import imageio.v2 as imageio
         started = time.monotonic()
         self.started = started
@@ -216,10 +302,19 @@ class DrawerControl(VisualControl):
                     raise ValueError('当前画面无法定位已打开抽屉的把手')
                 task['handle_bbox_2d'] = location['bbox_2d']
                 task = parse_drawer(json.dumps(task))
-            handle, normal, geometry = handle_geometry(cloud, task)
+            handle, normal, geometry = (ordered_handle_geometry(cloud, task)
+                if task['action'] == 'open' else handle_geometry(cloud, task))
+            try:
+                initial = drawer_depth_observation(cloud, geometry)
+            except ValueError:
+                context = (drawer_contexts or {}).get(task['level'])
+                if task['action'] != 'close' or context is None:
+                    raise
+                handle, normal, geometry = reacquire_open_handle(cloud, context, task['level'])
+                initial = drawer_depth_observation(cloud, geometry)
             self.report.update(task=task, geometry=geometry)
             self.report['drawer_verification'] = dict(geometry=geometry,
-                initial=drawer_depth_observation(cloud, geometry))
+                initial=initial)
             np.savez_compressed(self.output / 'geometry.npz', cloud=cloud)
             up = np.array([0., 0., 1.])
             # A horizontal Panda palm hits the table at low drawers. Approach

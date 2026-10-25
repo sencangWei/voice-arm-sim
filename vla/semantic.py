@@ -36,9 +36,11 @@ TASK_PROMPT = """你是桌面机械臂的视觉任务解析器。根据用户指
 严格输出 JSON，不要解释：
 {"source":{"label":"英文物体描述","bbox_2d":[x1,y1,x2,y2]},"destination":{"label":"英文目的地描述","bbox_2d":[x1,y1,x2,y2]},"relation":"in或on","english":"忠实翻译原始指令的英文"}
 两个框都使用0到1000归一化xyxy坐标。源物体是被搬运的东西，目的地是指令指定的容器或支撑面；二者不可混淆。
+浅盘使用 support_surface / on，即使中文说“盘子里”；碗使用 circular_container / in。这里只输出 relation，不增加 destination_kind 字段；盘子的框应覆盖盘面，不是旁边桌面。
 从容器取出时，如果用户没指定新位置，目的地选图中空的桌面区域并使用 on。
 放进抽屉时relation=in，目的地框仅覆盖指定层已拉开抽屉的可见内部底面，不要框柜体或把手；三层从上往下数。
 不要输出物体的三维坐标，不要计划轨迹。用户指令：
+请同时识别源物体和目的地。输出前检查四个根字段 source、destination、relation、english 全部存在，两个 bbox_2d 完整且各自闭合；不能只输出源物体。实际任务：
 """
 
 

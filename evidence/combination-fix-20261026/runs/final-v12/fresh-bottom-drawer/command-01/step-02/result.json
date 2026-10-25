@@ -1,0 +1,124 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "关上第三层抽屉",
+  "skill": "close_drawer",
+  "request_timings": [
+    {
+      "endpoint": "drawer",
+      "port": 8911,
+      "wall_s": 0.737980771009461,
+      "inference_s": 0.7294528700003866,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.652004762989236,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.6082898010063218,
+      "inference_s": 0.594864016995416,
+      "device": "cuda:0"
+    }
+  ],
+  "verification_box": [
+    500,
+    357,
+    1000,
+    820
+  ],
+  "verification_action": "close",
+  "task": {
+    "action": "close",
+    "level": "bottom",
+    "handle_bbox_2d": [
+      458,
+      610,
+      500,
+      710
+    ],
+    "cabinet_bbox_2d": [
+      500,
+      357,
+      1000,
+      820
+    ]
+  },
+  "geometry": {
+    "handle": [
+      0.0313302156684766,
+      0.02213111127079264,
+      0.954080223118904
+    ],
+    "outward_normal": [
+      -0.0011049797665124354,
+      0.9999993895096714,
+      -0.0
+    ],
+    "plane_points": 0,
+    "handle_front_separation": null,
+    "method": "model handle region + RGB-D bar axis and observed cabinet side"
+  },
+  "drawer_verification": {
+    "geometry": {
+      "handle": [
+        0.0313302156684766,
+        0.02213111127079264,
+        0.954080223118904
+      ],
+      "outward_normal": [
+        -0.0011049797665124354,
+        0.9999993895096714,
+        -0.0
+      ],
+      "plane_points": 0,
+      "handle_front_separation": null,
+      "method": "model handle region + RGB-D bar axis and observed cabinet side"
+    },
+    "initial": {
+      "handle_band_m": -0.0070719136104353255,
+      "cabinet_front_m": -0.18249999999999988,
+      "band_points": 686,
+      "cabinet_plane_points": 1316
+    }
+  },
+  "first_control_wall_s": 1.6154017859953456,
+  "contact_stop": {
+    "travel_m": 0.13632205362872818,
+    "reason": "推动停滞，停止施压并撤手进行视觉核对"
+  },
+  "motion_completed": true,
+  "release_gap": 0.0794703252159816,
+  "drawer_depth_check": {
+    "accepted": true,
+    "displacement_m": -0.15531220728986692,
+    "handle_to_closed_front_m": 0.020115879099697642,
+    "observation": {
+      "handle_band_m": -0.16238412090030224,
+      "cabinet_front_m": -0.18249999999999988,
+      "band_points": 701,
+      "cabinet_plane_points": 1316
+    },
+    "reason": "相机深度确认移动与终态"
+  },
+  "model_completion": {
+    "verdict": "completed",
+    "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无可见物体或机械臂接触，符合关闭标准。"
+  },
+  "completion": {
+    "verdict": "completed",
+    "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无可见物体或机械臂接触，符合关闭标准。"
+  },
+  "control_steps": 223,
+  "wall_duration_s": 4.1752576180006145
+}

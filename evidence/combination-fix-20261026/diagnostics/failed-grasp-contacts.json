@@ -1,0 +1,47 @@
+{
+  "eef": [
+    -0.04557678690108594,
+    0.13949560222676163,
+    0.921088563672878
+  ],
+  "contacts": [
+    {
+      "names": [
+        "plate_1_g4",
+        "gripper0_finger1_collision"
+      ],
+      "distance": -1.8326449214473704e-05,
+      "position": [
+        -0.051840963907351566,
+        0.0837794547133817,
+        0.9169075742401936
+      ]
+    },
+    {
+      "names": [
+        "plate_1_g5",
+        "gripper0_finger1_collision"
+      ],
+      "distance": -0.004608296601797059,
+      "position": [
+        -0.040495674183156846,
+        0.09192464655625457,
+        0.9155309468551983
+      ]
+    },
+    {
+      "names": [
+        "gripper0_finger1_pad_collision",
+        "plate_1_g5"
+      ],
+      "distance": -8.318817513591174e-05,
+      "position": [
+        -0.03777087489295722,
+        0.09746458374561807,
+        0.9168107460651083
+      ]
+    }
+  ],
+  "observer_only": true,
+  "controller_object_truth": false
+}

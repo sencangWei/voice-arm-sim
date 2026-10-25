@@ -1,0 +1,443 @@
+{
+  "controller_object_truth": false,
+  "end_to_end_vla": false,
+  "reset_between_commands": false,
+  "suite": "libero_goal",
+  "task_id": 9,
+  "initial_state": 0,
+  "seed": 7,
+  "commands": [
+    {
+      "case": "fresh-bottom-drawer",
+      "command": 1,
+      "instruction": "打开第三层抽屉，然后关上它，再打开第三层抽屉",
+      "output": ".local/combination-fix-20261026/final-v11/fresh-bottom-drawer/command-01",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.3285726569883991,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "bottle-plate-chain",
+      "command": 1,
+      "instruction": "把酒瓶放到盘子里，然后把它放到柜子顶部",
+      "output": ".local/combination-fix-20261026/final-v11/bottle-plate-chain/command-01",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.2778210480028065,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "bottle-chain",
+      "command": 1,
+      "instruction": "先把酒瓶放到柜子顶部，再把它放到灶台上",
+      "output": ".local/combination-fix-20261026/final-v11/bottle-chain/command-01",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.2730225379928015,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "bottle-chain",
+      "command": 2,
+      "instruction": "把酒瓶从灶台拿到桌面上，然后把蓝色奶酪盒放到柜子顶部",
+      "output": ".local/combination-fix-20261026/final-v11/bottle-chain/command-02",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.1386666499893181,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "cheese-chain",
+      "command": 1,
+      "instruction": "把蓝色奶酪盒放到盘子里，再把它拿到灶台上",
+      "output": ".local/combination-fix-20261026/final-v11/cheese-chain/command-01",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.2751451049989555,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "drawer-chain",
+      "command": 1,
+      "instruction": "打开柜子第二层抽屉，然后关上它，再打开第三层抽屉",
+      "output": ".local/combination-fix-20261026/final-v11/drawer-chain/command-01",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.2736446340131806,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "drawer-chain",
+      "command": 2,
+      "instruction": "把蓝色奶酪盒放进第三层抽屉，然后关闭第三层抽屉",
+      "output": ".local/combination-fix-20261026/final-v11/drawer-chain/command-02",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.13728616099979263,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    },
+    {
+      "case": "drawer-chain",
+      "command": 3,
+      "instruction": "打开第三层抽屉，把里面的奶酪盒拿出来放到桌面上，再关上第三层抽屉",
+      "output": ".local/combination-fix-20261026/final-v11/drawer-chain/command-03",
+      "result": "exception",
+      "semantic_success": null,
+      "completed_steps": 0,
+      "control_steps": 0,
+      "wall_s": 0.13882694799394812,
+      "exception": "URLError: <urlopen error [Errno 111] Connection refused>",
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": 0.0
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.19419614657047995,
+              -0.03720879067836274,
+              0.898860691959308
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089068886029357
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    }
+  ]
+}

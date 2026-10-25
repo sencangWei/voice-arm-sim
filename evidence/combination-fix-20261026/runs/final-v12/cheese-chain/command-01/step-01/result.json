@@ -1,0 +1,247 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放到盘子里",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 0.9699523029994452,
+      "inference_s": 0.9625608249916695,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.3935571229958441,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.5719977939879755,
+      "inference_s": 0.5598015379946446,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        286,
+        582,
+        351,
+        666
+      ]
+    },
+    "destination": {
+      "label": "plate",
+      "bbox_2d": [
+        416,
+        635,
+        601,
+        766
+      ]
+    },
+    "relation": "on",
+    "english": "Place the blue cheese box on the plate."
+  },
+  "source": {
+    "raw_point": [
+      -0.038778455309975035,
+      0.14540427911847645,
+      0.9191939615643471
+    ],
+    "refined_point": [
+      -0.0395408736404822,
+      0.14644497563970957,
+      0.9189472415667375
+    ],
+    "tabletop": 0.901,
+    "pixels": 1091,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      0.03253739407232448,
+      -0.007511562646520231,
+      0.9078096496542991
+    ],
+    "refined_point": [
+      0.03686062585853167,
+      -0.010835922744822611,
+      0.9083545055834155
+    ],
+    "tabletop": 0.901,
+    "pixels": 2332,
+    "support_pixels": 5048,
+    "support_plane_z": 0.908,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.04999407813398682,
+      0.1368519196104938,
+      0.913
+    ],
+    "top": 0.9196508418533561,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.04999407813398682,
+      0.1368519196104938
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.03824086483455938,
+    "support_margin": 0.050240864834559376,
+    "rotation": [
+      [
+        0.9999989909252469,
+        0.0005984305096427956,
+        0.001288421287113577
+      ],
+      [
+        0.0005976565752057258,
+        -0.9999996408114327,
+        0.0006009855437641617
+      ],
+      [
+        0.0012887804724126236,
+        -0.0006002149038709441,
+        -0.9999989893929708
+      ]
+    ]
+  },
+  "first_control_wall_s": 1.2584708710055565,
+  "hold_check": {
+    "gaps": [
+      0.04221818250444015,
+      0.042217769855661155,
+      0.042217708615668106,
+      0.04221421984117028,
+      0.04221733765916561,
+      0.04221522080347126,
+      0.04221604517482143,
+      0.04221753454804617,
+      0.04221307923787287,
+      0.04221701213742561,
+      0.042217453458685425,
+      0.04221782269697169,
+      0.042217708967049204,
+      0.0422172338985696,
+      0.04221758912775358,
+      0.042217555635024565,
+      0.04221801286121936,
+      0.04221780317486065,
+      0.042213951580321464,
+      0.04221722306152016
+    ],
+    "eef_drift": 0.004099119697159547,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 194,
+  "grasp_eef": [
+    -0.050647541283846784,
+    0.13657359031219896,
+    0.9189894286010623
+  ],
+  "offset_xy": [
+    0.0006534631498599647,
+    0.00027832929829485487
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "blue cheese box",
+        "bbox_2d": [
+          286,
+          582,
+          351,
+          666
+        ]
+      },
+      "destination": {
+        "label": "plate",
+        "bbox_2d": [
+          416,
+          635,
+          601,
+          766
+        ]
+      },
+      "relation": "on",
+      "english": "Place the blue cheese box on the plate."
+    },
+    "min_z": 0.913,
+    "offset_xy": [
+      0.0006534631498599647,
+      0.00027832929829485487
+    ],
+    "source_base": 0.901,
+    "destination": [
+      0.03686062585853167,
+      -0.010835922744822611,
+      0.9083545055834155
+    ],
+    "goal_meta": {
+      "raw_point": [
+        0.03253739407232448,
+        -0.007511562646520231,
+        0.9078096496542991
+      ],
+      "refined_point": [
+        0.03686062585853167,
+        -0.010835922744822611,
+        0.9083545055834155
+      ],
+      "tabletop": 0.901,
+      "pixels": 2332,
+      "support_pixels": 5048,
+      "support_plane_z": 0.908,
+      "method": "visible horizontal support plane inside model destination box"
+    },
+    "destination_kind": "support_surface"
+  },
+  "clearance_z": 1.2,
+  "destination_reobserved": {
+    "raw_point": [
+      0.03251456511186024,
+      -0.009014173380096534,
+      0.9077840326274725
+    ],
+    "refined_point": [
+      0.027087127130105304,
+      0.00754253505891503,
+      0.9084051927471734
+    ],
+    "tabletop": 0.901,
+    "pixels": 2333,
+    "support_pixels": 4964,
+    "support_plane_z": 0.908,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.050240864834559376,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 4.5372463050007354,
+  "release_gap": 0.07991902912799762,
+  "completion": {
+    "verdict": "completed",
+    "reason": "蓝色奶酪盒已放置在盘子上，盘子位于桌面，物体底部由盘子支撑，机械臂已撤离。"
+  },
+  "control_steps": 355,
+  "wall_duration_s": 5.25941113299632
+}

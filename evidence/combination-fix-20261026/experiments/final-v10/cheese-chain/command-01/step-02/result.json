@@ -1,0 +1,104 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒拿到灶台上",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 1.01774479400774,
+      "inference_s": 1.010107173002325,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "blue cheese box",
+      "bbox_2d": [
+        448,
+        634,
+        519,
+        738
+      ]
+    },
+    "destination": {
+      "label": "stove",
+      "bbox_2d": [
+        158,
+        388,
+        384,
+        538
+      ]
+    },
+    "relation": "on",
+    "english": "Pick up the blue cheese box and place it on the stove."
+  },
+  "source": {
+    "raw_point": [
+      0.03957279625392385,
+      0.01175896409428582,
+      0.9309631919359079
+    ],
+    "refined_point": [
+      0.03674516137353667,
+      0.011646856820625585,
+      0.9292636226365598
+    ],
+    "tabletop": 0.901,
+    "pixels": 1879,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.2396639340151424,
+      0.21328068482523901,
+      0.9294718369564327
+    ],
+    "refined_point": [
+      -0.2408927600823253,
+      0.20694110602291207,
+      0.9262437191320192
+    ],
+    "tabletop": 0.901,
+    "pixels": 3447,
+    "support_pixels": 6368,
+    "support_plane_z": 0.926,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      0.015343950865429556,
+      0.010606953507580594,
+      0.9219716323033212
+    ],
+    "top": 0.9339716323033213,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      0.015343950865429556,
+      0.010606953507580594
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.04728613306800995,
+    "support_margin": 0.05928613306800995,
+    "open_finger_obstacle_points": [
+      181,
+      145
+    ]
+  },
+  "first_control_wall_s": 1.3100145439966582,
+  "exception": "TimeoutError: 下降到视觉抓取位置 未收敛；保留现场",
+  "control_steps": 144,
+  "wall_duration_s": 2.51465126099356
+}

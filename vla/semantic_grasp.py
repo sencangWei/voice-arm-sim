@@ -111,7 +111,7 @@ def nearby_support_point(cloud, mask, reference, margin=.060):
     inset reserves space for a small object's footprint and the observed 2–3 cm
     visible-surface / grasp-offset error; it is not a general collision planner.
     """
-    from scipy.spatial import ConvexHull
+    from scipy.spatial import ConvexHull, cKDTree
     visible = cloud[mask]
     edges = ConvexHull(visible[:, :2]).equations
     # A support may have a slightly raised center (e.g. a stove burner).
@@ -122,6 +122,13 @@ def nearby_support_point(cloud, mask, reference, margin=.060):
                      (cloud[..., 2] >= level-.002) & (cloud[..., 2] <= level+.015)]
     interior = np.all(measured[:, :2] @ edges[:, :2].T + edges[:, 2] <= -margin, axis=1)
     candidates = measured[interior]
+    # A convex table outline also encloses stoves and other obstacles. Reserve
+    # the held object's footprint around measured geometry above this support;
+    # otherwise the nearest "table" point can still belong to a stove base.
+    obstacles = cloud[np.isfinite(cloud).all(axis=-1) & (cloud[..., 2] > level+.015)]
+    if len(obstacles) and len(candidates):
+        clearance, _ = cKDTree(obstacles[:, :2]).query(candidates[:, :2])
+        candidates = candidates[clearance >= margin]
     if not len(candidates):
         raise ValueError("可见支撑面没有留足边缘余量的落点，停止放置")
     return candidates[np.argmin(np.linalg.norm(candidates[:, :2] - np.asarray(reference)[:2], axis=1))].copy()
@@ -269,11 +276,23 @@ class VisualSkill:
                 combined.paste(source, (0, 0))
                 combined.paste(detail, (width, 0))
                 rgb = np.asarray(combined)
+            else:
+                # The service processes one image for completion. Include
+                # both fresh views in that image so the wrist observation is
+                # actually seen, rather than merely archived in the request.
+                from PIL import Image
+                source = Image.fromarray(rgb)
+                combined = Image.new('RGB', (source.width * 2, source.height))
+                combined.paste(source, (0, 0))
+                combined.paste(Image.fromarray(wrist).resize(source.size), (source.width, 0))
+                rgb = np.asarray(combined)
             raws = [image_bytes(rgb), image_bytes(wrist)]
             names = ("completion-agent.png", "completion-wrist.png")
             for name, raw in zip(names, raws):
                 (self.output / name).write_bytes(raw)
             verification_text = text
+            if not hasattr(self, 'verification_box'):
+                verification_text += '。图左是当前全景，图右是同一时刻腕部相机画面；两幅画面拍摄同一个场景。'
             if hasattr(self, 'verification_box'):
                 verification_text += '。图左是全景，图右是同一时刻局部放大。'
                 if self.report.get('verification_action') == 'open':

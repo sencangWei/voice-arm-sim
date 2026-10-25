@@ -1,0 +1,86 @@
+[
+  {
+    "name": "table",
+    "instruction": "把酒瓶从灶台拿到桌面上",
+    "diagnostic_reminder": "请同时识别源物体和目的地。输出前检查四个根字段 source、destination、relation、english 全部存在，两个 bbox_2d 完整且各自闭合；不能只输出源物体。实际任务：",
+    "response": {
+      "task": {
+        "source": {
+          "label": "酒瓶",
+          "bbox_2d": [
+            270,
+            310,
+            328,
+            478
+          ]
+        },
+        "destination": {
+          "label": "桌面",
+          "bbox_2d": [
+            0,
+            330,
+            1000,
+            1000
+          ]
+        },
+        "relation": "on",
+        "english": "Take the wine bottle from the stove and place it on the table."
+      },
+      "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[270, 310, 328, 478],\"destination\":{\"label\":\"桌面\",\"bbox_2d\":[0, 330, 1000, 1000],\"relation\":\"on\",\"english\":\"Take the wine bottle from the stove and place it on the table.\"}}",
+      "serialization_repair": {
+        "operation": "close_source_and_destination_objects",
+        "normalized": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[270, 310, 328, 478]},\"destination\":{\"label\":\"桌面\",\"bbox_2d\":[0, 330, 1000, 1000]},\"relation\":\"on\",\"english\":\"Take the wine bottle from the stove and place it on the table.\"}",
+        "parse_error": "Expecting ',' delimiter: line 1 column 207 (char 206)"
+      },
+      "serialization_retry": null,
+      "image_sha256": "4be5cf2def8f8c0b53d5bbf6c7eb8bc444a52e3c98375884db11657c952d4d94",
+      "model_input_image_sha256": [
+        "4be5cf2def8f8c0b53d5bbf6c7eb8bc444a52e3c98375884db11657c952d4d94"
+      ],
+      "model": "Qwen/Qwen3-VL-4B-Instruct",
+      "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "device": "cuda:0",
+      "inference_s": 0.9744872830051463
+    }
+  },
+  {
+    "name": "drawer",
+    "instruction": "把蓝色奶酪盒放进第三层抽屉",
+    "diagnostic_reminder": "请同时识别源物体和目的地。输出前检查四个根字段 source、destination、relation、english 全部存在，两个 bbox_2d 完整且各自闭合；不能只输出源物体。实际任务：",
+    "response": {
+      "task": {
+        "source": {
+          "label": "blue cheese box",
+          "bbox_2d": [
+            286,
+            582,
+            351,
+            666
+          ]
+        },
+        "destination": {
+          "label": "third layer of drawer",
+          "bbox_2d": [
+            509,
+            500,
+            738,
+            781
+          ]
+        },
+        "relation": "in",
+        "english": "put the blue cheese box in the third layer of the drawer"
+      },
+      "raw": "{\n  \"source\": {\n    \"label\": \"blue cheese box\",\n    \"bbox_2d\": [286, 582, 351, 666]\n  },\n  \"destination\": {\n    \"label\": \"third layer of drawer\",\n    \"bbox_2d\": [509, 500, 738, 781]\n  },\n  \"relation\": \"in\",\n  \"english\": \"put the blue cheese box in the third layer of the drawer\"\n}",
+      "serialization_repair": null,
+      "serialization_retry": null,
+      "image_sha256": "37a50cd6e23a4726ee3c0351e3587ae65e516f72a7894c1210be3e3aafbb100a",
+      "model_input_image_sha256": [
+        "37a50cd6e23a4726ee3c0351e3587ae65e516f72a7894c1210be3e3aafbb100a"
+      ],
+      "model": "Qwen/Qwen3-VL-4B-Instruct",
+      "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "device": "cuda:0",
+      "inference_s": 1.2891673349949997
+    }
+  }
+]

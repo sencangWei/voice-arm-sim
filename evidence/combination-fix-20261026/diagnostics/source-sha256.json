@@ -1,0 +1,18 @@
+{
+  "evidence/combination-tests-20261025/run.py": "d55f6c9c3096ae22b87028e0107f119226df4b73c1dc0e4a845e33211bdef313",
+  "model_service.py": "c58b7fac7ed24e3a7627bee81fe1b253785b893f9f1436f10ecd9a06e9ab9a4c",
+  "tests/fixtures/README.md": "d13bc0aa214eaa1de4715be92d4921053e657e9b86ea1b79eaf4110e0ae3b00c",
+  "tests/test_completion_views.py": "e7b752dcbe41bea87bf94d9c739d5443ffae1fa5ce8f87afcf1b4ca1823204c2",
+  "tests/test_drawer_control.py": "58bad150ff17b698b879a6345b79463f1c4884e02ba0952652f8c8bf5dd9f3c7",
+  "tests/test_recovery_guards.py": "8175a2f6ec637e843f3b2cbef46a70404106ac8241fd5999bc20c499f073fb37",
+  "tests/test_semantic.py": "30a934b1aea39025aa49439233e6469485e7003f1b8efe0d3f6aacdce4269234",
+  "tests/test_task_plan.py": "be4983d97a8d7a53986cbb223c3fad6db1621b989d79d825b70011c449967485",
+  "tests/test_visual_control.py": "2aae63bb441c01c53181b2e39833acd0e61cae8491991e40e3b784b074e4b42a",
+  "tests/test_visual_task.py": "5873a406a653fc89d159b1c96d037c9d743bea80fe0a9abe998ddec9e4415d7d",
+  "vla/drawer_control.py": "dff499fe39a2dcf2a6df9485c5026459e644a7ef5bce1542690f57dbdc4238ad",
+  "vla/semantic.py": "ce14239973ef9902ec7d741a6059e35d353cc57460bfc7ca37a4f3651ecd6605",
+  "vla/semantic_grasp.py": "45cc6b343167acfeeb05dc720698a93dbd2861870c0f2e55f6674b614cf6d156",
+  "vla/task_plan.py": "a8620e6b6917f6a1c03109f088db2744e6f2faa2a56a5dd2ca10e2703eeb67fa",
+  "vla/task_runner.py": "6e9050f7552d55f7e8d0894a87200ac39a0b51356585178c3e39f1b83544879d",
+  "vla/visual_control.py": "a13d6b334ba011a404d478e233ec8fdc2c789d8d5d917d8c8b19ddb160b2ae9a"
+}

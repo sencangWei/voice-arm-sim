@@ -1,0 +1,47 @@
+FFF....................                                                  [100%]
+=================================== FAILURES ===================================
+_____ test_completion_model_receives_current_global_and_wrist_in_one_image _____
+
+tmp_path = PosixPath('/tmp/pytest-of-robot/pytest-167/test_completion_model_receives0')
+
+    def test_completion_model_receives_current_global_and_wrist_in_one_image(tmp_path):
+        global_rgb = np.full((32, 32, 3), [200, 0, 0], dtype=np.uint8)
+        wrist_rgb = np.full((16, 16, 3), [0, 200, 0], dtype=np.uint8)
+        obs = dict(robot0_gripper_qpos=np.array([.04, -.04]), robot0_eye_in_hand_image=wrist_rgb)
+        skill = VisualSkill(None, obs, None, tmp_path/'run', status=lambda _: None)
+        skill.capture = lambda: (global_rgb, None)
+        requests = []
+        def request(port, endpoint, payload):
+            requests.append(payload)
+            raws = [base64.b64decode(value) for value in payload['images']]
+            return dict(image_sha256=[hashlib.sha256(raw).hexdigest() for raw in raws],
+                        judgment=dict(verdict='uncertain', reason='仍看不清，不能确认'))
+        skill.request = request
+        skill.verify_completion('把盒子放在灶台上', 8911)
+        first = np.asarray(Image.open(io.BytesIO(base64.b64decode(requests[0]['images'][0]))))
+>       assert first.shape == (32, 64, 3)
+E       assert (32, 32, 3) == (32, 64, 3)
+E
+E         At index 1 diff: 32 != 64
+E         Use -v to get more diff
+
+tests/test_completion_views.py:26: AssertionError
+________ test_top_grasp_turns_open_fingers_away_from_observed_plate_rim ________
+
+    def test_top_grasp_turns_open_fingers_away_from_observed_plate_rim():
+>       from vla.visual_control import clear_grasp_rotation
+E       ImportError: cannot import name 'clear_grasp_rotation' from 'vla.visual_control' (/home/robot/voice-arm-sim/vla/visual_control.py)
+
+tests/test_visual_control.py:10: ImportError
+___ test_top_grasp_retains_calibrated_orientation_when_clear_or_source_only ____
+
+    def test_top_grasp_retains_calibrated_orientation_when_clear_or_source_only():
+>       from vla.visual_control import clear_grasp_rotation
+E       ImportError: cannot import name 'clear_grasp_rotation' from 'vla.visual_control' (/home/robot/voice-arm-sim/vla/visual_control.py)
+
+tests/test_visual_control.py:21: ImportError
+=========================== short test summary info ============================
+FAILED tests/test_completion_views.py::test_completion_model_receives_current_global_and_wrist_in_one_image
+FAILED tests/test_visual_control.py::test_top_grasp_turns_open_fingers_away_from_observed_plate_rim
+FAILED tests/test_visual_control.py::test_top_grasp_retains_calibrated_orientation_when_clear_or_source_only
+3 failed, 20 passed in 0.17s

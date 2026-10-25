@@ -186,8 +186,13 @@ class VisualControl(VisualSkill):
             mode=mode, center_xy=center.tolist(),
             method="visible RGB-D top or fitted round rim; parallel jaws; no object truth")
         footprint = float(np.quantile(np.linalg.norm(upper[:, :2]-center, axis=1), .99))
+        # Thin objects expose their top footprint directly. Reserve that
+        # measured radius plus 12 mm, instead of rejecting small plates with
+        # the conservative 6 cm inset retained for tall, partly hidden items.
+        margin = (max(.035, footprint+.012) if top-self.source_base < .04
+                  else max(.060, footprint+.008))
         self.report['geometric_grasp'].update(footprint_radius=footprint,
-            support_margin=max(.060, footprint+.008))
+            support_margin=margin)
         if mode == "round_rim":
             bottom = visible[visible[:, 2] <= np.quantile(visible[:, 2], .05) + .003]
             radius = float(np.quantile(np.linalg.norm(bottom[:, :2] - center, axis=1), .99))

@@ -258,11 +258,12 @@ def test_final_verification_uses_current_two_cameras_without_actions(tmp_path, v
     skill.capture = lambda: (rgb, None)
     def request(port, endpoint, payload):
         assert endpoint == "verify"
-        assert payload["text"] == "把瓶子放进碗里"
+        assert payload["text"].startswith("把瓶子放进碗里。图左是当前全景")
         assert len(payload["images"]) == 2
+        combined = np.concatenate([rgb, np.full_like(rgb, 123)], axis=1)
         return {"judgment": {"verdict": verdict, "reason": "visual evidence"},
             "image_sha256": [hashlib.sha256(image_bytes(image)).hexdigest()
-                for image in (rgb, np.ascontiguousarray(wrist[::-1, ::-1]))]}
+                for image in (combined, np.ascontiguousarray(wrist[::-1, ::-1]))]}
     skill.request = request
     skill.verify_completion("把瓶子放进碗里", 8912)
     assert skill.report["semantic_success"] is expected

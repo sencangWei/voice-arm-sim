@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "抽屉底板明显向前伸出，内部空间可见，机械臂已撤离。"
+  },
+  "raw": "{\"verdict\":\"completed\",\"reason\":\"抽屉底板明显向前伸出，内部空间可见，机械臂已撤离。\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "b1baab23db8a2f868da003d2c40d5acd4ec58a5aec9f384bb82546ad582e2553",
+    "56b7e35f6742957dfc4e75198cf6b3efc96c5466f559ec757748cae938e8a5e1"
+  ],
+  "model_input_image_sha256": [
+    "b1baab23db8a2f868da003d2c40d5acd4ec58a5aec9f384bb82546ad582e2553"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.3590690869896207
+}

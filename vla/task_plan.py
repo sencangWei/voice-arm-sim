@@ -4,7 +4,8 @@ import json
 
 PLAN_PROMPT = """把中文指令分成按顺序执行的步骤，只输出 JSON。你负责语言分解，不负责判断当前物体能否抓到。
 技能表：pick_place = 拿起物体并放到指定位置；open_drawer = 拉开指定抽屉；close_drawer = 推回指定抽屉；unsupported = 技能表之外的动作。
-目的地类型：support_surface = 桌面、柜顶、灶台等支撑表面；circular_container = 碗、盘子等开放圆形容器；drawer_interior = 三层滑动抽屉内部（开关抽屉也用此类型）；unsupported = 其他封闭柜内等。
+目的地类型：support_surface = 桌面、柜顶、灶台、浅盘等支撑表面；circular_container = 碗等开放深容器；drawer_interior = 三层滑动抽屉内部（开关抽屉也用此类型）；unsupported = 其他封闭柜内等。
+浅盘使用 support_surface / on，即使中文说“盘子里”；碗使用 circular_container / in。保留原文对象和目的地，不把盘子换成桌面。
 三层抽屉从上往下编号，第三层是底层。每一步必须带上同一层数，代词要展开。不支持铰链柜门、倾倒、切割、递给人，不能删掉这些步骤。
 整体 status：全部步骤技能与目的地支持则 ready；含不支持步骤则 unsupported；没有说清对象或目的地名称才 clarify。
 不要询问初始位置或可抓取性，也不要询问柜顶、桌面、灶台是不是支撑面；实际定位由执行器在各步开始时完成。

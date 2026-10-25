@@ -114,10 +114,74 @@ def test_close_handle_from_retained_panel_failure():
     assert np.isfinite(normal).all()
 
 
-def test_close_handle_still_rejects_planar_patch_without_bar():
+@pytest.mark.parametrize("action", ["open", "close"])
+def test_handle_still_rejects_planar_patch_without_bar(action):
     x, y = np.meshgrid(np.linspace(-.06, .06, 60), np.linspace(-.04, .04, 30))
     cloud = np.stack([x, y, np.full_like(x, .91)], axis=-1)
-    task = dict(action='close', handle_bbox_2d=[0, 0, 1000, 1000],
+    task = dict(action=action, level='middle', handle_bbox_2d=[0, 0, 1000, 1000],
                 cabinet_bbox_2d=[0, 0, 1000, 1000])
-    with pytest.raises(ValueError, match='细长横杆'):
-        handle_geometry(cloud, task)
+    from vla.drawer_control import ordered_handle_geometry
+    with pytest.raises(ValueError, match='细长横杆|三层把手'):
+        (ordered_handle_geometry if action == 'open' else handle_geometry)(cloud, task)
+
+
+def test_top_drawer_can_reference_closed_front_below_handle():
+    geometry = dict(handle=[0.,0.,1.], outward_normal=[0.,1.,0.])
+    closed_cloud = drawer_cloud(0.).copy()
+    closed_cloud[...,2] = 2. - closed_cloud[...,2]
+    opened_cloud = drawer_cloud(.15).copy()
+    opened_cloud[...,2] = 2. - opened_cloud[...,2]
+    baseline = dict(geometry=geometry, initial=drawer_depth_observation(closed_cloud, geometry))
+    assert drawer_depth_check(opened_cloud, baseline, 'open')['accepted'] is True
+
+
+@pytest.mark.parametrize('level, height', [('top', 1.095), ('middle', 1.024), ('bottom', .955)])
+def test_handle_layer_is_ranked_from_retained_depth_even_when_model_points_at_top(level, height):
+    from pathlib import Path
+    from vla.drawer_control import ordered_handle_geometry
+    cloud = np.load(Path(__file__).parent / 'fixtures/drawer_three_handles.npz')['cloud']
+    task = dict(action='open', level=level, handle_bbox_2d=[680, 500, 730, 570],
+                cabinet_bbox_2d=[680, 345, 1000, 820])
+    point, normal, geometry = ordered_handle_geometry(cloud, task)
+    assert abs(point[2] - height) < .006
+    assert len(geometry['observed_handle_heights']) == 3
+    assert geometry['selected_level'] == level
+
+
+def test_handle_layer_rejects_incomplete_depth_instead_of_guessing():
+    from vla.drawer_control import ordered_handle_geometry
+    x, z = np.meshgrid(np.linspace(-.1, .1, 100), np.linspace(.9, 1.12, 100))
+    cloud = np.stack([x, np.zeros_like(x), z], axis=-1)
+    cloud[70:77, 30:70, 1] = .025
+    task = dict(action='open', level='middle', handle_bbox_2d=[300, 700, 700, 770],
+                cabinet_bbox_2d=[0, 0, 1000, 1000])
+    with pytest.raises(ValueError, match='三层'):
+        ordered_handle_geometry(cloud, task)
+
+
+def test_height_ranking_preserves_localization_already_on_requested_bar():
+    from pathlib import Path
+    from vla.drawer_control import ordered_handle_geometry
+    cloud = np.load(Path(__file__).parent / 'fixtures/drawer_three_handles.npz')['cloud']
+    task = dict(action='open', level='bottom', handle_bbox_2d=[675, 620, 730, 710],
+                cabinet_bbox_2d=[698, 350, 1000, 820])
+    seed, normal, _ = handle_geometry(cloud, task)
+    point, ranked_normal, _ = ordered_handle_geometry(cloud, task)
+    assert np.array_equal(point, seed)
+    assert np.array_equal(ranked_normal, normal)
+
+
+def test_reacquire_open_handle_from_current_depth_and_verified_prior():
+    from pathlib import Path
+    from vla.drawer_control import reacquire_open_handle
+    data = np.load(Path(__file__).parent / 'fixtures/drawer_open_middle.npz')
+    context = json.loads(str(data['context']))
+    point, normal, geometry = reacquire_open_handle(data['cloud'], context, 'middle')
+    assert .014 < point[1] < .035
+    assert 1.012 < point[2] < 1.032
+    assert normal[1] > .98
+    assert geometry['current_bar_points'] >= 40
+    with pytest.raises(ValueError):
+        reacquire_open_handle(data['cloud'], context, 'bottom')
+    with pytest.raises(ValueError):
+        reacquire_open_handle(np.zeros_like(data['cloud']), context, 'middle')
