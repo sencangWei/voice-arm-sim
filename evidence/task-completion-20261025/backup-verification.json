@@ -1,0 +1,19 @@
+{
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "feature/visual-semantic-grasp",
+  "restored_commit": "02e2e9497023c288a4ffaf45a151f616972cc4a9",
+  "remote_tree": "1537442adbc51cf51626daeb2910e8acb983a23a",
+  "method": "Independent HTTPS shallow fetch into a new bare repository; git archive extracted; SHA-256 compared to local tracked files",
+  "compared_files": 1332,
+  "all_equal": true,
+  "algorithm_and_regression_sha256": {
+    "model_service.py": "3eb540fa5070eeed8699ed38f12ba95cfbf653ac2c7d6875586550d7cdf7761d",
+    "vla/semantic.py": "51e378c5e78b966bd083eff6fba130e1074d082100b2c93e5f514890ac6d759a",
+    "vla/semantic_grasp.py": "26c910b20fe532eee9e0382a52cd5183779c5d691ce6bbd9f8e7fde2dd5d345b",
+    "vla/workbench.py": "e9ad6066aeb62bab455f93aceca996e1b45e9258dde0b8d3cf7631f2b39ebcd8",
+    "vla/panel.py": "1006a864a60cff3745da66e5df0cb65502992d41dc77e793a447ba9d8ebd8511",
+    "tests/test_semantic.py": "977b26d99f436187d6b097dbea538df015b908894c776bbe331dfaa754f44e6a",
+    "tests/test_vla_workbench.py": "756e93b04fe9a841c27663c52e6ec34a62f71492b7a11d414c642e347c1c87dc"
+  },
+  "excluded": "Model weights and unchanged external training projects; no hardware operated"
+}
