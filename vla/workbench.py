@@ -144,8 +144,11 @@ class Workbench:
         self.output = Path(self.args.output).resolve() / f"scene_{time.time_ns()}"
         self.output.mkdir(parents=True, exist_ok=False)
         np.save(self.output / "initial_state.npy", initial)
+        # Interactive sessions retain the scene across commands. The GUI owns
+        # per-run limits; robosuite's cumulative horizon must not end the scene.
         self.env = OffScreenRenderEnv(bddl_file_name=str(Path(get_libero_path("bddl_files")) /
-            task.problem_folder / task.bddl_file), camera_heights=256, camera_widths=256)
+            task.problem_folder / task.bddl_file), camera_heights=256, camera_widths=256,
+            ignore_done=True)
         self.env.seed(self.args.seed)
         self.env.reset()
         self.obs = self.env.set_init_state(initial)
@@ -378,6 +381,10 @@ class Workbench:
                     if self.viewer and not self.viewer.is_running():
                         self._close_scene()
                         self._update(status="三维窗口已关闭；可重新加载场景。")
+                except InterruptedError:
+                    self.running = False
+                    self.plan.clear()
+                    self._update(running=False, status="已暂停；保留当前场景，未执行后续模型动作。")
                 except Exception as error:
                     self.running = False
                     self.plan.clear()

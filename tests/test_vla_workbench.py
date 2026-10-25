@@ -1,8 +1,10 @@
 import collections
 import queue
 import threading
+import sys
 from types import SimpleNamespace
 
+import numpy as np
 import pytest
 from websockets.protocol import State
 
@@ -41,6 +43,56 @@ def semantic_workbench(tmp_path):
     lab._publish = lambda: None
     lab._save_scene = lambda reason: lab.scene.update(stop_reason=reason)
     return lab
+
+
+def test_interactive_scene_disables_hidden_episode_timeout(tmp_path, monkeypatch):
+    lab = bare_workbench()
+    lab.args = SimpleNamespace(suite="test", seed=42, replan_steps=5,
+                               output=tmp_path, viewer=False)
+    lab._close_scene = lambda: None
+    lab._publish = lambda: None
+    task = SimpleNamespace(language="original task", problem_folder="room", bddl_file="task.bddl")
+    constructor = {}
+    env = SimpleNamespace(seed=lambda seed: None, reset=lambda: None,
+        set_init_state=lambda state: {}, step=lambda action: ({}, 0, False, {}))
+    def create_env(**kwargs):
+        constructor.update(kwargs)
+        return env
+    libero = SimpleNamespace(benchmark=SimpleNamespace(get_benchmark_dict=lambda: {
+        "test": lambda: SimpleNamespace(get_task=lambda task_id: task)}),
+        get_libero_path=lambda name: str(tmp_path))
+    monkeypatch.setitem(sys.modules, "libero.libero", libero)
+    monkeypatch.setitem(sys.modules, "libero.libero.envs", SimpleNamespace(OffScreenRenderEnv=create_env))
+    monkeypatch.setattr("vla.workbench.configure_libero", lambda: None)
+    monkeypatch.setattr("vla.workbench.load_initial_states", lambda task: [np.zeros(4)])
+    monkeypatch.setattr("vla.workbench.connect_policy", lambda port: SimpleNamespace(
+        get_server_metadata=lambda: {"backend": "local-pi05-libero-lora"}))
+    lab._load(0, 0, "custom instruction", 8766)
+    assert constructor.get("ignore_done") is True
+    assert lab.env is env
+
+
+@pytest.mark.parametrize("error,failed", [(InterruptedError("用户已暂停"), False),
+                                         (ValueError("actual failure"), True)])
+def test_command_loop_distinguishes_pause_from_failure(error, failed):
+    lab = bare_workbench()
+    lab.quit = threading.Event()
+    lab.commands = queue.Queue()
+    lab.commands.put(("semantic", ("put the bottle on the plate",)))
+    env = lab.env
+    def command(*args):
+        lab.running = True
+        lab.quit.set()  # Exit after this one command, without a background thread.
+        raise error
+    lab._command = command
+    lab._close_scene = lambda: None
+    lab._loop()
+    assert lab.env is env and not lab.running and not lab.plan
+    assert ("操作失败" in lab.snapshot["status"]) is failed
+    if failed:
+        assert "actual failure" in lab.events.get_nowait()
+    else:
+        assert "已暂停" in lab.snapshot["status"] and lab.events.empty()
 
 
 def test_visual_command_uses_same_scene_and_updates_correction_instruction(tmp_path, monkeypatch):

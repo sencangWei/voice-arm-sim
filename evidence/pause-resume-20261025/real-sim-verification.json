@@ -1,0 +1,19 @@
+{
+  "result": "PASS",
+  "real_simulator": "LIBERO/robosuite/MuJoCo",
+  "task_id": 9,
+  "constructor_ignore_done": true,
+  "baseline_ignore_done": false,
+  "baseline_failure": "executing action in terminated episode",
+  "baseline_timestep": 1000,
+  "baseline_workbench_steps": 990,
+  "recovered_without_reset": true,
+  "identical_state_across_resume": true,
+  "final_timestep": 1102,
+  "executed_steps": 1092,
+  "policy_calls": 1,
+  "ignore_done": true,
+  "internal_done": false,
+  "note": "No-op actions reproduce horizon; final step uses actual local pi05 policy. This checks lifecycle, not task success.",
+  "wall_duration_s": 11.31436061799468
+}

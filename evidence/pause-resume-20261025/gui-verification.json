@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "state_exact_match": true,
+  "state_sha256": "0efb42ffe35879e3c2eae8f6c8bed28fa3893c2a03cceb7825b23026ed7efe55",
+  "ignore_done": true,
+  "task_id": 9,
+  "output": "/home/robot/voice-arm-sim/runs/pause-resume-20261025/scene_1792909334761761158",
+  "automatic_motion_steps": 0
+}
