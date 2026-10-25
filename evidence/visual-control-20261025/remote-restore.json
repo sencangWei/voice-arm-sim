@@ -1,0 +1,12 @@
+{
+  "result": "PASS",
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "feature/visual-semantic-grasp",
+  "verified_commit": "59dea43cf1d7a63ae7a8d8f7d52d0c645d25124e",
+  "fetched_tree": "9e738f61fb25571afa2a5e643653975f760a2726",
+  "compared_files": 1523,
+  "all_file_contents_and_executable_modes_match": true,
+  "content_manifest_sha256": "4f4fefa835f57915d0a7d7e8d1a4e96b85208a7fd641a8b939f054c09158ee4b",
+  "restored_directory": "/home/robot/voice-arm-sim/.local/visual-control-20261025-remote-restore/59dea43cf1d7a63ae7a8d8f7d52d0c645d25124e",
+  "method": "explicit GitHub fetch, archive extraction, per-file byte/hash comparison"
+}
