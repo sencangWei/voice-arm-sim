@@ -1,0 +1,37 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "关闭柜子第三层抽屉",
+  "skill": "close_drawer",
+  "request_timings": [
+    {
+      "endpoint": "drawer",
+      "port": 8911,
+      "wall_s": 0.73879752799985,
+      "inference_s": 0.7324777870089747,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.6108525989984628,
+      "inference_s": null,
+      "device": null
+    }
+  ],
+  "verification_box": [
+    512,
+    355,
+    1000,
+    823
+  ],
+  "verification_action": "close",
+  "exception": "ValueError: 把手区域没有可确认的细长横杆",
+  "control_steps": 0,
+  "wall_duration_s": 1.4502793949941406
+}

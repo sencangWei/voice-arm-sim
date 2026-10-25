@@ -49,21 +49,25 @@ def handle_geometry(cloud, task):
     points = box_points(cloud, task['handle_bbox_2d'])
     if len(points) < 12:
         raise ValueError('把手有效深度不足')
-    # Model tightly bounds the protruding handle. The closest protrusion to the
-    # box's central pixel avoids averaging its background drawer front.
     # Select the thin horizontal bar before fitting the cabinet. On an open
-    # drawer most of a loose image box can be tabletop behind the handle.
+    # drawer the most common height in the model box can be plate/table pixels.
     closing = task.get('action') == 'close'
     bar = points
     if closing:
         bins, counts = np.unique(np.round(points[:, 2] / .003), return_counts=True)
-        peak = bins[np.argmax(counts)] * .003
-        bar = points[np.abs(points[:, 2] - peak) < .007]
+        for index in np.argsort(-counts, kind='stable'):
+            candidate = points[np.abs(points[:, 2] - bins[index] * .003) < .007]
+            if len(candidate) < 12:
+                continue
+            eigenvalues = np.linalg.eigvalsh(np.cov(candidate[:, :2].T))
+            if eigenvalues[-1] >= .0001 and eigenvalues[-1] >= 4 * eigenvalues[0]:
+                bar = candidate
+                break
+        else:
+            raise ValueError('把手区域没有可确认的细长横杆')
     handle = np.median(bar, axis=0)
     eigenvalues, axes = np.linalg.eigh(np.cov(bar[:, :2].T))
     bar_axis = axes[:, -1]
-    if closing and (eigenvalues[-1] < .0001 or eigenvalues[-1] < 4 * eigenvalues[0]):
-        raise ValueError('把手区域没有可确认的细长横杆')
     cabinet = box_points(cloud, task['cabinet_bbox_2d'])
     cabinet = cabinet[(cabinet[:, 2] > handle[2] - .22) & (cabinet[:, 2] < handle[2] + .22)]
     if len(cabinet) < 100:

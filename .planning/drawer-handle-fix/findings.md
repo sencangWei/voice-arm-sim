@@ -1,0 +1,4 @@
+Latest panel-v2 places cheese successfully, close fails before motion: handle_geometry rejects bar eigenvalue < 0.0001 or anisotropy <4 after selecting most frequent world-z bin. Same unchanged image/bbox on retries. Need inspect actual cloud; no root cause claimed yet.
+Exact replay of 698 recorded actions reproduces SHA256 998ec46e92ed0348ea2bf08c66543fe9bfe7c4a71604fb52989b5b0642a47f8b. Dominant z=.909 background bin486: eigenvalues .000198/.000763 ratio3.85 -> rejects. Actual metal rod mode z=.954 bin312: eigenvalues .0000455/.000777 ratio17.1. Bug: modal height chosen before geometric validation, no alternative checked. Model bbox is on actual open front; not semantic failure here.
+
+Fixed scene and full native panel share identical first698actions; original failure is isolated to close candidate selection. Existing drawer-v5 placement contact failure remains a separate unresolved limit. No training or inference weight update this turn.

@@ -1,0 +1,13 @@
+{
+  "frames": 952,
+  "parts": {
+    "step-01-recovery-1": 263,
+    "step-01-recovery-2": 436,
+    "step-02": 253
+  },
+  "control_steps": 951,
+  "fps": 20,
+  "video_duration_s": 47.6,
+  "first_698_actions_exactly_match_original_failed_run": true,
+  "model_waiting_not_encoded": true
+}

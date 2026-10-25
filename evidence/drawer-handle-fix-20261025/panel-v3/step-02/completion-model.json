@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无明显打开迹象，机械臂已撤离。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"抽屉底板已退入柜内，前板与其它抽屉齐平，无明显打开迹象，机械臂已撤离。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "64c88afe0447d8739486f442275555801096b9ed808a9afc01b9d9a525c95f10",
+    "d87026120c31058ae0ad086ca99628d0cfb9aa2049ff00903205178de62b6454"
+  ],
+  "model_input_image_sha256": [
+    "64c88afe0447d8739486f442275555801096b9ed808a9afc01b9d9a525c95f10"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.5785322550073033
+}

@@ -1,0 +1,5 @@
+Read karpathy/systematic-debugging/verification/planning skills. Original branch clean at 0ff6e32. Begin retained-scene diagnosis.
+Added synthetic mixed-background regression, downsampled actual retained RGB-D fixture, and planar-only rejection test before repair. Diagnostic scripts had NumPy-int JSON / PIL tuple issues corrected; optional explore model unsupported, continuing solo.
+Before repair: 2 failures/7 passes, after repair: 9 passes. Fix evaluates height candidates in descending support order and keeps existing rod shape thresholds. Actual partial-scene fixture passes; planar-only still fails closed. Starting fresh live-model closure in exact replayed scene.
+
+Retained-scene actual closure PASS: 253 new steps, physical joint -.149378 -> .001611m, depth -0.149207m, model confirms. Native panel full sequence PASS951steps and stopped; first698actions exact original prefix. Full253tests PASS1.16s, py_compile and diffcheck PASS. Reviewer model also unavailable (gpt-5.5), direct review performed. Portable fixture and reports saved; backup in progress.

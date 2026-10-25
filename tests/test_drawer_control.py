@@ -83,3 +83,41 @@ def test_push_contact_stops_motion_for_visual_verification(tmp_path):
     assert len(calls) < 40
     assert controller.report['contact_stop']['travel_m'] >= .12
     assert controller.report['semantic_success'] is None
+
+
+def test_close_handle_uses_supported_bar_when_background_height_is_more_common():
+    # The model box includes a broad plate/table patch below the metal bar.
+    # Picking just the largest height bin rejects this otherwise visible handle.
+    x, y = np.meshgrid(np.linspace(-.06, .06, 60), np.linspace(-.04, .04, 30))
+    background = np.stack([x, y, np.full_like(x, .91)], axis=-1)
+    background[10:, :, 1] = np.linspace(-.05, .05, 20)[:, None]
+    x, y = np.meshgrid(np.linspace(-.05, .05, 60), np.linspace(0, .01, 10))
+    background[:10] = np.stack([x, y, np.full_like(x, .955)], axis=-1)
+    cabinet = background.copy()
+    cabinet[:, :, 1] -= .2
+    cabinet[:, :, 2] = np.linspace(.92, 1.12, 30)[:, None]
+    cloud = np.concatenate([background, cabinet], axis=1)
+    task = dict(action='close', handle_bbox_2d=[0, 0, 500, 1000],
+                cabinet_bbox_2d=[500, 0, 1000, 1000])
+    point, normal, geometry = handle_geometry(cloud, task)
+    assert point[2] == pytest.approx(.955)
+    assert np.allclose(normal, [0, 1, 0], atol=.01)
+
+
+def test_close_handle_from_retained_panel_failure():
+    from pathlib import Path
+    cloud = np.load(Path(__file__).parent / 'fixtures/drawer_handle_background.npz')['cloud']
+    task = dict(action='close', handle_bbox_2d=[458, 609, 508, 720],
+                cabinet_bbox_2d=[512, 355, 1000, 823])
+    point, normal, geometry = handle_geometry(cloud, task)
+    assert .948 < point[2] < .960
+    assert np.isfinite(normal).all()
+
+
+def test_close_handle_still_rejects_planar_patch_without_bar():
+    x, y = np.meshgrid(np.linspace(-.06, .06, 60), np.linspace(-.04, .04, 30))
+    cloud = np.stack([x, y, np.full_like(x, .91)], axis=-1)
+    task = dict(action='close', handle_bbox_2d=[0, 0, 1000, 1000],
+                cabinet_bbox_2d=[0, 0, 1000, 1000])
+    with pytest.raises(ValueError, match='细长横杆'):
+        handle_geometry(cloud, task)
