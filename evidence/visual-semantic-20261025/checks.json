@@ -1,0 +1,27 @@
+{
+  "tests": {
+    "command": "MUJOCO_GL=egl .venv-vla-sim/bin/python -m pytest tests/test_semantic.py tests/test_vla_workbench.py tests/test_vla_voice.py tests/test_hybrid.py -q",
+    "result": "46 passed, 13 subtests passed in 0.24s"
+  },
+  "ruff": {
+    "result": "All checks passed!",
+    "files": [
+      "model_service.py",
+      "vla/semantic.py",
+      "vla/semantic_grasp.py",
+      "vla/workbench.py",
+      "vla/panel.py",
+      "tests/test_semantic.py",
+      "tests/test_vla_workbench.py"
+    ]
+  },
+  "py_compile": "passed for the same seven source/test files",
+  "review": "Local source review and real simulation; separate reviewer unavailable due to configured model/account incompatibility",
+  "algorithm_sha256": {
+    "model_service.py": "8a3a9d69649a2158ea282c8e01676e359e2ab73c0421c40f0e557666f4c5081e",
+    "vla/semantic.py": "179da6a279019c995cc9eebe49d82479a8c458cf75a84830a6a21ed86ef154e0",
+    "vla/semantic_grasp.py": "a8a53eae581c7539e3544a5a4c23dfb64dba63b4b0dbddb68ed971fcbeb5f19a",
+    "vla/workbench.py": "24c98471aaea5573d4c773bb8938873ced3dda69ffd55738ad416b24cc8678a3",
+    "vla/panel.py": "760f45d7f612f706b5f579ff0f63db05adc8d62dadeb759b5703af5606bf81b4"
+  }
+}

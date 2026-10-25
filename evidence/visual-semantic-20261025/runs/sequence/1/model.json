@@ -1,0 +1,30 @@
+{
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        439,
+        438,
+        541,
+        595
+      ]
+    },
+    "destination": {
+      "label": "empty tabletop",
+      "bbox_2d": [
+        1,
+        333,
+        1000,
+        1000
+      ]
+    },
+    "relation": "on",
+    "english": "Take the wine bottle out of the bowl and place it on the empty tabletop."
+  },
+  "raw": "{\"source\":{\"label\":\"wine bottle\",\"bbox_2d\":[439, 438, 541, 595]},\"destination\":{\"label\":\"empty tabletop\",\"bbox_2d\":[1, 333, 1000, 1000]},\"relation\":\"on\",\"english\":\"Take the wine bottle out of the bowl and place it on the empty tabletop.\"}",
+  "image_sha256": "ec303ba0ae2160e8edea3cf1a787930e0573165a0b54e27b2d7c420b53210547",
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 21.98106626899971
+}

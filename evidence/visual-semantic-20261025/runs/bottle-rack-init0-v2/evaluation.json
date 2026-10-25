@@ -1,0 +1,6 @@
+{
+  "case": "bottle-on-rack",
+  "success": false,
+  "evaluated_control_steps": 225,
+  "note": "Independent relation monitored at actual control steps; video review required"
+}

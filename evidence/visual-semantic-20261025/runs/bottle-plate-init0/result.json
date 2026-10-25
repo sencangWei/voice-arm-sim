@@ -1,0 +1,107 @@
+{
+  "backend": "Qwen3-VL intent + pi05 grasp + RGB-D/OSC place",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "motion_completed_unscored",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 21,
+  "initial_state": 0,
+  "seed": 42,
+  "initial_state_sha256": "66b1883f351c4c374c742516714921b55bd5eca7fd6f0fa8e2e0a86abff19ccd",
+  "controller_sha256": "0680abd77f352ec108d15bf54c8b2208ac37f976755fcada62f006dd83cebec5",
+  "chinese": "把酒瓶放到盘子上",
+  "policy": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        541,
+        361,
+        595,
+        541
+      ]
+    },
+    "destination": {
+      "label": "盘子",
+      "bbox_2d": [
+        419,
+        652,
+        605,
+        800
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the plate."
+  },
+  "source": {
+    "raw_point": [
+      -0.1893120256500216,
+      -0.05969303034586321,
+      0.9826112365109396
+    ],
+    "refined_point": [
+      -0.19493043490662326,
+      -0.061449823949666804,
+      0.9685427274474996
+    ],
+    "tabletop": 0.901,
+    "pixels": 1350,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "destination": {
+    "raw_point": [
+      0.05777567003984663,
+      -0.0102939442878855,
+      0.9077798372974526
+    ],
+    "refined_point": [
+      0.06163356369881604,
+      -0.009879838017540058,
+      0.9109787747932044
+    ],
+    "tabletop": 0.901,
+    "pixels": 4548,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "handover_step": 100,
+  "grasp_eef": [
+    -0.21784746284198445,
+    -0.07430584566552452,
+    0.9703511538523429
+  ],
+  "offset_xy": [
+    0.022917027935361184,
+    0.012856021715857716
+  ],
+  "clearance_z": 1.2,
+  "destination_reobserved": {
+    "raw_point": [
+      0.0577541947810708,
+      -0.011764906742438186,
+      0.9077547259867585
+    ],
+    "refined_point": [
+      0.06163356369881604,
+      -0.009879838017540058,
+      0.9109787747932044
+    ],
+    "tabletop": 0.901,
+    "pixels": 4548,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "control_steps": 284,
+  "wall_duration_s": 24.342774625998572
+}

@@ -1,0 +1,30 @@
+{
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        541,
+        360,
+        595,
+        538
+      ]
+    },
+    "destination": {
+      "label": "plate",
+      "bbox_2d": [
+        419,
+        652,
+        605,
+        800
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the plate."
+  },
+  "raw": "{\"source\":{\"label\":\"wine bottle\",\"bbox_2d\":[541,360,595,538]},\"destination\":{\"label\":\"plate\",\"bbox_2d\": [419,652,605,800]},\"relation\":\"on\",\"english\":\"Place the wine bottle on the plate.\"}",
+  "image_sha256": "9df52b8e29719d8699423e2f3289716e0ab5c0142f43061d4cd89c19e3fb3ad3",
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 18.94144010200398
+}

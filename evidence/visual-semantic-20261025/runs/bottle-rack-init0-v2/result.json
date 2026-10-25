@@ -1,0 +1,103 @@
+{
+  "backend": "Qwen3-VL intent + pi05 grasp + RGB-D/OSC place",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "motion_completed_unscored",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 19,
+  "chinese": "把酒瓶放到木架上",
+  "policy": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        541,
+        361,
+        595,
+        541
+      ]
+    },
+    "destination": {
+      "label": "木架",
+      "bbox_2d": [
+        678,
+        101,
+        966,
+        361
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the wooden rack."
+  },
+  "source": {
+    "raw_point": [
+      -0.1893120256500216,
+      -0.05969303034586321,
+      0.9826112365109396
+    ],
+    "refined_point": [
+      -0.19493043490662326,
+      -0.061449823949666804,
+      0.9685427274474996
+    ],
+    "tabletop": 0.901,
+    "pixels": 1350,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "destination": {
+    "raw_point": [
+      -0.232423408698185,
+      -0.2590526265997846,
+      1.169286964013009
+    ],
+    "refined_point": [
+      -0.2570425243963375,
+      -0.2534537905740153,
+      1.1693440975292888
+    ],
+    "tabletop": 0.901,
+    "pixels": 7669,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "handover_step": 93,
+  "grasp_eef": [
+    -0.19074547081433776,
+    -0.07393036396193943,
+    1.018600648709335
+  ],
+  "offset_xy": [
+    -0.004184964092285498,
+    0.012480540012272626
+  ],
+  "clearance_z": 1.3399447462386238,
+  "destination_reobserved": {
+    "raw_point": [
+      -0.23010960833923466,
+      -0.25866627805061093,
+      1.1687251140149648
+    ],
+    "refined_point": [
+      -0.2570425243963375,
+      -0.2534537905740153,
+      1.1693440975292888
+    ],
+    "tabletop": 0.901,
+    "pixels": 7669,
+    "method": "depth-connected component visible XY bounds midpoint; scene-limited"
+  },
+  "control_steps": 225,
+  "wall_duration_s": 27.116213981003966
+}

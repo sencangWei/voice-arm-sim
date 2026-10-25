@@ -1,0 +1,29 @@
+{
+  "ready": true,
+  "running": false,
+  "manual": false,
+  "steps": 274,
+  "frames": 0,
+  "status": "PASS: real model command completed, semantic success requires video",
+  "policy_backend": "local-pi05-libero-lora",
+  "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+  "grip": -1.0,
+  "output": "/home/robot/voice-arm-sim/runs/semantic-20261025/panel-v3/scene_1792903615035958859",
+  "state": [
+    0.03683846542411097,
+    -0.01969126826408084,
+    1.2000408624130467,
+    1.5102168333332442,
+    1.684749009289518,
+    -0.8051899863446998,
+    0.03991407472625118,
+    -0.03994809455282906
+  ],
+  "semantic_output": "/home/robot/voice-arm-sim/runs/semantic-20261025/panel-v3/scene_1792903615035958859/semantic_1792903617341361267",
+  "button_bounds": [
+    96,
+    714,
+    136,
+    47
+  ]
+}

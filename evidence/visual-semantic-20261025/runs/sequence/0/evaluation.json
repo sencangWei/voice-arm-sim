@@ -1,0 +1,5 @@
+{
+  "success": true,
+  "definition": "approximate bottle-in-bowl: contact, XY centers <0.03m, |Z centers| <0.08m, no gripper contact for 5 consecutive controls; requires visual confirmation",
+  "note": "five evaluations at settled end state, no controller input"
+}

@@ -25,6 +25,7 @@ class Workbench:
                          "frames": 0, "status": "请选择任务，加载场景。", "images": None}
         self.env = self.viewer = self.client = self.recorder = self.video = None
         self.running = False
+        self.semantic_active = False
         self.plan = collections.deque()
         self.grip = -1.
         self.output = None
@@ -42,7 +43,7 @@ class Workbench:
             self.snapshot.update(values)
 
     def send(self, command, *values):
-        if command in ("load", "pause", "begin", "run", "close"):
+        if command in ("load", "pause", "begin", "run", "semantic", "close"):
             self.interrupt.set()  # Discard an in-flight prediction before executing it.
         if command == "close":
             self.quit.set()
@@ -60,7 +61,7 @@ class Workbench:
 
     def _publish(self):
         payload = self._payload()
-        self._update(ready=True, running=self.running, manual=self.recorder is not None,
+        self._update(ready=True, running=self.running or self.semantic_active, manual=self.recorder is not None,
                      policy_backend=self.scene.get("source_model", {}).get("backend"),
                      checkpoint_source=self.scene.get("source_model", {}).get("checkpoint_source"),
                      steps=len(self.actions), frames=self.recorder.meta["frame_count"] if self.recorder else 0,
@@ -194,6 +195,7 @@ class Workbench:
         payload = self._payload(224) if human else None
         self.obs, _, self.done, _ = self.env.step(np.asarray(action).tolist())
         self.actions.append(np.asarray(action).copy())
+        self.grip = float(action[-1])
         if human:
             self.recorder.append(payload, action, self._payload()["observation/state"], self.done)
         if self.video:
@@ -213,6 +215,50 @@ class Workbench:
             self.running = False
             self.plan.clear()
             self._update(status="已暂停；模型动作队列已清空。", running=False)
+        elif name == "semantic":
+            self.interrupt.clear()
+            if self.recorder:
+                raise ValueError("请先保存人工片段，再开始视觉抓放")
+            self.running = False
+            self.plan.clear()
+            self._ensure_policy()
+            if self.scene["source_model"].get("backend") not in (
+                    "official-pi05-libero-vla", "local-pi05-libero-lora"):
+                raise ValueError("视觉分层抓放目前需要选择 π0.5 服务（8766）")
+            text = str(values[0]).strip()
+            if not text:
+                raise ValueError("指令不能为空")
+            from vla.semantic_grasp import VisualSkill
+            output = self.output / f"semantic_{time.time_ns()}"
+            def on_task(task):
+                self.prompt = task["english"]
+                self.scene.update(task=self.prompt, user_instruction=text)
+                self.scene.setdefault("control_modes", []).append(dict(
+                    control_step=len(self.actions), mode="visual-semantic-hybrid", task=task,
+                    output=str(output), semantic_success=None))
+            def advance(action):
+                self._step(action)
+                if self.viewer:
+                    self.viewer.sync()
+                time.sleep(.05)
+                return self.obs
+            self.semantic_active = True
+            self._update(running=True)
+            skill = None
+            try:
+                skill = VisualSkill(self.env, self.obs, self.client, output,
+                    advance=advance, stop=lambda: self.interrupt.is_set() or self.quit.is_set()
+                        or (self.viewer is not None and not self.viewer.is_running()),
+                    heartbeat=lambda: self.viewer.sync() if self.viewer else None,
+                    on_task=on_task, status=lambda message: self._update(status=message))
+                skill.run(text)
+                self._update(status=f"抓放流程结束，请核对实际结果；未自动判定成功。记录：{output.name}")
+            finally:
+                if skill:
+                    self.calls += skill.report["inference_calls"]
+                self.semantic_active = False
+                self._publish()
+                self._save_scene("visual_semantic_finished")
         elif name == "run":
             if self.recorder:
                 raise ValueError("请先保存人工片段，再交还模型")

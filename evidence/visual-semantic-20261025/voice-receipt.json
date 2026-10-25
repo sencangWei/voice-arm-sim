@@ -1,0 +1,8 @@
+{
+  "audio": "evidence/hamster/physical-hybrid/hybrid-voice-command.wav",
+  "audio_sha256": "96224f79c5cd5d589bd1017d1d891227d301fd598ef1999ee46cdf0e91640dcc",
+  "chinese": "帮我把酒瓶放进碗里面。",
+  "english": "Please put the wine bottle into the bowl.",
+  "asr_translation_s": 2.3144160649972036,
+  "source": "existing locally synthesized Chinese WAV, NOT a live microphone"
+}

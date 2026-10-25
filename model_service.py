@@ -80,10 +80,9 @@ def download_models():
     return records
 
 
-def load_models():
+def load_models(device="cuda:0", vision_only=False):
     try:
         import torch
-        from qwen_asr import Qwen3ASRModel
         from transformers import AutoProcessor, Qwen3VLForConditionalGeneration
 
         manifest_path = OUTPUT / "manifest.json"
@@ -93,41 +92,80 @@ def load_models():
         records = manifest.get("models", {})
         if not all(k in records for k in MODEL_IDS):
             records = download_models()
-        if not torch.cuda.is_available():
+        if device != "cpu" and not torch.cuda.is_available():
             raise RuntimeError(
                 "CUDA is required for this bounded local model configuration"
             )
         # is_available() alone does not prove the wheel supports this GPU architecture.
-        torch.ones(1, device="cuda:0").item()
-        MODELS["asr"] = Qwen3ASRModel.from_pretrained(
-            records["asr"]["path"],
-            dtype=torch.bfloat16,
-            device_map="cuda:0",
-            max_inference_batch_size=1,
-            max_new_tokens=128,
-        )
-        STATE["asr"] = True
-        LOG.info("ASR loaded")
+        if device != "cpu":
+            torch.ones(1, device=device).item()
+        if not vision_only:
+            from qwen_asr import Qwen3ASRModel
+            MODELS["asr"] = Qwen3ASRModel.from_pretrained(
+                records["asr"]["path"],
+                dtype=torch.bfloat16,
+                device_map=device,
+                max_inference_batch_size=1,
+                max_new_tokens=128,
+            )
+            STATE["asr"] = True
+            LOG.info("ASR loaded")
         MODELS["vision"] = Qwen3VLForConditionalGeneration.from_pretrained(
             records["vision"]["path"],
             dtype=torch.bfloat16,
-            device_map="cuda:0",
+            device_map=device,
             attn_implementation="sdpa",
         ).eval()
         MODELS["processor"] = AutoProcessor.from_pretrained(records["vision"]["path"])
         STATE.update(vision=True, ready=True)
-        manifest = save_manifest()
-        manifest["cuda"] = {
+        runtime = {
+            "device": device,
+            "vision_only": vision_only,
             "torch_cuda": torch.version.cuda,
-            "gpu": torch.cuda.get_device_name(0),
+            "gpu": torch.cuda.get_device_name(0) if device != "cpu" else None,
+            "model_revisions": MODEL_REVISIONS,
         }
-        manifest_path.write_text(
-            json.dumps(manifest, indent=2, ensure_ascii=False) + "\n"
+        OUTPUT.mkdir(parents=True, exist_ok=True)
+        (OUTPUT / f"runtime-{device.replace(':', '-')}.json").write_text(
+            json.dumps(runtime, indent=2, ensure_ascii=False) + "\n"
         )
-        LOG.info("Both models ready on localhost")
+        LOG.info("Models ready on %s (ASR=%s)", device, STATE["asr"])
     except Exception as exc:
         STATE["error"] = str(exc)
         LOG.exception("Model loading failed")
+
+
+def visual_task(payload):
+    """Actual image + Chinese instruction -> model-selected source and goal."""
+    import torch
+    from PIL import Image
+    from vla.semantic import TASK_PROMPT, parse_task
+
+    if not isinstance(payload, dict):
+        raise ValueError("Expected a JSON object")
+    text, encoded = payload.get("text"), payload.get("image")
+    if not isinstance(text, str) or not text.strip() or len(text) > 500:
+        raise ValueError("Expected an instruction of at most 500 characters")
+    if not isinstance(encoded, str):
+        raise ValueError("Expected a base64 image")
+    raw = base64.b64decode(encoded, validate=True)
+    with Image.open(io.BytesIO(raw)) as source:
+        if source.format not in ("PNG", "JPEG") or source.width * source.height > 4_000_000:
+            raise ValueError("Expected a JPEG/PNG image under four million pixels")
+        image = source.convert("RGB")
+    processor, model = MODELS["processor"], MODELS["vision"]
+    messages = [{"role": "user", "content": [
+        {"type": "image", "image": image}, {"type": "text", "text": TASK_PROMPT + text}]}]
+    inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
+        return_dict=True, return_tensors="pt").to(model.device)
+    started = time.monotonic()
+    with torch.inference_mode():
+        ids = model.generate(**inputs, max_new_tokens=384, do_sample=False)
+    answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
+    LOG.info("task %r -> %s", text, answer)
+    return {"task": parse_task(answer), "raw": answer, "image_sha256": hashlib.sha256(raw).hexdigest(),
+            "model": MODEL_IDS["vision"], "revision": MODEL_REVISIONS["vision"],
+            "device": str(model.device), "inference_s": time.monotonic() - started}
 
 
 def transcribe(body):
@@ -285,7 +323,7 @@ class Handler(BaseHTTPRequestHandler):
             self.respond(404, {"error": "Unknown endpoint"})
 
     def do_POST(self):
-        if self.path not in ("/transcribe", "/ground", "/locate", "/translate"):
+        if self.path not in ("/transcribe", "/ground", "/locate", "/translate", "/task"):
             self.respond(404, {"error": "Unknown endpoint"})
             return
         try:
@@ -297,6 +335,9 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if not STATE["ready"]:
                 self.respond(503, {"error": STATE["error"] or "Models are loading"})
+                return
+            if self.path == "/transcribe" and not STATE["asr"]:
+                self.respond(503, {"error": "ASR is disabled in this service; use the ASR service"})
                 return
             if not LOCK.acquire(blocking=False):
                 self.respond(
@@ -310,6 +351,7 @@ class Handler(BaseHTTPRequestHandler):
                 result = (
                     transcribe(body)
                     if self.path == "/transcribe"
+                    else visual_task(json.loads(body)) if self.path == "/task"
                     else translate(json.loads(body)) if self.path == "/translate"
                     else ground(json.loads(body), locate=self.path == "/locate")
                 )
@@ -336,14 +378,17 @@ def main():
     )
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--download-only", action="store_true")
+    parser.add_argument("--device", choices=("cuda:0", "cpu"), default="cuda:0")
+    parser.add_argument("--vision-only", action="store_true")
+    parser.add_argument("--port", type=int, default=8911)
     args = parser.parse_args()
     if args.download_only:
         download_models()
         return
-    server = ThreadingHTTPServer(("127.0.0.1", 8911), Handler)
+    server = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     server.daemon_threads = True
-    threading.Thread(target=load_models, daemon=True).start()
-    LOG.info("Listening at http://127.0.0.1:8911")
+    threading.Thread(target=load_models, args=(args.device, args.vision_only), daemon=True).start()
+    LOG.info("Listening at http://127.0.0.1:%d", args.port)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

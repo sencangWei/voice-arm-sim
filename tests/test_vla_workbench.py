@@ -17,6 +17,7 @@ def bare_workbench():
     lab.viewer = lab.video = lab.client = lab.recorder = None
     lab.output = None
     lab.running = False
+    lab.semantic_active = False
     lab.done = False
     lab.plan = collections.deque([[0.] * 7])
     lab.interrupt = threading.Event()
@@ -28,6 +29,84 @@ def bare_workbench():
     lab.scene = {"task": lab.prompt}
     lab.client = SimpleNamespace(_ws=SimpleNamespace(state=State.OPEN))
     return lab
+
+
+def semantic_workbench(tmp_path):
+    lab = bare_workbench()
+    lab.output = tmp_path
+    lab.obs = object()
+    lab.calls = 0
+    lab.quit = threading.Event()
+    lab.scene["source_model"] = {"backend": "local-pi05-libero-lora"}
+    lab._publish = lambda: None
+    lab._save_scene = lambda reason: lab.scene.update(stop_reason=reason)
+    return lab
+
+
+def test_visual_command_uses_same_scene_and_updates_correction_instruction(tmp_path, monkeypatch):
+    lab = semantic_workbench(tmp_path)
+    env, initial_obs = lab.env, lab.obs
+    refreshed = []
+    lab.viewer = SimpleNamespace(sync=lambda: refreshed.append(True), is_running=lambda: True)
+    lab._step = lambda action: lab.actions.append(action)
+    monkeypatch.setattr("vla.workbench.time.sleep", lambda seconds: None)
+    model_task = dict(english="Put the bottle on the plate.")
+    calls = []
+    class Skill:
+        def __init__(self, scene, obs, client, output, **callbacks):
+            assert scene is env and obs is initial_obs
+            self.callbacks = callbacks
+            self.report = {"inference_calls": 3}
+        def run(self, text):
+            assert lab.semantic_active and not lab.running
+            assert not self.callbacks["stop"]()
+            self.callbacks["on_task"](model_task)
+            assert self.callbacks["advance"]([0.] * 7) is initial_obs
+            calls.append(text)
+    monkeypatch.setattr("vla.semantic_grasp.VisualSkill", Skill)
+    lab.interrupt.set()  # send() interrupts the preceding mode.
+    lab._command("semantic", ("把酒瓶放到盘子上",))
+    assert calls == ["把酒瓶放到盘子上"] and lab.env is env
+    assert lab.prompt == model_task["english"] and not lab.plan
+    assert lab.scene["user_instruction"] == calls[0]
+    assert lab.scene["control_modes"][-1]["semantic_success"] is None
+    assert lab.calls == 3 and not lab.semantic_active and not lab.running
+    assert refreshed == [True] and len(lab.actions) == 1
+
+
+def test_visual_command_clears_busy_after_constructor_failure(tmp_path, monkeypatch):
+    lab = semantic_workbench(tmp_path)
+    def fail(*args, **kwargs):
+        raise OSError("output unavailable")
+    monkeypatch.setattr("vla.semantic_grasp.VisualSkill", fail)
+    with pytest.raises(OSError, match="output unavailable"):
+        lab._command("semantic", ("把酒瓶放到盘子上",))
+    assert not lab.semantic_active and not lab.running
+    assert lab.scene["stop_reason"] == "visual_semantic_finished"
+
+
+def test_visual_command_does_not_discard_pause_arriving_during_reconnect(tmp_path, monkeypatch):
+    lab = semantic_workbench(tmp_path)
+    lab._ensure_policy = lab.interrupt.set
+    class Skill:
+        def __init__(self, *args, **callbacks):
+            self.stop = callbacks["stop"]
+            self.report = {"inference_calls": 0}
+        def run(self, text):
+            assert self.stop()
+            raise InterruptedError("paused")
+    monkeypatch.setattr("vla.semantic_grasp.VisualSkill", Skill)
+    with pytest.raises(InterruptedError):
+        lab._command("semantic", ("把酒瓶放到盘子上",))
+    assert not lab.semantic_active and not lab.actions
+
+
+def test_visual_command_rejects_unsaved_manual_recording(tmp_path):
+    lab = semantic_workbench(tmp_path)
+    lab.recorder = object()
+    with pytest.raises(ValueError, match="保存人工片段"):
+        lab._command("semantic", ("把酒瓶放到盘子上",))
+    assert lab.recorder and not lab.semantic_active
 
 
 def test_start_uses_latest_instruction_and_discards_old_plan():

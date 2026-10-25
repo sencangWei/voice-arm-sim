@@ -1,0 +1,6 @@
+{
+  "case": "bottle-in-bowl",
+  "success": true,
+  "evaluated_control_steps": 257,
+  "note": "Independent relation monitored at actual control steps; video review required"
+}

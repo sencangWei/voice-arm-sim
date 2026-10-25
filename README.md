@@ -1,5 +1,7 @@
 # 桌面语音抓取实验室
 
+新增 **[中文视觉抓放：实测、演示与失败边界](evidence/visual-semantic-20261025/README.md)**：在现有中文面板点击“视觉理解抓放”，由 Qwen3-VL 根据当前图像选择源物体和目的地，π0.5 抓取、RGB-D／OSC 搬运与松爪。本轮没有新增训练；酒瓶进碗、酒瓶上盘、碗上盘已有实际执行证据，木架放置和从碗里取出酒瓶仍失败。这是混合控制实验，尚不能代表任意家庭物品抓放。
+
 新增的真正 VLA 入口见 **[π0.5 多任务 MuJoCo 演示](vla/README.md)**：双摄像头、机械臂状态与指令直接输入官方 π0.5 LIBERO 权重，模型输出连续动作。以下水果实验保留为模块化几何控制基线，证据不能与 VLA 混算。
 
 新增 [同场景改指令的实际 LoRA 训练与对比](evidence/language-guidance/DISTILLATION.md)：V2 已完成累计 10000 次更新及 24 次纯模型评测，视觉复核酒瓶入碗 4/8、酒瓶入架 8/8、碗上盘 8/8。[同布局不同中文指令录像](https://github.com/sencangWei/voice-arm-sim/releases/download/language-distillation-v1/same-scene-chinese-instructions-v2.mp4)展示模型改变目的地；[原模型与 V2 对比](https://github.com/sencangWei/voice-arm-sim/releases/download/language-distillation-v1/baseline-vs-trained-v2-init009.mp4)展示单例。评测直接执行模型动作；合成教师来源与失败公开。仍未达到稳定入碗要求，不能代表开放家庭指令理解。

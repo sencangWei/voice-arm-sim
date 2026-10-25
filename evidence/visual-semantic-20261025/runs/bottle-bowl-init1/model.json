@@ -1,0 +1,30 @@
+{
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        530,
+        363,
+        588,
+        525
+      ]
+    },
+    "destination": {
+      "label": "碗",
+      "bbox_2d": [
+        412,
+        505,
+        548,
+        610
+      ]
+    },
+    "relation": "in",
+    "english": "Put the wine bottle into the bowl."
+  },
+  "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[530,363,588,525]},\"destination\":{\"label\":\"碗\",\"bbox_2d\": [412,505,548,610]},\"relation\":\"in\",\"english\":\"Put the wine bottle into the bowl.\"}",
+  "image_sha256": "10d8036506fc23cfdf1905b80ea937744c8ab8e06c633325bff8d7693114a0fe",
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cpu",
+  "inference_s": 17.814920764998533
+}
