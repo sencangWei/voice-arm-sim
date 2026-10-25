@@ -104,4 +104,4 @@ rtk proxy .venv-vla/bin/ruff check model_service.py vla/semantic.py vla/semantic
 
 本目录备份实际输入／末帧／重定位图像、原始模型输出、结果、动作轨迹、评分和原始视频，成功失败均保留。逐文件来源及SHA256见 `source-artifact-manifest.json`；较大的深度点云和每次完整动作预测保留在原始 `runs/semantic-20261025/`，该清单标出未归档项，**不把它们说成已上传**。`panel_acceptance_v3.py`、`takeout_acceptance.py`、`voice_acceptance.py` 是本次验收脚本，包含固定测试输出和桌面尺寸，重复运行时需使用新的输出目录。
 
-最终代码／演示的远端恢复验证记录见 `backup-verification.json`（验证完成后生成）。以前的 V2 模型权重与恢复记录在[旧训练报告](../language-guidance/DISTILLATION.md)，本轮只新增代码和评测，没有新 checkpoint。新增能力在 `voice-arm-sim` 仓库，不在旧 `.pi05-handson` 或桌面的历史仿真目录。
+代码和演示已推送自有公开仓库的 `feature/visual-semantic-grasp` 分支。独立新建空 Git 仓库从 GitHub 取回实现提交 `f8f4237`，恢复全部122个变更文件（含103个运行产物），逐文件SHA256均与提交及本地文件一致；记录见 [backup-verification.json](backup-verification.json)。以前的 V2 模型权重与恢复记录在[旧训练报告](../language-guidance/DISTILLATION.md)，本轮只新增代码和评测，没有新 checkpoint。新增能力在 `voice-arm-sim` 仓库，不在旧 `.pi05-handson` 或桌面的历史仿真目录。

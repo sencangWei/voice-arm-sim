@@ -1,0 +1,504 @@
+{
+  "verified_at_utc": "2026-10-25T04:56:31.158093+00:00",
+  "remote": "https://github.com/sencangWei/voice-arm-sim.git",
+  "branch": "feature/visual-semantic-grasp",
+  "implementation_commit": "f8f42372c4cf766ec71f230a44160b65caceca4b",
+  "fetched_commit": "f8f42372c4cf766ec71f230a44160b65caceca4b",
+  "base_commit": "a344b49",
+  "method": "Independent empty git repository; shallow filtered fetch over HTTPS from GitHub; restore all implementation-commit changed paths; compare restored bytes to committed and working-tree bytes with SHA256. No shared local object store.",
+  "all_restored_files_match": true,
+  "verified_file_count": 122,
+  "archived_run_file_count": 103,
+  "restore_directory": "/home/robot/voice-arm-sim/.local/visual-semantic-20261025/remote-restore-xdcnqu3w",
+  "scope": "New and modified capability code, tests, docs, curated evaluation artifacts and videos. Model weights were not produced or uploaded in this change; large local-only point clouds and prediction arrays are excluded as documented.",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "e0e85c2646d68ae1f498dd1180e5a3ad75cab3ae7fdb3b6be1e749938ba6f0a4"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/README.md",
+      "sha256": "b8ba9795c0f445e8464743d57b40184a39826761c029ca287db87d9d6fee782e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/checks.json",
+      "sha256": "8ea946861cdfa093835994ee149e3b52b5c0164596d8df71ac97ca73a80d0989"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/panel-verification.json",
+      "sha256": "2e520cd77106f3f47a041bd4fa764b823f719ab4a2f680c54494c4bbfd4d4b8d"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/panel-windows.png",
+      "sha256": "750d59e5633bc935d9a1d645acf711af0eab9f86c79f5af439fb67d2d3682173"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/panel_acceptance_v3.py",
+      "sha256": "a056e372f84c1f688d3e619c9652b2660056f995fddc7da752e31d4ff600411e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/demo.mp4",
+      "sha256": "097c28ffd849ed28445712c3a845a7cba9015a8db3f6bf0f2281d9fe91f6b135"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/evaluation.json",
+      "sha256": "a83bccdb2ccda773b8c52d2247d9424e393feb091f5300595ff55087cb46ed35"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/final.png",
+      "sha256": "0cbf479f21c006ac8722717de5af06f20ee363e8a24009d9d136e9bcc9fad5d0"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/model.json",
+      "sha256": "0f9ea53cbb0a5e4d809ca4fb3e60906837c2ddbc02b843c8a1927e6486aefe20"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/relocalize.json",
+      "sha256": "1e7c188c766168c2995c08410319f08b80a0656e52b06a47b1d2b801eef1ca0e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/reobserve.png",
+      "sha256": "7392dadb537a22c682e2f2a657133f905faa07ea698b9517c7ffa1f8be2e5d11"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/result.json",
+      "sha256": "905b76e6e6e78a384230859a15be563d9bdb8470f7a224e9998e31a6eca25af1"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0-v2/trace.json",
+      "sha256": "26729ce6260adbfcb771767a1a32905d8f0960fb0f1957f52d6723bc9f1ea711"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0/final.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0/result.json",
+      "sha256": "0d2a26db3d1c9dd8633c90cb529c86595da732335f3cced524a2eddcea32d40f"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init0/trace.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/demo.mp4",
+      "sha256": "c17df142bf561cc1859dad03bfdd263081936f7de83cf69a6f4abf9b90e93f1f"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/evaluation.json",
+      "sha256": "a991c17ff987b6c805f6bea95d26e1d9bd5d385f7f068468f624a09749121cc1"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/final.png",
+      "sha256": "5116c53f173e3d764bddfaa0ab46075b1679061fe33aac338b2ee0344bdca561"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/input.png",
+      "sha256": "10d8036506fc23cfdf1905b80ea937744c8ab8e06c633325bff8d7693114a0fe"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/model.json",
+      "sha256": "89f9be0ba6e948313f96b99e95a5d7d9fc957757ec17668df94835ba1bfa5fca"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/relocalize.json",
+      "sha256": "d5ee507b35ac3a8a05b62a13a6ec30c1962eacaea387b1ce1e917f219aa2812d"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/reobserve.png",
+      "sha256": "582f1ab81bdf097b7455021e1e7dbcaf3d89187f7525cee0ba30908414a3f64c"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/result.json",
+      "sha256": "f7a8d5413ccd63a233b98e722571f0a12d43c7fa9c0fe94e75c0a549e45c3119"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-bowl-init1/trace.json",
+      "sha256": "f0512a75a2e4e5b10c66c9ac3bfae33d97b06e8945b5174bb2bcef4410ee0915"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/demo.mp4",
+      "sha256": "5d06e03971dcfa487b286238ef06e838baa919e02ff79a20cfc4163ab5de4295"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/final.png",
+      "sha256": "b6c2e4bed04e757e367ed345b472041235994c728821fcc502ef8ee8a91560e8"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/model.json",
+      "sha256": "bc9dcd3e7ba95ab5842677fcb8c72d7cb5ddfb88f3c1eb298cfe750dda6a8c0f"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/relocalize.json",
+      "sha256": "e1bfcdca62fae7a6234893fb54b724ab0d6ca66d7d609ce866edd49fb5efb595"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/reobserve.png",
+      "sha256": "6c4e4e36e6588488c7a9657fe0a4cbfe6ec2250b4ede3543c13c8be3a4369e67"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/result.json",
+      "sha256": "d2a739a5fb62a26f083eb38dd92bbd9c559d9863083ff85e312df86dfedc6fc4"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-plate-init0/trace.json",
+      "sha256": "d0d280c7794ff9ea6c915be2676e5aa24c5f3985c296d17dc6de1b764a079bc5"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/demo.mp4",
+      "sha256": "d55b47ce82d27285e53f5ee696d7e1089e6b8a022a9046cf9463a53811804ab3"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/evaluation.json",
+      "sha256": "3ac5e226b17cdb7396dbc8dedcfc9d077b42270e2b32cf6d6775bee37ce5d8a2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/final.png",
+      "sha256": "a741b0889afa70ddf53d15a6e2e9119e5a9f9406ad4151b264fd3207e2746eb2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/model.json",
+      "sha256": "821e56f188e66a428d1474ad5d74955df9ba2c849c1002ca297fb32ca857376e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/relocalize.json",
+      "sha256": "36e08c92cd0037d00f00475bd8f67a18c5f65e58706829d87341b39d85ed31d2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/reobserve.png",
+      "sha256": "bb1811a8f7153e56e8a24fec5aaa9caae3fcadd6ad8ab70d90334199ccb08141"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/result.json",
+      "sha256": "aa75a0b42193538f7f812efe2057dac433a7864507f91f96b1687a19fd6cdfa8"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0-v2/trace.json",
+      "sha256": "970cf5f013bce1f4de3b95d174d922ac34dbfed1aa08d142ed4f6a56668489d0"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/demo.mp4",
+      "sha256": "98447ca35567d0114683fd86e3dd722de8e5af7c599f7a1d5f75117b75a0a396"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/final.png",
+      "sha256": "07401e3ca554dbdc42e5386bf504f9a7908d5d33d34ad9b6ca5efb6c7a79395e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/model.json",
+      "sha256": "23208334653fa29fedc2623d3c177d868215267e90dd3d711270a0a408da2415"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/relocalize.json",
+      "sha256": "8c911e76cf068a5b6d781d714bf8434cd92440272f7c5b3a792498f2cc49e0ba"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/reobserve.png",
+      "sha256": "192cfb16fe596310fa4674e4da11751e88b313affa28f9862f45cf2abaabd61f"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/result.json",
+      "sha256": "869d833cf9731f8a0d7fd32f5d58eb51a35d80d68f9be393a4e8af2bbd9c6867"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bottle-rack-init0/trace.json",
+      "sha256": "a4691dbc8c27238677ce37c56354b8bf40a593e6dabbfd646a9c56f589168dc2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/demo.mp4",
+      "sha256": "d48835831d4b588190244511f8424e88858b9481f47347d15b130ae8f2d34b5a"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/evaluation.json",
+      "sha256": "374603ed0211347f0fbd4dce095ad24c7b8a44f7dbc1c337a2452fba2b25aa95"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/final.png",
+      "sha256": "7b1673551b11104d15f88852304cb4aaefb962ac4eaf74326643072900292802"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/model.json",
+      "sha256": "5347f14ec878c83fb2853c223bde0c133f9a10cae09781833db0413f1c343783"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/relocalize.json",
+      "sha256": "a7878d9685b530e90b4de7b18a9f62a6efb8e144ba7731332a22605236f418f1"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/reobserve.png",
+      "sha256": "2bc92d0c6075115d0877646686b052b489b636203096e8a9848f18b0cded69e7"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/result.json",
+      "sha256": "f1e132f665719275b68ca5e0339c14d3aa5292549ce9c4c3a277785e9d8e9d34"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/bowl-plate-init0/trace.json",
+      "sha256": "feb4098dc4a49062f6c716937cde19b7259acfdcb7560ada39c0daad5f453a92"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/demo.mp4",
+      "sha256": "7a8510a3b7e436551227bc3a8e77b3fe580197e5d2604665babdf095f02cd4c0"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/final.png",
+      "sha256": "0325032d6f4ea16cbfd88e75a4ab7b6ecd5bddfdb86fd759c15d9d48d0a69c93"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/input.png",
+      "sha256": "9df52b8e29719d8699423e2f3289716e0ab5c0142f43061d4cd89c19e3fb3ad3"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/model.json",
+      "sha256": "a18545c34280516c281f8fe752eb96014677fd3f27c365832d1cdb7b0ef7e60c"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/relocalize.json",
+      "sha256": "44529d116b0256da627d0d6bc2bf004a3c7d96ac7d99c3484440f074141419b1"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/reobserve.png",
+      "sha256": "c1297b4c781b6c46c30bc4e21720ecc7bca83f1cdcc4ab3ea30e7d2c6d3367b9"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/result.json",
+      "sha256": "521549ec8e8768ace6efd150a4b06ac1eff25a404d36f52e9afd0afeb820f8b5"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v2/trace.json",
+      "sha256": "1ed549ca89e6f523386fffcd0d21fc02858d465c8f50f7843ea6b8c5a5c8e78e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/demo.mp4",
+      "sha256": "7a8510a3b7e436551227bc3a8e77b3fe580197e5d2604665babdf095f02cd4c0"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/final.png",
+      "sha256": "0325032d6f4ea16cbfd88e75a4ab7b6ecd5bddfdb86fd759c15d9d48d0a69c93"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/input.png",
+      "sha256": "9df52b8e29719d8699423e2f3289716e0ab5c0142f43061d4cd89c19e3fb3ad3"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/model.json",
+      "sha256": "a9264436558b69b1ec62374d8812b3db66b4c4f99a7b3be449a727db0bf07e4b"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/relocalize.json",
+      "sha256": "44529d116b0256da627d0d6bc2bf004a3c7d96ac7d99c3484440f074141419b1"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/reobserve.png",
+      "sha256": "c1297b4c781b6c46c30bc4e21720ecc7bca83f1cdcc4ab3ea30e7d2c6d3367b9"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/result.json",
+      "sha256": "a7aed162e5023a0bea4c547267abce312a651a7328497211d3fb65280156b226"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel-v3/trace.json",
+      "sha256": "1ed549ca89e6f523386fffcd0d21fc02858d465c8f50f7843ea6b8c5a5c8e78e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/demo.mp4",
+      "sha256": "a50aacd0a3a3af0d6d7727d46a877285eaf1aaccaa8f42e01980a3d27d5142f7"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/final.png",
+      "sha256": "80b08668f454eed6db625de8be639fba0a066d4de804b10bef4e3dc51c793574"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/input.png",
+      "sha256": "9df52b8e29719d8699423e2f3289716e0ab5c0142f43061d4cd89c19e3fb3ad3"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/model.json",
+      "sha256": "40c9c3c5fba52306af2dad18262813004f5d14441565cdcf3066735c9b7bf08a"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/result.json",
+      "sha256": "e8aceabb22f9ff8aaa74886dab3748f4ae7402f7339c7c1296cf9d65b795a360"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/panel/trace.json",
+      "sha256": "1a2703ab8492ca42608bd1f5f0fea90f2d1cc46b1d9a1eeb95a5718f16c2b967"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/demo.mp4",
+      "sha256": "51aabbde389b648aea9f54f9cf21c7b6885200e23c05b5b8d3550f258ea96ba0"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/evaluation.json",
+      "sha256": "8a15d93d854766bbb042104bfcf495bbd3e2ea887d2b82f66b4e6b2eb4358e97"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/final.png",
+      "sha256": "ec303ba0ae2160e8edea3cf1a787930e0573165a0b54e27b2d7c420b53210547"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/model.json",
+      "sha256": "b54bbe2fc77edca278ef7d74558e03f560f291028135d33efbc583fb46c1d80e"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/relocalize.json",
+      "sha256": "263ae2184dea35ddca62c736da17e8ace60ad036f41831ffa0ec5324b8e3edda"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/reobserve.png",
+      "sha256": "74fd1749fc23145e88296f983fe86b0414ed2dd21357f625d76c080397f2e280"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/result.json",
+      "sha256": "554eb306175a396a389bbc0ebd544ee4597b451379960e9944e33cd76316bd1d"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/0/trace.json",
+      "sha256": "4b558ac8794b0da61d830ade45075d5aee0dd328b19ed24090a2912d54d747e7"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/demo.mp4",
+      "sha256": "6a58ad055e0ddced1d24d55e925f729c43c45046b6d89c76f6c9080946ad14fd"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/final.png",
+      "sha256": "2d0d851731e9c4a4d4c46118f4a22c9f1a3ccebb61842120108c355424705e3c"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/input.png",
+      "sha256": "ec303ba0ae2160e8edea3cf1a787930e0573165a0b54e27b2d7c420b53210547"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/model.json",
+      "sha256": "9803e8767fe6d195b2e804378ba560502059e80a29e8084a0a2c981787dea1e7"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/result.json",
+      "sha256": "aeeedd3b2938b9bd2c62c8d9746b3b6e322cf735a0f791d34d0ad20cb7d848c4"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/sequence/1/trace.json",
+      "sha256": "99b94a823905e728c18bf9e88650a0ffe12498335eb645c3e50b50956eb2585d"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/demo.mp4",
+      "sha256": "946903ca0edec7a640a2a01250d64ec34dbeb4da80b592d4280d41c00fd79acf"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/evaluation-trace.json",
+      "sha256": "f074d57ab039abd85cb64642c6665ad2779045246af21b6ba662e563002e6629"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/evaluation.json",
+      "sha256": "a83bccdb2ccda773b8c52d2247d9424e393feb091f5300595ff55087cb46ed35"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/final.png",
+      "sha256": "45ed0e76739d60c4f6126530c07f1118e49a8d2303f86e33d7040f7d019b485a"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/input.png",
+      "sha256": "8ef6a39af96310ee9c6a4e4c27c671b9489b6dd6aff7f1c0979027ff1cfbfe06"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/model.json",
+      "sha256": "128cb78ee75f8d9b578dc07f0d9fec914e2fccb5484f2151c0d9d7c572652a29"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/relocalize.json",
+      "sha256": "263ae2184dea35ddca62c736da17e8ace60ad036f41831ffa0ec5324b8e3edda"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/reobserve.png",
+      "sha256": "90fc23e8d614feedc0df122ae7c11c6ff6ad1efad5402e6a7099f7fd9f8a9a5a"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/result.json",
+      "sha256": "86036f646f9b2ac753bcd51891ab5e39d8b99a494a6fc3231962ad9270ee2ed2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/runs/voice-bottle-bowl/trace.json",
+      "sha256": "8215b7376d0fe60cfd8c5d8bc9399a705a1afd88fcd34169891844d0db87d99b"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/source-artifact-manifest.json",
+      "sha256": "cef1753a9f54a8b7e3fcaec39fcadba6ef4faa5358faf107a40977514cab12a2"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/takeout_acceptance.py",
+      "sha256": "7b616ba8a27cd8af5d748bda96acbce2aa5b07bb7ca316d06d0bd10503e1f853"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/voice-receipt.json",
+      "sha256": "d6ac8c9946398760b22a239f6b56af6adc51b4b5e99eaeac57e2edd2cc38c94c"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/voice_acceptance.py",
+      "sha256": "70f7ac8c6096bab266f2a18b4bbaac9e3c7fb089a87040e816f5b63eb099f6ac"
+    },
+    {
+      "path": "evidence/visual-semantic-20261025/开源项目调研.md",
+      "sha256": "34c8b56c16bfaac85d4894f4b44d4e057674d8e4173080f718131c322d8f9b15"
+    },
+    {
+      "path": "model_service.py",
+      "sha256": "8a3a9d69649a2158ea282c8e01676e359e2ab73c0421c40f0e557666f4c5081e"
+    },
+    {
+      "path": "tests/test_semantic.py",
+      "sha256": "f1ca1ef5629134e6dafaa17b99c67d166a4398fabea2536f7d3f531f322e8d2a"
+    },
+    {
+      "path": "tests/test_vla_workbench.py",
+      "sha256": "61517e71d292cbed2a03cfd3925b6672d30157932b3928bbe9e1738b51cf9a44"
+    },
+    {
+      "path": "vla/README.md",
+      "sha256": "0d8d7584cb1fade990301040ecd0e094c8c29a381b84231cb3262a760ddcc0fe"
+    },
+    {
+      "path": "vla/panel.py",
+      "sha256": "760f45d7f612f706b5f579ff0f63db05adc8d62dadeb759b5703af5606bf81b4"
+    },
+    {
+      "path": "vla/semantic.py",
+      "sha256": "179da6a279019c995cc9eebe49d82479a8c458cf75a84830a6a21ed86ef154e0"
+    },
+    {
+      "path": "vla/semantic_grasp.py",
+      "sha256": "a8a53eae581c7539e3544a5a4c23dfb64dba63b4b0dbddb68ed971fcbeb5f19a"
+    },
+    {
+      "path": "vla/workbench.py",
+      "sha256": "24c98471aaea5573d4c773bb8938873ced3dda69ffd55738ad416b24cc8678a3"
+    }
+  ]
+}
