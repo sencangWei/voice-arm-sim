@@ -18,6 +18,24 @@ def panel_stub():
     return panel
 
 
+@pytest.mark.parametrize("limit", [0, 360])
+def test_run_forwards_visible_step_limit(limit):
+    panel = panel_stub()
+    panel.step_limit = SimpleNamespace(get=lambda: str(limit))
+    panel.send = Mock()
+    panel.run_model()
+    panel.send.assert_called_once_with("run", '把酒瓶放进碗里', limit)
+
+
+def test_invalid_step_limit_does_not_start_model():
+    panel = panel_stub()
+    panel.step_limit = SimpleNamespace(get=lambda: "-1")
+    panel.send = Mock()
+    with pytest.raises(ValueError, match="0～10000"):
+        panel.run_model()
+    panel.send.assert_not_called()
+
+
 def test_launch_uses_unique_output_real_policy_and_native_viewer(tmp_path, monkeypatch):
     panel = panel_stub()
     plans = tmp_path / 'evidence/hamster/trial-init0-protobuf'

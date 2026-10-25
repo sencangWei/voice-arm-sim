@@ -147,9 +147,16 @@ class ChinesePanel:
         self.perform(lambda: self.send("load", self.task.current(), int(self.initial.get()),
                                       self.prompt.get(), int(self.port.get())))
 
+    def run_model(self):
+        limit = int(self.step_limit.get())
+        if not 0 <= limit <= 10000:
+            raise ValueError("控制步数上限须为 0～10000；0 表示不限步数")
+        self.send("run", self.prompt.get(), limit)
+
     def _operation_page(self):
         page = self.page("仿真与语音")
-        self.row_buttons(page, 0, (("开始／继续 VLA", lambda: self.send("run", self.prompt.get())),
+        self.step_limit = tk.StringVar(value=str(self.args.max_steps or 0))
+        self.row_buttons(page, 0, (("开始／继续 VLA", self.run_model),
                                    ("暂停模型", lambda: self.send("pause")),
                                    ("保存本轮结果", lambda: self.send("save"))))
         self.row_buttons(page, 1, (("重置三维视角", lambda: self.send("camera", False)),
@@ -158,22 +165,26 @@ class ChinesePanel:
         ttk.Label(page, text="鼠标在 MuJoCo 窗口中旋转、平移、缩放视角。\n"
                   "原任务达标后自动暂停；自定义指令需观察确认，可人工暂停或接管。\n"
                   "Demo 录制两路模型相机；三维窗口可独立调整视角。", wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
+        limit = ttk.Frame(page)
+        limit.grid(row=3, column=0, sticky="w", pady=6)
+        ttk.Label(limit, text="本轮步数上限（0＝不限）").pack(side="left")
+        ttk.Entry(limit, textvariable=self.step_limit, width=7).pack(side="left", padx=8)
         from desktop_panel import Panel
         devices = Panel.capture_devices()
         self.device = tk.StringVar(value=devices[0] if devices else "")
-        ttk.Label(page, text="麦克风设备（ALSA）").grid(row=3, column=0, sticky="w", pady=(10, 0))
-        ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=4, column=0, sticky="ew", pady=5)
+        ttk.Label(page, text="麦克风设备（ALSA）").grid(row=4, column=0, sticky="w", pady=(10, 0))
+        ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=5, column=0, sticky="ew", pady=5)
         self.mic = ttk.Button(page, text="开始录音", command=lambda: self.perform(self.toggle_recording))
-        self.mic.grid(row=5, column=0, sticky="w", pady=6)
+        self.mic.grid(row=6, column=0, sticky="w", pady=6)
         self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击开始。")
-        ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=6, column=0, sticky="w", pady=6)
-        self.row_buttons(page, 7, (("旧版分层实验（非纯 VLA）", lambda: self.start_hybrid("fresh")),
+        ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=7, column=0, sticky="w", pady=6)
+        self.row_buttons(page, 8, (("旧版分层实验（非纯 VLA）", lambda: self.start_hybrid("fresh")),
                                    ("停止规划执行", self.stop_hybrid)))
         ttk.Label(page, text="上方“开始／继续 VLA”直接使用模型动作；旧版实验包含几何运输与松爪。\n"
                   "旧版实验会打开独立窗口，固定布局 0；不用于验证纯模型的指令理解能力。",
-                  wraplength=835).grid(row=8, column=0, sticky="w", pady=6)
+                  wraplength=835).grid(row=9, column=0, sticky="w", pady=6)
         ttk.Label(page, textvariable=self.hybrid_status, wraplength=835, foreground="#174f80").grid(
-            row=9, column=0, sticky="w", pady=6)
+            row=10, column=0, sticky="w", pady=6)
 
     def _correction_page(self):
         page = self.page("人工纠正")

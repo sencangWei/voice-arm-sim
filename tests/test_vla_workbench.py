@@ -7,10 +7,12 @@ import pytest
 from websockets.protocol import State
 
 from vla.workbench import Workbench
+from vla.run import LIMITS, parse_args
 
 
 def bare_workbench():
     lab = Workbench.__new__(Workbench)
+    lab.args = SimpleNamespace(max_steps=0, replan_steps=5)
     lab.env = object()
     lab.viewer = lab.video = lab.client = lab.recorder = None
     lab.output = None
@@ -134,3 +136,43 @@ def test_only_matching_official_instruction_uses_scene_success():
     assert lab._goal_satisfied()
     lab.prompt = "put the wine bottle in the bowl"
     assert not lab._goal_satisfied()
+
+
+def test_panel_defaults_to_unlimited_but_evaluation_remains_bounded():
+    assert parse_args(["--panel", "--output", "unused"]).max_steps == 0
+    args = parse_args(["--output", "unused"])
+    assert args.max_steps == LIMITS[args.suite]
+    with pytest.raises(SystemExit):
+        parse_args(["--output", "unused", "--max-steps", "0"])
+
+
+@pytest.mark.parametrize("limit,expected_running", [(0, True), (360, False)])
+def test_interactive_limit_is_optional_and_resume_preserves_scene(limit, expected_running):
+    lab = bare_workbench()
+    lab.args = SimpleNamespace(max_steps=360, replan_steps=5)
+    lab._command("run", ("new instruction", limit))
+    env = lab.env
+    lab.auto_steps = 359
+    lab.plan.append([0.] * 7)
+    lab._step = lambda action: lab.actions.append(action)
+    lab._save_scene = lambda reason: lab.scene.update(stop_reason=reason)
+    lab._infer_step()
+    assert lab.running is expected_running
+    assert lab.scene.get("stop_reason") == (None if expected_running else "step_limit")
+    assert len(lab.actions) == 1
+    lab._command("pause", ())
+    assert not lab.running
+    lab._command("run", ("new instruction", 0))
+    assert lab.env is env and len(lab.actions) == 1 and lab.running
+
+
+def test_unlimited_run_still_pauses_when_official_goal_is_satisfied():
+    lab = bare_workbench()
+    lab.args = SimpleNamespace(max_steps=0, replan_steps=5)
+    lab.scene["task_language"] = lab.prompt
+    lab._command("run", (lab.prompt, 0))
+    lab.plan.append([0.] * 7)
+    lab._step = lambda action: setattr(lab, "done", True)
+    lab._save_scene = lambda reason: lab.scene.update(stop_reason=reason)
+    lab._infer_step()
+    assert not lab.running and lab.scene["stop_reason"] == "predicate_satisfied"

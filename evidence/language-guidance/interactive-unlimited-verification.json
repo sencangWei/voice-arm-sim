@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "past_old_limit": {
+    "steps": 362,
+    "running": true,
+    "run_step_limit": 0,
+    "output": "/home/robot/voice-arm-sim/runs/panel-unlimited/scene_1792900622924326973"
+  },
+  "paused_at": 362,
+  "running": false,
+  "scene_preserved": true,
+  "checkpoint": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+  "default_limit": 0
+}

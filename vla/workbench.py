@@ -216,6 +216,9 @@ class Workbench:
         elif name == "run":
             if self.recorder:
                 raise ValueError("请先保存人工片段，再交还模型")
+            limit = int(values[1]) if len(values) > 1 else int(self.args.max_steps or 0)
+            if not 0 <= limit <= 10000:
+                raise ValueError("控制步数上限须为 0～10000；0 表示不限步数")
             user_instruction = str(values[0]).strip() if values else self.scene.get("user_instruction", self.prompt)
             if not user_instruction:
                 raise ValueError("指令不能为空")
@@ -236,8 +239,11 @@ class Workbench:
             self.plan.clear()
             self.running = True
             self.auto_steps = 0
+            self.run_max_steps = limit
+            self.scene["run_step_limit"] = limit
             self._update(running=True, status=("模型运行中" if self._matches_official_instruction()
-                else "模型执行自定义指令中；无自动完成判据，请观察后暂停。"))
+                else "模型执行自定义指令中；无自动完成判据，请观察后暂停。")
+                + (f" 本轮上限 {limit} 步。" if limit else " 不限步数，可随时暂停。"))
         elif name == "begin":
             if self.recorder:
                 raise ValueError("已经处于人工接管")
@@ -301,7 +307,8 @@ class Workbench:
             self._step(self.plan.popleft())
             self.auto_steps += 1
         satisfied = self._goal_satisfied()
-        if satisfied or self.auto_steps >= self.args.max_steps:
+        limit_reached = self.run_max_steps > 0 and self.auto_steps >= self.run_max_steps
+        if satisfied or limit_reached:
             self.running = False
             self.plan.clear()
             self._save_scene("predicate_satisfied" if satisfied else "step_limit")

@@ -268,12 +268,14 @@ def parse_args(argv=None):
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--seed", type=int, default=7)
     parser.add_argument("--replan-steps", type=int, default=5)
-    parser.add_argument("--max-steps", type=int)
+    parser.add_argument("--max-steps", type=int,
+                        help="Control-step limit; panel defaults to 0 (unlimited), evaluation stays bounded")
     parser.add_argument("--viewer", action="store_true")
     parser.add_argument("--panel", action="store_true")
     args = parser.parse_args(argv)
-    args.max_steps = LIMITS[args.suite] if args.max_steps is None else args.max_steps
-    if not (1 <= args.max_steps <= 10000 and 1 <= args.replan_steps <= 1000
+    if args.max_steps is None:
+        args.max_steps = 0 if args.panel else LIMITS[args.suite]
+    if not ((0 if args.panel else 1) <= args.max_steps <= 10000 and 1 <= args.replan_steps <= 1000
             and 0 <= args.task_id and 0 <= args.initial_state and 1 <= args.port <= 65535):
         parser.error("invalid bounded step counts, indices, or port")
     return args

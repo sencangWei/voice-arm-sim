@@ -1,0 +1,38 @@
+{
+  "suite": "libero_goal",
+  "task_id": 8,
+  "initial_state": 9,
+  "initial_state_sha256": "511083ce2369f1adead2b041ca54f270b1d7fd989c35df019d252af75bed6ece",
+  "task": "Open the middle drawer and put the bowl inside.",
+  "user_instruction": "打开中间的抽屉，把碗放进去",
+  "task_language": "put the bowl on the plate",
+  "source_model": {
+    "backend": "local-pi05-libero-lora",
+    "action_source": "pi05.sample_actions",
+    "openpi_revision": "15a9616a00943ada6c20a0f158e3adb39df2ccac",
+    "libero_revision": "f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+    "checkpoint_source": "/home/robot/voice-arm-sim/checkpoints/voice_pi05_lora/counterfactual_v2/7999",
+    "checkpoint_manifest_sha256": "4a848d78570a687f8a2e839e505c997b0434ffbd47944feba29cfb426aec329c",
+    "action_horizon": 10,
+    "action_dim": 7,
+    "default_policy_rng_seed": 0,
+    "training_this_run": false,
+    "prompt_masking": "zero-token-and-mask-v1"
+  },
+  "seed": 42,
+  "replan_steps": 5,
+  "policy_port": 8766,
+  "scenario_key": "241f3ab55d0bf9fcb14f950fa6208b2ebfae4fa3f70a6ca9e1a791970744b3d9",
+  "instruction_changes": [
+    {
+      "control_step": 360,
+      "previous": "Please put the wine bottle into the bowl.",
+      "prompt": "Open the middle drawer and put the bowl inside."
+    }
+  ],
+  "reason": "step_limit",
+  "steps": 720,
+  "policy_calls": 144,
+  "official_predicate": false,
+  "instruction_success": null
+}
