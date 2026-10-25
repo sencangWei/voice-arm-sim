@@ -1,0 +1,226 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "step_unconfirmed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 0,
+  "steps": [
+    {
+      "number": 1,
+      "instruction": "把酒瓶放到盘子里",
+      "recovery": null,
+      "output": ".local/combination-tests-20261025-plate-v1/bottle-plate-chain/command-01/step-01",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到盘子里",
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.6846927000005962,
+            "inference_s": 1.6782977219991153,
+            "device": "cuda:0"
+          }
+        ],
+        "exception": "ValueError: 单步目的地类型与完整计划不一致；未发送动作",
+        "control_steps": 0,
+        "wall_duration_s": 1.7789624860015465
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "把酒瓶放到盘子里",
+      "recovery": "retry_grasp",
+      "output": ".local/combination-tests-20261025-plate-v1/bottle-plate-chain/command-01/step-01-recovery-1",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到盘子里",
+        "first_control_wall_s": 0.0015291790041374043,
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 1.7096903530036798,
+            "inference_s": 1.7009070740023162,
+            "device": "cuda:0"
+          }
+        ],
+        "exception": "ValueError: 单步目的地类型与完整计划不一致；未发送动作",
+        "control_steps": 15,
+        "wall_duration_s": 1.8119323080027243
+      }
+    },
+    {
+      "number": 1,
+      "instruction": "把酒瓶放到盘子里",
+      "recovery": "retry_grasp",
+      "output": ".local/combination-tests-20261025-plate-v1/bottle-plate-chain/command-01/step-01-recovery-2",
+      "report": {
+        "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+        "end_to_end_vla": false,
+        "controller_object_truth": false,
+        "semantic_success": null,
+        "result": "exception",
+        "grasp_verification": "proprioceptive candidate only; requires video review",
+        "inference_calls": 0,
+        "chinese": "把酒瓶放到盘子里",
+        "first_control_wall_s": 0.0005006099963793531,
+        "policy": {
+          "backend": "visual-geometric-control",
+          "learned_action_policy": false,
+          "controller_object_truth": false,
+          "training_this_run": false
+        },
+        "request_timings": [
+          {
+            "endpoint": "task",
+            "port": 8911,
+            "wall_s": 0.8781053439888638,
+            "inference_s": 0.8713158469909104,
+            "device": "cuda:0"
+          }
+        ],
+        "exception": "ValueError: 单步目的地类型与完整计划不一致；未发送动作",
+        "control_steps": 14,
+        "wall_duration_s": 0.9778814360033721
+      }
+    }
+  ],
+  "control_steps": 29,
+  "chinese": "把酒瓶放到盘子里，然后把它放到柜子顶部",
+  "recoveries": [
+    {
+      "step": 1,
+      "attempt": 1,
+      "decision": {
+        "action": "retry_grasp",
+        "reason": "尚未抓取酒瓶，需重新尝试夹取以启动放置流程",
+        "progress": "no_progress",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.0,
+      "made_progress": false,
+      "consecutive_no_progress": 1,
+      "attempted": true,
+      "control_steps": 15,
+      "result": "exception",
+      "completion": null
+    },
+    {
+      "step": 1,
+      "attempt": 2,
+      "decision": {
+        "action": "retry_grasp",
+        "reason": "尚未抓取酒瓶，需重新尝试夹取以启动放置流程",
+        "progress": "no_progress",
+        "step": null
+      },
+      "executed": true,
+      "observation_change_fraction": 0.046611785888671875,
+      "made_progress": false,
+      "consecutive_no_progress": 2,
+      "attempted": true,
+      "control_steps": 14,
+      "result": "exception",
+      "completion": null
+    },
+    {
+      "step": 1,
+      "attempt": 3,
+      "decision": {
+        "action": "retry_grasp",
+        "reason": "尚未抓取酒瓶，需重新尝试夹取以启动放置流程",
+        "progress": "no_progress",
+        "step": null
+      },
+      "executed": false,
+      "observation_change_fraction": 0.028499603271484375,
+      "made_progress": false,
+      "consecutive_no_progress": 3
+    }
+  ],
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.254680683996412,
+      "inference_s": 1.2467493679869222,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.5010923279915005,
+      "inference_s": 0.4889294989989139,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.4977926019928418,
+      "inference_s": 0.4857043079973664,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "recovery",
+      "port": 8911,
+      "wall_s": 0.49124966900853906,
+      "inference_s": 0.4797596519929357,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放，目的地分别为圆形容器和支撑表面",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到盘子里",
+        "destination_kind": "circular_container"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到柜子顶部",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "recovery_stop": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；尚未抓取酒瓶，需重新尝试夹取以启动放置流程"
+  },
+  "completion": {
+    "kind": "no_progress",
+    "reason": "连续3次观察未见目标进展，保留现场；尚未抓取酒瓶，需重新尝试夹取以启动放置流程"
+  },
+  "wall_duration_s": 8.07690436700068
+}

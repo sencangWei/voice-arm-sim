@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "uncertain",
+    "reason": "蓝色奶酪盒位置不明，无法确认是否在柜子顶部且已释放。"
+  },
+  "raw": "{\n  \"verdict\": \"uncertain\",\n  \"reason\": \"蓝色奶酪盒位置不明，无法确认是否在柜子顶部且已释放。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "4ab1bb849a151eae1ca20b53670d2a9d7a5b297531c61b62fee6ceb1b14c5dfe",
+    "2aed5547aaa2017d530860ace8649212098983e34f4bbce746ddc88a4b89de81"
+  ],
+  "model_input_image_sha256": [
+    "4ab1bb849a151eae1ca20b53670d2a9d7a5b297531c61b62fee6ceb1b14c5dfe"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.4483018939936301
+}

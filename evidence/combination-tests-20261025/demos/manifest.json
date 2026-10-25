@@ -1,0 +1,42 @@
+[
+  {
+    "video": "demos/bottle-cabinet-stove.mp4",
+    "parts": [
+      "runs/main/bottle-chain/command-01/step-01/demo.mp4",
+      "runs/main/bottle-chain/command-01/step-02/demo.mp4"
+    ],
+    "frames": 538,
+    "fps": 20,
+    "contains_model_wait_time": false
+  },
+  {
+    "video": "demos/bottom-open-close-open.mp4",
+    "parts": [
+      "runs/bottom/fresh-bottom-drawer/command-01/step-01/demo.mp4",
+      "runs/bottom/fresh-bottom-drawer/command-01/step-02/demo.mp4",
+      "runs/bottom/fresh-bottom-drawer/command-01/step-03/demo.mp4"
+    ],
+    "frames": 694,
+    "fps": 20,
+    "contains_model_wait_time": false
+  },
+  {
+    "video": "demos/bottle-then-cheese-failure.mp4",
+    "parts": [
+      "runs/main/bottle-chain/command-02/step-01/demo.mp4",
+      "runs/main/bottle-chain/command-02/step-02/demo.mp4"
+    ],
+    "frames": 422,
+    "fps": 20,
+    "contains_model_wait_time": false
+  },
+  {
+    "video": "demos/wrong-drawer-layer.mp4",
+    "parts": [
+      "runs/main/drawer-chain/command-01/step-01/demo.mp4"
+    ],
+    "frames": 237,
+    "fps": 20,
+    "contains_model_wait_time": false
+  }
+]

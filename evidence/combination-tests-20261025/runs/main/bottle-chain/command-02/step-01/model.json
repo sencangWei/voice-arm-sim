@@ -1,0 +1,38 @@
+{
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        270,
+        310,
+        330,
+        478
+      ]
+    },
+    "destination": {
+      "label": "桌面",
+      "bbox_2d": [
+        0,
+        333,
+        1000,
+        1000
+      ]
+    },
+    "relation": "on",
+    "english": "Take the wine bottle from the stove to the table."
+  },
+  "raw": "{\n  \"source\": {\n    \"label\": \"酒瓶\",\n    \"bbox_2d\": [270, 310, 330, 478]\n  },\n  \"destination\": {\n    \"label\": \"桌面\",\n    \"bbox_2d\": [0, 333, 1000, 1000]\n  },\n  \"relation\": \"on\",\n  \"english\": \"Take the wine bottle from the stove to the table.\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": {
+    "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[272, 310, 328, 478],\"destination\":{\"label\":\"桌面\",\"bbox_2d\":[0, 330, 1000, 1000],\"relation\":\"on\"},\"english\":\"Take the wine bottle from the stove and place it on the table.\"}",
+    "parse_error": "Expecting ',' delimiter: line 1 column 207 (char 206)"
+  },
+  "image_sha256": "e1a1fe1334f6afa6c98b36082190076ae2a3dd499b2d00651b3587734575a44a",
+  "model_input_image_sha256": [
+    "e1a1fe1334f6afa6c98b36082190076ae2a3dd499b2d00651b3587734575a44a"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 2.193114957000944
+}

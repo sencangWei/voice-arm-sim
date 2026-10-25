@@ -1,0 +1,65 @@
+{
+  "controller_object_truth": false,
+  "end_to_end_vla": false,
+  "reset_between_commands": false,
+  "suite": "libero_goal",
+  "task_id": 9,
+  "initial_state": 0,
+  "seed": 7,
+  "commands": [
+    {
+      "case": "fresh-bottom-drawer",
+      "command": 1,
+      "instruction": "打开第三层抽屉，然后关上它，再打开第三层抽屉",
+      "output": ".local/combination-tests-20261025-bottom-v1/fresh-bottom-drawer/command-01",
+      "result": "visual_completed",
+      "semantic_success": true,
+      "completed_steps": 3,
+      "control_steps": 694,
+      "wall_s": 13.21790907799732,
+      "exception": null,
+      "evaluation_timeout": false,
+      "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40",
+      "final_sha256": "9b8df8e37826ed8f943b7ce2f2842c7683e15dea58eb6bb2f58f8b711e4761b6",
+      "physical": {
+        "joints": {
+          "wooden_cabinet_1_top_level": 0.0,
+          "wooden_cabinet_1_middle_level": 0.0,
+          "wooden_cabinet_1_bottom_level": -0.1528373568144998
+        },
+        "objects": {
+          "wine_bottle_1": {
+            "position": [
+              -0.1941961465580799,
+              -0.03720879067913176,
+              0.8988609548408878
+            ],
+            "held": false
+          },
+          "cream_cheese_1": {
+            "position": [
+              -0.047810780196188285,
+              0.14822894590683605,
+              0.9089069548372153
+            ],
+            "held": false
+          }
+        },
+        "predicates": {
+          "on wine_bottle_1 wooden_cabinet_1_top_side": false,
+          "on wine_bottle_1 flat_stove_1_cook_region": false,
+          "on wine_bottle_1 plate_1": false,
+          "in wine_bottle_1 wooden_cabinet_1_bottom_region": false,
+          "on cream_cheese_1 wooden_cabinet_1_top_side": false,
+          "on cream_cheese_1 flat_stove_1_cook_region": false,
+          "on cream_cheese_1 plate_1": false,
+          "in cream_cheese_1 wooden_cabinet_1_bottom_region": false
+        },
+        "predicate_errors": {
+          "on wine_bottle_1 main_table": "'main_table'",
+          "on cream_cheese_1 main_table": "'main_table'"
+        }
+      }
+    }
+  ]
+}

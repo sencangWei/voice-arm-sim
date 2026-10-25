@@ -1,0 +1,167 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Warning: make sure gym is installed if you want to use the GymWrapper.
+COMMAND bottle-chain 1 先把酒瓶放到柜子顶部，再把它放到灶台上
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/2 步：把酒瓶放到柜子顶部
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+第 1/2 步：模型选择：酒瓶 → 柜子顶部 (on)
+第 1/2 步：张爪抬起并调整朝向
+第 1/2 步：移动到当前视觉物体上方
+第 1/2 步：下降到视觉抓取位置
+第 1/2 步：下降到视觉抓取位置：控制步 20
+第 1/2 步：闭爪：控制步 40
+第 1/2 步：检查稳定持有：控制步 60
+第 1/2 步：闭爪抬起
+第 1/2 步：闭爪抬起：控制步 80
+第 1/2 步：闭爪抬起：控制步 100
+第 1/2 步：检查稳定持有：控制步 120
+第 1/2 步：抬起避让
+第 1/2 步：抬起避让：控制步 140
+第 1/2 步：重新观察并定位目的地
+第 1/2 步：更新避让高度
+第 1/2 步：搬运到新定位的目的地
+第 1/2 步：搬运到新定位的目的地：控制步 160
+第 1/2 步：搬运到新定位的目的地：控制步 180
+第 1/2 步：下降放置
+第 1/2 步：松爪：控制步 200
+第 1/2 步：撤手
+第 1/2 步：稳定观察：控制步 220
+第 1/2 步：稳定观察：控制步 240
+第 1/2 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+第 2/2 步：把酒瓶放到灶台上
+第 2/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+第 2/2 步：模型选择：wine bottle → stove (on)
+第 2/2 步：张爪抬起并调整朝向
+第 2/2 步：移动到当前视觉物体上方
+第 2/2 步：下降到视觉抓取位置
+第 2/2 步：闭爪：控制步 20
+第 2/2 步：检查稳定持有：控制步 40
+第 2/2 步：闭爪抬起
+第 2/2 步：闭爪抬起：控制步 60
+第 2/2 步：检查稳定持有：控制步 80
+第 2/2 步：抬起避让
+第 2/2 步：重新观察并定位目的地
+第 2/2 步：搬运到新定位的目的地
+第 2/2 步：搬运到新定位的目的地：控制步 100
+第 2/2 步：搬运到新定位的目的地：控制步 120
+第 2/2 步：搬运到新定位的目的地：控制步 140
+第 2/2 步：搬运到新定位的目的地：控制步 160
+第 2/2 步：下降放置
+第 2/2 步：下降放置：控制步 180
+第 2/2 步：下降放置：控制步 200
+第 2/2 步：撤手
+第 2/2 步：撤手：控制步 220
+第 2/2 步：撤手：控制步 240
+第 2/2 步：撤手：控制步 260
+第 2/2 步：稳定观察：控制步 280
+第 2/2 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+RECEIPT {"case": "bottle-chain", "command": 1, "instruction": "先把酒瓶放到柜子顶部，再把它放到灶台上", "output": ".local/combination-tests-20261025-v1/bottle-chain/command-01", "result": "visual_completed", "semantic_success": true, "completed_steps": 2, "control_steps": 536, "wall_s": 10.573247469990747, "exception": null, "evaluation_timeout": false, "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40", "final_sha256": "06403172e13006826785df9957729bbbb1aec1ad35459fe448a4908f51681998", "physical": {"joints": {"wooden_cabinet_1_top_level": 0.0, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.2391137966698949, 0.17539324561494724, 0.9293609548408879], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": true, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}
+COMMAND bottle-chain 2 把酒瓶从灶台拿到桌面上，然后把蓝色奶酪盒放到柜子顶部
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/2 步：把酒瓶从灶台拿到桌面上
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+第 1/2 步：模型选择：酒瓶 → 桌面 (on)
+第 1/2 步：张爪抬起并调整朝向
+第 1/2 步：移动到当前视觉物体上方
+第 1/2 步：下降到视觉抓取位置
+第 1/2 步：下降到视觉抓取位置：控制步 20
+第 1/2 步：下降到视觉抓取位置：控制步 40
+第 1/2 步：闭爪：控制步 60
+第 1/2 步：检查稳定持有：控制步 80
+第 1/2 步：闭爪抬起
+第 1/2 步：闭爪抬起：控制步 100
+第 1/2 步：闭爪抬起：控制步 120
+第 1/2 步：检查稳定持有：控制步 140
+第 1/2 步：抬起避让
+第 1/2 步：重新观察并定位目的地
+第 1/2 步：搬运到新定位的目的地
+第 1/2 步：搬运到新定位的目的地：控制步 160
+第 1/2 步：下降放置
+第 1/2 步：下降放置：控制步 180
+第 1/2 步：下降放置：控制步 200
+第 1/2 步：松爪：控制步 220
+第 1/2 步：撤手
+第 1/2 步：撤手：控制步 240
+第 1/2 步：撤手：控制步 260
+第 1/2 步：稳定观察：控制步 280
+第 1/2 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+第 2/2 步：把蓝色奶酪盒放到柜子顶部
+第 2/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+第 2/2 步：模型选择：blue cheese box → top of cabinet (on)
+第 2/2 步：张爪抬起并调整朝向
+第 2/2 步：移动到当前视觉物体上方
+第 2/2 步：移动到当前视觉物体上方：控制步 20
+第 2/2 步：下降到视觉抓取位置
+第 2/2 步：下降到视觉抓取位置：控制步 40
+第 2/2 步：下降到视觉抓取位置：控制步 60
+第 2/2 步：下降到视觉抓取位置：控制步 80
+第 2/2 步：下降到视觉抓取位置：控制步 100
+第 2/2 步：下降到视觉抓取位置：控制步 120
+模型正在看失败现场，选择并执行恢复动作
+第 2/2 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+模型正在看失败现场，选择并执行恢复动作
+第 2/2 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "bottle-chain", "command": 2, "instruction": "把酒瓶从灶台拿到桌面上，然后把蓝色奶酪盒放到柜子顶部", "output": ".local/combination-tests-20261025-v1/bottle-chain/command-02", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 1, "control_steps": 420, "wall_s": 12.936309695011005, "exception": null, "evaluation_timeout": false, "start_sha256": "06403172e13006826785df9957729bbbb1aec1ad35459fe448a4908f51681998", "final_sha256": "4fcdc7cda54e6716ce7bbd9fe3a817455d3efd2633e6c79ebf4da94c18def4f5", "physical": {"joints": {"wooden_cabinet_1_top_level": 0.0, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1808466467184433, 0.17287934312297074, 0.9272794364422128], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}
+COMMAND cheese-chain 1 把蓝色奶酪盒放到盘子里，再把它拿到灶台上
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/2 步：把蓝色奶酪盒放到盘子里
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+第 1/2 步：恢复：张爪抬起脱离失败接触
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+第 1/2 步：恢复：张爪抬起脱离失败接触
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "cheese-chain", "command": 1, "instruction": "把蓝色奶酪盒放到盘子里，再把它拿到灶台上", "output": ".local/combination-tests-20261025-v1/cheese-chain/command-01", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 0, "control_steps": 29, "wall_s": 7.236470096002449, "exception": null, "evaluation_timeout": false, "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40", "final_sha256": "8b706be251043bc6cd5e51199ee05c8855843d5d8c635278c5af48f693c236ad", "physical": {"joints": {"wooden_cabinet_1_top_level": 0.0, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1941961465580799, -0.03720879067913176, 0.8988609548408878], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}
+COMMAND drawer-chain 1 打开柜子第二层抽屉，然后关上它，再打开第三层抽屉
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/3 步：打开柜子第二层抽屉
+第 1/3 步：抬高并面向抽屉
+第 1/3 步：抬高并面向抽屉：控制步 20
+第 1/3 步：移动到把手外侧
+第 1/3 步：移动到把手外侧：控制步 40
+第 1/3 步：移动到把手外侧：控制步 60
+第 1/3 步：移动到把手外侧：控制步 80
+第 1/3 步：沿柜面外侧下降
+第 1/3 步：沿柜面外侧下降：控制步 100
+第 1/3 步：靠近当前视觉把手
+第 1/3 步：靠近当前视觉把手：控制步 120
+第 1/3 步：夹住抽屉把手：控制步 140
+第 1/3 步：拉开抽屉
+第 1/3 步：拉开抽屉：控制步 160
+第 1/3 步：松开把手：控制步 180
+第 1/3 步：退出柜面
+第 1/3 步：退出柜面：控制步 200
+第 1/3 步：撤手观察抽屉
+第 1/3 步：撤手观察抽屉：控制步 220
+第 1/3 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+模型正在看失败现场，选择并执行恢复动作
+第 1/3 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+模型正在看失败现场，选择并执行恢复动作
+第 1/3 步：已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "drawer-chain", "command": 1, "instruction": "打开柜子第二层抽屉，然后关上它，再打开第三层抽屉", "output": ".local/combination-tests-20261025-v1/drawer-chain/command-01", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 0, "control_steps": 237, "wall_s": 8.6780829920026, "exception": null, "evaluation_timeout": false, "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40", "final_sha256": "85e98bcf1e0bd80b6a35ffc39ae8a24eff91856a57125629ec743b64c8cb9055", "physical": {"joints": {"wooden_cabinet_1_top_level": -0.15750488905733437, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1941961465580799, -0.03720879067913176, 0.8988609548408878], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}
+COMMAND drawer-chain 2 把蓝色奶酪盒放进第三层抽屉，然后关闭第三层抽屉
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/2 步：把蓝色奶酪盒放进第三层抽屉
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+第 1/2 步：重新规划前置步骤：打开第三层抽屉
+模型正在看失败现场，选择并执行恢复动作
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "drawer-chain", "command": 2, "instruction": "把蓝色奶酪盒放进第三层抽屉，然后关闭第三层抽屉", "output": ".local/combination-tests-20261025-v1/drawer-chain/command-02", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 0, "control_steps": 0, "wall_s": 6.196788100001868, "exception": null, "evaluation_timeout": false, "start_sha256": "85e98bcf1e0bd80b6a35ffc39ae8a24eff91856a57125629ec743b64c8cb9055", "final_sha256": "85e98bcf1e0bd80b6a35ffc39ae8a24eff91856a57125629ec743b64c8cb9055", "physical": {"joints": {"wooden_cabinet_1_top_level": -0.15750488905733437, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1941961465580799, -0.03720879067913176, 0.8988609548408878], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}
+COMMAND drawer-chain 3 打开第三层抽屉，把里面的奶酪盒拿出来放到桌面上，再关上第三层抽屉
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/3 步：打开第三层抽屉
+模型正在看失败现场，选择并执行恢复动作
+模型正在看失败现场，选择并执行恢复动作
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "drawer-chain", "command": 3, "instruction": "打开第三层抽屉，把里面的奶酪盒拿出来放到桌面上，再关上第三层抽屉", "output": ".local/combination-tests-20261025-v1/drawer-chain/command-03", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 0, "control_steps": 0, "wall_s": 6.166315828013467, "exception": null, "evaluation_timeout": false, "start_sha256": "85e98bcf1e0bd80b6a35ffc39ae8a24eff91856a57125629ec743b64c8cb9055", "final_sha256": "85e98bcf1e0bd80b6a35ffc39ae8a24eff91856a57125629ec743b64c8cb9055", "physical": {"joints": {"wooden_cabinet_1_top_level": -0.15750488905733437, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1941961465580799, -0.03720879067913176, 0.8988609548408878], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}

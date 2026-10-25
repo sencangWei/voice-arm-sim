@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "抽屉底板向前伸出，内部空间可见，机械臂已撤离，符合打开抽屉的完成标准。"
+  },
+  "raw": "{\"verdict\":\"completed\",\"reason\":\"抽屉底板向前伸出，内部空间可见，机械臂已撤离，符合打开抽屉的完成标准。\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "3ebe618637f2abf566895a603047517e860392b329a0735f51855431104bb0ed",
+    "8db2487e001c78c87ebd085650ef3d0347f282269d6e465dad8b7cead3d6d2c9"
+  ],
+  "model_input_image_sha256": [
+    "3ebe618637f2abf566895a603047517e860392b329a0735f51855431104bb0ed"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.44590890398831107
+}

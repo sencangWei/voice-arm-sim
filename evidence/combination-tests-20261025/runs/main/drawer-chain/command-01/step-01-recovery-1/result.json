@@ -1,0 +1,65 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "visual_uncertain",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "打开柜子第二层抽屉",
+  "motion_completed": true,
+  "verification_box": [
+    680,
+    345,
+    1000,
+    820
+  ],
+  "verification_action": "open",
+  "drawer_verification": {
+    "geometry": {
+      "handle": [
+        0.0502346630635937,
+        -0.1335273028696134,
+        1.0964530322974237
+      ],
+      "outward_normal": [
+        0.010141330762688272,
+        0.9999485753829352,
+        -0.0
+      ],
+      "plane_points": 376,
+      "handle_front_separation": 0.019308845018745212,
+      "method": "model handle region + RGB-D vertical front-plane fit; no object truth"
+    },
+    "initial": {
+      "handle_band_m": -0.007091338470935318,
+      "cabinet_front_m": null,
+      "band_points": 767,
+      "cabinet_plane_points": 0
+    }
+  },
+  "release_gap": 0.07936618050836812,
+  "request_timings": [
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.45689527499780525,
+      "inference_s": 0.44590890398831107,
+      "device": "cuda:0"
+    }
+  ],
+  "drawer_depth_check": {
+    "accepted": null,
+    "reason": "没有可确认的静止柜面参考"
+  },
+  "model_completion": {
+    "verdict": "completed",
+    "reason": "抽屉底板向前伸出，内部空间可见，机械臂已撤离，符合打开抽屉的完成标准。"
+  },
+  "completion": {
+    "verdict": "uncertain",
+    "reason": "没有可确认的静止柜面参考"
+  },
+  "control_steps": 0,
+  "wall_duration_s": 0.590388038996025
+}

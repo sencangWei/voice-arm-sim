@@ -1,0 +1,20 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+[robosuite WARNING] To setup, run: python /home/robot/voice-arm-sim/.venv-vla-sim/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Warning: make sure gym is installed if you want to use the GymWrapper.
+COMMAND bottle-plate-chain 1 把酒瓶放到盘子里，然后把它放到柜子顶部
+模型正在理解完整指令并检查全部步骤；此时不发送动作
+第 1/2 步：把酒瓶放到盘子里
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+第 1/2 步：恢复：张爪抬起脱离失败接触
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+第 1/2 步：恢复：张爪抬起脱离失败接触
+第 1/2 步：模型正在看当前画面并解析中文指令；解析完成后开始动作
+模型正在看失败现场，选择并执行恢复动作
+RECEIPT {"case": "bottle-plate-chain", "command": 1, "instruction": "把酒瓶放到盘子里，然后把它放到柜子顶部", "output": ".local/combination-tests-20261025-plate-v1/bottle-plate-chain/command-01", "result": "step_unconfirmed", "semantic_success": null, "completed_steps": 0, "control_steps": 29, "wall_s": 8.353613293002127, "exception": null, "evaluation_timeout": false, "start_sha256": "9d11fbdb56cd42d517a9b4bfe1e04e3396aa9631add4d49d442104f0c001ee40", "final_sha256": "8b706be251043bc6cd5e51199ee05c8855843d5d8c635278c5af48f693c236ad", "physical": {"joints": {"wooden_cabinet_1_top_level": 0.0, "wooden_cabinet_1_middle_level": 0.0, "wooden_cabinet_1_bottom_level": 0.0}, "objects": {"wine_bottle_1": {"position": [-0.1941961465580799, -0.03720879067913176, 0.8988609548408878], "held": false}, "cream_cheese_1": {"position": [-0.047810780196188285, 0.14822894590683605, 0.9089069548372153], "held": false}}, "predicates": {"on wine_bottle_1 wooden_cabinet_1_top_side": false, "on wine_bottle_1 flat_stove_1_cook_region": false, "on wine_bottle_1 plate_1": false, "in wine_bottle_1 wooden_cabinet_1_bottom_region": false, "on cream_cheese_1 wooden_cabinet_1_top_side": false, "on cream_cheese_1 flat_stove_1_cook_region": false, "on cream_cheese_1 plate_1": false, "in cream_cheese_1 wooden_cabinet_1_bottom_region": false}, "predicate_errors": {"on wine_bottle_1 main_table": "'main_table'", "on cream_cheese_1 main_table": "'main_table'"}}}

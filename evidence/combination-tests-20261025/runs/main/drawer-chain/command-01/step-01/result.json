@@ -1,0 +1,105 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "visual_uncertain",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "打开柜子第二层抽屉",
+  "skill": "open_drawer",
+  "request_timings": [
+    {
+      "endpoint": "drawer",
+      "port": 8911,
+      "wall_s": 1.0215030730032595,
+      "inference_s": 1.0137917609972646,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.4478283200005535,
+      "inference_s": 0.4351574320025975,
+      "device": "cuda:0"
+    }
+  ],
+  "verification_box": [
+    680,
+    345,
+    1000,
+    820
+  ],
+  "verification_action": "open",
+  "task": {
+    "action": "open",
+    "level": "middle",
+    "handle_bbox_2d": [
+      680,
+      500,
+      730,
+      570
+    ],
+    "cabinet_bbox_2d": [
+      680,
+      345,
+      1000,
+      820
+    ]
+  },
+  "geometry": {
+    "handle": [
+      0.0502346630635937,
+      -0.1335273028696134,
+      1.0964530322974237
+    ],
+    "outward_normal": [
+      0.010141330762688272,
+      0.9999485753829352,
+      -0.0
+    ],
+    "plane_points": 376,
+    "handle_front_separation": 0.019308845018745212,
+    "method": "model handle region + RGB-D vertical front-plane fit; no object truth"
+  },
+  "drawer_verification": {
+    "geometry": {
+      "handle": [
+        0.0502346630635937,
+        -0.1335273028696134,
+        1.0964530322974237
+      ],
+      "outward_normal": [
+        0.010141330762688272,
+        0.9999485753829352,
+        -0.0
+      ],
+      "plane_points": 376,
+      "handle_front_separation": 0.019308845018745212,
+      "method": "model handle region + RGB-D vertical front-plane fit; no object truth"
+    },
+    "initial": {
+      "handle_band_m": -0.007091338470935318,
+      "cabinet_front_m": null,
+      "band_points": 767,
+      "cabinet_plane_points": 0
+    }
+  },
+  "first_control_wall_s": 1.234461875006673,
+  "motion_completed": true,
+  "release_gap": 0.07936618050836812,
+  "drawer_depth_check": {
+    "accepted": null,
+    "reason": "没有可确认的静止柜面参考"
+  },
+  "model_completion": {
+    "verdict": "completed",
+    "reason": "抽屉底板向前伸出，内部空间可见，机械臂已撤离，符合打开抽屉的完成标准。"
+  },
+  "completion": {
+    "verdict": "uncertain",
+    "reason": "没有可确认的静止柜面参考"
+  },
+  "control_steps": 237,
+  "wall_duration_s": 3.6832593889994314
+}

@@ -1,0 +1,38 @@
+{
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        512,
+        367,
+        570,
+        547
+      ]
+    },
+    "destination": {
+      "label": "plate",
+      "bbox_2d": [
+        416,
+        632,
+        600,
+        765
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the plate."
+  },
+  "raw": "{\"source\":{\"label\":\"wine bottle\",\"bbox_2d\":[512, 367, 570, 547]},\"destination\":{\"label\":\"plate\",\"bbox_2d\": [416, 632, 600, 765]},\"relation\":\"on\",\"english\":\"Place the wine bottle on the plate.\"}",
+  "serialization_repair": null,
+  "serialization_retry": {
+    "raw": "{\"source\":{\"label\":\"酒瓶\",\"bbox_2d\":[512,367,570,538]},\"destination\":{\"label\":\"盘子\",\"bbox_2d\": [416,630,600,763]},\"relation\":\"on\"}",
+    "parse_error": "Expected one source, destination, relation and faithful English instruction"
+  },
+  "image_sha256": "2d34b15736a69ca39ef41583c2ef22618d4e49ecb9062ece74341d7818bd3193",
+  "model_input_image_sha256": [
+    "2d34b15736a69ca39ef41583c2ef22618d4e49ecb9062ece74341d7818bd3193"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.7009070740023162
+}

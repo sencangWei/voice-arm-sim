@@ -1,0 +1,21 @@
+{
+  "recovery": {
+    "action": "retry_drawer",
+    "reason": "抽屉未成功打开，需重新定位把手尝试开启，当前画面未显示抽屉状态变化，应优先重试开关动作",
+    "progress": "no_progress",
+    "step": null
+  },
+  "raw": "{\"action\":\"retry_drawer\",\"reason\":\"抽屉未成功打开，需重新定位把手尝试开启，当前画面未显示抽屉状态变化，应优先重试开关动作\",\"progress\":\"no_progress\",\"step\":null}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "65672b44f173fb9a3eefb0d237735b75b116ec3aa395ceaf53a82b857af3aaad",
+  "before_image_sha256": "65672b44f173fb9a3eefb0d237735b75b116ec3aa395ceaf53a82b857af3aaad",
+  "model_input_image_sha256": [
+    "65672b44f173fb9a3eefb0d237735b75b116ec3aa395ceaf53a82b857af3aaad",
+    "65672b44f173fb9a3eefb0d237735b75b116ec3aa395ceaf53a82b857af3aaad"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.6121925119950902
+}

@@ -1,0 +1,39 @@
+{
+  "task": {
+    "source": {
+      "label": "蓝色奶酪盒",
+      "bbox_2d": [
+        286,
+        582,
+        345,
+        666
+      ]
+    },
+    "destination": {
+      "label": "盘子",
+      "bbox_2d": [
+        412,
+        635,
+        595,
+        762
+      ]
+    },
+    "relation": "on",
+    "english": "Place the blue cheese box on the plate."
+  },
+  "raw": "{\"source\":{\"label\":\"蓝色奶酪盒\",\"bbox_2d\": [286, 582, 345, 666],\"destination\":{\"label\":\"盘子\",\"bbox_2d\": [412, 635, 595, 762],\"relation\":\"on\",\"english\":\"Place the blue cheese box on the plate.\"}}",
+  "serialization_repair": {
+    "operation": "close_source_and_destination_objects",
+    "normalized": "{\"source\":{\"label\":\"蓝色奶酪盒\",\"bbox_2d\": [286, 582, 345, 666]},\"destination\":{\"label\":\"盘子\",\"bbox_2d\": [412, 635, 595, 762]},\"relation\":\"on\",\"english\":\"Place the blue cheese box on the plate.\"}",
+    "parse_error": "Expecting ',' delimiter: line 1 column 189 (char 188)"
+  },
+  "serialization_retry": null,
+  "image_sha256": "f49d6aaac928bb83847bf45021c725bffc110a370a24d3fdb26e01b3646c7ec2",
+  "model_input_image_sha256": [
+    "f49d6aaac928bb83847bf45021c725bffc110a370a24d3fdb26e01b3646c7ec2"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.9682497839967255
+}
