@@ -5,7 +5,7 @@
 1. [完成] 检查控制链、抽屉资产和失败类型，定义动作与核验契约。
 2. [完成] 实现恢复模型决策及执行闭环；补充抽屉交互技能和中文计划路由。
 3. [完成] 229项测试、真实Qwen模型抽屉三步、两类受控故障恢复、四例完成核验及中文面板按钮验收；录像与问题记录已归档。
-4. [交付核对] 代码实际位于voice-arm-sim，origin为用户仓库；提交、推送后，从GitHub独立提取并逐文件比对，最终以.local/visual-control-20261025-final-remote-restore.json的verified_commit与PASS为准。
+4. [完成] 能力提交af2b6d9已推送至用户voice-arm-sim仓库；从GitHub独立提取后1823个跟踪文件逐字节及执行权限一致，回执evidence/recovery-drawer-20261025/backup.json。最终文档提交另以.local/visual-control-20261025-final-remote-restore.json核对。
 
 约束：仅仿真，不触碰真机或其他 GPU 任务；不修改旧训练项目、不伪造模型动作或隐藏失败；不以无限重试替代恢复。
 

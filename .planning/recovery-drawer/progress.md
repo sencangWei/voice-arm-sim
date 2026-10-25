@@ -16,3 +16,4 @@
 - verification-depth-final：4个开关正负例均符合预期；保留RGB-only误判与原始模型输出。
 - 新增真实模型destination包装括号格式回归与reverify持物上下文回归，均先失败再修正；最终229测试通过、15个变更Python文件编译通过、git diff --check通过。
 - 代码/截图/录像/脚本/关键失败归档于evidence/recovery-drawer-20261025；备份核对以最终远端恢复回执为准，不以push输出代替恢复验证。
+- 能力提交af2b6d9已从GitHub重新获取并独立提取；1823个跟踪文件内容与执行权限一致，PASS。能力回执随交付文档保存，最终文档提交再做一次恢复核对。

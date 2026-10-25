@@ -105,4 +105,4 @@ rtk proxy env MUJOCO_GL=egl OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv-vla-s
 
 `panel-check.json`、`panel-running.png`是早期失败验收；`panel-final-check.json`是修正后的首次通过；**最后一次新进程验收是`panel-current-check.json`**。原始大量探索保留在本机`runs/recovery-drawer/`，仓库只选入成功证据和关键失败，不上传模型权重、虚拟环境或庞大深度缓存。
 
-本次代码所在仓库及可写远端已核对为`sencangWei/voice-arm-sim`的`feature/visual-semantic-grasp`分支。备份后需从远端重新提取到独立目录，逐文件比对内容与执行权限；本机最终回执为`.local/visual-control-20261025-final-remote-restore.json`，以其中`verified_commit`为准。
+本次代码实际所在仓库及可写远端已核对为`sencangWei/voice-arm-sim`的`feature/visual-semantic-grasp`分支。能力提交`af2b6d944c368be30d1a87c606bd6805dab56fd6`已推送，并从GitHub重新提取到独立目录，1823个跟踪文件的内容与执行权限全部一致，见[远端恢复回执](backup.json)。本机`.local/visual-control-20261025-final-remote-restore.json`另保存包含后续回执文档提交的最终核对，以其中`verified_commit`为准。
