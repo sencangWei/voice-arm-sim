@@ -104,6 +104,7 @@ class ChinesePanel:
         self.book.grid(row=2, column=0, sticky="nsew", padx=12, pady=8)
         self.hybrid_status = tk.StringVar(value="未启动；使用已有官方 π0.5 服务 8766。")
         self._operation_page()
+        self._vla_debug_page()
         self._correction_page()
         self._training_page()
         self._results_page()
@@ -162,34 +163,39 @@ class ChinesePanel:
         self.row_buttons(page, 1, (("重置三维视角", lambda: self.send("camera", False)),
                                    ("俯视对准", lambda: self.send("camera", True)),
                                    ("开始／结束 Demo", lambda: self.send("video"))))
+        self.task_plan_text = tk.StringVar(value="指令计划：尚未执行")
+        ttk.Label(page, textvariable=self.task_plan_text, wraplength=835,
+                  foreground="#174f80").grid(row=2, column=0, sticky="w", pady=6)
         ttk.Label(page, text="使用顺序：首次加载场景 → 输入／说出指令 → 点击“执行当前指令”。\n"
-                  "视觉模型理解中文、选物体 → RGB-D 定位与通用抓放控制 → 松爪撤手 → 视觉核对后停止。\n"
-                  "完成或未确认都保留现场；改写指令再次执行，不用重置，不用再点 VLA。\n"
-                  "视觉解析与核对使用本机 GPU；等待时机械臂保持停止。\n"
-                  "上方采用视觉＋几何控制，不是 VLA；支持分离直立物体和可见圆沿。复杂摆放仍可能失败。",
-                  wraplength=835).grid(row=2, column=0, sticky="w", pady=8)
-        limit = ttk.Frame(page)
-        limit.grid(row=3, column=0, sticky="w", pady=6)
-        ttk.Label(limit, text="VLA 调试上限（0＝不限；不影响上方指令执行）").pack(side="left")
-        ttk.Entry(limit, textvariable=self.step_limit, width=7).pack(side="left", padx=8)
+                  "每步重新看图抓放，松爪撤手后核验；完成或失败都停止并保留现场。\n"
+                  "支持顺序抓放；缺少抽屉等技能时整条拒绝。失败分析建议不会自动执行。\n"
+                  "本页使用视觉＋几何控制；独立 VLA 调试在单独标签页，无需依次点击。",
+                  wraplength=835).grid(row=3, column=0, sticky="w", pady=8)
         from desktop_panel import Panel
         devices = Panel.capture_devices()
         self.device = tk.StringVar(value=devices[0] if devices else "")
-        ttk.Label(page, text="麦克风设备（ALSA）").grid(row=4, column=0, sticky="w", pady=(10, 0))
-        ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=5, column=0, sticky="ew", pady=5)
+        ttk.Label(page, text="麦克风设备（ALSA）").grid(row=5, column=0, sticky="w", pady=(10, 0))
+        ttk.Combobox(page, textvariable=self.device, values=devices).grid(row=6, column=0, sticky="ew", pady=5)
         self.mic = ttk.Button(page, text="开始录音", command=lambda: self.perform(self.toggle_recording))
-        self.mic.grid(row=6, column=0, sticky="w", pady=6)
+        self.mic.grid(row=7, column=0, sticky="w", pady=6)
         self.voice_text = tk.StringVar(value="直接说中文，例如：“帮我把碗放到盘子上。” 识别后核对，再点击“执行当前指令”。")
-        ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=7, column=0, sticky="w", pady=6)
-        self.row_buttons(page, 8, (("仅 VLA 调试", self.run_model),
+        ttk.Label(page, textvariable=self.voice_text, wraplength=835).grid(row=8, column=0, sticky="w", pady=6)
+
+    def _vla_debug_page(self):
+        page = self.page("VLA 调试")
+        limit = ttk.Frame(page)
+        limit.grid(row=0, column=0, sticky="w", pady=6)
+        ttk.Label(limit, text="VLA 调试上限（0＝不限；不影响指令执行）").pack(side="left")
+        ttk.Entry(limit, textvariable=self.step_limit, width=7).pack(side="left", padx=8)
+        self.row_buttons(page, 1, (("仅 VLA 调试", self.run_model),
                                    ("旧版分层实验", lambda: self.start_hybrid("fresh")),
                                    ("停止规划执行", self.stop_hybrid)))
-        ttk.Label(page, text="下方为独立调试入口，不是上方执行按钮的下一步。\n"
+        ttk.Label(page, text="本页为独立调试入口，无需在执行当前指令后点击。\n"
                   "仅 VLA 调试：直接连续预测动作，自定义指令没有自动完成核对，需手动暂停。\n"
                   "旧版分层实验会打开独立窗口、固定布局 0；日常连续指令请用上方按钮。",
-                  wraplength=835).grid(row=9, column=0, sticky="w", pady=6)
+                  wraplength=835).grid(row=2, column=0, sticky="w", pady=6)
         ttk.Label(page, textvariable=self.hybrid_status, wraplength=835, foreground="#174f80").grid(
-            row=10, column=0, sticky="w", pady=6)
+            row=3, column=0, sticky="w", pady=6)
 
     def _correction_page(self):
         page = self.page("人工纠正")
@@ -487,6 +493,10 @@ class ChinesePanel:
             self.grip = state.get("grip", -1.)
         self.was_manual = state["manual"]
         self.status.set(state["status"])
+        if hasattr(self, "task_plan_text"):
+            step = state.get("active_step", 0)
+            self.task_plan_text.set(state.get("task_plan", "指令计划：尚未执行")
+                                    + (f"\n当前执行：第 {step} 步" if step else ""))
         if self.hybrid and self.hybrid.poll() is not None:
             result_path = self.hybrid_output / "result.json"
             if not result_path.is_file():

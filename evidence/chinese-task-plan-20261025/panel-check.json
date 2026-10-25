@@ -1,0 +1,7 @@
+{
+  "status": "未执行：缺少技能：缺少抽屉/柜门操作技能。已自动停止并保留现场；输入下一条指令后点击执行。",
+  "task_plan": "计划：缺少抽屉/柜门操作技能\n1. 打开柜子第三层\n2. 把奶油奶酪放进柜子第三层\n3. 合上柜子第三层\n缺少技能：打开柜子第三层、放进柜子第三层、合上柜子第三层",
+  "task_plan_visible": true,
+  "vla_debug_controls_visible": true,
+  "automatic_motion_steps": 0
+}

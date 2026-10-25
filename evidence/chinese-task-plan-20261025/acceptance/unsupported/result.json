@@ -1,0 +1,52 @@
+{
+  "backend": "Qwen3-VL whole-request plan + verified RGB-D/OSC skills",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "unsupported",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "completed_steps": 0,
+  "steps": [],
+  "control_steps": 0,
+  "chinese": "打开柜子第三层，把奶油奶酪放进去，之后合上第三层",
+  "request_timings": [
+    {
+      "endpoint": "plan",
+      "port": 8911,
+      "wall_s": 1.0789569879998453,
+      "inference_s": 1.0706436019972898,
+      "device": "cuda:0"
+    }
+  ],
+  "plan": {
+    "status": "unsupported",
+    "reason": "缺少抽屉/柜门操作技能",
+    "missing_skills": [
+      "打开柜子第三层",
+      "放进柜子第三层",
+      "合上柜子第三层"
+    ],
+    "steps": [
+      {
+        "skill": "unsupported",
+        "instruction": "打开柜子第三层",
+        "destination_kind": "unsupported"
+      },
+      {
+        "skill": "unsupported",
+        "instruction": "把奶油奶酪放进柜子第三层",
+        "destination_kind": "unsupported"
+      },
+      {
+        "skill": "unsupported",
+        "instruction": "合上柜子第三层",
+        "destination_kind": "unsupported"
+      }
+    ]
+  },
+  "completion": {
+    "reason": "缺少抽屉/柜门操作技能"
+  },
+  "wall_duration_s": 1.296304597010021
+}

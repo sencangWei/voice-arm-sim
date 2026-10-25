@@ -1,0 +1,37 @@
+{
+  "plan": {
+    "status": "unsupported",
+    "reason": "缺少抽屉/柜门操作技能",
+    "missing_skills": [
+      "打开柜子第三层",
+      "放进柜子第三层",
+      "合上柜子第三层"
+    ],
+    "steps": [
+      {
+        "skill": "unsupported",
+        "instruction": "打开柜子第三层",
+        "destination_kind": "unsupported"
+      },
+      {
+        "skill": "unsupported",
+        "instruction": "把奶油奶酪放进柜子第三层",
+        "destination_kind": "unsupported"
+      },
+      {
+        "skill": "unsupported",
+        "instruction": "合上柜子第三层",
+        "destination_kind": "unsupported"
+      }
+    ]
+  },
+  "raw": "{\"status\":\"unsupported\",\"reason\":\"缺少抽屉/柜门操作技能\",\"missing_skills\":[\"打开柜子第三层\",\"放进柜子第三层\",\"合上柜子第三层\"],\"steps\":[{\"skill\":\"unsupported\",\"instruction\":\"打开柜子第三层\",\"destination_kind\":\"unsupported\"},{\"skill\":\"unsupported\",\"instruction\":\"把奶油奶酪放进柜子第三层\",\"destination_kind\":\"unsupported\"},{\"skill\":\"unsupported\",\"instruction\":\"合上柜子第三层\",\"destination_kind\":\"unsupported\"}]}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "4cfb09dbd7416ae70278b428f3e7efb0b29ea4356eaa75b3eb66f096cc191cb0",
+  "model_input_image_sha256": [],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.0706436019972898
+}

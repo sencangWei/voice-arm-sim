@@ -1,0 +1,35 @@
+{
+  "task": {
+    "source": {
+      "label": "wine bottle",
+      "bbox_2d": [
+        778,
+        178,
+        875,
+        419
+      ]
+    },
+    "destination": {
+      "label": "stove",
+      "bbox_2d": [
+        158,
+        388,
+        385,
+        535
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the stove."
+  },
+  "raw": "{\"source\":{\"label\":\"wine bottle\",\"bbox_2d\":[778,178,875,419]},\"destination\":{\"label\":\"stove\",\"bbox_2d\": [158,388,385,535]},\"relation\":\"on\",\"english\":\"Place the wine bottle on the stove.\"}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "b9a9d57435111c3d2b87adf6222280da38537eaabc72f0c29241ecd511b63f04",
+  "model_input_image_sha256": [
+    "b9a9d57435111c3d2b87adf6222280da38537eaabc72f0c29241ecd511b63f04"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.9345739529962884
+}

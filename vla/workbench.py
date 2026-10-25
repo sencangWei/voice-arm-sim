@@ -109,7 +109,8 @@ class Workbench:
                 setattr(self, name, None)
         self.output = None
         self.plan.clear()
-        self._update(ready=False, running=False, manual=False, images=None)
+        self._update(ready=False, running=False, manual=False, images=None,
+                     task_plan="指令计划：尚未执行", active_step=0)
 
     def _load(self, task_id, initial_state, prompt, port):
         if self.recorder:
@@ -227,7 +228,7 @@ class Workbench:
             text = str(values[0]).strip()
             if not text:
                 raise ValueError("指令不能为空")
-            from vla.visual_control import VisualControl
+            from vla.task_runner import TaskRunner
             output = self.output / f"semantic_{time.time_ns()}"
             record = dict(control_step=len(self.actions), mode="visual-geometric-control",
                 instruction=text, output=str(output), semantic_success=None, result="in_progress")
@@ -238,6 +239,13 @@ class Workbench:
                 self.prompt = task["english"]
                 self.scene.update(task=self.prompt, user_instruction=text)
                 record["task"] = task
+            def on_plan(plan, step):
+                record.update(plan=plan, active_step=step)
+                lines = [f"{i}. {item['instruction']}" for i, item in enumerate(plan["steps"], 1)]
+                detail = "\n".join(lines)
+                if plan["missing_skills"]:
+                    detail += "\n缺少技能：" + "、".join(plan["missing_skills"])
+                self._update(task_plan=f"计划：{plan['reason']}\n{detail}", active_step=step)
             def advance(action):
                 self._step(action)
                 if self.viewer:
@@ -245,17 +253,19 @@ class Workbench:
                 time.sleep(.05)
                 return self.obs
             self.semantic_active = True
-            self._update(running=True)
+            self._update(running=True, task_plan="正在检查完整指令与所需技能……", active_step=0)
             skill = None
             try:
-                skill = VisualControl(self.env, self.obs, None, output,
+                skill = TaskRunner(self.env, self.obs, None, output,
                     advance=advance, stop=lambda: self.interrupt.is_set() or self.quit.is_set()
                         or (self.viewer is not None and not self.viewer.is_running()),
                     heartbeat=lambda: self.viewer.sync() if self.viewer else None,
-                    on_task=on_task, status=lambda message: self._update(status=message))
+                    on_task=on_task, on_plan=on_plan, status=lambda message: self._update(status=message))
                 skill.run(text)
                 success = skill.report.get("semantic_success")
                 label = "视觉核对通过" if success is True else "未完成" if success is False else "无法确认完成"
+                if skill.report.get("result") in ("unsupported", "clarify"):
+                    label = "未执行：缺少技能" if skill.report["result"] == "unsupported" else "未执行：请补充指令"
                 reason = (skill.report.get("completion") or {}).get("reason", "请核对实际画面")
                 self._update(status=f"{label}：{reason}。已自动停止并保留现场；输入下一条指令后点击执行。")
             finally:
@@ -263,7 +273,9 @@ class Workbench:
                     self.calls += skill.report["inference_calls"]
                     record.update(semantic_success=skill.report.get("semantic_success"),
                         result=skill.report.get("result", "exception"),
-                        completion=skill.report.get("completion"), exception=skill.report.get("exception"))
+                        completion=skill.report.get("completion"), exception=skill.report.get("exception"),
+                        plan=skill.report.get("plan"), completed_steps=skill.report.get("completed_steps"),
+                        failure_feedback=skill.report.get("failure_feedback"))
                 else:
                     record["result"] = "exception"
                 self.scene["last_instruction_result"] = dict(record)

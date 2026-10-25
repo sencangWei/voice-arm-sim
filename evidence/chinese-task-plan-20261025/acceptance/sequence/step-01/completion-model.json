@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在柜子顶部，底部由柜子表面支撑，且无夹爪接触。"
+  },
+  "raw": "{\n  \"verdict\": \"completed\",\n  \"reason\": \"酒瓶已放置在柜子顶部，底部由柜子表面支撑，且无夹爪接触。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "b9a9d57435111c3d2b87adf6222280da38537eaabc72f0c29241ecd511b63f04",
+    "d6044ad09f87a3d3de08dfddb09f5c1752bd7c88b2f8d1cbddf0a8c7a21f72fc"
+  ],
+  "model_input_image_sha256": [
+    "b9a9d57435111c3d2b87adf6222280da38537eaabc72f0c29241ecd511b63f04"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.5360553100035759
+}

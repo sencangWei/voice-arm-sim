@@ -1,0 +1,60 @@
+{
+  "controller_object_truth": false,
+  "end_to_end_vla": false,
+  "reset_between_commands": false,
+  "initial_state_sha256": "2335c0edc3a68069c8299f04dc0552aa1a6460f0024e7fed7daba65f5ebdf120",
+  "unsupported": {
+    "result": "unsupported",
+    "plan": {
+      "status": "unsupported",
+      "reason": "缺少抽屉/柜门操作技能",
+      "missing_skills": [
+        "打开柜子第三层",
+        "放进柜子第三层",
+        "合上柜子第三层"
+      ],
+      "steps": [
+        {
+          "skill": "unsupported",
+          "instruction": "打开柜子第三层",
+          "destination_kind": "unsupported"
+        },
+        {
+          "skill": "unsupported",
+          "instruction": "把奶油奶酪放进柜子第三层",
+          "destination_kind": "unsupported"
+        },
+        {
+          "skill": "unsupported",
+          "instruction": "合上柜子第三层",
+          "destination_kind": "unsupported"
+        }
+      ]
+    },
+    "control_steps": 0,
+    "state_unchanged": true
+  },
+  "sequence": {
+    "result": "visual_completed",
+    "semantic_success": true,
+    "completed_steps": 2,
+    "control_steps": 579,
+    "wall_duration_s": 10.716994529997464,
+    "physical_observer": [
+      {
+        "instruction": "把酒瓶放到柜子顶上",
+        "support": "wooden_cabinet_1_top_side",
+        "placed": true,
+        "held": false
+      },
+      {
+        "instruction": "把酒瓶放到灶台上",
+        "support": "flat_stove_1_cook_region",
+        "placed": true,
+        "held": false
+      }
+    ],
+    "exception": null
+  },
+  "passed": true
+}

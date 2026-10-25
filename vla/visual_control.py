@@ -20,10 +20,11 @@ class VisualControl(VisualSkill):
         return dict(backend="visual-geometric-control", learned_action_policy=False,
                     controller_object_truth=False, training_this_run=False)
 
-    def run(self, text, task_port=8911):
+    def run(self, text, task_port=8911, destination_kind=None):
         # Share the already-loaded GPU visual model, rather than the CPU probe
         # service used by the earlier experimental VLA grasp route.
-        return super().run(text, task_port=task_port)
+        options = {} if destination_kind is None else {"destination_kind": destination_kind}
+        return super().run(text, task_port=task_port, **options)
 
     def oriented_move(self, target, grip, phase, limit=100):
         # Panda gripper's local Z points down; orientation is a robot calibration,

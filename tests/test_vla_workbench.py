@@ -117,7 +117,7 @@ def test_visual_command_uses_same_scene_and_updates_correction_instruction(tmp_p
             self.callbacks["on_task"](model_task)
             assert self.callbacks["advance"]([0.] * 7) is initial_obs
             calls.append(text)
-    monkeypatch.setattr("vla.visual_control.VisualControl", Skill)
+    monkeypatch.setattr("vla.task_runner.TaskRunner", Skill)
     lab.interrupt.set()  # send() interrupts the preceding mode.
     lab._command("semantic", ("把酒瓶放到盘子上",))
     assert calls == ["把酒瓶放到盘子上"] and lab.env is env
@@ -133,7 +133,7 @@ def test_visual_command_clears_busy_after_constructor_failure(tmp_path, monkeypa
     lab.scene["last_instruction_result"] = {"semantic_success": True, "instruction": "old"}
     def fail(*args, **kwargs):
         raise OSError("output unavailable")
-    monkeypatch.setattr("vla.visual_control.VisualControl", fail)
+    monkeypatch.setattr("vla.task_runner.TaskRunner", fail)
     with pytest.raises(OSError, match="output unavailable"):
         lab._command("semantic", ("把酒瓶放到盘子上",))
     assert not lab.semantic_active and not lab.running
@@ -153,7 +153,7 @@ def test_visual_command_does_not_discard_pause_arriving_during_setup(tmp_path, m
         def run(self, text):
             assert self.stop()
             raise InterruptedError("paused")
-    monkeypatch.setattr("vla.visual_control.VisualControl", Skill)
+    monkeypatch.setattr("vla.task_runner.TaskRunner", Skill)
     with pytest.raises(InterruptedError):
         lab._command("semantic", ("把酒瓶放到盘子上",))
     assert not lab.semantic_active and not lab.actions
@@ -327,7 +327,7 @@ def test_completed_command_returns_idle_and_next_instruction_keeps_scene(tmp_pat
                            "result": "test", "completion": {"reason": "image evidence"}}
         def run(self, text):
             self.callbacks["on_task"]({"english": text})
-    monkeypatch.setattr("vla.visual_control.VisualControl", Skill)
+    monkeypatch.setattr("vla.task_runner.TaskRunner", Skill)
     for text in ("put bottle on plate", "put bottle on table"):
         lab._command("semantic", (text,))
         assert not lab.running and not lab.semantic_active and not lab.plan

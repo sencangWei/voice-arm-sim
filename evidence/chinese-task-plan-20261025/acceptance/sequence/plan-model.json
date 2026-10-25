@@ -1,0 +1,28 @@
+{
+  "plan": {
+    "status": "ready",
+    "reason": "两步抓放，目的地均为支撑表面",
+    "missing_skills": [],
+    "steps": [
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到柜子顶上",
+        "destination_kind": "support_surface"
+      },
+      {
+        "skill": "pick_place",
+        "instruction": "把酒瓶放到灶台上",
+        "destination_kind": "support_surface"
+      }
+    ]
+  },
+  "raw": "{\n  \"status\": \"ready\",\n  \"reason\": \"两步抓放，目的地均为支撑表面\",\n  \"missing_skills\": [],\n  \"steps\": [\n    {\n      \"skill\": \"pick_place\",\n      \"instruction\": \"把酒瓶放到柜子顶上\",\n      \"destination_kind\": \"support_surface\"\n    },\n    {\n      \"skill\": \"pick_place\",\n      \"instruction\": \"把酒瓶放到灶台上\",\n      \"destination_kind\": \"support_surface\"\n    }\n  ]\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": "4cfb09dbd7416ae70278b428f3e7efb0b29ea4356eaa75b3eb66f096cc191cb0",
+  "model_input_image_sha256": [],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 1.201612645003479
+}

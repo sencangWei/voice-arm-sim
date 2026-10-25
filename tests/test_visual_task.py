@@ -39,6 +39,34 @@ def mock_vision(monkeypatch, answers):
     return payload, calls
 
 
+def test_whole_request_plan_uses_dedicated_prompt_and_binds_image(monkeypatch):
+    import hashlib
+    plan = dict(status="unsupported", reason="缺少开关抽屉技能", missing_skills=["open_drawer"],
+                steps=[dict(skill="unsupported", instruction="打开第三层抽屉", destination_kind="unsupported")])
+    payload, calls = mock_vision(monkeypatch, [json.dumps(plan, ensure_ascii=False)])
+    payload["text"] = "打开第三层抽屉"
+    response = model_service.visual_task(payload, plan=True)
+    assert response["plan"] == plan
+    assert response["image_sha256"] == hashlib.sha256(base64.b64decode(payload["image"])).hexdigest()
+    from vla.task_plan import PLAN_PROMPT
+    assert calls[0][0]["content"][-1]["text"] == PLAN_PROMPT + payload["text"]
+    assert "一次抓取并放置" not in calls[0][0]["content"][-1]["text"]
+    assert len(calls[0][0]["content"]) == 1
+    assert response["model_input_image_sha256"] == []
+
+
+def test_failure_log_is_supplied_to_model_without_replacing_original_task(monkeypatch):
+    plan = dict(status="clarify", reason="请先核对是否仍持有酒瓶", missing_skills=[], steps=[])
+    payload, calls = mock_vision(monkeypatch, [json.dumps(plan, ensure_ascii=False)])
+    payload["failure"] = {"step": 1, "completion": {"reason": "瓶子未放到柜顶"}}
+    response = model_service.visual_task(payload, plan=True)
+    text = calls[0][0]["content"][-1]["text"]
+    assert payload["text"] in text and "瓶子未放到柜顶" in text
+    assert response["plan"] == plan
+    assert calls[0][0]["content"][0]["type"] == "image"
+    assert response["model_input_image_sha256"] == [response["image_sha256"]]
+
+
 def test_observed_extra_brace_preserves_every_model_selected_value(monkeypatch):
     payload, calls = mock_vision(monkeypatch, [BROKEN])
     response = model_service.visual_task(payload)

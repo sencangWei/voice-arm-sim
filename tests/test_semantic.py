@@ -15,6 +15,19 @@ def task():
                 relation="in", english="Put the bottle into the bowl.")
 
 
+def test_leaf_relation_disagreement_with_plan_never_reaches_geometry_or_motion(tmp_path):
+    import hashlib
+    from vla.semantic_grasp import image_bytes
+    rgb = np.zeros((8, 8, 3), dtype=np.uint8)
+    skill = VisualSkill(None, {"agentview_image": rgb}, None, tmp_path / "mismatch")
+    skill.policy_metadata = lambda: {"backend": "visual-geometric-control"}
+    skill.capture = lambda: (rgb, None)
+    skill.request = lambda *a: {"task": task(), "image_sha256": hashlib.sha256(image_bytes(rgb)).hexdigest()}
+    with pytest.raises(ValueError, match="目的地类型"):
+        skill.run("把瓶子放到柜顶", destination_kind="support_surface")
+    assert not skill.trace
+
+
 def test_task_accepts_model_chosen_objects_without_a_vocabulary_list():
     value = task()
     value["source"]["label"] = "unfamiliar blue toy"

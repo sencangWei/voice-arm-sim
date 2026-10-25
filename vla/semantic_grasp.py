@@ -300,7 +300,7 @@ class VisualSkill:
     def policy_metadata(self):
         return self.client.get_server_metadata()
 
-    def run(self, text, task_port=8912):
+    def run(self, text, task_port=8912, destination_kind=None):
         import imageio.v2 as imageio
         started = time.monotonic()
         self.started = started
@@ -318,6 +318,10 @@ class VisualSkill:
             if response.get("image_sha256") != hashlib.sha256(raw).hexdigest():
                 raise ValueError("Model response image does not match current observation")
             task = parse_task(json.dumps(response["task"]))
+            if destination_kind is not None:
+                expected = {"support_surface": "on", "circular_container": "in"}
+                if destination_kind not in expected or task["relation"] != expected[destination_kind]:
+                    raise ValueError("单步目的地类型与完整计划不一致；未发送动作")
             self.report["task"] = task
             self.on_task(task)
             if self.stop():

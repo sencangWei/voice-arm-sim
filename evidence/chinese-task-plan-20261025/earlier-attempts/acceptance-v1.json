@@ -1,0 +1,45 @@
+{
+  "controller_object_truth": false,
+  "end_to_end_vla": false,
+  "reset_between_commands": false,
+  "initial_state_sha256": "2335c0edc3a68069c8299f04dc0552aa1a6460f0024e7fed7daba65f5ebdf120",
+  "unsupported": {
+    "result": "unsupported",
+    "plan": {
+      "status": "unsupported",
+      "reason": "不支持打开/关闭抽屉或柜门，不能执行该指令",
+      "missing_skills": [
+        "open_close_drawer_or_cabinet_door"
+      ],
+      "steps": [
+        {
+          "skill": "unsupported",
+          "instruction": "打开柜子第三层",
+          "destination_kind": "unsupported"
+        },
+        {
+          "skill": "unsupported",
+          "instruction": "把奶油奶酪放进去",
+          "destination_kind": "unsupported"
+        },
+        {
+          "skill": "unsupported",
+          "instruction": "合上第三层",
+          "destination_kind": "unsupported"
+        }
+      ]
+    },
+    "control_steps": 0,
+    "state_unchanged": true
+  },
+  "sequence": {
+    "result": "clarify",
+    "semantic_success": null,
+    "completed_steps": 0,
+    "control_steps": 0,
+    "wall_duration_s": 0.9775162699952489,
+    "physical_observer": [],
+    "exception": null
+  },
+  "passed": false
+}
