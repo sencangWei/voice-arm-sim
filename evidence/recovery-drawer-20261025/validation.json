@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-25",
+  "scenario": {
+    "suite": "libero_goal",
+    "task_id": 9,
+    "initial_state": 0,
+    "seed": 7
+  },
+  "backend": "Qwen3-VL + RGB-D + OSC",
+  "training_this_run": false,
+  "controller_object_truth": false,
+  "tests": {
+    "passed": 229,
+    "log_sha256": "359cb178268cf04b2fc5e5098ea7e7adf98f2e298bf3b456d337d1447e381bd0"
+  },
+  "experiments": {
+    "sequence": {
+      "semantic_success": true,
+      "completed_steps": 3,
+      "control_steps": 969,
+      "wall_duration_s": 18.135865743999602,
+      "recoveries": [],
+      "video": {
+        "avg_frame_rate": "20/1",
+        "duration": "48.500000",
+        "nb_frames": "970"
+      },
+      "video_sha256": "063464d2f0a2f42429c9ada282bf067b6f42f25f7585d132264b019d7c1fa7ff"
+    },
+    "empty-grasp": {
+      "semantic_success": true,
+      "completed_steps": 1,
+      "control_steps": 314,
+      "wall_duration_s": 7.773417680000421,
+      "recoveries": [
+        {
+          "step": 1,
+          "attempt": 1,
+          "decision": {
+            "action": "retry_grasp",
+            "reason": "抓取候选未通过稳定持有检查，机械臂未成功夹住酒瓶，需重新观察并抓取以确保稳定"
+          },
+          "executed": true,
+          "attempted": true,
+          "control_steps": 264,
+          "result": "visual_completed"
+        }
+      ],
+      "video": {
+        "avg_frame_rate": "20/1",
+        "duration": "15.800000",
+        "nb_frames": "316"
+      },
+      "video_sha256": "ccd0ef2d305546fb4c0d81cd7bbba1e9ac8d6d29c1a39baad94b70ba2d068841"
+    },
+    "held-interruption": {
+      "semantic_success": true,
+      "completed_steps": 1,
+      "control_steps": 264,
+      "wall_duration_s": 6.104910804002429,
+      "recoveries": [
+        {
+          "step": 1,
+          "attempt": 1,
+          "decision": {
+            "action": "resume_place",
+            "reason": "酒瓶仍被夹持且目的地柜子顶部可见，应保留夹持重新定位放置位置继续执行"
+          },
+          "executed": true,
+          "attempted": true,
+          "control_steps": 139,
+          "result": "visual_completed"
+        }
+      ],
+      "video": {
+        "avg_frame_rate": "20/1",
+        "duration": "13.250000",
+        "nb_frames": "265"
+      },
+      "video_sha256": "7ec7b4df8a9f5c0d3c925c8403661181fc9f73e0861d6cae5c302d69f6bc91a5"
+    }
+  },
+  "native_panel": {
+    "status": "视觉核对通过：全部 3 步均逐步通过视觉核对。已自动停止并保留现场；输入下一条指令后点击执行。",
+    "automatic_motion_steps": 970,
+    "ready": true,
+    "running": false
+  },
+  "drawer_verification_cases": 4
+}

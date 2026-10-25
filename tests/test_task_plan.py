@@ -39,17 +39,23 @@ def test_ready_plan_fails_closed(mutate):
         parse_plan(json.dumps(value))
 
 
-def runner(tmp_path, monkeypatch, value, outcomes=(True, True), image_matches=True):
+def runner(tmp_path, monkeypatch, value, outcomes=(True, True), image_matches=True, recovery='stop'):
     events = []
     controller = TaskRunner(object(), {"version": 0}, None, tmp_path / "run",
                             stop=lambda: False, status=lambda message: events.append(message))
     controller.capture = lambda: (np.zeros((8, 8, 3), dtype=np.uint8), None)
     def request(port, endpoint, payload):
         import base64
-        assert endpoint == "plan"
         events.append(dict(payload))
-        return dict(plan=value, image_sha256=hashlib.sha256(base64.b64decode(payload["image"])).hexdigest()
-                    if image_matches else "stale")
+        response = dict(image_sha256=hashlib.sha256(base64.b64decode(payload['image'])).hexdigest()
+                        if image_matches else 'stale')
+        if endpoint == 'plan':
+            response['plan'] = value
+        elif endpoint == 'recovery':
+            response['recovery'] = dict(action=recovery, reason='现场恢复决策')
+        else:
+            raise AssertionError(endpoint)
+        return response
     controller.request = request
     results = iter(outcomes)
     class Leaf:
@@ -62,7 +68,10 @@ def runner(tmp_path, monkeypatch, value, outcomes=(True, True), image_matches=Tr
             events.append(("leaf", obs["version"], output))
         def run(self, text, **kwargs):
             events.append(("run", text, kwargs))
+        def recover(self, text, action, previous, **kwargs):
+            events.append(('recover', action, text))
     monkeypatch.setattr("vla.task_runner.VisualControl", Leaf)
+    monkeypatch.setattr('vla.task_runner.DrawerControl', Leaf)
     return controller, events
 
 
@@ -92,7 +101,50 @@ def test_failed_or_uncertain_verification_blocks_next_step_and_feeds_back(tmp_pa
     assert len([e for e in events if isinstance(e, tuple) and e[0] == "leaf"]) == 1
     requests = [e for e in events if isinstance(e, dict)]
     assert len(requests) == 2 and requests[1]["failure"]["step"] == 1
-    assert report["failure_feedback"]["executed"] is False
+    assert report['recoveries'][0]['executed'] is False
+
+
+def test_model_retry_executes_then_continues_without_replaying_completed_steps(tmp_path, monkeypatch):
+    controller, events = runner(tmp_path, monkeypatch, plan('放到柜顶', '放到桌面'),
+                                (True, False, True), recovery='retry_grasp')
+    report = controller.run('先放柜顶再放桌面')
+    assert report['semantic_success'] is True and report['completed_steps'] == 2
+    assert [e[1] for e in events if isinstance(e, tuple) and e[0] == 'leaf'] == [0, 1, 2]
+    assert report['recoveries'][0]['executed'] is True
+    assert ('recover', 'retry_grasp', '放到桌面') in events
+
+
+def test_recovery_is_bounded_and_never_advances_on_repeated_failure(tmp_path, monkeypatch):
+    controller, events = runner(tmp_path, monkeypatch, plan('放到柜顶', '放到桌面'),
+                                (False, False, False), recovery='retry_grasp')
+    report = controller.run('先放柜顶再放桌面')
+    assert report['completed_steps'] == 0 and len(report['recoveries']) == 2
+    assert all(e['number'] == 1 for e in report['steps'])
+
+
+def test_held_object_recovery_excludes_opening_and_regrasp(tmp_path, monkeypatch):
+    controller, events = runner(tmp_path, monkeypatch, plan('放柜顶'), recovery='resume_place')
+    controller.report['recoveries'] = []
+    controller.obs['robot0_gripper_qpos'] = np.array([.012, -.012])
+    entry = controller.recovery_decision('放柜顶', 8911, 1, plan('放柜顶')['steps'][0],
+        dict(grasp_context={'source_base': .90}, motion_completed=False), 1)
+    assert entry['decision']['action'] == 'resume_place'
+    failure = [e for e in events if isinstance(e, dict)][-1]['failure']
+    assert failure['possibly_holding_object'] is True
+    assert 'retry_grasp' not in failure['allowed_actions']
+
+
+def test_drawer_plan_dispatches_to_drawer_skill(tmp_path, monkeypatch):
+    value = plan('打开第三层抽屉', '奶酪放进第三层', '关闭第三层抽屉')
+    for step in value['steps']:
+        step['destination_kind'] = 'drawer_interior'
+    value['steps'][0]['skill'] = 'open_drawer'
+    value['steps'][2]['skill'] = 'close_drawer'
+    controller, events = runner(tmp_path, monkeypatch, value, (True, True, True))
+    report = controller.run('打开第三层放奶酪再关闭')
+    calls = [e[2] for e in events if isinstance(e, tuple) and e[0] == 'run']
+    assert calls[0]['skill'] == 'open_drawer' and calls[2]['skill'] == 'close_drawer'
+    assert report['completed_steps'] == 3
 
 
 def test_stale_plan_image_never_moves(tmp_path, monkeypatch):

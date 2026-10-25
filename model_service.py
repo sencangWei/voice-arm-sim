@@ -136,12 +136,14 @@ def load_models(device="cuda:0", vision_only=False):
         LOG.exception("Model loading failed")
 
 
-def visual_task(payload, verify=False, plan=False):
+def visual_task(payload, verify=False, plan=False, recovery=False, drawer=False):
     """Actual image + Chinese instruction -> model-selected source and goal."""
     import torch
     from PIL import Image
     from vla.semantic import COMPLETION_PROMPT, TASK_PROMPT, parse_completion, parse_task
     from vla.task_plan import PLAN_PROMPT, parse_plan
+    from vla.recovery import RECOVERY_PROMPT, parse_recovery
+    from vla.drawer_control import DRAWER_PROMPT, parse_drawer
 
     if not isinstance(payload, dict):
         raise ValueError("Expected a JSON object")
@@ -162,8 +164,12 @@ def visual_task(payload, verify=False, plan=False):
             images.append(source.convert("RGB"))
         hashes.append(hashlib.sha256(raw).hexdigest())
     processor, model = MODELS["processor"], MODELS["vision"]
-    prompt = PLAN_PROMPT if plan else COMPLETION_PROMPT if verify else TASK_PROMPT
-    if plan and "failure" in payload:
+    prompt = (RECOVERY_PROMPT if recovery else DRAWER_PROMPT if drawer else PLAN_PROMPT if plan
+              else COMPLETION_PROMPT if verify else TASK_PROMPT)
+    parser = (parse_recovery if recovery else parse_drawer if drawer else parse_plan if plan
+              else parse_completion if verify else parse_task)
+    structured = plan or recovery or drawer
+    if (plan or recovery) and "failure" in payload:
         failure = payload["failure"]
         if not isinstance(failure, dict) or len(json.dumps(failure)) > 4000:
             raise ValueError("Invalid failure feedback")
@@ -172,7 +178,8 @@ def visual_task(payload, verify=False, plan=False):
     # later steps refer to a scene that earlier steps have yet to create.
     # Failure advice does receive the current image. Grounding always happens
     # separately, immediately before each leaf motion.
-    model_images = [] if plan and "failure" not in payload else images[:1] if verify else images
+    model_images = ([] if plan and "failure" not in payload
+                    else images[:1] if verify else images)
     model_hashes = [] if not model_images else hashes[:len(model_images)]
     messages = [{"role": "user", "content": [
         *[{"type": "image", "image": image} for image in model_images],
@@ -187,14 +194,14 @@ def visual_task(payload, verify=False, plan=False):
         answer = processor.batch_decode(ids[:, inputs.input_ids.shape[1]:], skip_special_tokens=True)[0]
         LOG.info("%s %r -> %s", "verify" if verify else "task", text, answer)
         try:
-            value = (parse_plan if plan else parse_completion if verify else parse_task)(answer)
+            value = parser(answer)
             break
         except json.JSONDecodeError as exc:
             # Observed wire error: both leaf objects were left open. Repair only
             # this exact shape; preserve every model-produced scalar and box.
             string = r'"(?:[^"\\]|\\.)*"'
             item = rf'\{{\s*"label"\s*:\s*{string}\s*,\s*"bbox_2d"\s*:\s*\[[^\[\]{{}}]*\]'
-            missing_closures = None if verify or plan else re.fullmatch(
+            missing_closures = None if verify or structured else re.fullmatch(
                 rf'\s*\{{\s*"source"\s*:\s*({item})\s*,\s*"destination"\s*:\s*({item})'
                 rf'\s*,\s*"relation"\s*:\s*({string})\s*,\s*"english"\s*:\s*({string})\s*\}}\s*\}}\s*',
                 exc.doc)
@@ -207,8 +214,24 @@ def visual_task(payload, verify=False, plan=False):
                               normalized=normalized, parse_error=str(exc))
                 LOG.warning("Closed missing task object delimiters without changing values")
                 break
+            # A second observed form wraps only destination in an extra object.
+            # Match the complete schema before removing its two delimiters;
+            # do not repair partial/unknown fields or synthesize model values.
+            wrapped_destination = None if verify or structured else re.fullmatch(
+                rf'\s*\{{\s*"source"\s*:\s*({item}\s*\}})\s*,\s*\{{\s*"destination"\s*:\s*({item}\s*\}})\s*\}}'
+                rf'\s*,\s*"relation"\s*:\s*({string})\s*,\s*"english"\s*:\s*({string})\s*\}}\s*',
+                exc.doc)
+            if wrapped_destination:
+                source, destination, relation, english = wrapped_destination.groups()
+                normalized = ('{"source":' + source + ',"destination":' + destination
+                              + ',"relation":' + relation + ',"english":' + english + '}')
+                value = parse_task(normalized)
+                repair = dict(operation="unwrap_destination_object",
+                              normalized=normalized, parse_error=str(exc))
+                LOG.warning("Unwrapped destination object without changing model values")
+                break
             # Preserve the exact, previously observed single-token repair.
-            if (not verify and not plan and exc.msg == "Expecting property name enclosed in double quotes"
+            if (not verify and not structured and exc.msg == "Expecting property name enclosed in double quotes"
                     and exc.doc[exc.pos:].startswith('{"destination"')):
                 normalized = exc.doc[:exc.pos] + exc.doc[exc.pos + 1:]
                 value = parse_task(normalized)
@@ -223,12 +246,32 @@ def visual_task(payload, verify=False, plan=False):
             retry = dict(raw=answer, parse_error=str(exc))
             reminder = ("上次输出不是合法 JSON。重新查看同一张图并解析原指令。"
                         "source 和 destination 各自的对象必须先闭合；relation 和 english 在根对象内。\n")
-            if plan:
-                reminder = "上次输出不是合法 JSON。请严格按计划 JSON 字段重新输出完整指令的全部步骤。\n"
+            if structured:
+                reminder = "上次输出不是合法 JSON。请严格按下面要求的字段重新输出完整 JSON 对象。\n"
             messages = [{"role": "user", "content": [
                 *messages[0]["content"][:-1], {"type": "text", "text": reminder + prompt + text}]}]
             LOG.warning("Retrying task serialization once: %s", exc)
-    return {("plan" if plan else "judgment" if verify else "task"): value,
+        except ValueError as exc:
+            # Syntactically valid but truncated schemas (e.g. source only) are
+            # not executable. Ask the model once; never fill missing values.
+            decoded = json.loads(answer)
+            fields = {'source', 'destination', 'relation', 'english'}
+            incomplete = isinstance(decoded, dict) and bool(decoded) and set(decoded) < fields
+            if verify or structured or attempt or not incomplete:
+                raise
+            retry = dict(raw=answer, parse_error=str(exc))
+            missing = ', '.join(sorted(fields - set(decoded)))
+            reminder = (
+                f'上次输出缺少 {missing}。不能猜坐标。\n'
+                'This is a pick AND place task. Return ONE complete JSON object with all FOUR keys: '
+                'source, destination, relation, english. Both source and destination need their own '
+                'label and bbox_2d from this image. Do not stop after source. '
+                'If either target is not visible, return null.\n')
+            messages = [{"role": "user", "content": [
+                *messages[0]["content"][:-1],
+                {"type": "text", "text": reminder + prompt + text}]}]
+            LOG.warning("Retrying incomplete task schema once: %s", exc)
+    return {("recovery" if recovery else "drawer" if drawer else "plan" if plan else "judgment" if verify else "task"): value,
             "raw": answer, "serialization_repair": repair, "serialization_retry": retry,
             "image_sha256": hashes if verify else hashes[0],
             "model_input_image_sha256": model_hashes,
@@ -391,7 +434,7 @@ class Handler(BaseHTTPRequestHandler):
             self.respond(404, {"error": "Unknown endpoint"})
 
     def do_POST(self):
-        if self.path not in ("/transcribe", "/ground", "/locate", "/translate", "/task", "/verify", "/plan"):
+        if self.path not in ("/transcribe", "/ground", "/locate", "/translate", "/task", "/verify", "/plan", "/recovery", "/drawer"):
             self.respond(404, {"error": "Unknown endpoint"})
             return
         try:
@@ -419,8 +462,9 @@ class Handler(BaseHTTPRequestHandler):
                 result = (
                     transcribe(body)
                     if self.path == "/transcribe"
-                    else visual_task(json.loads(body), verify=self.path == "/verify", plan=self.path == "/plan")
-                    if self.path in ("/task", "/verify", "/plan")
+                    else visual_task(json.loads(body), verify=self.path == "/verify", plan=self.path == "/plan",
+                                     recovery=self.path == "/recovery", drawer=self.path == "/drawer")
+                    if self.path in ("/task", "/verify", "/plan", "/recovery", "/drawer")
                     else translate(json.loads(body)) if self.path == "/translate"
                     else ground(json.loads(body), locate=self.path == "/locate")
                 )

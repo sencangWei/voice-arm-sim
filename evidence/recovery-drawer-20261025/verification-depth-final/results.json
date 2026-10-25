@@ -1,0 +1,106 @@
+[
+  {
+    "action": "open",
+    "frame": "step-01/input.png",
+    "expected": false,
+    "actual": false,
+    "judgment": {
+      "verdict": "not_completed",
+      "reason": "相机深度不支持预期移动或终态"
+    },
+    "depth": {
+      "accepted": false,
+      "displacement_m": 0.0,
+      "handle_to_closed_front_m": 0.02313488394769751,
+      "observation": {
+        "handle_band_m": -0.004365116052302241,
+        "cabinet_front_m": -0.02749999999999975,
+        "band_points": 685,
+        "cabinet_plane_points": 1645
+      },
+      "reason": "相机深度不支持预期移动或终态"
+    },
+    "model": {
+      "verdict": "completed",
+      "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态。"
+    }
+  },
+  {
+    "action": "open",
+    "frame": "step-01/final.png",
+    "expected": true,
+    "actual": true,
+    "judgment": {
+      "verdict": "completed",
+      "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+    },
+    "depth": {
+      "accepted": true,
+      "displacement_m": 0.15187923438286563,
+      "handle_to_closed_front_m": 0.17501411833056313,
+      "observation": {
+        "handle_band_m": 0.14751411833056338,
+        "cabinet_front_m": -0.02749999999999975,
+        "band_points": 664,
+        "cabinet_plane_points": 1645
+      },
+      "reason": "相机深度确认移动与终态"
+    },
+    "model": {
+      "verdict": "completed",
+      "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+    }
+  },
+  {
+    "action": "close",
+    "frame": "step-03/input.png",
+    "expected": false,
+    "actual": false,
+    "judgment": {
+      "verdict": "not_completed",
+      "reason": "图中可见抽屉底板向前伸出，内部有物体，表明抽屉仍处于打开状态，未关闭。"
+    },
+    "depth": {
+      "accepted": false,
+      "displacement_m": 0.0,
+      "handle_to_closed_front_m": 0.17513880416054686,
+      "observation": {
+        "handle_band_m": -0.007361195839453015,
+        "cabinet_front_m": -0.18249999999999988,
+        "band_points": 687,
+        "cabinet_plane_points": 1625
+      },
+      "reason": "相机深度不支持预期移动或终态"
+    },
+    "model": {
+      "verdict": "not_completed",
+      "reason": "图中可见抽屉底板向前伸出，内部有物体，表明抽屉仍处于打开状态，未关闭。"
+    }
+  },
+  {
+    "action": "close",
+    "frame": "step-03/final.png",
+    "expected": true,
+    "actual": true,
+    "judgment": {
+      "verdict": "completed",
+      "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无可见物体在抽屉内或悬空，机械臂已撤离。"
+    },
+    "depth": {
+      "accepted": true,
+      "displacement_m": -0.15231629064234906,
+      "handle_to_closed_front_m": 0.022822513518197807,
+      "observation": {
+        "handle_band_m": -0.15967748648180208,
+        "cabinet_front_m": -0.18249999999999988,
+        "band_points": 701,
+        "cabinet_plane_points": 1625
+      },
+      "reason": "相机深度确认移动与终态"
+    },
+    "model": {
+      "verdict": "completed",
+      "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无可见物体在抽屉内或悬空，机械臂已撤离。"
+    }
+  }
+]

@@ -1,0 +1,18 @@
+# 进度
+
+- 2026-10-25：确认上轮已提交 3309a79、工作区干净；读取控制链、规划契约，开始补齐能力。
+- 已实现 TaskRunner 有界恢复：当前图像及日志 → Qwen3-VL 选择恢复技能 → 执行 → 再核验 → 继续原计划。
+- empty-grasp-v3：受控空抓后选择 retry_grasp，314 控制步完成柜顶放瓶；独立物理评分 on_top=true，场景未重置。
+- held-interruption-v1：稳定持有后注入中断，模型选择 resume_place，264 控制步完成；独立物理评分 on_top=true。
+- 当前完整单元测试 216 项通过。面板提示、恢复记录字段已接入，尚需最终回归。
+- 抽屉三步路由/深度把手定位已实现，但物理开抽屉尚未通过：低层把手是长约 89mm 的实体碰撞条，Panda 张爪 80mm，需斜向夹持同时避让柜面/桌面。垂直、侧向、斜向若干姿态均失败；保留所有试验，正在用机器人几何及 RGB-D 做碰撞/可达性分析。
+
+## 最终验证（覆盖上述探索期状态）
+
+- sequence-v18：实际三步成功，969控制步；打开264、放入429、关闭276。相机开15.19cm、关15.23cm；独立关节结束约1.66mm，盒子留在柜内。
+- panel-current：最后新进程，实际中文按钮调用完成3步/970控制步，自动停止并保留现场；截图panel-current.png。
+- empty-grasp-v18：实际模型选择retry_grasp，314步恢复并放上柜顶，独立on_top=true。
+- held-interruption-v18：实际模型选择resume_place，264步恢复并放上柜顶，独立on_top=true。
+- verification-depth-final：4个开关正负例均符合预期；保留RGB-only误判与原始模型输出。
+- 新增真实模型destination包装括号格式回归与reverify持物上下文回归，均先失败再修正；最终229测试通过、15个变更Python文件编译通过、git diff --check通过。
+- 代码/截图/录像/脚本/关键失败归档于evidence/recovery-drawer-20261025；备份核对以最终远端恢复回执为准，不以push输出代替恢复验证。

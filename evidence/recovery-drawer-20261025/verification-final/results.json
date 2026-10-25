@@ -1,0 +1,42 @@
+[
+  {
+    "action": "open",
+    "frame": "step-01/input.png",
+    "expected": false,
+    "actual": true,
+    "judgment": {
+      "verdict": "completed",
+      "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态。"
+    }
+  },
+  {
+    "action": "open",
+    "frame": "step-01/final.png",
+    "expected": true,
+    "actual": true,
+    "judgment": {
+      "verdict": "completed",
+      "reason": "图中可见第三层抽屉已向前伸出，底板露出，内部空间可见，符合打开状态，机械臂已撤离。"
+    }
+  },
+  {
+    "action": "close",
+    "frame": "step-03/input.png",
+    "expected": false,
+    "actual": false,
+    "judgment": {
+      "verdict": "not_completed",
+      "reason": "图中可见抽屉底板向前伸出，内部有物体，表明抽屉仍处于打开状态，未关闭。"
+    }
+  },
+  {
+    "action": "close",
+    "frame": "step-03/final.png",
+    "expected": true,
+    "actual": true,
+    "judgment": {
+      "verdict": "completed",
+      "reason": "抽屉底板已退入柜内，前板与其它抽屉齐平，无可见物体在抽屉内或悬空，机械臂已撤离。"
+    }
+  }
+]

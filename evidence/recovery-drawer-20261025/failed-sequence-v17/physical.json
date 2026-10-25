@@ -1,0 +1,17 @@
+{
+  "wooden_cabinet_1_top_level": 0.0,
+  "wooden_cabinet_1_middle_level": 0.0,
+  "wooden_cabinet_1_bottom_level": -0.15312066112456027,
+  "objects": {
+    "cream_cheese_1_main": [
+      -0.047810780196188285,
+      0.14822894590683605,
+      0.9089069548372153
+    ],
+    "wooden_cabinet_1_main": [
+      0.024606057580419297,
+      -0.2390302016152794,
+      0.905
+    ]
+  }
+}

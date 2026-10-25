@@ -1,0 +1,19 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": null,
+  "result": "exception",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "chinese": "把蓝色奶酪盒放进柜子第三层抽屉",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "exception": "RuntimeError: {\"error\": \"Expected one source, destination, relation and faithful English instruction\"}",
+  "control_steps": 0,
+  "wall_duration_s": 0.9560495280020405
+}

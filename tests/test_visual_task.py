@@ -127,6 +127,42 @@ def test_valid_output_uses_one_inference(monkeypatch):
     assert len(calls) == 1
 
 
+def test_observed_destination_wrapper_after_source_only_retry(monkeypatch):
+    partial = '{"source":{"label":"blue cheese box","bbox_2d":[286,582,351,663]}}'
+    broken = '{"source":{"label":"蓝色奶酪盒","bbox_2d": [286, 581, 351, 663]},{"destination":{"label":"柜子第三层抽屉","bbox_2d": [505, 357, 741, 798]}},"relation":"in","english":"Put the blue cheese box into the third layer drawer of the cabinet."}'
+    payload, calls = mock_vision(monkeypatch, [partial, broken])
+    response = model_service.visual_task(payload)
+    assert len(calls) == 2
+    assert response['task'] == {
+        'source': {'label': '蓝色奶酪盒', 'bbox_2d': [286, 581, 351, 663]},
+        'destination': {'label': '柜子第三层抽屉', 'bbox_2d': [505, 357, 741, 798]},
+        'relation': 'in',
+        'english': 'Put the blue cheese box into the third layer drawer of the cabinet.'}
+    assert response['serialization_retry']['raw'] == partial
+    assert response['serialization_repair']['operation'] == 'unwrap_destination_object'
+
+
+def test_missing_destination_reasks_model_without_filling_values(monkeypatch):
+    partial = json.dumps({'source': json.loads(VALID)['source']})
+    payload, calls = mock_vision(monkeypatch, [partial, VALID])
+    response = model_service.visual_task(payload)
+    assert response['task'] == json.loads(VALID)
+    assert len(calls) == 2
+    assert response['serialization_retry']['raw'] == partial
+    assert calls[0][0]['content'][0]['image'] is calls[1][0]['content'][0]['image']
+    reminder = calls[1][0]['content'][-1]['text']
+    assert '缺少 destination, english, relation' in reminder
+    assert '不能猜坐标' in reminder
+
+
+def test_incomplete_schema_stops_after_second_invalid_answer(monkeypatch):
+    partial = json.dumps({'source': json.loads(VALID)['source']})
+    payload, calls = mock_vision(monkeypatch, [partial, partial])
+    with pytest.raises(ValueError):
+        model_service.visual_task(payload)
+    assert len(calls) == 2
+
+
 def test_completion_uses_global_view_and_archives_request_hashes(monkeypatch):
     answer = '{"verdict":"completed","reason":"物体已放下，夹爪已撤开"}'
     payload, calls = mock_vision(monkeypatch, [answer])

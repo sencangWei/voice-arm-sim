@@ -253,18 +253,51 @@ class VisualSkill:
         if not np.isfinite(gap) or gap < .06:
             judgment = {"verdict": "not_completed", "reason": "夹爪尚未充分打开，不能确认释放"}
         else:
-            rgb, _ = self.capture()
+            rgb, cloud = self.capture()
             wrist = np.ascontiguousarray(self.obs["robot0_eye_in_hand_image"][::-1, ::-1])
+            if hasattr(self, 'verification_box'):
+                # Keep the whole scene (including the retracted arm), and show
+                # a magnified current cabinet beside it. No synthetic geometry.
+                from PIL import Image
+                source = Image.fromarray(rgb)
+                width, height = source.size
+                box = np.asarray(self.verification_box) * [width, height, width, height] / 1000
+                box += [-10, -10, 10, 10]
+                box = np.clip(box, [0, 0, 0, 0], [width, height, width, height]).astype(int)
+                detail = source.crop(tuple(box)).resize(source.size)
+                combined = Image.new('RGB', (width * 2, height))
+                combined.paste(source, (0, 0))
+                combined.paste(detail, (width, 0))
+                rgb = np.asarray(combined)
             raws = [image_bytes(rgb), image_bytes(wrist)]
-            for name, raw in zip(("completion-agent.png", "completion-wrist.png"), raws):
+            names = ("completion-agent.png", "completion-wrist.png")
+            for name, raw in zip(names, raws):
                 (self.output / name).write_bytes(raw)
-            self.status("已松爪撤手，正在用当前全景核对是否完成；腕部画面已留档，机械臂保持停止")
-            response = self.request(task_port, "verify", {"text": text,
+            verification_text = text
+            if hasattr(self, 'verification_box'):
+                verification_text += '。图左是全景，图右是同一时刻局部放大。'
+                if self.report.get('verification_action') == 'open':
+                    verification_text += ('本步目标是打开。能看到向前伸出的抽屉底板和内部空间，'
+                        '是已打开的证据；前板仍与其他抽屉齐平才是未打开。')
+                else:
+                    verification_text += ('请特别核对：能看到向前伸出的抽屉底板及其内部物体，'
+                        '说明抽屉仍打开；底板退入柜内、前板与其他抽屉齐平才算关闭。')
+            self.status("已松爪撤手，正在用当前画面核对是否完成；机械臂保持停止")
+            response = self.request(task_port, "verify", {"text": verification_text,
                 "images": [base64.b64encode(raw).decode() for raw in raws]})
             (self.output / "completion-model.json").write_text(json.dumps(response, ensure_ascii=False, indent=2))
             if response.get("image_sha256") != [hashlib.sha256(raw).hexdigest() for raw in raws]:
                 raise ValueError("Completion image does not match current observation")
             judgment = parse_completion(json.dumps(response["judgment"]))
+            if self.report.get('drawer_verification'):
+                from vla.drawer_control import drawer_depth_check
+                depth = drawer_depth_check(cloud, self.report['drawer_verification'],
+                                           self.report['verification_action'])
+                self.report['drawer_depth_check'] = depth
+                self.report['model_completion'] = judgment.copy()
+                if depth['accepted'] is not True and judgment['verdict'] == 'completed':
+                    judgment = dict(verdict='uncertain' if depth['accepted'] is None else 'not_completed',
+                                    reason=depth['reason'])
         self.report["completion"] = judgment
         self.report["semantic_success"] = {"completed": True, "not_completed": False,
                                            "uncertain": None}[judgment["verdict"]]
@@ -300,6 +333,83 @@ class VisualSkill:
     def policy_metadata(self):
         return self.client.get_server_metadata()
 
+    def landing_point(self, cloud, box, relation, destination_kind):
+        if destination_kind == 'drawer_interior':
+            from vla.drawer_control import box_points
+            points = box_points(cloud, box)
+            # The model selects the currently exposed interior; its horizontal
+            # depth mode supplies a landing floor, not a simulator drawer site.
+            bins, counts = np.unique(np.round(points[:, 2] / .002), return_counts=True)
+            floor = float(bins[np.argmax(counts)] * .002)
+            surface = points[np.abs(points[:, 2] - floor) < .003]
+            if len(surface) < 40 or np.min(np.ptp(surface[:, :2], axis=0)) < .025:
+                raise ValueError('当前图中抽屉底面不足以安全放置')
+            height, width = cloud.shape[:2]
+            x1, y1, x2, y2 = np.asarray(box)*[width, height, width, height]/1000
+            mask = np.zeros((height, width), dtype=bool)
+            mask[max(0,int(y1)):min(height,int(np.ceil(y2))),
+                 max(0,int(x1)):min(width,int(np.ceil(x2)))] = True
+            mask &= np.abs(cloud[..., 2]-floor) < .003
+            # Prefer the exposed near edge: reaching under the upper drawer
+            # with the large Panda palm collides before the fingers descend.
+            margin = max(.035, self.report.get('geometric_grasp', {}).get('support_margin', .035))
+            point = nearby_support_point(cloud, mask, self.obs['robot0_eef_pos'][:2], margin=margin)
+            _, axes = np.linalg.eigh(np.cov(surface[:, :2].T))
+            jaw_axis = np.r_[axes[:, -1], 0.]
+            return point, mask, dict(method='visible drawer floor depth mode',
+                tabletop=floor, point=point.tolist(), selection='nearest supported floor interior',
+                floor_width_axis=jaw_axis.tolist(), edge_margin=margin)
+        destination, mask, meta = region_point(cloud, box, relation == 'on')
+        if relation == 'in':
+            destination, container_meta = circular_container_point(cloud, mask)
+            meta.update(container_meta)
+        return destination, mask, meta
+
+    def align_for_place(self, metadata, offset):
+        return offset
+
+    def place(self, task, min_z, offset, destination, goal_meta, task_port, destination_kind=None):
+        eef = np.asarray(self.obs['robot0_eef_pos'])
+        release_z = self.release_height(min_z, destination[2], goal_meta['tabletop'])
+        safe_z = max(1.20, release_z + .035, float(eef[2]))
+        self.report['clearance_z'] = safe_z
+        self.move(np.r_[eef[:2], safe_z], 1., '抬起避让')
+        rgb, cloud = self.capture()
+        (self.output / 'reobserve.png').write_bytes(image_bytes(rgb))
+        self.status('重新观察并定位目的地')
+        location = self.request(task_port, 'locate', dict(target=task['destination']['label'],
+            image=base64.b64encode(image_bytes(rgb)).decode()), timeout=90)
+        (self.output / 'relocalize.json').write_text(json.dumps(location, ensure_ascii=False, indent=2))
+        if not location.get('bbox_2d'):
+            raise ValueError('当前画面找不到目的地；保留夹持等待恢复')
+        destination, mask, metadata = self.landing_point(cloud, location['bbox_2d'],
+                                                       task['relation'], destination_kind)
+        if metadata['method'] == 'visible horizontal support plane inside model destination box':
+            margin = self.report.get('geometric_grasp', {}).get('support_margin', .060)
+            destination = nearby_support_point(cloud, mask,
+                np.asarray(self.obs['robot0_eef_pos'])[:2] + offset, margin=margin)
+            metadata.update(refined_point=destination.tolist(), edge_margin=margin,
+                landing_selection='nearest visible convex support interior to held source; no object truth')
+        self.report['destination_reobserved'] = metadata
+        offset = self.align_for_place(metadata, offset)
+        target_xy = destination[:2] - offset
+        release_z = self.release_height(min_z, destination[2], metadata['tabletop'])
+        if destination_kind == 'drawer_interior':
+            # Release above the shallow rim rather than pushing the wide palm
+            # between the side walls; gravity settles the held item on the floor.
+            release_z += .035
+        if release_z + .035 > safe_z:
+            safe_z = release_z + .035
+            self.move(np.r_[self.obs['robot0_eef_pos'][:2], safe_z], 1., '更新避让高度')
+        self.move(np.r_[target_xy, safe_z], 1., '搬运到新定位的目的地')
+        self.move(np.r_[target_xy, release_z], 1., '下降放置')
+        for _ in range(15):
+            self.step(servo_action(self.obs['robot0_eef_pos'], np.r_[target_xy, release_z], -1.), '松爪')
+        self.move(np.r_[target_xy, safe_z], -1., '撤手')
+        for _ in range(30):
+            self.step(servo_action(self.obs['robot0_eef_pos'], np.r_[target_xy, safe_z], -1.), '稳定观察')
+        self.report['motion_completed'] = True
+
     def run(self, text, task_port=8912, destination_kind=None):
         import imageio.v2 as imageio
         started = time.monotonic()
@@ -319,7 +429,7 @@ class VisualSkill:
                 raise ValueError("Model response image does not match current observation")
             task = parse_task(json.dumps(response["task"]))
             if destination_kind is not None:
-                expected = {"support_surface": "on", "circular_container": "in"}
+                expected = {"support_surface": "on", "circular_container": "in", "drawer_interior": "in"}
                 if destination_kind not in expected or task["relation"] != expected[destination_kind]:
                     raise ValueError("单步目的地类型与完整计划不一致；未发送动作")
             self.report["task"] = task
@@ -327,11 +437,9 @@ class VisualSkill:
             if self.stop():
                 raise InterruptedError("用户已暂停")
             source, source_mask, source_meta = region_point(cloud, task["source"]["bbox_2d"])
-            destination, goal_mask, goal_meta = region_point(cloud, task["destination"]["bbox_2d"], task["relation"] == "on")
-            if task["relation"] == "in":
-                destination, container_meta = circular_container_point(cloud, goal_mask)
-                goal_meta.update(container_meta)
-            if (source_mask & goal_mask).sum() > .5 * min(source_mask.sum(), goal_mask.sum()):
+            destination, goal_mask, goal_meta = self.landing_point(
+                cloud, task["destination"]["bbox_2d"], task["relation"], destination_kind)
+            if goal_mask is not None and (source_mask & goal_mask).sum() > .5 * min(source_mask.sum(), goal_mask.sum()):
                 raise ValueError("源物体和目的地落在同一深度区域，停止以免搬错目标")
             np.savez_compressed(self.output / "geometry.npz", cloud=cloud,
                 source_mask=source_mask, destination_mask=goal_mask)
@@ -344,47 +452,10 @@ class VisualSkill:
                 raise ValueError("抓取位置偏离视觉源物体，停止运输")
             self.confirm_hold()
             self.report.update(handover_step=len(self.trace), grasp_eef=grasp_eef.tolist(), offset_xy=offset.tolist())
-            eef = np.asarray(self.obs["robot0_eef_pos"])
-            # Clear a raised support with the held object's bottom, not just TCP.
-            release_z = self.release_height(min_z, destination[2], goal_meta["tabletop"])
-            safe_z = max(1.20, release_z + .035, float(eef[2]))
-            self.report["clearance_z"] = safe_z
-            self.move(np.r_[eef[:2], safe_z], 1., "抬起避让")
-            # Query a fresh image after grasp; the old destination coordinate is
-            # never blindly reused when its current visual localization fails.
-            rgb, cloud = self.capture()
-            (self.output / "reobserve.png").write_bytes(image_bytes(rgb))
-            self.status("重新观察并定位目的地")
-            location = self.request(8911, "locate", {"target": task["destination"]["label"],
-                "image": base64.b64encode(image_bytes(rgb)).decode()}, timeout=90)
-            (self.output / "relocalize.json").write_text(json.dumps(location, ensure_ascii=False, indent=2))
-            if not location.get("bbox_2d"):
-                raise ValueError("当前画面找不到目的地，已停止；不会换成预设位置")
-            destination, support_mask, metadata = region_point(cloud, location["bbox_2d"], task["relation"] == "on")
-            if task["relation"] == "in":
-                destination, container_meta = circular_container_point(cloud, support_mask)
-                metadata.update(container_meta)
-            if metadata["method"] == "visible horizontal support plane inside model destination box":
-                margin = self.report.get("geometric_grasp", {}).get("support_margin", .060)
-                destination = nearby_support_point(cloud, support_mask,
-                    np.asarray(self.obs["robot0_eef_pos"])[:2] + offset, margin=margin)
-                metadata.update(refined_point=destination.tolist(), edge_margin=margin,
-                    landing_selection="nearest visible convex support interior to held source; no object truth")
-            self.report["destination_reobserved"] = metadata
-            target_xy = destination[:2] - offset
-            release_z = self.release_height(min_z, destination[2], goal_meta["tabletop"])
-            if release_z + .035 > safe_z:
-                safe_z = release_z + .035
-                self.move(np.r_[self.obs["robot0_eef_pos"][:2], safe_z], 1., "更新避让高度")
-            self.move(np.r_[target_xy, safe_z], 1., "搬运到新定位的目的地")
-            self.move(np.r_[target_xy, release_z], 1., "下降放置")
-            target = np.r_[target_xy, release_z]
-            for _ in range(15):
-                self.step(servo_action(self.obs["robot0_eef_pos"], target, -1.), "松爪")
-            self.move(np.r_[target_xy, safe_z], -1., "撤手")
-            for _ in range(30):
-                self.step(servo_action(self.obs["robot0_eef_pos"], np.r_[target_xy, safe_z], -1.), "稳定观察")
-            self.report["motion_completed"] = True
+            self.report["grasp_context"] = dict(task=task, min_z=min_z, offset_xy=offset.tolist(),
+                source_base=getattr(self, "source_base", None), destination=destination.tolist(),
+                goal_meta=goal_meta, destination_kind=destination_kind)
+            self.place(task, min_z, offset, destination, goal_meta, task_port, destination_kind)
             self.report["motion_finished_wall_s"] = time.monotonic() - started
             self.verify_completion(text, task_port)
         except Exception as exc:

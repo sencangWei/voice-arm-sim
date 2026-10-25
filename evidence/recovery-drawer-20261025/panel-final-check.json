@@ -1,0 +1,67 @@
+{
+  "status": "视觉核对通过：全部 3 步均逐步通过视觉核对。已自动停止并保留现场；输入下一条指令后点击执行。",
+  "task_plan": "计划：依次打开底层抽屉、放入蓝色奶酪盒、关闭底层抽屉\n1. 打开柜子第三层抽屉\n2. 把蓝色奶酪盒放进柜子第三层抽屉\n3. 关闭柜子第三层抽屉",
+  "result": {
+    "control_step": 0,
+    "mode": "visual-geometric-control",
+    "instruction": "打开柜子第三层抽屉，把蓝色奶酪盒放进去，然后关闭第三层抽屉",
+    "output": "/home/robot/voice-arm-sim/runs/recovery-drawer/panel-final/scene_1792926482073839966/semantic_1792926484547382868",
+    "semantic_success": true,
+    "result": "visual_completed",
+    "plan": {
+      "status": "ready",
+      "reason": "依次打开底层抽屉、放入蓝色奶酪盒、关闭底层抽屉",
+      "missing_skills": [],
+      "steps": [
+        {
+          "skill": "open_drawer",
+          "instruction": "打开柜子第三层抽屉",
+          "destination_kind": "drawer_interior"
+        },
+        {
+          "skill": "pick_place",
+          "instruction": "把蓝色奶酪盒放进柜子第三层抽屉",
+          "destination_kind": "drawer_interior"
+        },
+        {
+          "skill": "close_drawer",
+          "instruction": "关闭柜子第三层抽屉",
+          "destination_kind": "drawer_interior"
+        }
+      ]
+    },
+    "active_step": 3,
+    "task": {
+      "source": {
+        "label": "蓝色奶酪盒",
+        "bbox_2d": [
+          286,
+          581,
+          351,
+          661
+        ]
+      },
+      "destination": {
+        "label": "柜子第三层抽屉",
+        "bbox_2d": [
+          500,
+          500,
+          738,
+          792
+        ]
+      },
+      "relation": "in",
+      "english": "Put the blue cheese box into the third layer drawer of the cabinet."
+    },
+    "completion": {
+      "reason": "全部 3 步均逐步通过视觉核对"
+    },
+    "exception": null,
+    "completed_steps": 3,
+    "recoveries": [],
+    "recovery_error": null
+  },
+  "automatic_motion_steps": 970,
+  "ready": true,
+  "running": false
+}

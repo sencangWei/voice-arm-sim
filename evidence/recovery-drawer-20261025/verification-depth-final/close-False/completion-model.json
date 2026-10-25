@@ -1,0 +1,20 @@
+{
+  "judgment": {
+    "verdict": "not_completed",
+    "reason": "图中可见抽屉底板向前伸出，内部有物体，表明抽屉仍处于打开状态，未关闭。"
+  },
+  "raw": "{\n  \"verdict\": \"not_completed\",\n  \"reason\": \"图中可见抽屉底板向前伸出，内部有物体，表明抽屉仍处于打开状态，未关闭。\"\n}",
+  "serialization_repair": null,
+  "serialization_retry": null,
+  "image_sha256": [
+    "95b503df4cb41e63ec1ca3b8cf16e64e06312afab3a7e996aa269dbba13b078f",
+    "e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33"
+  ],
+  "model_input_image_sha256": [
+    "95b503df4cb41e63ec1ca3b8cf16e64e06312afab3a7e996aa269dbba13b078f"
+  ],
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "device": "cuda:0",
+  "inference_s": 0.514572218991816
+}

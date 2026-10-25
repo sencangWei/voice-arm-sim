@@ -1,0 +1,247 @@
+{
+  "backend": "Qwen3-VL intent + RGB-D geometric grasp/place + OSC",
+  "end_to_end_vla": false,
+  "controller_object_truth": false,
+  "semantic_success": true,
+  "result": "visual_completed",
+  "grasp_verification": "proprioceptive candidate only; requires video review",
+  "inference_calls": 0,
+  "first_control_wall_s": 0.00048511900240555406,
+  "chinese": "把酒瓶放到柜子顶部",
+  "policy": {
+    "backend": "visual-geometric-control",
+    "learned_action_policy": false,
+    "controller_object_truth": false,
+    "training_this_run": false
+  },
+  "request_timings": [
+    {
+      "endpoint": "task",
+      "port": 8911,
+      "wall_s": 0.9138565460016252,
+      "inference_s": 0.9060425069910707,
+      "device": "cuda:0"
+    },
+    {
+      "endpoint": "locate",
+      "port": 8911,
+      "wall_s": 0.42304966899973806,
+      "inference_s": null,
+      "device": null
+    },
+    {
+      "endpoint": "verify",
+      "port": 8911,
+      "wall_s": 0.4603978489903966,
+      "inference_s": 0.4509872089984128,
+      "device": "cuda:0"
+    }
+  ],
+  "task": {
+    "source": {
+      "label": "酒瓶",
+      "bbox_2d": [
+        512,
+        367,
+        570,
+        538
+      ]
+    },
+    "destination": {
+      "label": "柜子顶部",
+      "bbox_2d": [
+        695,
+        347,
+        1000,
+        500
+      ]
+    },
+    "relation": "on",
+    "english": "Place the wine bottle on the top of the cabinet."
+  },
+  "source": {
+    "raw_point": [
+      -0.180961962731224,
+      -0.03550805035843179,
+      0.98669105075429
+    ],
+    "refined_point": [
+      -0.18304815917391415,
+      -0.037905271647643436,
+      0.9740872588182212
+    ],
+    "tabletop": 0.901,
+    "pixels": 1225,
+    "method": "depth component clipped to model box; visible point median"
+  },
+  "destination": {
+    "raw_point": [
+      -0.02558576056686801,
+      -0.24070399852867708,
+      1.1273560540066359
+    ],
+    "refined_point": [
+      -0.016346861494546228,
+      -0.25017276844225045,
+      1.1273274893682197
+    ],
+    "tabletop": 0.901,
+    "pixels": 9499,
+    "support_pixels": 9806,
+    "support_plane_z": 1.127,
+    "method": "visible horizontal support plane inside model destination box"
+  },
+  "geometric_grasp": {
+    "target": [
+      -0.18833192167419854,
+      -0.0376332927600514,
+      1.0465393804025152
+    ],
+    "top": 1.0585393804025152,
+    "source_base": 0.901,
+    "mode": "top_parallel",
+    "center_xy": [
+      -0.18833192167419854,
+      -0.0376332927600514
+    ],
+    "method": "visible RGB-D top or fitted round rim; parallel jaws; no object truth",
+    "footprint_radius": 0.013173789385789884,
+    "support_margin": 0.06,
+    "rotation": [
+      [
+        0.9999992332270802,
+        -0.0005491317801542957,
+        0.001109954746726362
+      ],
+      [
+        -0.0005487889391877927,
+        -0.9999998016255949,
+        -0.00030915929709949045
+      ],
+      [
+        0.0011101242957349171,
+        0.00030854992915651115,
+        -0.9999993362102744
+      ]
+    ]
+  },
+  "hold_check": {
+    "gaps": [
+      0.01484376112882069,
+      0.014843729911856531,
+      0.014843711287303052,
+      0.014843695408002643,
+      0.014843680464373562,
+      0.01484366604289655,
+      0.014843652307648877,
+      0.014843639118202918,
+      0.0148436263478047,
+      0.014843614054418901,
+      0.01486395734676427,
+      0.014847898094950598,
+      0.01484409344604759,
+      0.014843631901924621,
+      0.014843570289262838,
+      0.014843554353645457,
+      0.014843543879894908,
+      0.01484353431755612,
+      0.014843525143252208,
+      0.014843516288357894
+    ],
+    "eef_drift": 0.0038597538497401143,
+    "accepted": true,
+    "method": "20 closed hold controls; final 10 widths stable; proprioceptive candidate only"
+  },
+  "handover_step": 153,
+  "grasp_eef": [
+    -0.18862489294813553,
+    -0.037589891166235054,
+    1.051727706064206
+  ],
+  "offset_xy": [
+    0.0002929712739369872,
+    -4.340159381634873e-05
+  ],
+  "grasp_context": {
+    "task": {
+      "source": {
+        "label": "酒瓶",
+        "bbox_2d": [
+          512,
+          367,
+          570,
+          538
+        ]
+      },
+      "destination": {
+        "label": "柜子顶部",
+        "bbox_2d": [
+          695,
+          347,
+          1000,
+          500
+        ]
+      },
+      "relation": "on",
+      "english": "Place the wine bottle on the top of the cabinet."
+    },
+    "min_z": 1.0465393804025152,
+    "offset_xy": [
+      0.0002929712739369872,
+      -4.340159381634873e-05
+    ],
+    "source_base": 0.901,
+    "destination": [
+      -0.016346861494546228,
+      -0.25017276844225045,
+      1.1273274893682197
+    ],
+    "goal_meta": {
+      "raw_point": [
+        -0.02558576056686801,
+        -0.24070399852867708,
+        1.1273560540066359
+      ],
+      "refined_point": [
+        -0.016346861494546228,
+        -0.25017276844225045,
+        1.1273274893682197
+      ],
+      "tabletop": 0.901,
+      "pixels": 9499,
+      "support_pixels": 9806,
+      "support_plane_z": 1.127,
+      "method": "visible horizontal support plane inside model destination box"
+    },
+    "destination_kind": "support_surface"
+  },
+  "clearance_z": 1.3198668697707348,
+  "destination_reobserved": {
+    "raw_point": [
+      0.13665264020449475,
+      -0.2021475502839024,
+      1.12683992579348
+    ],
+    "refined_point": [
+      -0.04454831550114413,
+      -0.22154858700303698,
+      1.1274170034192499
+    ],
+    "tabletop": 0.901,
+    "pixels": 15213,
+    "support_pixels": 15866,
+    "support_plane_z": 1.127,
+    "method": "visible horizontal support plane inside model destination box",
+    "edge_margin": 0.06,
+    "landing_selection": "nearest visible convex support interior to held source; no object truth"
+  },
+  "motion_completed": true,
+  "motion_finished_wall_s": 3.7294542790041305,
+  "release_gap": 0.07954831782665596,
+  "completion": {
+    "verdict": "completed",
+    "reason": "酒瓶已放置在柜子顶部，底部由柜面支撑，且机械臂已撤离。"
+  },
+  "control_steps": 264,
+  "wall_duration_s": 4.318286295994767
+}

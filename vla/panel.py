@@ -167,8 +167,8 @@ class ChinesePanel:
         ttk.Label(page, textvariable=self.task_plan_text, wraplength=835,
                   foreground="#174f80").grid(row=2, column=0, sticky="w", pady=6)
         ttk.Label(page, text="使用顺序：首次加载场景 → 输入／说出指令 → 点击“执行当前指令”。\n"
-                  "每步重新看图抓放，松爪撤手后核验；完成或失败都停止并保留现场。\n"
-                  "支持顺序抓放；缺少抽屉等技能时整条拒绝。失败分析建议不会自动执行。\n"
+                  "每步重新看图抓放，松爪撤手后核验；失败时模型看现场并选择恢复动作，执行后再次核验。\n"
+                  "每步最多自动恢复两次；仍未完成则停止保留现场。底层抽屉开、放入、关闭已完成仿真单例验证。\n"
                   "本页使用视觉＋几何控制；独立 VLA 调试在单独标签页，无需依次点击。",
                   wraplength=835).grid(row=3, column=0, sticky="w", pady=8)
         from desktop_panel import Panel

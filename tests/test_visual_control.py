@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from vla.visual_control import VisualControl
+from vla.visual_control import VisualControl, source_support_height
 from vla.semantic_grasp import circular_container_point, nearby_support_point, region_point
 
 
@@ -40,6 +40,75 @@ def test_orientation_timeout_is_reported_instead_of_advancing(tmp_path):
         skill.oriented_move(np.array([.3, 0., 1.2]), -1., 'test', limit=2)
     assert len(actions) == 2
     assert all(a[-1] == -1. for a in actions)
+
+
+def test_thin_box_grasp_reaches_its_sides_instead_of_closing_above(tmp_path):
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2])), None, tmp_path/'run')
+    skill.report['source'] = dict(tabletop=.901)
+    x, y = np.meshgrid(np.linspace(-.02, .02, 20), np.linspace(.12, .16, 20))
+    cloud = np.stack([x, y, np.full_like(x, .920)], axis=-1)
+    skill.oriented_move = lambda target, *args: skill.obs.update(robot0_eef_pos=np.asarray(target))
+    skill.step = lambda *args: None
+    skill.confirm_hold = lambda: None
+    skill.grasp({}, None, np.ones((20, 20), bool), cloud)
+    tcp_z = skill.report['geometric_grasp']['target'][2]
+    assert .901 < tcp_z < .920
+    assert tcp_z-.009 < .919  # fingertip intersects the object's side height
+    assert skill.report['geometric_grasp']['support_margin'] > .03
+
+
+def test_drawer_landing_prefers_exposed_near_edge_with_margin(tmp_path):
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2])), None, tmp_path/'run')
+    x, y = np.meshgrid(np.linspace(-.09, .09, 100), np.linspace(-.14, .01, 100))
+    cloud = np.stack([x, y, np.full_like(x, .924)], axis=-1)
+    point, _, _ = skill.landing_point(cloud, [0, 0, 1000, 1000], 'in', 'drawer_interior')
+    assert -.04 < point[1] <= -.025
+    assert abs(point[0]) < .01
+
+
+def test_drawer_landing_reserves_the_held_objects_observed_footprint(tmp_path):
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2])), None, tmp_path/'run')
+    skill.report['geometric_grasp'] = dict(support_margin=.055)
+    x, y = np.meshgrid(np.linspace(-.09, .09, 100), np.linspace(-.14, .01, 100))
+    cloud = np.stack([x, y, np.full_like(x, .924)], axis=-1)
+    point, _, metadata = skill.landing_point(cloud, [0, 0, 1000, 1000], 'in', 'drawer_interior')
+    assert point[1] <= -.045
+    assert metadata['edge_margin'] == pytest.approx(.055)
+
+
+def test_drawer_place_turns_palm_and_keeps_original_offset_on_recovery(tmp_path):
+    from scipy.spatial.transform import Rotation
+    start = np.diag([1., -1., -1.])
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., .2, 1.2]),
+        robot0_eef_quat=Rotation.from_matrix(start).as_quat()), None, tmp_path/'run')
+    skill.report['geometric_grasp'] = dict(rotation=start.tolist())
+    moves = []
+    def move(target, grip, phase, desired=None):
+        moves.append(desired)
+        skill.obs['robot0_eef_quat'] = Rotation.from_matrix(desired).as_quat()
+    skill.oriented_move = move
+    metadata = dict(floor_width_axis=[1., 0., 0.])
+    first = skill.align_for_place(metadata, np.array([.01, .02]))
+    again = skill.align_for_place(metadata, np.array([.01, .02]))
+    assert np.allclose(first, again)
+    assert np.allclose(moves[0][:, 1], [1., 0., 0.])
+    assert np.allclose(first, [-.02, .01])
+    assert np.linalg.det(moves[0]) == pytest.approx(1.)
+
+
+@pytest.mark.parametrize('height', [.90, 1.12])
+def test_occluded_source_bottom_uses_local_elevated_support(height):
+    y, x = np.mgrid[-.15:.151:.005, -.15:.151:.005]
+    cloud = np.stack([x, y, np.full(x.shape, height)], axis=-1)
+    visible = np.c_[np.zeros(100), np.zeros(100), np.linspace(height+.025, height+.16, 100)]
+    assert source_support_height(cloud, visible) == pytest.approx(height)
+
+
+def test_source_bottom_does_not_snap_to_distant_table_below_elevated_object():
+    y, x = np.mgrid[-.15:.151:.005, -.15:.151:.005]
+    cloud = np.stack([x, y, np.full(x.shape, .90)], axis=-1)
+    visible = np.c_[np.zeros(100), np.zeros(100), np.linspace(1.14, 1.25, 100)]
+    assert source_support_height(cloud, visible) == pytest.approx(np.quantile(visible[:, 2], .05))
 
 
 @pytest.mark.parametrize('tilt', [0., .004])
@@ -101,6 +170,40 @@ def test_visual_controller_defaults_to_gpu_task_service(tmp_path, monkeypatch):
     monkeypatch.setattr(VisualSkill, 'run', lambda self, text, task_port: (text, task_port))
     skill = VisualControl(None, {}, None, tmp_path / 'run')
     assert skill.run('把碗放到盘子上') == ('把碗放到盘子上', 8911)
+
+
+def test_failed_recovery_retreat_preserves_error_and_trace(tmp_path, monkeypatch):
+    import json
+    import imageio.v2 as imageio
+    from types import SimpleNamespace
+    skill = VisualControl(None, dict(robot0_eef_pos=np.array([0., 0., 1.]),
+        robot0_gripper_qpos=np.zeros(2)), None, tmp_path/'run')
+    monkeypatch.setattr(imageio, 'get_writer', lambda *a, **k: SimpleNamespace(close=lambda: None))
+    def fail(*args):
+        skill.trace.append(dict(phase='retreat'))
+        raise TimeoutError('retreat blocked')
+    skill.oriented_move = fail
+    with pytest.raises(TimeoutError):
+        skill.recover('放到盘子', 'retry_grasp', {})
+    report = json.loads((skill.output/'result.json').read_text())
+    assert report['result'] == 'exception'
+    assert report['control_steps'] == 1
+    assert 'retreat blocked' in report['exception']
+    assert len(json.loads((skill.output/'trace.json').read_text())) == 1
+
+
+@pytest.mark.parametrize('released', [False, True])
+def test_reverify_keeps_holding_context_for_the_next_recovery(tmp_path, released):
+    skill = VisualControl(None, dict(robot0_gripper_qpos=np.array([.012, -.012])),
+                          None, tmp_path/'run')
+    previous = dict(grasp_context={'source_base': .9},
+                    geometric_grasp={'support_margin': .06}, motion_completed=released)
+    skill.capture = lambda: (np.zeros((8, 8, 3), dtype=np.uint8), None)
+    skill.verify_completion = lambda *args: skill.report.update(semantic_success=None)
+    skill.recover('放到柜顶', 'reverify', previous)
+    assert skill.report['grasp_context'] == previous['grasp_context']
+    assert skill.report['geometric_grasp'] == previous['geometric_grasp']
+    assert skill.report['motion_completed'] is released
 
 
 def test_narrow_source_on_wide_touching_support_uses_top_grasp(tmp_path):
